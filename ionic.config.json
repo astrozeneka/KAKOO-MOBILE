@@ -1,0 +1,7 @@
+{
+  "name": "KAKOO-FRONTEND",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
