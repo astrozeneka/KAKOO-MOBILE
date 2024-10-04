@@ -1,0 +1,105 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- The header can be deleted later -->
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="ion-padding-horizontal">
+    <div class="left-right">
+      <div>
+        <!-- Style, width should be responsive -->
+        <img src="/assets/kakoo-logo.png" width="91px">
+      </div>
+      <div>
+        <ion-button>
+          <ion-icon name="ellipse-outline"></ion-icon>
+          en
+          <ion-icon name="chevron-down-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <div>
+      <h2>Hello Kakooster! 👋</h2>
+      <div class="helper">to access Kakoo Software Solutions</div>
+      <!-- The space below should be fixed -->
+    </div>
+    <br/>
+
+    <form>
+
+      <ion-input
+        type="email"
+        placeholder="user@mail.com"
+        fill="outline"
+        label-placement="stacked"
+        label="Email"
+      ></ion-input>
+
+      <ion-input
+        type="password"
+        placeholder="password"
+        fill="outline"
+        label-placement="stacked"
+        label="Password"
+      ></ion-input>
+
+      <div class="ion-text-right">
+        <a class="#" href="/forgot-password">Forgot password?</a>
+      </div>
+
+      <ion-button
+        expand="block"
+        type="submit"
+        color="primary"
+      >
+        Login
+      </ion-button>
+
+      <div class="ion-text-center">
+        Don't have an account? <a href="/signup">Sign up</a>
+      </div>
+
+      <div class="ion-text-center">
+        Or
+      </div>
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="login-provider"
+      >
+        <img src="/assets/svg/google-logo.svg" width="18px"/>
+        Continue with Google
+      </ion-button>
+
+      <!-- TODO, should create a more suitable button class -->
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="login-provider"
+      >
+      <img src="/assets/svg/linkedin-logo.svg" width="18px"/>
+        Continue with LinkedIn
+      </ion-button>
+
+
+      <!-- TODO, should allow the element below stick at the bottom (possible) -->
+      <p>
+        By tapping on Login, you are agreeing to <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>
+      </p>
+      
+
+
+    </form>
+  </div>
+</ion-content>

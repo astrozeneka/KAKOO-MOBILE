@@ -14,7 +14,10 @@
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <strong>Ready to create an app?</strong> <br/>
+    <!-- button to go to login page -->
+    <ion-button (click)="goTo('/login')" expand="block">Login</ion-button>
+    <br/>
+    <ion-button (click)="goTo('/contact-us')" expand="block">Contact Us</ion-button>
   </div>
 </ion-content>

@@ -1,0 +1,65 @@
+
+.top-banner{
+    background-color: #007E48;
+    display: inline-block;
+    width: 100%;
+    height: 299px;
+    height: 318px; // 49 is in the safe-zone area
+    position: relative;
+
+
+    & img{
+        // Center it and stick to bottom
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 279px;
+        width: 279px;
+    }
+}
+
+// Should consider to move it to a higher label stylesheet
+.display-1{
+    size: 32px;
+    font-weight: 600;
+    line-height: 43px;
+    color: #1A1C1E;
+}
+
+.rounded-card{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+
+    margin-left: var(--ion-padding-left);
+    margin-right: var(--ion-padding-right);
+    border: 1px solid #E7E7E9;
+    border-radius: 8px;
+    
+    margin-top: -45px;
+    z-index: 999;
+    position: relative;
+    background: white; // TODO, use variable to set the colors
+}
+
+ion-input, ion-textarea{
+    --border-color: #E7E7E9!important;
+}
+
+ion-button{ // TODO, make it reusable
+    text-transform: none!important;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #1A1C1E;
+    --border-width: 1px;
+    --border-color: #79747E; // TODO, use a color scheme for the app
+
+
+    // Not reused
+    margin-top: 14px;
+    line-height: 20px;
+    font-size: 16px;
+}

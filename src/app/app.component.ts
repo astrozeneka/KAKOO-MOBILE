@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,11 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  prefDark = window.matchMedia('(prefers-color-scheme: dark)');
+  constructor() {
+    Preferences.set({
+      key: 'mode',
+      value: this.prefDark.matches ? 'light' : 'dark',
+    })
+  }
 }
