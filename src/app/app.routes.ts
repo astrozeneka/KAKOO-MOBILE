@@ -16,6 +16,10 @@ export const routes: Routes = [
   },
   {
     path: 'contact-us',
-    loadComponent: () => import('./contact-us/contact-us.page').then( m => m.ContactUsPage)
+    loadComponent: () => import('./pages/contact-us/contact-us.page').then( m => m.ContactUsPage)
+  },
+  {
+    path: 'refer-a-friend',
+    loadComponent: () => import('./pages/refer-a-friend/refer-a-friend.page').then( m => m.ReferAFriendPage)
   },
 ];

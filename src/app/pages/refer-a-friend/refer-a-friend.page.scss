@@ -1,0 +1,57 @@
+
+.top-banner{
+    padding-top: 29px;
+}
+
+p.helper{
+    font-size: 15px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+div.referal-link{
+    height: 56px;
+    display: flex;
+    // The first item has fixed, second item is flexible, and the third item has fixed
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    // Specify gap
+    gap: 6px;
+
+    & ion-icon[slot="start"]{
+        padding-left: 24px;
+    }
+
+    & ion-input{
+        font-size: 14px;
+    }
+
+    & ion-button{
+        background: #E0F9F0; // Should consider to use a variable
+        border-radius: 8px; // Should consider to use a variable
+    }
+
+    margin-bottom: 8px;
+    // The below code should be inserted in a dedicated class
+    border: 1px solid #E9E7EA;
+    border-radius: 8px;
+}
+
+ion-button.share-button{
+    ion-icon{
+        padding-right: 8px;
+    }
+}
+
+// The below code should be moved to the global.scss if possible
+h1{
+    line-height: 43px;
+    margin: 0;
+    margin-bottom: 10px; // Specific to this item, should not be moved elsewhere
+}
+
+p{
+    margin: 0;
+    margin-bottom: 24px;
+}

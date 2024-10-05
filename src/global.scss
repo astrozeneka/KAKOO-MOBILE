@@ -130,16 +130,28 @@ h2{
     font-weight: 400;
     color: #1A1C1E; // TODO for later dark-mode color
 }
-
 .helper{
     font-size: 16px;
     line-height: 22.4px;
     color: #6C7278;
 }
+.display-1{
+    size: 32px;
+    font-weight: 500;
+    line-height: 43px;
+    color: #1A1C1E;
+}
+.display-1[color=primary]{ // TODO: Should consider to extend the selector for later
+    color: var(--ion-color-primary);
+}
+
 
 /**
  * 3.0 Buttons
  */
 ion-button{
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: none!important;
     height: 51px;
 }
