@@ -30,3 +30,71 @@ ion-button{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.language-button{
+    --padding-start: 10px;
+    --padding-end: 10px;
+    height: 40px;
+}
+
+.language-button-inner{
+    display: flex;
+    justify-content: space-between;
+    width: 68px;
+
+    font-size: 16px; // TODO, should consider to use a variable
+    font-weight: 500;
+}
+
+div.helper{
+    // TODO, should consider to use reuse styles
+    margin-bottom: 27px;
+}
+
+a{
+    text-decoration: inherit;
+    color: #1A1C1E;
+
+    &[color=primary]{
+        color: var(--ion-color-primary);
+    }
+}
+
+ion-button[type=submit]{
+    margin-top: 24px; // TODO, it should be use a variable
+    margin-bottom: 24px;
+}
+
+.separate-or{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    & .line{
+        flex: 1;
+        height: 1px;
+        background: #EDF1F3;
+    }
+}
+
+.in-text{
+    color: #6C7278;
+    font-weight: 500;
+}
+
+.footer-text{
+    font-size: 12px;
+    font-weight: 400;
+    color: #6C7278;
+    position: absolute;
+    // bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding-bottom: 16px;
+}
+
+ion-content{
+    position: relative;
+}

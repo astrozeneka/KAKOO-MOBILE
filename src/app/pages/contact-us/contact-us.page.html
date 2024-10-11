@@ -1,20 +1,19 @@
 <ion-header [translucent]="true">
-  <!--
-  <ion-toolbar>
-    <ion-title>contact-us</ion-title>
-  </ion-toolbar>
-  -->
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <!-- TODO, remove the header and replace by the background-->
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">contact-us</ion-title>
-    </ion-toolbar>
   </ion-header>
 
   <div class="top-banner">
+    <ion-button
+      fill="clear"
+      color="clear"
+      (click)="goTo('/home')"
+    >
+      <ion-icon src="/assets/svg/arrow-left.svg"></ion-icon>
+    </ion-button>
     <img src="/assets/svg/email.svg"/>
   </div>
 
