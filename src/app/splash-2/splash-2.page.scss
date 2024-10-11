@@ -1,0 +1,43 @@
+
+ion-content .main{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100%;
+}
+
+.top-banner{
+    height: 570px;
+    width: 100%;
+}
+
+swiper-container{
+    height: 100%;
+    width: 100%;
+
+    & swiper-slide{
+    }
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding-top: 45px;
+
+    & .banner-title-1{
+        margin-bottom: 14px;
+    }
+
+    & ion-button{
+        margin-top: 30px;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+}
+
+.helper a{ // Should consider to put in a higher level
+    font-weight: 500!important;
+}

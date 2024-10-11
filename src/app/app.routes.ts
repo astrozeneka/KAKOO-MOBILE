@@ -26,4 +26,8 @@ export const routes: Routes = [
     path: 'language-selector-1',
     loadComponent: () => import('./pages/language-selector-1/language-selector-1.page').then( m => m.LanguageSelector1Page)
   },
+  {
+    path: 'splash-2',
+    loadComponent: () => import('./splash-2/splash-2.page').then( m => m.Splash2Page)
+  },
 ];
