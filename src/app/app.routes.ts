@@ -22,4 +22,8 @@ export const routes: Routes = [
     path: 'refer-a-friend',
     loadComponent: () => import('./pages/refer-a-friend/refer-a-friend.page').then( m => m.ReferAFriendPage)
   },
+  {
+    path: 'language-selector-1',
+    loadComponent: () => import('./pages/language-selector-1/language-selector-1.page').then( m => m.LanguageSelector1Page)
+  },
 ];

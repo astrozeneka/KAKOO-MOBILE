@@ -134,21 +134,27 @@ h1, h2{
 h2{
     font-size: 22px;
     font-weight: 400;
-    color: #1A1C1E; // TODO for later dark-mode color
+    color: #1A1C1E; // WARNING, the color shouldn't be included inside a text color (an color attribute should be used instead)
 }
 .helper{
     font-size: 16px;
     line-height: 22.4px;
-    color: #6C7278;
+    color: #6C7278; // WARNING, the color shouldn't be included inside a text color (an color attribute should be used instead)
 }
 .display-1{
     size: 32px;
     font-weight: 500;
     line-height: 43px;
-    color: #1A1C1E;
+    color: #1A1C1E; // WARNING, the color shouldn't be included inside a text color (an color attribute should be used instead)
 }
 .display-1[color=primary]{ // TODO: Should consider to extend the selector for later
     color: var(--ion-color-primary);
+}
+
+.banner-title-1{ // Experimental for reusage
+    font-size: 32px;
+    line-height: 41.6px;
+    font-weight: 700;
 }
 
 
@@ -160,4 +166,26 @@ ion-button{
     font-size: 16px;
     text-transform: none!important;
     height: 51px;
+    --border-radius: 8px;
+}
+
+/** 
+ * 4.0 Custom color 1: Tabasco
+ */
+ :root {
+	--ion-color-tabasco: #9C2829;
+	--ion-color-tabasco-rgb: 156,40,41;
+	--ion-color-tabasco-contrast: #ffffff;
+	--ion-color-tabasco-contrast-rgb: 255,255,255;
+	--ion-color-tabasco-shade: #892324;
+	--ion-color-tabasco-tint: #a63e3e;
+}
+
+.ion-color-tabasco {
+	--ion-color-base: var(--ion-color-tabasco);
+	--ion-color-base-rgb: var(--ion-color-tabasco-rgb);
+	--ion-color-contrast: var(--ion-color-tabasco-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-tabasco-contrast-rgb);
+	--ion-color-shade: var(--ion-color-tabasco-shade);
+	--ion-color-tint: var(--ion-color-tabasco-tint);
 }
