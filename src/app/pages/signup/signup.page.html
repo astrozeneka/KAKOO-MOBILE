@@ -40,48 +40,74 @@
     </div>
     <div class="container">
       <form>
-
-        <ion-input
-          type="email"
-          placeholder="user@mail.com"
-          fill="outline"
-          label-placement="stacked"
-          label="Email"
-        ></ion-input>
-
-        <ion-input
-          type="password"
-          placeholder="password"
-          fill="outline"
-          label-placement="stacked"
-          label="Password"
-        ></ion-input>
-
-        <div class="ion-text-right">
-          <a class="#" href="/forgot-password">Forgot password?</a>
+        <div class="row">
+          <div class="col-6">
+            <ion-input
+              type="text"
+              placeholder="Mohit"
+              fill="outline"
+              label-placement="stacked"
+              label="First Name"
+            ></ion-input>
+          </div>
+          <div class="col-6">
+            <ion-input
+              type="text"
+              placeholder="Sharma"
+              fill="outline"
+              label-placement="stacked"
+              label="Last name"
+            ></ion-input>
+          </div>
         </div>
-
-        <ion-button
-          expand="block"
-          type="submit"
-          color="primary"
-        >
-          Login
-        </ion-button>
+        <div>
+          <ion-input
+            type="email"
+            placeholder="user@mail.com"
+            fill="outline"
+            label-placement="stacked"
+            label="Email"
+          ></ion-input>
+        </div>
+        <div>
+          <ion-input
+            type="phone"
+            placeholder="Enter your phone number"
+            fill="outline"
+            label-placement="stacked"
+            label="Phone number"
+          ></ion-input>
+        </div>
+        <div>
+          <ion-input
+            type="text"
+            placeholder="OIU587654"
+            fill="outline"
+            label-placement="stacked"
+            label="Referral Code"
+          ></ion-input>
+        </div>
+        <div>
+          <ion-button
+            expand="block"
+            type="submit"
+            color="primary"
+          >
+            Register
+          </ion-button>
+        </div>
       </form>
 
-      <!-- TODO: find an appropriate class name for the below element -->
       <div class="ion-text-center ion-margin-vertical in-text">
-        Don't have an account? <a href="/signup" color="primary">Sign up</a>
+        Already have an account? <a href="/login" color="primary">Login</a>
       </div>
 
-      <!-- todo for later, should use a class for this font-size:12px; -->
       <div class="ion-text-center ion-margin-vertical separate-or" style="font-size: 12px">
         <div class="line"></div>
         <span>Or</span>
         <div class="line"></div>
       </div>
-
+      
       <!-- TODO, should create a more suitable button class -->
       <ion-button
         expand="block"
@@ -91,7 +117,7 @@
         <img src="/assets/svg/google-logo.svg" width="18px"/>
         Continue with Google
       </ion-button>
-
+      
       <!-- TODO, should create a more suitable button class -->
       <ion-button
         expand="block"
@@ -103,10 +129,8 @@
       </ion-button>
     </div>
 
-    <!-- TODO, should allow the element below stick at the bottom (possible) -->
     <p class="footer-text ion-text-center">
       By tapping on Login, you are agreeing to <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>
     </p>
-
   </div>
 </ion-content>

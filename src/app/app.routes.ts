@@ -28,6 +28,10 @@ export const routes: Routes = [
   },
   {
     path: 'splash-2',
-    loadComponent: () => import('./splash-2/splash-2.page').then( m => m.Splash2Page)
+    loadComponent: () => import('./pages/splash-2/splash-2.page').then( m => m.Splash2Page)
+  },
+  {
+    path: 'signup',
+    loadComponent: () => import('./pages/signup/signup.page').then( m => m.SignupPage)
   },
 ];

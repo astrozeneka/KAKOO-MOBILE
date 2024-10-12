@@ -8,7 +8,10 @@ import { AbstractPage } from 'src/app/abstract-page';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  styleUrls: [
+    './login.page.scss',
+    '../../stylesheets/login-signup.scss'
+  ],
   standalone: true,
   imports: [IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })

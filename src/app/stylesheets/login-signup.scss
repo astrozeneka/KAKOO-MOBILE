@@ -1,0 +1,83 @@
+
+
+// Should consider to upgrade this to a higher level stylesheet
+.left-right{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// The language button
+
+.language-button{
+    --padding-start: 10px;
+    --padding-end: 10px;
+    height: 40px;
+}
+
+.language-button-inner{
+    display: flex;
+    justify-content: space-between;
+    width: 68px;
+
+    font-size: 16px; // TODO, should consider to use a variable
+    font-weight: 500;
+}
+
+
+
+// TODO, should consider to put this in a higher level stylesheet
+ion-input{
+    --border-color: #79747E !important; // TODO, use a color scheme for the app
+}
+
+ion-button{
+    line-height: 19px;
+    color: #1A1C1E;
+    --border-width: 1px;
+    --border-color: #79747E; // TODO, use a color scheme for the app
+}
+
+.in-text{
+    color: #6C7278;
+    font-weight: 500;
+}
+
+.separate-or{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    & .line{
+        flex: 1;
+        height: 1px;
+        background: #EDF1F3;
+    }
+}
+
+
+.login-provider{
+    & img{
+        position: absolute;
+        left: 2px;
+    }
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.footer-text{
+    font-size: 12px;
+    font-weight: 400;
+    color: #6C7278;
+    position: absolute;
+    // bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding-bottom: 16px;
+}
+
+ion-content{
+    position: relative;
+}

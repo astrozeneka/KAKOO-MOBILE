@@ -1,0 +1,12 @@
+
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.col-6{
+    flex: 0 0 calc(50% - 6px);
+}
