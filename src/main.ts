@@ -4,9 +4,12 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThemeDetection } from '@ionic-native/theme-detection/ngx';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { importProvidersFrom } from '@angular/core';
+import { HttpLoaderFactory } from './app/translation-loader.factory';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -16,6 +19,15 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     FormsModule,
     ReactiveFormsModule,
-    ThemeDetection
+    ThemeDetection,
+    importProvidersFrom(
+      HttpClientModule,
+      TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      }
+    })),
   ],
 });

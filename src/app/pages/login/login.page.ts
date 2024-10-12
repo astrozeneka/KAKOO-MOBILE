@@ -7,6 +7,8 @@ import { AbstractPage } from 'src/app/abstract-page';
 import { UXForm } from 'src/app/utils/ux-form';
 import { ContentService } from 'src/app/services/content.service';
 import { BackButtonComponent } from "../../back-button/back-button.component";
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { I18nPipe } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,10 @@ import { BackButtonComponent } from "../../back-button/back-button.component";
     '../../stylesheets/login-signup.scss'
   ],
   standalone: true,
-  imports: [IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, BackButtonComponent]
+  imports: [
+    IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, BackButtonComponent,
+    TranslateModule, I18nPipe
+  ]
 })
 export class LoginPage extends AbstractPage implements OnInit {
 
@@ -27,11 +32,15 @@ export class LoginPage extends AbstractPage implements OnInit {
 
   constructor(
     private router:Router,
-    private cs: ContentService
+    private cs: ContentService,
+    public translate: TranslateService
   ) {
     super(
       router
     );
+    this.translate.setDefaultLang('en');
+    // Example, set the language to french
+    // this.translate.use('fr');
   }
 
   ngOnInit() {
