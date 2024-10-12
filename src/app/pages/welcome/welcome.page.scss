@@ -1,0 +1,60 @@
+
+.top-banner{
+    height: 590px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: #FAF6EF;
+
+    
+
+    & .image-container{
+        display: flex;
+        justify-content: center;
+        & img{
+            mix-blend-mode: multiply;
+        }
+        margin: 42px;
+    }
+}
+
+.banner-title-1 {
+    width: 75%;
+
+}
+
+.rounded-card-2{
+    border-radius: 8px;
+    border: 1px solid #E7E7E9;
+}
+
+.iconed-card{
+    padding: 20px; // Can consider to put it in a higher level
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    & ion-icon{
+        width: 24px;
+        height: 24px;
+    }
+
+    .card-title{
+        font-size: 18px;
+        font-weight: 500;
+        color: #1A1C1E;
+        line-height: 25.2px;
+    }
+    .card-helper{
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 18px;
+        color: #6C7278;
+        & em{
+            font-style: normal;
+            color: #1A1C1E;
+        }
+    }
+}

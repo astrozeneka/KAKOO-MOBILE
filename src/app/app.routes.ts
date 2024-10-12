@@ -46,4 +46,8 @@ export const routes: Routes = [
     path: 'create-password',
     loadComponent: () => import('./pages/create-password/create-password.page').then( m => m.CreatePasswordPage)
   },
+  {
+    path: 'welcome',
+    loadComponent: () => import('./pages/welcome/welcome.page').then( m => m.WelcomePage)
+  },
 ];
