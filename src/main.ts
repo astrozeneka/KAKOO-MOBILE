@@ -6,6 +6,7 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ThemeDetection } from '@ionic-native/theme-detection/ngx';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -14,6 +15,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ThemeDetection
   ],
 });

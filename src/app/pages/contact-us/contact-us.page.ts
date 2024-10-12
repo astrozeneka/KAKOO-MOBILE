@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonInput, IonText
 import { AbstractPage } from 'src/app/abstract-page';
 import { Router } from '@angular/router';
 import { BackButtonComponent } from "../../back-button/back-button.component";
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -16,7 +17,8 @@ import { BackButtonComponent } from "../../back-button/back-button.component";
 export class ContactUsPage extends AbstractPage implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    public themeService: ThemeService
   ) {
     super(
       router

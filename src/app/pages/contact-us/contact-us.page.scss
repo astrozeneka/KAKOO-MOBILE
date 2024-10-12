@@ -40,7 +40,15 @@
     margin-top: -45px;
     z-index: 999;
     position: relative;
-    background: white; // TODO, use variable to set the colors
+}
+
+ion-content.dark .bg-white{
+    background-color: #1A1C1E;
+    color: #fff;
+}
+ion-content.light .bg-white{
+    background-color: #fff;
+    color: #1A1C1E;
 }
 
 ion-input, ion-textarea{

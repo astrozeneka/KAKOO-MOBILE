@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [class]="(themeService.darkModeIsEnabled)?'dark':'light'">
   <!-- TODO, remove the header and replace by the background-->
   <ion-header collapse="condense">
   </ion-header>
@@ -13,7 +13,7 @@
     <img src="/assets/svg/email.svg"/>
   </div>
   <div class="content">
-    <div class="rounded-card">
+    <div class="rounded-card bg-white">
       <div class="ion-text-center">
         <img src="/assets/kakoo-logo.png" width="81px"/><!-- make more responsive-->
       </div>
