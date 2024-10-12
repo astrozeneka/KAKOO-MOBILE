@@ -34,4 +34,12 @@ export const routes: Routes = [
     path: 'signup',
     loadComponent: () => import('./pages/signup/signup.page').then( m => m.SignupPage)
   },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('./pages/reset-password/reset-password.page').then( m => m.ResetPasswordPage)
+  },
+  {
+    path: 'check-your-email',
+    loadComponent: () => import('./pages/check-your-email/check-your-email.page').then( m => m.CheckYourEmailPage)
+  },
 ];

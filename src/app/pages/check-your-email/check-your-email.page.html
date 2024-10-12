@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+  </ion-header>
+  <div style="height: 10px;"></div><!-- another placeholder -->
+  <div class="ion-padding-horizontal">
+    <div><!-- Should consider to update later -->
+      <!-- TODO, make this button match the Design -->
+      <ion-button
+        class="back-button"
+        fill="clear"
+        color="clear"
+        (click)="goTo('/home')"
+      >
+        <ion-icon src="/assets/svg/arrow-left.svg"></ion-icon>
+      </ion-button>
+    </div>
+
+    <h1 class="display-bold-1">Check your email</h1>
+    <div class="helper">
+      Successful operation! This email will contain a link to verify your email address and set up your password.
+    </div>
+    <form>
+      <div>
+        <ion-button
+          expand="block"
+          class="submit-button"
+          color="primary"
+          type="submit"
+        >
+          Open mail app
+        </ion-button>
+      </div>
+      <div class="ion-text-center ion-margin-vertical in-text">
+        Did not receive the email? Check your spam folder or <a href="#" color="primary">resend email</a>
+      </div>
+    </form>
+  </div>
+</ion-content>

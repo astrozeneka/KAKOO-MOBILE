@@ -150,6 +150,11 @@ h2{
 .display-1[color=primary]{ // TODO: Should consider to extend the selector for later
     color: var(--ion-color-primary);
 }
+.display-bold-1{
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 41.6px;
+}
 
 .banner-title-1{ // Experimental for reusage
     font-size: 32px;

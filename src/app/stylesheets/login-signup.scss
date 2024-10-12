@@ -40,7 +40,7 @@ ion-button{
 
 .in-text{
     color: #6C7278;
-    font-weight: 500;
+    // font-weight: 500;
 }
 
 .separate-or{
@@ -82,9 +82,18 @@ ion-content{
     position: relative;
 }
 
-
-
 ion-button[type=submit]{
     margin-top: 24px; // TODO, it should be use a variable
     margin-bottom: 24px;
+}
+
+// The back button
+.back-button{ // TODO, should be placed in global.scss
+    width: 40px;
+    height: 40px;
+    --padding-start: 11px;
+    --padding-end: 11px;
+    --padding-top: 11px;
+    --padding-bottom: 11px;
+    margin-left: calc(-1 * var(--padding-start));
 }
