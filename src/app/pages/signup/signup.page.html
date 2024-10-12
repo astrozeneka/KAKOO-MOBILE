@@ -70,13 +70,25 @@
           ></ion-input>
         </div>
         <div>
-          <ion-input
-            type="phone"
-            placeholder="Enter your phone number"
-            fill="outline"
-            label-placement="stacked"
-            label="Phone number"
-          ></ion-input>
+          <div class="phone-input-container">
+            <label>Phone number</label>
+            <div>
+              <div class="ion-select-container">
+                <ion-select
+                  value="+91"
+                  justify="end"
+                >
+                  <ion-select-option [value]="'+91'">+91</ion-select-option>
+                </ion-select>
+                <div class="spacer"></div>
+              </div>
+              <ion-input
+                type="phone"
+                placeholder="Enter your phone number"
+                fill="clear"
+              ></ion-input>
+            </div>
+          </div>
         </div>
         <div>
           <ion-input

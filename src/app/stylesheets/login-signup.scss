@@ -81,3 +81,10 @@ ion-button{
 ion-content{
     position: relative;
 }
+
+
+
+ion-button[type=submit]{
+    margin-top: 24px; // TODO, it should be use a variable
+    margin-bottom: 24px;
+}
