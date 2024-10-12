@@ -42,4 +42,8 @@ export const routes: Routes = [
     path: 'check-your-email',
     loadComponent: () => import('./pages/check-your-email/check-your-email.page').then( m => m.CheckYourEmailPage)
   },
+  {
+    path: 'create-password',
+    loadComponent: () => import('./pages/create-password/create-password.page').then( m => m.CreatePasswordPage)
+  },
 ];
