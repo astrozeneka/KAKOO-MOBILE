@@ -94,17 +94,6 @@ ion-button[type=submit]{
     margin-bottom: 24px;
 }
 
-// The back button
-.back-button{ // TODO, should be placed in global.scss
-    width: 40px;
-    height: 40px;
-    --padding-start: 11px;
-    --padding-end: 11px;
-    --padding-top: 11px;
-    --padding-bottom: 11px;
-    margin-left: calc(-1 * var(--padding-start));
-}
-
 // Input wrapper and custom label
 .input-wrapper{
     margin-top: 24px; // Should use a variable for a sustainable development

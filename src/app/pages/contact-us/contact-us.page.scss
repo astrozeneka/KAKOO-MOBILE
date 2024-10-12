@@ -19,7 +19,13 @@
     }
 }
 
+.content{
+    display: flex;
+    justify-content: center;
+}
+
 .rounded-card{
+    flex: 1;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
@@ -27,9 +33,10 @@
 
     margin-left: var(--ion-padding-left);
     margin-right: var(--ion-padding-right);
+    max-width: 500px; // Todo, this could use a variable
+
     border: 1px solid #E7E7E9;
     border-radius: 8px;
-    
     margin-top: -45px;
     z-index: 999;
     position: relative;

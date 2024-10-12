@@ -2,15 +2,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="placeholder" style="height: 46px"><!-- Should consider to update later -->
-    <!-- TODO, make this button match the Design -->
-    <ion-button
-      fill="clear"
-      color="clear"
-      (click)="goTo('/home')"
-    >
-      <ion-icon src="/assets/svg/arrow-left.svg"></ion-icon>
-    </ion-button>
+  <div class="placeholder ion-padding-horizontal" style="height: 46px"><!-- Should consider to update later -->
+    <app-back-button></app-back-button>
   </div>
 
   <div class="ion-padding-horizontal">

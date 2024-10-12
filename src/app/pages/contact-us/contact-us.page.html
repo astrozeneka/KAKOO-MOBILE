@@ -7,59 +7,56 @@
   </ion-header>
 
   <div class="top-banner">
-    <ion-button
-      fill="clear"
-      color="clear"
-      (click)="goTo('/home')"
-    >
-      <ion-icon src="/assets/svg/arrow-left.svg"></ion-icon>
-    </ion-button>
+    <div class="ion-padding-horizontal">
+      <app-back-button></app-back-button>
+    </div>
     <img src="/assets/svg/email.svg"/>
   </div>
-
-  <div class="rounded-card">
-    <div class="ion-text-center">
-      <img src="/assets/kakoo-logo.png" width="81px"/><!-- make more responsive-->
+  <div class="content">
+    <div class="rounded-card">
+      <div class="ion-text-center">
+        <img src="/assets/kakoo-logo.png" width="81px"/><!-- make more responsive-->
+      </div>
+      <div class="ion-text-center">
+        <h1 class="display-1">Get in touch!</h1>
+      </div>
+      <form>
+        <ion-input
+          type="text"
+          placeholder="John Doe"
+          fill="outline"
+          label-placement="stacked"
+          label="Name"
+        />
+        <ion-input
+          type="email"
+          placeholder="john.doe@gmail.com"
+          fill="outline"
+          label-placement="stacked"
+          label="Email"
+        />
+        <ion-input
+          type="phone"
+          placeholder="+256 700 000 000"
+          fill="outline"
+          label-placement="stacked"
+          label="Phone"
+        />
+        <ion-textarea
+          placeholder="Message"
+          fill="outline"
+          label-placement="stacked"
+          label="Feedback/Complaint/Suggestion"
+          rows="5"
+        />
+        <ion-button
+          expand="block"
+          type="submit"
+          color="primary"
+        >
+          Submit
+        </ion-button>
+      </form>
     </div>
-    <div class="ion-text-center">
-      <h1 class="display-1">Get in touch!</h1>
-    </div>
-    <form>
-      <ion-input
-        type="text"
-        placeholder="John Doe"
-        fill="outline"
-        label-placement="stacked"
-        label="Name"
-      />
-      <ion-input
-        type="email"
-        placeholder="john.doe@gmail.com"
-        fill="outline"
-        label-placement="stacked"
-        label="Email"
-      />
-      <ion-input
-        type="phone"
-        placeholder="+256 700 000 000"
-        fill="outline"
-        label-placement="stacked"
-        label="Phone"
-      />
-      <ion-textarea
-        placeholder="Message"
-        fill="outline"
-        label-placement="stacked"
-        label="Feedback/Complaint/Suggestion"
-        rows="5"
-      />
-      <ion-button
-        expand="block"
-        type="submit"
-        color="primary"
-      >
-        Submit
-      </ion-button>
-    </form>
   </div>
 </ion-content>

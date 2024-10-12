@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AbstractPage } from 'src/app/abstract-page';
 import { UXForm } from 'src/app/utils/ux-form';
 import { ContentService } from 'src/app/services/content.service';
+import { BackButtonComponent } from "../../back-button/back-button.component";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import { ContentService } from 'src/app/services/content.service';
     '../../stylesheets/login-signup.scss'
   ],
   standalone: true,
-  imports: [IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, BackButtonComponent]
 })
 export class LoginPage extends AbstractPage implements OnInit {
 
