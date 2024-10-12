@@ -29,6 +29,13 @@
 // TODO, should consider to put this in a higher level stylesheet
 ion-input{
     --border-color: #79747E !important; // TODO, use a color scheme for the app
+    &.ion-invalid.ion-touched {
+        --border-color: #B3261E !important; // TODO, use a color scheme for the app
+    }
+    &.has-focus{
+        --border-color: #48474a !important; // Doesn't work
+    }
+    // The has-touched can't be used yet for now (maybe to be updated later)
 }
 
 ion-button{
@@ -96,4 +103,26 @@ ion-button[type=submit]{
     --padding-top: 11px;
     --padding-bottom: 11px;
     margin-left: calc(-1 * var(--padding-start));
+}
+
+// Input wrapper and custom label
+.input-wrapper{
+    margin-top: 24px; // Should use a variable for a sustainable development
+    margin-bottom: 24px;
+    & ion-input{
+        margin-top: 0px!important;
+        margin-bottom: 0px!important;
+    }
+    & .input-helper{
+        font-size: 14px;
+        line-height: 21px;
+        color: #6C7278; // Should use a variable for a sustainable development
+        margin-top: 8px;
+    }
+    & .input-error{
+        font-size: 14px;
+        line-height: 21px;
+        margin-top: 6px;
+        color: #B3261E;
+    }
 }

@@ -39,23 +39,36 @@
       <!-- The space below should be fixed -->
     </div>
     <div class="container">
-      <form>
+      <form (submit)="requestLogin()" [formGroup]="form">
+        
+        <div class="input-wrapper">
+          <ion-input
+            type="email"
+            placeholder="user@mail.com"
+            fill="outline"
+            label-placement="stacked"
+            label="Email"
+            formControlName="email"
+          ></ion-input>
+          <div class="input-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors">
+            <span *ngIf="form.get('email')?.getError('required')">Email address required<br/></span>
+            <span *ngIf="form.get('email')?.getError('email')">Email address is invalid</span>
+          </div>
+        </div>
 
-        <ion-input
-          type="email"
-          placeholder="user@mail.com"
-          fill="outline"
-          label-placement="stacked"
-          label="Email"
-        ></ion-input>
-
-        <ion-input
-          type="password"
-          placeholder="password"
-          fill="outline"
-          label-placement="stacked"
-          label="Password"
-        ></ion-input>
+        <div class="input-wrapper">
+          <ion-input
+            type="password"
+            placeholder="password"
+            fill="outline"
+            label-placement="stacked"
+            label="Password"
+            formControlName="password"
+          ></ion-input>
+          <div class="input-error" *ngIf="form.get('password')?.touched && form.get('password')?.errors">
+            <span *ngIf="form.get('password')?.getError('required')">Password required</span>
+          </div>
+        </div>
 
         <div class="ion-text-right">
           <a class="#" href="/forgot-password">Forgot password?</a>
@@ -87,6 +100,7 @@
         expand="block"
         fill="outline"
         class="login-provider"
+        (click)="loginUsingProvider('google')"
       >
         <img src="/assets/svg/google-logo.svg" width="18px"/>
         Continue with Google
@@ -97,6 +111,7 @@
         expand="block"
         fill="outline"
         class="login-provider"
+        (click)="loginUsingProvider('linkedin')"
       >
       <img src="/assets/svg/linkedin-logo.svg" width="18px"/>
         Continue with LinkedIn
