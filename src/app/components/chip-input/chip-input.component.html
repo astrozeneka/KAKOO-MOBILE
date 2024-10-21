@@ -1,0 +1,42 @@
+<div class="component">
+  <div class="wrapper">
+    <label>{{ label }}</label>
+    <div>
+      <ion-input
+        fill="clear"
+        [placeholder]="placeholder"
+        [formControl]="innerFormControl"
+      ></ion-input>
+      <div class="option-list">
+        @for (option of displayedOption; track option) {
+          <ion-button
+            fill="clear"
+            color="dark"
+            (click)="clickOption(option)"
+          >
+            <!-- Normally here a template can be used for custom element -->
+            <div>{{ option }}</div>
+          </ion-button>
+        }
+      </div>
+
+    </div>
+  </div>
+  <div>
+  @for (selected of formControl?.value; track selected) {
+    <div class="chip">
+      <div>
+        <ion-button
+          color="clear"
+          fill="clear"
+          shape="round"
+          (click)="removeChip(selected)"
+        >
+          <ion-icon src="/assets/svg/icon-close.svg"></ion-icon>
+        </ion-button>
+        {{ selected }}<!-- Here, should apply lambda function -->
+      </div>
+    </div>
+  }
+  </div>
+</div>

@@ -17,5 +17,12 @@
     </app-topbar>
   </ion-header>
 
-
+  <div>
+    <app-chip-input
+      label="Language"
+      placeholder="Enter your languages"
+      [options]="['French', 'English', 'Chinese', 'Spanish', 'Japanese', 'Arab', 'German']"
+      [formControl]="testFormControl"
+    ></app-chip-input>
+  </div>
 </ion-content>
