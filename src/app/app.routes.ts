@@ -50,4 +50,76 @@ export const routes: Routes = [
     path: 'welcome',
     loadComponent: () => import('./pages/welcome/welcome.page').then( m => m.WelcomePage)
   },
+  {
+    path: 'personal-information',
+    loadComponent: () => import('./pages/personal-information/personal-information.page').then( m => m.PersonalInformationPage)
+  },
+  {
+    path: 'add-skills',
+    loadComponent: () => import('./pages/add-skills/add-skills.page').then( m => m.AddSkillsPage)
+  },
+  {
+    path: 'education-and-certification',
+    loadComponent: () => import('./pages/education-and-certification/education-and-certification.page').then( m => m.EducationAndCertificationPage)
+  },
+  {
+    path: 'work-experience',
+    loadComponent: () => import('./pages/work-experience/work-experience.page').then( m => m.WorkExperiencePage)
+  },
+  {
+    path: 'projects',
+    loadComponent: () => import('./pages/projects/projects.page').then( m => m.ProjectsPage)
+  },
+  {
+    path: 'job-preferences',
+    loadComponent: () => import('./pages/job-preferences/job-preferences.page').then( m => m.JobPreferencesPage)
+  },
+  {
+    path: 'social-accounts',
+    loadComponent: () => import('./pages/social-accounts/social-accounts.page').then( m => m.SocialAccountsPage)
+  },
+  {
+    path: 'terms-and-conditions',
+    loadComponent: () => import('./pages/terms-and-conditions/terms-and-conditions.page').then( m => m.TermsAndConditionsPage)
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
+  },
+  {
+    path: 'jobboard',
+    loadComponent: () => import('./pages/jobboard/jobboard.page').then( m => m.JobboardPage)
+  },
+  {
+    path: 'job-detail',
+    loadComponent: () => import('./pages/job-detail/job-detail.page').then( m => m.JobDetailPage)
+  },
+  {
+    path: 'employer-questions',
+    loadComponent: () => import('./pages/employer-questions/employer-questions.page').then( m => m.EmployerQuestionsPage)
+  },
+  {
+    path: 'meetings',
+    loadComponent: () => import('./pages/meetings/meetings.page').then( m => m.MeetingsPage)
+  },
+  {
+    path: 'refferals',
+    loadComponent: () => import('./pages/refferals/refferals.page').then( m => m.RefferalsPage)
+  },
+  {
+    path: 'edit-and-preview-profile',
+    loadComponent: () => import('./pages/edit-and-preview-profile/edit-and-preview-profile.page').then( m => m.EditAndPreviewProfilePage)
+  },
+  {
+    path: 'support',
+    loadComponent: () => import('./pages/support/support.page').then( m => m.SupportPage)
+  },
+  {
+    path: 'job-preferences',
+    loadComponent: () => import('./pages/job-preferences/job-preferences.page').then( m => m.JobPreferencesPage)
+  },
+  {
+    path: 'meeting-overview',
+    loadComponent: () => import('./pages/meeting-overview/meeting-overview.page').then( m => m.MeetingOverviewPage)
+  },
 ];

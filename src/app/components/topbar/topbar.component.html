@@ -1,0 +1,16 @@
+<div [class]="'topbar bg-' + color">
+  <div class="main">
+    <div class="start">
+      <ng-content select="*[slot=start]"></ng-content>
+    </div>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+    <div class="end">
+      <ng-content select="*[slot=end]"></ng-content>
+    </div>
+  </div>
+  <div class="progress-bar">
+    <div class="bar" [style]="'width: ' + (progress*100) + '%'"></div>
+  </div>
+</div>

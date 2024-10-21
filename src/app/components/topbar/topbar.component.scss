@@ -1,0 +1,34 @@
+.topbar{
+    padding-top: env(safe-area-inset-top);
+
+    &>.main{
+        height: 64px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & .start{
+
+        }
+
+        & .content{
+            flex-grow: 1;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        & .end{
+            & ion-button{
+            }
+        }
+    }
+
+    .progress-bar{
+        background: #E7E7E9;
+        position: relative;
+        & .bar{
+            background: #9C2829;
+            height: 3px;
+        }
+    }
+}

@@ -1,8 +1,12 @@
 <ion-button
-        class="back-button"
-        fill="clear"
-        color="clear"
-        (click)="back()"
-      >
-  <ion-icon src="/assets/svg/arrow-left.svg"></ion-icon>
+  [class]="'back-button ' + variant"
+  fill="clear"
+  [color]="'primary'"
+  (click)="back()"
+>
+  @if (color == 'light') {
+    <ion-icon src="/assets/svg/arrow-left-white.svg"></ion-icon>
+  } @else {
+    <ion-icon src="/assets/svg/arrow-left.svg"></ion-icon>
+  }
 </ion-button>

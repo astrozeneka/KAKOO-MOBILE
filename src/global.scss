@@ -203,3 +203,12 @@ ion-button{
  * 5.0 Columns
  */
 @import 'app/stylesheets/columns.scss';
+
+/**
+ * 6.0 Backgrounds (experimental)
+ * Actually it is used in the topbar-menu
+ */
+.bg-primary{
+    background-color: var(--ion-color-primary);
+    color: white;
+}

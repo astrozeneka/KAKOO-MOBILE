@@ -1,0 +1,15 @@
+ion-header{
+    box-shadow: none;
+    & div.title{
+        font-size: 18px;
+    }
+}
+
+.iconed-button-1{
+    display: flex;
+    font-size: 14px;
+    & > ion-icon{
+        height: 16px;
+        margin-right: .25em;
+    }
+}
