@@ -122,4 +122,8 @@ export const routes: Routes = [
     path: 'meeting-overview',
     loadComponent: () => import('./pages/meeting-overview/meeting-overview.page').then( m => m.MeetingOverviewPage)
   },
+  {
+    path: 'success',
+    loadComponent: () => import('./pages/success/success.page').then( m => m.SuccessPage)
+  },
 ];
