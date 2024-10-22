@@ -1,5 +1,5 @@
-import { JsonPipe } from '@angular/common';
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { JsonPipe, NgTemplateOutlet } from '@angular/common';
+import { Component, ContentChild, EventEmitter, forwardRef, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, TouchedChangeEvent } from '@angular/forms';
 import { IonInput, IonButton, IonIcon } from "@ionic/angular/standalone";
 import { filter } from 'rxjs';
@@ -9,7 +9,7 @@ import { filter } from 'rxjs';
   templateUrl: './chip-input.component.html',
   styleUrls: ['./chip-input.component.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, IonInput, FormsModule, ReactiveFormsModule, JsonPipe],
+  imports: [IonIcon, IonButton, IonInput, FormsModule, ReactiveFormsModule, JsonPipe, NgTemplateOutlet],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -19,11 +19,13 @@ import { filter } from 'rxjs';
   ]
 })
 export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
-  @Input() formControl: FormControl<any[]> | undefined;
+  @Input() formControl: FormControl<any[]|string> | undefined;
   @Input() label: string = ""
   @Input() placeholder: string = ""
   @Input() options: T[] = []
   @Input() errorText: string | undefined = undefined
+
+  @ViewChild('innerInput') innerInput: IonInput | undefined;
 
   // Experimental features (blur) event
   @Output() blur: EventEmitter<any> = new EventEmitter();
@@ -35,6 +37,13 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
   // The key accessor function allow to get the key of the option
   @Input() keyAccessor: (option: T) => string = (option: T) => (option as AsyncGeneratorFunction).toString();
 
+  // Newly introduced feature
+  @Input() mode: string = 'multiple' // multiple or single
+
+  // Newly added feature for custom list (e.g. country flag)
+  @Input() customList: boolean = false;
+  @ContentChild(TemplateRef) itemTemplate: TemplateRef<any> | null = null;
+
   constructor() { }
 
   ngOnInit() {
@@ -42,6 +51,7 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
     this.innerFormControl.valueChanges.subscribe((value:string) => {
       this._filterOptions(value);
     })
+
     // On blur mark as touched
     this.innerFormControl.events
       .pipe(filter(event => event instanceof TouchedChangeEvent))
@@ -52,6 +62,16 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
           this.formControl?.markAsUntouched();
         this.blur.emit({}); // Experimental feature
       })
+    
+    // Sanitize the 'mode' parameter
+    if (!(['multiple', 'single']).includes(this.mode)){
+      throw new Error("The mode parameter should be either 'multiple' or 'single'");
+    }
+
+    // When the inner form is blurred (experimental feature)
+    this.innerFormControl.valueChanges.subscribe(() => {
+      this.blur.emit({});
+    })
   }
 
   writeValue(obj: any): void {
@@ -76,29 +96,51 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
 
   // 3. Allow it to click an option
   clickOption(option: T) {
-    this.formControl?.value.push(option);
+    if (this.mode == 'multiple'){
+      (this.formControl?.value as any[]).push(option);
+    }else if(this.mode == 'single'){
+      this.formControl?.patchValue(this.keyAccessor(option));
+      this.innerFormControl.patchValue(this.keyAccessor(option));
+    }
     this._filterOptions();
     this.onChange(this.formControl?.value);
     this.onTouch();
     this.innerFormControl.patchValue(null);
+    if (this.mode == 'single') this.innerFormControl.patchValue(this.keyAccessor(option))
     this.blur.emit({}); // Experimental feature
   }
 
   // 4. Allow to filter a value from the options
   private _filterOptions(value: string = this.innerFormControl?.value) {
-    this.displayedOption = this.options.filter(
-      option => this.keyAccessor(option).includes(value) && !this.formControl?.value.includes(option)
-    );
+    if (this.mode == 'multiple') {
+      this.displayedOption = this.options.filter(
+        option => this.keyAccessor(option).toLowerCase().includes(value.toLowerCase()) && !this.formControl?.value.includes(this.keyAccessor(option))
+      );
+    } else if (this.mode == 'single') {
+      this.displayedOption = this.options.filter(
+        option => this.keyAccessor(option).toLowerCase().includes(value.toLowerCase())
+      );
+    }
   }
 
   // 5. Allow to remove an option
   removeChip(option: T) {
     if (this.formControl) {
-      this.formControl.patchValue(this.formControl.value.filter((v: T) => v !== option));
+      this.formControl.patchValue((this.formControl.value as any[]).filter((v: T) => v !== option));
     }
     this._filterOptions();
     this.blur.emit({})
     //this.onChange(this.formControl?.value);
     //this.onTouch();
+  }
+
+  // 6. The newly added feature
+  toggleOptions() {
+    console.log(this.innerInput)
+    this.innerInput?.setFocus();
+    // Put focus on the input
+    this.displayedOption = this.options;
+    // Add focus to the input
+    this.innerFormControl.patchValue('');
   }
 }

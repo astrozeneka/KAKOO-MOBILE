@@ -1,3 +1,5 @@
+@import 'src/theme/mixins.scss';
+
 .wrapper{ // The code below is the same as for the phone number
     height: 56px; // Should also consider to have a variable
     border: 1px solid #79747E; // Should use color scheme
@@ -21,6 +23,22 @@
         flex-direction: row;
         align-items: center;
         height: 100%;
+
+        & > .innerbox{
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        & ion-button{
+            --padding-start: 0;
+            --padding-end: 0;
+            --padding-top: 0;
+            --padding-bottom: 0;
+            width: 51px;
+            margin-right: -14px; // Margin-right correction
+        }
     }
 
     // The padding
@@ -48,6 +66,7 @@
     flex-direction: column;
     height: auto;
     background: white;
+    margin-top: 2px;
     & ion-button{
         height: 32px;
         width: 100%;
@@ -56,6 +75,8 @@
         justify-content: start;
         & > div{
             width: 100%;
+            margin-left: 24px;
+            margin-right: 24px;
         }
     }
 }
@@ -79,12 +100,14 @@
         border-radius: 8px;
 
         & ion-button{
+            width: 100%!important;
             font-weight: 400;
             height: 48px;
             border-radius: 0;
             --color: #1D1B20!important;
-
             --background-activated: red!important;
+            --padding-start: var(--padding-start)!important;
+            --padding-end: var(--padding-end)!important;
 
             &.ion-activated{
                 background: #EAFAEB;

@@ -2,41 +2,56 @@
   <div [class]="'wrapper ' + (formControl?.invalid && formControl?.touched ? 'has-error' : '')">
     <label>{{ label }}</label>
     <div>
-      <ion-input
-        fill="clear"
-        [placeholder]="placeholder"
-        [formControl]="innerFormControl"
-      ></ion-input>
-      <div class="option-list">
-        @for (option of displayedOption; track option) {
-          <ion-button
-            fill="clear"
-            color="dark"
-            (click)="clickOption(option)"
-          >
-            <!-- Normally here a template can be used for custom element -->
-            <div>{{ option }}</div>
-          </ion-button>
-        }
+      <div class="innerbox">
+        <ion-input
+          fill="clear"
+          [placeholder]="placeholder"
+          [formControl]="innerFormControl"
+          #innerInput
+        ></ion-input>
+        <div class="option-list">
+          @for (option of displayedOption; track option) {
+            <ion-button
+              fill="clear"
+              color="dark"
+              (click)="clickOption(option)"
+            >
+            @if (customList) {
+              <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option }"></ng-container>
+            } @else {
+              <div>{{ option }}</div>
+            }
+            </ion-button>
+          }
+        </div>
       </div>
-
+      @if (mode == 'single') {
+        <ion-button
+          fill="clear"
+          (click)="toggleOptions()"
+        >
+          <ion-icon src="/assets/svg/icon-select-carret.svg"></ion-icon>
+        </ion-button>
+      }
     </div>
   </div>
   <div>
-  @for (selected of formControl?.value; track selected) {
-    <div class="chip">
-      <div>
-        <ion-button
-          color="clear"
-          fill="clear"
-          shape="round"
-          (click)="removeChip(selected)"
-        >
-          <ion-icon src="/assets/svg/icon-close.svg"></ion-icon>
-        </ion-button>
-        {{ selected }}<!-- Here, should apply lambda function -->
+  @if (mode == 'multiple') {
+    @for (selected of formControl?.value; track selected) {
+      <div class="chip">
+        <div>
+          <ion-button
+            color="clear"
+            fill="clear"
+            shape="round"
+            (click)="removeChip(selected)"
+          >
+            <ion-icon src="/assets/svg/icon-close.svg"></ion-icon>
+          </ion-button>
+          {{ selected }}<!-- Here, should apply lambda function -->
+        </div>
       </div>
-    </div>
+    }
   }
   </div>
   @if (formControl?.invalid && formControl?.touched) {
