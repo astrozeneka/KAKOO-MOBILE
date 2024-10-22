@@ -23,6 +23,27 @@
       placeholder="Enter your languages"
       [options]="['French', 'English', 'Chinese', 'Spanish', 'Japanese', 'Arab', 'German']"
       [formControl]="testFormControl"
+      [errorText]="displayedErrorTest"
+      (blur)="testControlBlur()"
     ></app-chip-input>
+  </div>
+
+  <div>
+    <ion-input
+      label="test1"
+      placeholder="Test2 placeholder"
+      [formControl]="testFormControl2"
+      [errorText]="displayedErrorTest2"
+    ></ion-input>
+  </div>
+
+  <div>
+    <ion-button
+      expand="block"
+      color="primary"
+      (click)="testSubmit()"
+    >
+      Submit
+    </ion-button>
   </div>
 </ion-content>

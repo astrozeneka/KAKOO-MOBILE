@@ -1,5 +1,5 @@
 <div class="component">
-  <div class="wrapper">
+  <div [class]="'wrapper ' + (formControl?.invalid && formControl?.touched ? 'has-error' : '')">
     <label>{{ label }}</label>
     <div>
       <ion-input
@@ -39,4 +39,9 @@
     </div>
   }
   </div>
+  @if (formControl?.invalid && formControl?.touched) {
+    <div class="input-error">
+      {{ errorText }}
+    </div>
+  }
 </div>

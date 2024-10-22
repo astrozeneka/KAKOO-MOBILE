@@ -1,0 +1,70 @@
+
+@import 'src/theme/mixins.scss';
+.experience-card{
+    @include rounded-card-1;
+    display: flex;
+    align-items: top;
+
+    & .left {
+        min-width: 28px;
+        margin-right: 14px;
+        height: 25.2px;
+        & ion-icon{
+            width: 22px;
+            height: 22px;
+        }
+    }
+    
+
+    & .center{
+        flex-grow: 1;
+        & .title{
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 25.2px;
+            color: #1A1C1E;
+            margin: 0;
+        }
+
+        & .content{
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 19.6px;
+            color: #6C7278;
+        }
+
+        & .footer{
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 22.4px;
+            color: #6C7278;
+        }
+    }
+
+    & .right{
+        display: flex;
+        height: 22.4px;
+        align-items: center;
+        margin-right: -6px; // To equilibrate the card margin
+
+        & ion-button{
+            --padding-start: 0;
+            --padding-end: 0;
+            --padding-top: 0;
+            --padding-bottom: 0;
+            width: 25.2px;
+            height: 18px;
+            line-height: 18px;
+            margin: 0;
+
+            & ion-icon.trash{
+                max-height: 14px;
+            }
+
+            & ion-icon.edit{
+                max-height: 16.5px;
+            }
+        }
+    }
+}

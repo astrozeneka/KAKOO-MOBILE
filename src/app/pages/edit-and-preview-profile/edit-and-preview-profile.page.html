@@ -10,4 +10,43 @@
       <ion-title size="large">edit-and-preview-profile</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <app-experience-card
+    [editButton]="false"
+    [deleteButton]="true"
+  >
+    <div slot="image">
+      <div class="rounded-container">
+        <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+      </div>
+    </div>
+    <div slot="title">Bachelor of Commerce</div>
+    <div slot="content">
+      SSSS College of commerce and Allied
+    </div>
+    <div slot="footer">
+      <div class="chip">2024</div>
+    </div>
+  </app-experience-card>
+
+  <br/>
+  <app-experience-card
+    [editButton]="false"
+    [deleteButton]="true"
+  >
+    <div slot="image">
+      <div class="rounded-container">
+        <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+      </div>
+    </div>
+    <div slot="title">Charted Accountant Article ship</div>
+    <div slot="content">
+      R.S and Sons Charted Accountant Pvt. Ltd.<br/>
+      Amritsar Punjab, India
+    </div>
+    <div slot="footer">
+      <div class="chip">May 2019 - Jun 2021</div>
+    </div>
+  </app-experience-card>
 </ion-content>

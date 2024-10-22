@@ -1,13 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>work-experience</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">work-experience</ion-title>
-    </ion-toolbar>
+<ion-content>
+  <ion-header>
+    <app-topbar [progress]="0.5">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>Setup your profile</div>
+      <div slot="end">
+        <ion-button
+          color="primary"
+          fill="clear"
+        >
+          Skip
+        </ion-button>
+      </div>
+    </app-topbar>
   </ion-header>
+
+  <br/>
+  <app-experience-card>
+    <div slot="image">
+      <img src="/assets/png/sample-image-1.png" width="33px">
+    </div>
+    <div slot="title">Charted Accountant Article ship</div>
+    <div slot="content">
+      R.S and Sons Charted Accountant Pvt. Ltd.<br/>
+      Amritsar Punjab, India
+    </div>
+    <div slot="footer">
+      May 2019 - Jun 2021
+    </div>
+  </app-experience-card>
 </ion-content>

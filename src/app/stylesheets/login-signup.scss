@@ -108,7 +108,7 @@ ion-button[type=submit]{
         color: #6C7278; // Should use a variable for a sustainable development
         margin-top: 8px;
     }
-    & .input-error{
+    & .input-error{ // Reused by the chip-input, should consider to put it in a higher level stylesheet
         font-size: 14px;
         line-height: 21px;
         margin-top: 6px;

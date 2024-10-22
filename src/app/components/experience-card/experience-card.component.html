@@ -1,0 +1,36 @@
+<div class="experience-card">
+  <div class="left">
+    <ng-content select="*[slot='image']"></ng-content>
+  </div>
+  <div class="center">
+    <h3 class="title">
+      <ng-content select="*[slot='title']"></ng-content>
+    </h3>
+    <div class="content">
+      <ng-content select="*[slot='content']"></ng-content>
+    </div>
+    <div class="footer">
+      <ng-content select="*[slot='footer']"></ng-content>
+    </div>
+  </div>
+  <div class="right">
+    @if (editButton) {
+      <ion-button
+        color="dark"
+        fill="clear"
+        shape="round"
+      >
+        <ion-icon src="/assets/svg/icon-trash.svg" class="trash"></ion-icon>
+      </ion-button>
+    }
+    @if (deleteButton) {
+      <ion-button
+        color="dark"
+        fill="clear"
+        shape="round"
+      >
+        <ion-icon src="/assets/svg/icon-edit.svg" class="edit"></ion-icon>
+      </ion-button>
+    }
+  </div>
+</div>

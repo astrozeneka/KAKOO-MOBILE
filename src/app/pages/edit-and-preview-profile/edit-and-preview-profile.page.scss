@@ -1,0 +1,24 @@
+
+// Specific style of app-experience-card
+app-experience-card{
+    & .rounded-container{
+        background: #E7E7E7;
+        border-radius: 6px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    & .chip{
+        display: inline-block;
+        background: #F1F1F1;
+        color: #1A1C1E;
+        height: 22px;
+        line-height: 22px;
+        border-radius: 11px;
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+}
+

@@ -26,6 +26,15 @@
     // The padding
     margin-top: var(--ion-margin-top);
     margin-bottom: var(--ion-margin-bottom);
+
+    // The event-related styles
+    // TODO, focus
+    &.has-error{
+        border-color: #B3261E;
+        & label{
+            color: #B3261E;
+        }
+    }
 }
 
 
@@ -83,7 +92,7 @@
         }
     }
 
-    margin-bottom: 10px; // Instead, the margin-bottom is transferred to the outer element
+    margin-bottom: 6px; // Instead, the margin-bottom is transferred to the outer element
 }
 
 .component{
@@ -102,6 +111,7 @@
     border-radius: 18px; // 18px;
     padding-left: 18px;
     padding-right: 18px;
+    margin-top: 10px;
     & > div{
         display: flex;
         align-items: center;
@@ -122,4 +132,12 @@
             height: 10px;
         }
     }
+}
+
+
+.input-error{ // Reused by the chip-input, should consider to put it in a higher level stylesheet
+    font-size: 14px;
+    line-height: 21px;
+    margin-top: 6px;
+    color: #B3261E;
 }
