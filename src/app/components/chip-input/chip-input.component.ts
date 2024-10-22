@@ -97,6 +97,7 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
       this.formControl.patchValue(this.formControl.value.filter((v: T) => v !== option));
     }
     this._filterOptions();
+    this.blur.emit({})
     //this.onChange(this.formControl?.value);
     //this.onTouch();
   }

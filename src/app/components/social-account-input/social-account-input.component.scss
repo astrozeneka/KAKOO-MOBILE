@@ -1,0 +1,42 @@
+@import 'src/theme/mixins.scss';
+
+.wrapper{
+    flex-grow: 1;
+    @include outlined-input-1;
+    margin-bottom: 0;
+    margin-top: 0;
+    & .inner-wrapper{
+        display: flex;
+        gap: 8px;
+        & ion-icon{
+            font-size: 20px;
+        }
+    }
+}
+
+.component{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    & ion-button{
+        height: 32px;
+        width: 32px;
+        --padding-top: 0;
+        --padding-start: 0;
+        --padding-end: 0;
+        --padding-bottom: 0;
+        & ion-icon{
+            font-size: 17px;
+        }
+        margin-right: -5px; // margin correction (should be verified later when external margin applied)
+    }
+}
+
+.input-error{
+    @include input-error-1;
+}
+
+.main{
+    margin-top: var(--ion-margin-top);
+    margin-bottom: var(--ion-margin-bottom);
+}

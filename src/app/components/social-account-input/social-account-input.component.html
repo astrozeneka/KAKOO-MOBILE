@@ -1,0 +1,27 @@
+<div class="main">
+  <div class="component">
+    <div [class]="'wrapper ' + (formControl?.invalid && formControl?.touched ? 'has-error' : '')">
+      <label>{{ label }}</label>
+      <div class="inner-wrapper">
+        <ion-icon src="/assets/svg/social-icons/icon-facebook.svg"></ion-icon>
+        <ion-input
+          fill="clear"
+          [placeholder]="placeholder"
+          [formControl]="formControl"
+        ></ion-input>
+      </div>
+    </div>
+    <ion-button
+      fill="clear"
+      color="danger"
+      (click)="clear()"
+    >
+      <ion-icon src="/assets/svg/icon-trash-red.svg"></ion-icon>
+    </ion-button>
+  </div>
+  @if (formControl.invalid && formControl.touched) {
+    <div class="input-error">
+      {{ errorText }}
+    </div>
+  }
+</div>
