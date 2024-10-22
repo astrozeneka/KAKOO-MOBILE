@@ -69,9 +69,21 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
     }
 
     // When the inner form is blurred (experimental feature)
-    this.innerFormControl.valueChanges.subscribe(() => {
-      this.blur.emit({});
-    })
+    if (this.mode == 'single') { // Maybe another condition is suitable
+      this.innerFormControl.valueChanges.subscribe((value) => {
+        console.log(value);
+        // Check if one option correspond exactly
+        let found:T|undefined = this.options.find(option => this.keyAccessor(option) == value);
+        if (found) {
+          console.log("Found", found);
+          this.formControl?.setValue(this.keyAccessor(found), { emitEvent: false });
+        } else {
+          console.log("Not found");
+          this.formControl?.setValue('', { emitEvent: false });
+        }
+        this.blur.emit({});
+      })
+    }
   }
 
   writeValue(obj: any): void {
