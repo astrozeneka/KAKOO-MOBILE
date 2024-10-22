@@ -1,0 +1,68 @@
+@import 'src/theme/mixins.scss';
+
+.referral-card{
+    @include rounded-card-1;
+    padding: 16px;
+
+    & .head{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #E9E7EA;
+        padding-bottom: 14px;
+        
+        & .left{
+            & .chip{
+                @include chip-24;
+                & ion-icon{
+                    font-size: 14px;
+                }
+                display: flex;
+                gap: 5px;
+                font-size: 13px;
+                font-weight: 500;
+            }
+        }
+
+        & .right{
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 18.2px;
+            color: #6C7278;
+        }
+    }
+
+    & .content{
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        
+        gap: 14px;
+        & .picture{
+            background: #EAEAEF;
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+        }
+
+        & .detail{
+            & .title{
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 19.09px;
+                color: #1E1E1E;
+                margin-bottom: 4px;
+            }
+
+            & .subtitle{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 18.2px;
+                color: #6C7278;
+            }
+        }
+    }
+}

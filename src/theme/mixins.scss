@@ -67,6 +67,21 @@
     font-size: 13px;
 }
 
+@mixin chip-24{
+    background: rgba(var(--ion-color-primary-rgb), 0.08);
+    color: var(--ion-color-primary);
+    display: inline-block;
+    flex-direction: row;
+    align-items: center;
+    height: 24px;
+    line-height: 24px; // Not consistent with the other chip-varient
+    border-radius: 18px;
+    padding-left: 11px;
+    padding-right: 11px;
+    margin-right: 6px;
+    font-size: 13px;
+}
+
 // Todo for later, chip 36
 @mixin chip-36{
 

@@ -1,0 +1,26 @@
+<div class="referral-card">
+  <div class="head">
+    <div class="left">
+      @if (status == 'registered'){
+        <div class="chip registered">
+          <ion-icon src="/assets/svg/icon-registered.svg"/>
+          <span>Registered</span>
+        </div>
+      }
+      <!-- TODO NEXT, the other value of status -->
+    </div>
+    <div class="right">
+      <ion-icon src="/assets/svg/icon-clock.svg"/>
+      <div class="date">{{ date }}</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="picture">
+      <img [src]="image" alt="image"/>
+    </div>
+    <div class="detail">
+      <div class="title">{{ title }}</div>
+      <div class="subtitle">{{ subtitle }}</div>
+    </div>
+  </div>
+</div>

@@ -103,10 +103,6 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/meetings/meetings.page').then( m => m.MeetingsPage)
   },
   {
-    path: 'refferals',
-    loadComponent: () => import('./pages/refferals/refferals.page').then( m => m.RefferalsPage)
-  },
-  {
     path: 'edit-and-preview-profile',
     loadComponent: () => import('./pages/edit-and-preview-profile/edit-and-preview-profile.page').then( m => m.EditAndPreviewProfilePage)
   },
@@ -125,5 +121,9 @@ export const routes: Routes = [
   {
     path: 'success',
     loadComponent: () => import('./pages/success/success.page').then( m => m.SuccessPage)
+  },
+  {
+    path: 'referrals',
+    loadComponent: () => import('./pages/referrals/referrals.page').then( m => m.ReferralsPage)
   },
 ];
