@@ -1,0 +1,94 @@
+@import 'src/theme/mixins.scss';
+
+.job-card{
+    @include rounded-card-1;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    & .head{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: -8px;// Ajustement fait à loeil
+
+        & .date{
+            font-size: 13px;
+            color: #7A7D84;
+            font-weight: 500;
+            line-height: 18.2px;
+        }
+
+        & .controls{
+            & ion-button{
+                --padding-start: 8px;
+                --padding-end: 8px;
+                --padding-top: 0;
+                --padding-bottom: 0;
+                display: flex;
+                height: 32px;
+                margin-right: -8px; // Padding correction
+                
+                & ion-icon{
+                    font-size: 13px;
+                    margin-right: 4px;
+                }
+                & span{
+                    color: #7A7D84;
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    & .content{
+        display: flex;
+        gap: 14px;
+        align-items: top;
+        & .image-container{
+            width: 45px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        & .title{
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 19px;
+            color: #1E1E1E;
+            margin-top: 3px;
+            margin-bottom: 4px;
+        }
+        & .subtitle{
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 18.2px;
+            color: #6C7278;
+        }
+    }
+
+    & .footer{
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        & ion-icon{
+            font-size: 13px;
+        }
+
+        & .status{
+            line-height: 22px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+            font-size: 12px;
+            &.applied{
+                color: #00C370;
+            }
+            &.rejected{
+                color: #D71313;
+            }
+        }
+    }
+}

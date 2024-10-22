@@ -45,10 +45,29 @@
         }
     }
 }
-
 @mixin input-error-1{
     font-size: 14px;
     line-height: 21px;
     margin-top: 6px;
     color: #B3261E;
+}
+
+// The chip with 22 px height
+@mixin chip-22{
+    background: rgba(var(--ion-color-primary-rgb), 0.08);
+    color: var(--ion-color-primary);
+    display: inline-block;
+    flex-direction: row;
+    align-items: center;
+    height: 22px;
+    border-radius: 18px;
+    padding-left: 11px;
+    padding-right: 11px;
+    margin-right: 6px;
+    font-size: 13px;
+}
+
+// Todo for later, chip 36
+@mixin chip-36{
+
 }

@@ -1,0 +1,44 @@
+<div class="job-card">
+  <div class="head">
+    <div class="date">
+      <ng-content select="[slot='date']"></ng-content>
+    </div>
+    <div class="controls">
+      <ion-button
+        fill="clear"
+        shape="round"
+        color="dark"
+      >
+        <ion-icon src="/assets/svg/icon-bookmark.svg"></ion-icon>
+        <span>Save</span>
+      </ion-button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="image-container">
+      <ng-content select="[slot='image']"></ng-content>
+    </div>
+    <div>
+      <div class="title">
+        <ng-content select="[slot='title']"></ng-content>
+      </div>
+      <div class="subtitle">
+        <ng-content select="[slot='subtitle']"></ng-content>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="chips">
+      <ng-content select="[slot='footer']"></ng-content>
+    </div>
+    <div [class]="'status ' + status">
+      @if (status == 'applied') {
+        <ion-icon src="/assets/svg/icon-applied.svg"></ion-icon>
+        <span>Applied</span>
+      } @else if (status == 'rejected') {
+        <ion-icon src="/assets/svg/icon-rejected.svg"></ion-icon>
+        <span>Rejected</span>
+      }
+    </div>
+  </div>
+</div>
