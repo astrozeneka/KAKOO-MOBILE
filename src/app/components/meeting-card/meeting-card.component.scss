@@ -1,0 +1,140 @@
+@import 'src/theme/mixins.scss';
+
+.meeting-card{
+    @include rounded-card-1;
+    padding: 16px; // Overriding padding
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    & .head{
+        display: flex;
+        gap: 15px;
+        & .left{
+            width: 39px;
+            height: 39px;
+            background: #375DFB; // To be deleted later
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            & img{
+                width: 19px;
+                height: 19px;
+            }
+        }
+        & .right{
+            .title{
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 19.09px;
+                color: #1A1C1E;
+            }
+            .subtitle{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 18.2px;
+                color: #6C7278;
+            }
+        }
+    }
+
+    & .body{
+        @include rounded-card-1;
+        padding: 14px; // Override default margin
+        display: flex;
+        gap: 12px;
+
+        & .description{
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 18.2px;
+            color: #6C7278;
+        }
+
+        & ion-button{
+            --padding-start: 8px;
+            --padding-end: 8px;
+            height: 18px;
+            margin-left: -6px; // Correcting the padding
+            margin-bottom: -10px; // Space correction
+
+            & > div{
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 18.2px;
+                
+                & ion-icon{
+                    font-size: 12px;
+                }
+            }
+        }
+
+        & .duration{
+            background: #F1F1F1;
+            border-radius: 8px;
+            min-width: 62px !important;
+            height: 77px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            & .top{
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 28.64px;
+                color: #1A1C1E;
+            }
+
+            & .bottom{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 18.2px;
+                color: #6C7278;
+            }
+        }
+    }
+
+    & .footer{
+        display: flex;
+        justify-content: space-between;
+
+        & .time{
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            & ion-icon{
+                font-size: 14px;
+            }
+
+            & > span{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 18.2px;
+                color: #6C7278;
+            }
+        }
+
+        & ion-button{
+            --padding-top: 0px;
+            --padding-bottom: 0px;
+            --padding-start: 14px;
+            --padding-end: 14px;
+            height: 34px; // Hug
+            & ion-icon{
+                margin-right: 6px;
+                font-size: 13px;
+            }
+            & > span{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 10px;
+            }
+        }
+    }
+}
