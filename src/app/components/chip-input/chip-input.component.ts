@@ -75,10 +75,8 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
         // Check if one option correspond exactly
         let found:T|undefined = this.options.find(option => this.keyAccessor(option) == value);
         if (found) {
-          console.log("Found", found);
           this.formControl?.setValue(this.keyAccessor(found), { emitEvent: false });
         } else {
-          console.log("Not found");
           this.formControl?.setValue('', { emitEvent: false });
         }
         this.blur.emit({});
