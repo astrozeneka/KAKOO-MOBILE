@@ -22,6 +22,9 @@ export class SocialAccountInputComponent  implements ControlValueAccessor, OnIni
   @Input() placeholder: string = ""
   @Input() errorText: string | undefined = undefined
 
+  // The asset src
+  @Input() icon: string = ""
+
   constructor() { }
 
   writeValue(obj: any): void {

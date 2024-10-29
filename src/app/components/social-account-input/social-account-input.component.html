@@ -3,7 +3,7 @@
     <div [class]="'wrapper ' + (formControl?.invalid && formControl?.touched ? 'has-error' : '')">
       <label>{{ label }}</label>
       <div class="inner-wrapper">
-        <ion-icon src="/assets/svg/social-icons/icon-facebook.svg"></ion-icon>
+        <ion-icon [src]="icon"></ion-icon>
         <ion-input
           fill="clear"
           [placeholder]="placeholder"
