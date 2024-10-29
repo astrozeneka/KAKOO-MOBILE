@@ -1,0 +1,21 @@
+@import 'src/theme/mixins.scss';
+
+ion-header{
+    box-shadow: none;
+}
+
+// Top banner
+.top-banner{
+    @include jobboard-top-banner;
+}
+
+// The bottom floating bar
+.floating-bottom{
+    height: 64px;
+    &>*{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}

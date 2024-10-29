@@ -86,3 +86,24 @@
 @mixin chip-36{
 
 }
+
+// JOb board top banner
+@mixin jobboard-top-banner{
+    background: #E0F9F0;
+    padding-bottom: 31px;
+    & .text{
+        margin-left: 24px;
+        margin-right: 24px;
+        padding-top: 9px;
+        font-family: SF Pro Display;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 43px;
+        text-align: left;
+        & em{
+            color: #9C2829;
+            font-weight: inherit;
+            font-style: inherit;
+        }
+    }
+}

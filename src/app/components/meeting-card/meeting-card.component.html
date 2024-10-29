@@ -10,16 +10,23 @@
   </div>
   <div class="body">
     <div class="description">
-      <div>
+      <div [class]="'text ' + (expanded?'expanded':'')">
         This interview will assess the technical expertise and problem-solving skills of a candidate applying for the Front-End
+        Developer role. The focus will be on their proficiency in front-end technologies such as HTML, CSS, and JavaScript, as well as experience with popular frameworks like React, Angular, or Vue.
       </div>
       <ion-button
         fill="clear"
         color="primary"
+        (click)="toggleExpand()"
       >
         <div>
-          <span>show more</span>
-          <ion-icon src="/assets/svg/icon-carret-down.svg"/>
+          @if (!expanded){
+            <span>show more</span>
+            <ion-icon src="/assets/svg/icon-carret-down.svg"/>
+          } @else {
+            <span>show less</span>
+            <ion-icon src="/assets/svg/icon-carret-up.svg"/>
+          }
         </div>
       </ion-button>
     </div>

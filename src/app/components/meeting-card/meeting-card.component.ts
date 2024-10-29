@@ -10,8 +10,14 @@ import { IonButton, IonIcon } from "@ionic/angular/standalone";
 })
 export class MeetingCardComponent  implements OnInit {
 
+  expanded: boolean = false;
+
   constructor() { }
 
   ngOnInit() {}
+
+  toggleExpand() {
+    this.expanded = !this.expanded;
+  }
 
 }
