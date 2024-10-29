@@ -14,17 +14,84 @@
     </app-topbar>
   </ion-header>
 
-  <br/>
-  <!-- the app-chip-input was modified in order to allow single input mode -->
-  <div class="ion-padding">
-    <app-chip-input
-      label="Type of employment"
-      placeholder="Select Type of Employment"
-      [options]="['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Freelance']"
-      [formControl]="testFormControl"
-      [errorText]="displayedErrorTest"
-      (blur)="testControlBlur()"
-      mode="single"
-    ></app-chip-input>
+  <div class="ion-padding-horizontal heading">
+    <h2 class="display-2">Job preferences</h2>
+    <div class="helper">
+      Let us know you a bit lorem ipsum is a dummy text for the printing.
+    </div>
   </div>
+  <div class="ion-padding-horizontal">
+    <div class="input-wrapper">
+      <app-chip-input
+        label="Type of employment"
+        placeholder="Select Type of Employment"
+        [options]="['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Freelance']"
+        [formControl]="testFormControl"
+        [errorText]="displayedErrorTest"
+        (blur)="testControlBlur()"
+        mode="single"
+      ></app-chip-input>
+      <!-- TODO, use the BE data structure and set variables Name -->
+    </div>
+    <div class="input-wrapper">
+      <app-chip-input
+        label="Work Type"
+        placeholder="Select Work Type"
+        [options]="['Remote', 'On-site', 'Hybrid']"
+        [errorText]="undefined"
+        mode="single"></app-chip-input>
+      <!-- TODO, use the BE data structure and set variables Name -->
+    </div>
+    <div class="input-wrapper">
+      <app-chip-input
+        label="Salary Expectations"
+        placeholder="Select Salary Expectations"
+        [options]="['$0 - $500', '$500 - $1000', '$1000 - $1500', '$1500 - $2000', '$2000 - $2500', '$2500 - $3000', '$3000 - $3500', '$3500 - $4000', '$4000 - $4500', '$4500 - $5000', '$5000 - $5500', '$5500 - $6000', '$6000 - $6500', '$6500 - $7000', '$7000 - $7500', '$7500 - $8000', '$8000 - $8500', '$8500 - $9000', '$9000 - $9500', '$9500 - $10000', '$10000+']"
+        [errorText]="undefined"
+        mode="single"
+      ></app-chip-input>
+      <!-- TODO, use the BE data structure and set variables Name -->
+    </div>
+    <div class="input-wrapper">
+      <app-chip-input
+        label="Notice Period for Full-time"
+        placeholder="Select Notice Period for Full-time"
+        [options]="['Immediate', '1 week', '2 weeks', '3 weeks', '1 month', '2 months', '3 months', '4 months', '5 months', '6 months', '7 months', '8 months', '9 months', '10 months', '11 months', '12 months']"
+        [errorText]="undefined"
+        mode="single"
+      ></app-chip-input>
+      <!-- TODO, use the BE data structure and set variables Name -->
+    </div>
+    <div class="input-wrapper">
+      <app-chip-input
+        label="Hiring Status"
+        placeholder="Select Hiring Status"
+        [options]="['Actively looking', 'Open to opportunities', 'Not looking']"
+        [errorText]="undefined"
+        mode="single"
+      ></app-chip-input>
+      <!-- TODO, use the BE data structure and set variables Name -->
+    </div>
+    <div class="input-wrapper">
+      <app-chip-input
+        label="Mobility"
+        placeholder="Add Mobility and press Enter/Return key"
+        [options]="['Accounting', 'Finance', 'Marketing', 'Sales', 'IT', 'HR', 'Admin', 'Customer Service', 'Engineering', 'Design', 'Education', 'Healthcare', 'Legal', 'Logistics', 'Manufacturing', 'Media', 'Retail', 'Science', 'Transportation', 'Others']"
+        [errorText]="undefined"
+        [formControl]="testMobilityControl"
+        mode="multiple"
+      ></app-chip-input>
+    </div>
+
+    <br/>
+    <div class="controls">
+      <ion-button
+        color="primary"
+        expand="block"
+      >
+        Save &amp; continue
+      </ion-button>
+    </div>
+  </div>
+
 </ion-content>

@@ -17,6 +17,8 @@ export class JobPreferencesPage implements OnInit {
   testFormControl:FormControl = new FormControl(null, [Validators.required])
   displayedErrorTest:string|undefined = undefined
 
+  testMobilityControl: FormControl = new FormControl([], [Validators.required]);
+
   constructor() { }
 
   ngOnInit() {
