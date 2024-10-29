@@ -1,13 +1,55 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>support</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">support</ion-title>
-    </ion-toolbar>
+<ion-content>
+  <ion-header>
+    <app-topbar variant="light">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>Support</div>
+    </app-topbar>
   </ion-header>
+
+  <div class="kakoo-header ion-padding-horizontal">
+    <img src="/assets/kakoo-logo.png" height="26px">
+  </div>
+  <div class="ion-padding-horizontal">
+    <div class="display-1">
+      Kakoo Software
+    </div>
+    <div class="subtitle-1">
+      You can get in touch with us through below platforms. Our Team will reach out to you as soon as it would be possible
+    </div>
+  </div>
+  <div class="ion-padding-horizontal">
+    <div class="card">
+      <h3>Contact support</h3>
+      <div class="item-list">
+        <div class="contact-item">
+          <div class="left email">
+            <ion-icon src="/assets/svg/support/support-email.svg"></ion-icon>
+          </div>
+          <div class="right">
+            <div class="title">Email Address</div>
+            <div class="info">support&commat;kakoo-software.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="left phone">
+            <ion-icon src="/assets/svg/support/support-phone.svg"></ion-icon>
+          </div>
+          <div class="right">
+            <div class="title">Phone Number</div>
+            <div class="info">(33) 0000 0000</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="left whatsapp">
+            <ion-icon src="/assets/svg/support/support-whatsapp.svg"></ion-icon>
+          </div>
+          <div class="right">
+            <div class="title">WhatsApp Support</div>
+            <div class="info">https://chat.whatsapp.com/ABCDEFGH</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

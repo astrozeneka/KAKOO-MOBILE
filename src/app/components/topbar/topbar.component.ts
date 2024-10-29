@@ -12,6 +12,9 @@ export class TopbarComponent  implements OnInit {
   @Input() progress: number = 0
   @Input() color: string = 'light';
 
+  // experimental
+  @Input() variant: string = 'default'
+
   constructor() { }
 
   ngOnInit() {

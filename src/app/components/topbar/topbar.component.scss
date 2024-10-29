@@ -24,12 +24,23 @@
         }
     }
 
-    .progress-bar{
+    & .progress-bar{
         background: #E7E7E9;
         position: relative;
         & .bar{
             background: #9C2829;
             height: 3px;
+        }
+    }
+
+    // The light variant
+    &.light{
+        & .progress-bar{
+            display: none;
+        }
+        border-bottom: 1px solid #E7E7E9;
+        & .content{
+            font-size: 18px!important;
         }
     }
 }

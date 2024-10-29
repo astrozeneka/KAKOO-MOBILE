@@ -1,0 +1,72 @@
+@import 'src/theme/mixins';
+
+ion-header{
+    box-shadow: none;
+}
+
+.kakoo-header{
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.subtitle-1{ // Potentially a reusable component
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 21px;
+    color: #6C7278;
+}
+
+.card{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    @include rounded-card-1;
+
+    & h3{
+        margin: 0;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 18.2px;
+        color: #6C7278;
+    }
+
+    & .item-list{
+        margin-top: 22px;
+    }
+
+    & .contact-item{
+        display: flex;
+        flex-direction: row;
+        gap: 14px;
+        & .left{
+            width: 43px;
+            height: 43px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            &.email{
+                background: #375DFB1A;
+            }
+            &.phone{
+                background: #FFA7011A;
+            }
+            &.whatsapp{
+                background: #60D6691A;
+            }
+        }
+        & .right{
+            & .title{
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 14.32px;
+                color: #6C7278;
+            }
+            & .info{
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 16.71px;
+                color: #1A1C1E;
+            }
+        }
+    }
+}
