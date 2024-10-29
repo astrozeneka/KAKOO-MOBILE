@@ -1,0 +1,39 @@
+
+.filter-chips{
+    padding-top: 20px;
+    padding-left: var(--ion-padding-left);
+    padding-right: var(--ion-padding-right);
+}
+
+.filter-chips.scrollable{
+    // Fit the children in one row
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // IE
+    &::-webkit-scrollbar {
+        display: none; // Chrome
+    }
+
+}
+
+ion-button{
+    --border-radius: 18px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --padding-start: 18px;
+    --padding-end: 18px;
+    height: 36px; // chip 36px
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.09px;
+    color: #1A1C1E;
+    --box-shadow: none;
+    --background: #f1f1f1;
+
+    // Do not break line
+    white-space: nowrap;
+}

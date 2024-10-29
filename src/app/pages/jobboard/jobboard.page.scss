@@ -1,5 +1,42 @@
 @import 'src/theme/mixins.scss';
 
+ion-header{
+    // No elevation
+    box-shadow: none;
+}
+
+// Top banner
+.top-banner{
+    background: #E0F9F0;
+    padding-bottom: 31px;
+    & .text{
+        margin-left: 24px;
+        margin-right: 24px;
+        padding-top: 9px;
+        font-family: SF Pro Display;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 43px;
+        text-align: left;
+        & em{
+            color: #9C2829;
+            font-weight: inherit;
+            font-style: inherit;
+        }
+    }
+}
+
 .chip{
     @include chip-22;
+}
+
+// The bottom floating bar
+.floating-bottom{
+    height: 64px;
+    &>*{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
 }

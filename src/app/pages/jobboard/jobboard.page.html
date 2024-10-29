@@ -1,47 +1,82 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>jobboard</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">jobboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
+<ion-content>
+  <div class="top-banner">
+    <ion-header>
+      <app-topbar-dashboard>
+      </app-topbar-dashboard>
+    </ion-header>
+    <div>
+      <div class="text">
+        You have <em>6 Jobs</em> invitations received
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <app-filter-chips
+      [items]="{
+        'all': 'All Jobs',
+        'saved': 'Saved',
+        'applied': 'Applied',
+        'rejected': 'Rejected'
+      }"
+      [formControl]="chipControl"
+    ></app-filter-chips>
+  </div> 
   <br/>
-  <app-job-card
-    status="applied"
-  >
-    <div slot="date">Sep 19, 2024, 2:56 AM</div>
-    <div slot="image">
-      <img src="/assets/png/sample-image-2.png" alt=""/>
-    </div>
-    <div slot="title">Senior Java Developer</div>
-    <div slot="subtitle">
-      Moneycore - Souad Ayari
-    </div>
-    <div slot="footer">
-      <div class="chip">Permanent</div>
-      <div class="chip">On-site</div>
-    </div>
-  </app-job-card>
-  <app-job-card
-    status="rejected"
-  >
-    <div slot="date">Sep 19, 2024, 2:56 AM</div>
-    <div slot="image">
-      <img src="/assets/png/sample-image-2.png" alt=""/>
-    </div>
-    <div slot="title">Senior Java Developer</div>
-    <div slot="subtitle">
-      Moneycore - Souad Ayari
-    </div>
-    <div slot="footer">
-      <div class="chip">Permanent</div>
-      <div class="chip">On-site</div>
-    </div>
-  </app-job-card>
+  <div class="ion-padding-horizontal">
+    <app-job-card
+      status="applied"
+    >
+      <div slot="date">Sep 19, 2024, 2:56 AM</div>
+      <div slot="image">
+        <img src="/assets/png/sample-image-2.png" alt=""/>
+      </div>
+      <div slot="title">Senior Java Developer</div>
+      <div slot="subtitle">
+        Moneycore - Souad Ayari
+      </div>
+      <div slot="footer">
+        <div class="chip">Permanent</div>
+        <div class="chip">On-site</div>
+      </div>
+    </app-job-card>
+    <app-job-card
+      status="rejected"
+    >
+      <div slot="date">Sep 19, 2024, 2:56 AM</div>
+      <div slot="image">
+        <img src="/assets/png/sample-image-2.png" alt=""/>
+      </div>
+      <div slot="title">Senior Java Developer</div>
+      <div slot="subtitle">
+        Moneycore - Souad Ayari
+      </div>
+      <div slot="footer">
+        <div class="chip">Permanent</div>
+        <div class="chip">On-site</div>
+      </div>
+    </app-job-card>
+    <app-job-card
+      status="applied"
+    >
+      <div slot="date">Sep 19, 2024, 2:56 AM</div>
+      <div slot="image">
+        <img src="/assets/png/sample-image-2.png" alt=""/>
+      </div>
+      <div slot="title">Senior Java Developer</div>
+      <div slot="subtitle">
+        Moneycore - Souad Ayari
+      </div>
+      <div slot="footer">
+        <div class="chip">Permanent</div>
+        <div class="chip">On-site</div>
+      </div>
+    </app-job-card>
+  </div>
+
+  <div class="floating-bottom">
+    <app-bottom-navbar></app-bottom-navbar>
+  </div>
 </ion-content>

@@ -1,0 +1,39 @@
+
+.nav{
+    display: flex;
+    border-top: 1px solid #E9E7EA;
+    background: white;
+    
+    & ion-button{
+        flex: 1;
+        margin: 0;
+        --padding-start: 0px;
+        --padding-end: 0px;
+        --padding-top: 17px;
+        --padding-bottom: 17px;
+        height: 63px;
+
+        & .inner{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        & ion-icon{
+            height: 24px;
+            width: 24px;
+        }
+
+        & .label{
+            color: #484848;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 16px;
+
+            &.active .label{
+                background: #9C2829;
+            }
+        }
+    }
+}

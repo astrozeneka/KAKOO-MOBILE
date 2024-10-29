@@ -1,0 +1,21 @@
+.topbar{
+    padding-top: env(safe-area-inset-top);
+
+    & .main{
+        height: 65px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 24px;
+        padding-right: 24px;
+
+        & .start img{
+            width: 85px;
+        }
+
+        & .end img{
+            width: 41px;
+        }
+    }
+}
