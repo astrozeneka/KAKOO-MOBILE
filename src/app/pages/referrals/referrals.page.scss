@@ -1,0 +1,21 @@
+@import 'src/theme/mixins.scss';
+
+ion-header{
+    box-shadow: none;
+}
+
+// Top banner
+.top-banner{
+    @include jobboard-top-banner;
+}
+
+.display-3{ // In case of reusage, please move to a upper stylesheet level
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 26.25px;
+}
+
+.display-3{
+    margin-top: 22px;
+    margin-bottom: 18px;
+}

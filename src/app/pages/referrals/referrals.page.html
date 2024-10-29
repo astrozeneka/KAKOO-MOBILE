@@ -1,21 +1,43 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>referrals</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div class="top-banner">
+    <ion-header>
+      <app-topbar-dashboard>
+      </app-topbar-dashboard>
+    </ion-header>
+    <div>
+      <div class="text">
+        Invite Your Friend to Kakoo.fr
+      </div>
+    </div>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">referrals</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-padding-horizontal">
+    <div class="display-3">Your Referral Link</div>
+    <app-referal-input
+      [value]="'https://app.kakoo-software.com/candidate/direct/apply/5ffkkjisdfoi'"
+    ></app-referal-input>
 
-  <app-referral-card
-    status="registered"
-    date="26 sept. 2024, 12:29:22"
-    title="Mohit Sharma"
-    subtitle="waddugaupexei-4923@yopmail.com"
-    image="/assets/png/sample-image-2.png"
-  ></app-referral-card>
+    <ion-button
+      expand="block"
+      fill="solid"
+      color="primary"
+      class="share-button"
+    >
+      <ion-icon src="/assets/svg/share-fill.svg" aria-hidden="true"></ion-icon>
+      Share Link
+    </ion-button>
+  </div>
+  
+  <div class="ion-padding-horizontal">
+    <div class="display-3">Referrals</div>
+
+    <app-referral-card
+      status="registered"
+      date="26 sept. 2024, 12:29:22"
+      title="Mohit Sharma"
+      subtitle="waddugaupexei-4923@yopmail.com"
+      image="/assets/png/sample-image-2.png"
+    ></app-referral-card>
+
+  </div>
 </ion-content>

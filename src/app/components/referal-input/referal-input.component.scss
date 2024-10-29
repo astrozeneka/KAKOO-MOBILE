@@ -1,0 +1,35 @@
+.referal-input{
+    
+    height: 56px;
+    display: flex;
+        // The first item has fixed, second item is flexible, and the third item has fixed
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+
+    & ion-icon[slot="start"]{
+        padding-left: 24px;
+    }
+
+    & ion-input{
+        font-size: 14px;
+
+        // Crop the text and add elipsis at the end (doesn't work)
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+    }
+
+    & ion-button{
+        background: #E0F9F0; // Should consider to use a variable
+        border-radius: 8px; // Should consider to use a variable
+    }
+
+    margin-bottom: 8px;
+    // The below code should be inserted in a dedicated class
+    border: 1px solid #E9E7EA;
+    border-radius: 8px;
+    
+}
