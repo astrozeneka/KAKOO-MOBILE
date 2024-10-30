@@ -107,3 +107,16 @@
         }
     }
 }
+
+// Floating bottom bar
+@mixin floating-bottom{
+    height: calc(64px + env(safe-area-inset-bottom));
+    &>*{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding-bottom: env(safe-area-inset-bottom);
+        background: white;
+    }
+
+}

@@ -1,0 +1,47 @@
+ion-button{
+    // height: 42px;
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    margin: 0;
+    height: unset;
+    & .inner{
+        height: unset!important;
+        text-align: left;
+        width: 100%;
+        height: 100%;
+        // line-height: 42px;
+        margin-left: 18px;
+        margin-right: 18px;
+        color: #1A1C1E;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & .content{
+            margin-bottom: 4px;
+        }
+        & .subtitle{
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 16.8px;
+            color: #6C7278;
+        }
+        padding-top: 12px;
+        padding-bottom: 12px;
+        height: unset!important;
+    }
+    // The last element of th type
+    & .inner{
+        border-bottom: var(--border-bottom, 1px solid #E7E7E9);
+    }
+    display: flex;
+
+
+    // THe color schemes
+    &[color=danger]{
+        & .content{
+            color: #FF3B30;
+        }
+    }
+}

@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from 
 import { ReferralCardComponent } from "../../components/referral-card/referral-card.component";
 import { ReferalInputComponent } from 'src/app/components/referal-input/referal-input.component';
 import { TopbarDashboardComponent } from 'src/app/topbar-dashboard/topbar-dashboard.component';
+import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-navbar.component';
 
 @Component({
   selector: 'app-referrals',
@@ -12,7 +13,7 @@ import { TopbarDashboardComponent } from 'src/app/topbar-dashboard/topbar-dashbo
   styleUrls: ['./referrals.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReferralCardComponent,
-    ReferalInputComponent, IonButton, IonIcon, TopbarDashboardComponent
+    ReferalInputComponent, IonButton, IonIcon, TopbarDashboardComponent, BottomNavbarComponent
   ]
 })
 export class ReferralsPage implements OnInit {

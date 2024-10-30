@@ -1,0 +1,17 @@
+<ion-button
+  fill="clear"
+  expand="block"
+  [color]="color"
+>
+  <div class="inner">
+    <div class="left">
+      <div class="content">
+        <ng-content></ng-content>
+      </div>
+      <div class="subtitle">
+        <ng-content select="*[slot=subtitle]"></ng-content>
+      </div>
+    </div>
+    <ion-icon [src]="'/assets/svg/icon-carret-right-button-group-' + color + '.svg'"/>
+  </div>
+</ion-button>

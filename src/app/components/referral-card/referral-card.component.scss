@@ -3,6 +3,8 @@
 .referral-card{
     @include rounded-card-1;
     padding: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 
     & .head{
         display: flex;

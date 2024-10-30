@@ -126,4 +126,8 @@ export const routes: Routes = [
     path: 'referrals',
     loadComponent: () => import('./pages/referrals/referrals.page').then( m => m.ReferralsPage)
   },
+  {
+    path: 'more-29',
+    loadComponent: () => import('./pages/more-29/more-29.page').then( m => m.More29Page)
+  },
 ];

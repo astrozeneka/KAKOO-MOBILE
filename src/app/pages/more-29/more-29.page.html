@@ -1,0 +1,122 @@
+<ion-content>
+  <ion-header>
+    <app-topbar variant="kakoo">
+      <div class="title">
+        <img src="/assets/kakoo-logo.png" height="26px">
+      </div>
+      <div slot="end">
+        <ion-button
+          color="light"
+          fill="clear"
+          class="iconed-button-1"
+        >
+          <ion-icon src="/assets/svg/topbar/icon-edit.svg"></ion-icon>
+        </ion-button>
+      </div>
+    </app-topbar>
+  </ion-header>
+
+  <div class="profile-header">
+    <div class="left">
+      <img src="/assets/svg/profile-picture-example-1.svg" class="profile-pic">
+    </div>
+    <div class="right">
+      <div class="title">Mohit Sharma</div>
+      <div class="subtitle">Senior UI/UX Designer</div>
+      <div class="detail-list">
+        <div class="detail-item">
+          <ion-icon src="/assets/svg/profile/mail.svg"></ion-icon>
+          <span>jhinganmohit79&commat;gmail.com</span>
+        </div>
+        <div class="detail-item">
+          <ion-icon src="/assets/svg/profile/phone.svg"></ion-icon>
+          <span>+91 9876543210</span>
+        </div>
+        <div class="detail-item">
+          <ion-icon src="/assets/svg/profile/location.svg"></ion-icon>
+          <span>Delhi, India</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ion-padding-horizontal">
+    <br/>
+    <app-profile-cta></app-profile-cta>
+  </div>
+
+  <div class="ion-padding-horizontal">
+    <app-section-heading>
+      Resume
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        <div class="inner">
+          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+          Edit
+        </div>
+      </ion-button>
+    </app-section-heading>
+    <app-file-card>
+      Rishabh Rai CV.pdf
+      <div slot="subtitle">Added less than a minute ago</div>
+    </app-file-card>
+  </div>
+
+
+  <div class="ion-padding-horizontal">
+    <app-section-heading>
+      Others
+    </app-section-heading>
+    <!-- a groupped button -->
+    <div class="button-group">
+      <app-button-group-item
+        (click)="testEvent('refer a friend')"
+      >
+        Refer a Friend
+      </app-button-group-item>
+      <app-button-group-item>
+        Newsletter
+      </app-button-group-item>
+      <app-button-group-item>
+        Tips
+      </app-button-group-item>
+    </div>
+    <div class="button-group">
+      <app-button-group-item>
+        About Kakoo
+      </app-button-group-item>
+      <app-button-group-item>
+        Privacy &amp; Policy
+      </app-button-group-item>
+      <app-button-group-item>
+        Terms &amp; Conditions
+      </app-button-group-item>
+    </div>
+    <div class="button-group">
+      <app-button-group-item>
+        Support
+      </app-button-group-item>
+      <app-button-group-item>
+        Contact us
+      </app-button-group-item>
+      <app-button-group-item>
+        App Version
+        <div slot="subtitle">1.1 (104)</div>
+      </app-button-group-item>
+    </div>
+    <div class="button-group">
+      <app-button-group-item
+        color="danger"
+      >
+        Logout
+      </app-button-group-item>
+    </div>
+  </div>
+
+  <div class="floating-bottom">
+    <app-bottom-navbar></app-bottom-navbar>
+  </div>
+</ion-content>

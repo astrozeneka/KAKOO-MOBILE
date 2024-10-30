@@ -43,4 +43,16 @@
             font-size: 18px!important;
         }
     }
+
+    // The Kakoo variant
+    &.kakoo{
+        & .content{
+            text-align: left;
+            padding-left: var(--ion-padding-left);
+        }
+        & .progress-bar{
+            display: none;
+        }
+        border-bottom-width: 0px;
+    }
 }

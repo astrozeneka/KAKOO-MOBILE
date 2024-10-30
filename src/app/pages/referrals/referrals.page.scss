@@ -19,3 +19,8 @@ ion-header{
     margin-top: 22px;
     margin-bottom: 18px;
 }
+
+// The bottom floating bar
+.floating-bottom{
+    @include floating-bottom;
+}

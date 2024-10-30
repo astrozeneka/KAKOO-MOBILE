@@ -15,11 +15,5 @@ ion-header{
 
 // The bottom floating bar
 .floating-bottom{
-    height: 64px;
-    &>*{
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        padding-bottom: env(safe-area-inset-bottom);
-    }
+    @include floating-bottom;
 }
