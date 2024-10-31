@@ -1,52 +1,172 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>edit-and-preview-profile</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">edit-and-preview-profile</ion-title>
-    </ion-toolbar>
+<ion-content>
+  <ion-header>
+    <app-topbar variant="light">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>Edit Profile</div>
+    </app-topbar>
   </ion-header>
 
+  <div class="ion-padding-horizontal">
+    <app-section-heading>
+      Basic Details
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        <div class="inner">
+          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+          Edit
+        </div>
+      </ion-button>
+    </app-section-heading>
+    <app-profile-basic-details-card></app-profile-basic-details-card>
+  </div>
 
-  <app-experience-card
-    [editButton]="false"
-    [deleteButton]="true"
-  >
-    <div slot="image">
-      <div class="rounded-container">
-        <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+  <div class="ion-padding-horizontal">
+    <app-section-heading>
+      Skills
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        <div class="inner">
+          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+          Edit
+        </div>
+      </ion-button>
+    </app-section-heading>
+    <app-profile-skill-chips-card
+      [items]="['Accounts', 'Microsoft Office Suite', 'Tally', 'Business Coaching']"
+    ></app-profile-skill-chips-card>
+  </div>
+  
+  <div class="ion-padding-horizontal">
+    <app-section-heading>
+      Education
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        <div class="inner">
+          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+          Edit
+        </div>
+      </ion-button>
+    </app-section-heading>
+
+
+    <app-experience-card
+      [editButton]="false"
+      [deleteButton]="true"
+    >
+      <div slot="image">
+        <div class="rounded-container">
+          <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+        </div>
       </div>
-    </div>
-    <div slot="title">Bachelor of Commerce</div>
-    <div slot="content">
-      SSSS College of commerce and Allied
-    </div>
-    <div slot="footer">
-      <div class="chip">2024</div>
-    </div>
-  </app-experience-card>
+      <div slot="title">Bachelor of Commerce</div>
+      <div slot="content">
+        SSSS College of commerce and Allied
+      </div>
+      <div slot="footer">
+        <div class="chip">2024</div>
+      </div>
+    </app-experience-card>
+    <app-experience-card
+      [editButton]="false"
+      [deleteButton]="true"
+    >
+      <div slot="image">
+        <div class="rounded-container">
+          <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+        </div>
+      </div>
+      <div slot="title">Bachelor of Commerce</div>
+      <div slot="content">
+        SSSS College of commerce and Allied
+      </div>
+      <div slot="footer">
+        <div class="chip">2024</div>
+      </div>
+    </app-experience-card>
+
+  </div>
+
+  <!-------- Experience-->
+  <div class="ion-padding-horizontal">
+
+    <app-section-heading>
+      Experience
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        <div class="inner">
+          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+          Edit
+        </div>
+      </ion-button>
+    </app-section-heading>
+    <app-experience-card
+      [editButton]="false"
+      [deleteButton]="true"
+    >
+      <div slot="image">
+        <div class="rounded-container">
+          <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+        </div>
+      </div>
+      <div slot="title">Charted Accountant Article ship</div>
+      <div slot="content">
+        R.S and Sons Charted Accountant Pvt. Ltd.<br/>
+        Amritsar Punjab, India
+      </div>
+      <div slot="footer">
+        <div class="chip">May 2019 - Jun 2021</div>
+      </div>
+    </app-experience-card>
+  </div>
+
+  <div class="ion-padding-horizontal">
+    <app-section-heading>
+      Job preferences
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        <div class="inner">
+          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+          Edit
+        </div>
+      </ion-button>
+    </app-section-heading>
+    <!-- For later, every data should be well-organized using Typescript -->
+    <app-profile-job-preferences-card></app-profile-job-preferences-card>
+  </div>
+
+  <div class="ion-padding-horizontal">
+    <app-section-heading>
+      Social Media Links
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        <div class="inner">
+          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+          Edit
+        </div>
+      </ion-button>
+    </app-section-heading>
+    <!-- For later, every data should be well-organized using Typescript -->
+    <app-profile-social-media-links-card></app-profile-social-media-links-card>
+  </div>
 
   <br/>
-  <app-experience-card
-    [editButton]="false"
-    [deleteButton]="true"
-  >
-    <div slot="image">
-      <div class="rounded-container">
-        <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
-      </div>
-    </div>
-    <div slot="title">Charted Accountant Article ship</div>
-    <div slot="content">
-      R.S and Sons Charted Accountant Pvt. Ltd.<br/>
-      Amritsar Punjab, India
-    </div>
-    <div slot="footer">
-      <div class="chip">May 2019 - Jun 2021</div>
-    </div>
-  </app-experience-card>
 </ion-content>

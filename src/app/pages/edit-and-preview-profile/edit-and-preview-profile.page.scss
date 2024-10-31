@@ -1,3 +1,6 @@
+ion-header{
+    box-shadow: none;
+}
 
 // Specific style of app-experience-card
 app-experience-card{
@@ -22,3 +25,10 @@ app-experience-card{
     }
 }
 
+// A global margin setup for each items
+ion-content{
+    & app-section-heading{
+        --margin-top: 8px; // 16-8px
+        --margin-bottom: 6px; // 14-8px
+    }
+}

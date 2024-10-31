@@ -1,0 +1,28 @@
+.social-chip{
+    background: #F1F1F1;
+    height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    border-radius: 11px; // Same as chip-22
+    padding-left: 11px; // Same as chip-22
+    padding-right: 11px; // Same as chip-22
+
+    & .inner{
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        align-items: center;
+        height: 22px;
+
+        & ion-icon{
+            
+        }
+
+        & .content{
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 10px;
+            color: #1A1C1E;
+        }
+    }
+}

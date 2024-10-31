@@ -1,0 +1,61 @@
+
+.profile-basic-details-card{
+    padding: 14px;
+    border: 1px solid #E7E7E9;
+    border-radius: 6px;
+
+    & .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+
+        & .left{
+            min-width: 41px;
+        }
+
+        & .right{
+            flex-grow: 1;
+            & .title{
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 21.48px;
+                color: #1A1C1E;
+                margin-bottom: 6px;
+            }
+            & .subtitle{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 15.51px;
+                color: #6C7278;
+            }
+        }
+    }
+
+    & .item{
+        margin-top: 16px;
+        margin-bottom: 16px;
+        & .label{
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 14.32px;
+            color: #6C7278;
+            margin-bottom: 4px;
+        }
+        & .value{
+            font-size: 14px;
+            line-height: 16.71px;
+        }
+    }
+
+    & .content{
+        margin-top: 22px;
+        display: flex;
+        & .left{
+            flex-grow: 1;
+        }
+        & .right{
+            flex-grow: 1;
+        }
+    }
+}

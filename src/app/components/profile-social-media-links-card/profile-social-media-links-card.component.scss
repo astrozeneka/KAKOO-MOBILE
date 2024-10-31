@@ -1,0 +1,38 @@
+.profile-social-media-links-card{
+    padding: 14px;
+    border: 1px solid #E7E7E9;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    & .item{
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        align-items: center;
+        height: 22px;
+
+        & .label{
+            width: 30%;
+        }
+        & .value{
+
+        }
+
+        & ion-button{
+            --padding-start: 5px;
+            --padding-end: 5px;
+            --padding-top: 0px;
+            --padding-bottom: 0px;
+            height: 22px;
+            --border-radius: 22px;
+            & .inner{
+                font-size: 13px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+        }
+    }
+}

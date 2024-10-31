@@ -1,0 +1,30 @@
+@import 'src/theme/mixins.scss';
+
+.profile-skill-chips-card{
+    border: 1px solid #E7E7E9;
+    border-radius: 5px;
+    padding: 14px;
+    & .description{
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 18.2px;
+        color: #6C7278;
+    }
+    & .chips{
+        margin-top: 12px;
+        & > *{
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+        & .chip{
+            @include chip-22;
+        }
+        & .more{
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 18.2px;
+            color: #1A1C1E;
+            display: inline-block;
+        }
+    }
+}

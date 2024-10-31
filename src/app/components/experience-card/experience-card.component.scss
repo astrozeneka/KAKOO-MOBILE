@@ -1,9 +1,12 @@
 
 @import 'src/theme/mixins.scss';
+
 .experience-card{
     @include rounded-card-1;
     display: flex;
     align-items: top;
+    margin-top: var(--margin-top, 8px);
+    margin-bottom: var(--margin-bottom, 8px);
 
     & .left {
         min-width: 28px;

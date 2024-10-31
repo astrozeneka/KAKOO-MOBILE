@@ -1,0 +1,25 @@
+.profile-job-preferences-card{
+    padding: 14px;
+    border: 1px solid #E7E7E9;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    & .item{
+        display: flex;
+        & .left{
+            width: 35%;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 18.2px;
+            color: #7A7D84;
+        }
+        & .right{
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 18.2px;
+            color: #1A1C1E;
+        }
+    }
+}
