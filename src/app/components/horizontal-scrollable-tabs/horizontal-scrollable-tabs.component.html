@@ -1,0 +1,20 @@
+<div class=""></div>
+<div class="horizontal-scrollable-tabs">
+  <div class="scroll-content">
+    <!--<div class="inner">-->
+      @for (key of itemKeys; track $index) {
+        <ion-button
+          fill="clear"
+          [class]="(activeIndex == $index ? 'active' : '')"
+          (click)="triggerNavigation(key)"
+        >
+          <div [class]="'inner'">
+            {{ items[key] }}
+            <div [class]="'fake-border ' + (activeIndex == $index ? '' : 'hidden')"></div>
+          </div>
+        </ion-button>
+      }
+    <!--</div>-->
+    <div class="border-bottom"></div>
+  </div>
+</div>

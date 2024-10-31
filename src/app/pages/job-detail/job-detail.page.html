@@ -16,5 +16,76 @@
     </app-topbar>
   </ion-header>
 
-  <!-- content here -->
+  <div class="ion-padding-horizontal">
+    <app-job-details-header></app-job-details-header>
+  </div>
+
+  <!-- Here and above will be fixed -->
+  <!-- the below item should be sticky -->
+  <app-horizontal-scrollable-tabs [items]="
+    {
+      'description': 'Job Description',
+      'responsibilities': 'Responsibilities',
+      'jobRequirements': 'Job requirements'
+    }
+  "
+    (action)="goToSection($event)"
+  ></app-horizontal-scrollable-tabs>
+  <div class="ion-padding-horizontal">
+    <div class="detail-content">
+      <h3 id="description" #description>Job Description</h3>
+      <p>
+        We are looking for a talented Senior Android Developer to join our team. The ideal candidate will have strong experience in Android development using Android Studio, Java, JScript, and Spring Framework.
+      </p>
+      <h3 id="responsibilities" #responsibilities>Job Key Responsibilities</h3>
+      <ul>
+        <li>Design and develop advanced applications for the Android platform</li>
+        <li>Collaborate with cross-functional teams to define, design, and ship new features</li>
+        <li>Work with external data sources and APIs</li>
+        <li>Unit-test code for robustness, including edge cases, usability, and general reliability</li>
+        <li>Continuously discover, evaluate, and implement new technologies to maximize development efficiency</li>
+      </ul>
+      <h3 id="job-requirements" #jobRequirements>Job Requirements</h3>
+      <ul>
+        <li>Experience with third-party libraries and APIs</li>
+        <li>Solid understanding of the full mobile development life cycle</li>
+        <li>Strong problem-solving skills and attention to detail</li>
+        <li>Fluency in English and French or Hindi</li>
+      </ul>
+    </div>
+  </div>
+
+  <br/>
+  <br/>
+
+  <div class="ion-padding-horizontal">
+    <div class="hr"></div> <!-- In the future, should consider to make as a reusable -->
+
+    <!-- Untill Here -->
+    <app-job-details-requirements-table></app-job-details-requirements-table>
+
+
+    <div class="hr"></div> <!-- In the future, should consider to make as a reusable -->
+  </div>
+
+  <div class="ion-padding-horizontal">
+    <app-job-details-employer-questions></app-job-details-employer-questions>
+  </div>
+
+  <div class="floating-controls">
+    <div class="inner">
+      <div class="ion-padding-horizontal">
+        <ion-button
+          class="danger"
+        >
+          Reject
+        </ion-button>
+        <ion-button
+          color="primary"
+        >
+          Apply for job
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>

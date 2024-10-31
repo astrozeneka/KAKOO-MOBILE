@@ -13,3 +13,71 @@ ion-header{
         margin-right: .25em;
     }
 }
+
+app-horizontal-scrollable-tabs{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.detail-content{
+    & h3{
+        margin: 0;
+        margin-top: 30px;
+        margin-bottom: 14px;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 28.6px;
+        color: #1A1C1E;
+    }
+    & p{
+        margin: 0;
+    }
+    & ul{
+        margin: 0;
+        padding: 0;
+        margin-left: 22px;
+    }
+    & p, & ul{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 23px;
+        color: #6C7278;
+    }
+}
+
+.hr{
+    width: 100%;
+    height: 0px;
+    border-bottom: 1px solid #E9E7EA
+}
+
+.floating-controls{
+    height: calc(78px + env(safe-area-inset-bottom));
+    & > .inner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background: white;
+        width: 100%;
+        height: 78px;
+        padding-bottom: env(safe-area-inset-bottom);
+        & > div{
+            display: flex;
+            height: 100%;
+            align-items: center;
+            & > ion-button{
+                flex-grow: 1; // 50/50 each
+                &.danger{
+                    --background: #D71313!important;
+                }
+            }
+        }
+    }
+}
+
+// The spacings
+app-job-details-requirements-table, app-job-details-employer-questions{
+    --margin-top: 20px;
+    --margin-bottom: 20px;
+}

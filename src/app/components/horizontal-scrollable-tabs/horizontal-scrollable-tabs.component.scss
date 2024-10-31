@@ -1,0 +1,74 @@
+.horizontal-scrollable-tabs{
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // IE
+    &::-webkit-scrollbar {
+        display: none; // Chrome
+    }
+
+    & ion-button{
+        // no wrap
+        white-space: nowrap;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19.09px;
+        --padding-start: 0;
+        --padding-end: 0;
+        --padding-top: 0;
+        --padding-bottom: 0;
+        height: 47px;
+        overflow:visible;
+        --border-radius: 0;
+        margin-left: 0;
+        margin-right: 0;
+
+        & .inner{
+            color: #7A7D84;
+            padding-left: 18px;
+            padding-right: 18px;
+            position: relative;
+            height: 100%;
+            line-height: 44px;
+        }
+        &.active{
+            & .inner{
+                color: #1E1E1E;
+            }
+        }
+
+        & .fake-border{
+            width: 100%;
+            height: 3px;
+            background: var(--ion-color-primary);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            border-radius: 1.5px;
+            &.hidden{
+                height: 0;
+            }
+            z-index: 9999;
+        }
+    }
+
+
+
+    & .scroll-content{
+        display: flex;
+        flex-wrap: nowrap;
+        position: relative;
+        width: fit-content;
+        & .border-bottom{
+            border-bottom: 3px solid #E7E7E9;
+            background: white;
+            //height: 3px;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            bottom: 4px;
+            z-index: -2;
+        }
+    }
+}
