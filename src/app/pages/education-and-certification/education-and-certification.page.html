@@ -1,13 +1,100 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>education-and-certification</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <app-topbar [progress]="0.4">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>Setup your profile</div>
+    <div slot="end">
+      <ion-button
+        color="primary"
+        fill="clear"
+      >
+        Skip
+      </ion-button>
+    </div>
+  </app-topbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">education-and-certification</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="ion-padding-horizontal form-wrapper">
+
+    <div class="form-header">
+      <h2 class="display-2">Education and Certification</h2>
+      <div class="helper">
+        Let us know you a bit lorem ipsum is a dummy text for the printing.
+      </div>
+    </div>
+
+    <!-- Education -->
+    <app-section-heading class="education-heading">
+      Education
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        Add
+      </ion-button>
+    </app-section-heading>
+    <app-experience-card
+      [editButton]="true"
+      [deleteButton]="true"
+    >
+      <div slot="image">
+        <div class="rounded-container">
+          <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+        </div>
+      </div>
+      <div slot="title">Bachelor of Commerce</div>
+      <div slot="content">
+        SSSS College of commerce and Allied
+      </div>
+      <div slot="footer">
+        <div class="chip">2024</div>
+      </div>
+    </app-experience-card>
+    <app-experience-card
+      [editButton]="true"
+      [deleteButton]="true"
+    >
+      <div slot="image">
+        <div class="rounded-container">
+          <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+        </div>
+      </div>
+      <div slot="title">Higher Secondary</div>
+      <div slot="content">
+        SSSS College of commerce and Allied
+      </div>
+      <div slot="footer">
+        <div class="chip">2024</div>
+      </div>
+    </app-experience-card>
+
+    <!-- Certification -->
+    <app-section-heading class="certification-heading">
+      Certification
+    </app-section-heading>
+    <div>
+      <ion-button
+        fill="outline"
+        color="primary"
+        class='add-button'
+      >
+        <div class="inner">
+          Add certificate
+        </div>
+      </ion-button>
+    </div>
+
+    <div class="bottom-controls">
+      <div class="inner">
+        <ion-button
+          color="primary"
+          expand="block"
+        >
+          Save &amp; continue
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
 </ion-content>

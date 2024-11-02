@@ -1,0 +1,34 @@
+@import 'src/theme/mixins.scss';
+
+ion-header{
+    box-shadow: none;
+}
+
+// The below component should be moved to a higher stylesheet level
+ion-button.add-button{
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    height: 40px; // Make it fit the figma design
+    & .inner{
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19.09px;
+    }
+}
+
+
+.form-wrapper{
+    @include form-wrapper-with-bottom-controls;
+}
+
+.form-header{
+    padding-top: 30px;
+}
+
+.education-heading{
+    --margin-bottom: 0px;
+}
+
+.certification-heading{
+    --margin-bottom: 0px;
+}
