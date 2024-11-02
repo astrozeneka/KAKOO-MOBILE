@@ -1,0 +1,89 @@
+.dashboard-recommended-job-card{
+    padding: 18px;
+    border-radius: 14px;
+    background: #FFFFFF;
+    & .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        & .left{
+            & .img-container {
+                height: 31px;
+                width: 31px;
+                border-radius: 4px;
+                background: #375DFB;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            & .label{
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 19.09px;
+                color: #1E1E1E;
+            }
+        }
+
+        & .right{
+            & ion-button{
+                margin-top: -6px; // Padding correction
+                margin-right: -6px;
+                --padding-start: 0px; // ext step should consider to use mixin to avoid code redundency
+                --padding-end: 0px;
+                --padding-top: 0px;
+                --padding-bottom: 0px;
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+
+    & .content{
+        margin-top: 14px;
+        & .title{
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 21.48px;
+            color: #1E1E1E;
+            margin-bottom: 6px;
+        }
+        & .subtitle{
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 18.2px;
+            color: #7A7D84;
+        }
+    }
+    
+    & .footer{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 16px;
+        & .left{ // The chips
+            & .chip{
+                font-size: 11px;
+                font-weight: 500;
+                line-height: 10px;
+
+                background: #F1F1F1;
+                color: #6C7278;
+                display: inline-block;
+                border-radius: 4px;
+                height: 22px;
+                line-height: 22px;
+                padding-left: 11px;
+                padding-right: 11px;
+                margin-right: 6px;
+            }
+        }
+        & .right{
+            color: var(--ion-color-primary);
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 18.2px;
+            text-wrap: nowrap;
+        }
+    }
+}

@@ -1,7 +1,97 @@
+@import 'src/theme/mixins.scss';
 
+ion-header{
+    box-shadow: none;
+    & .img-container .img{
+        width: 41px;
+        height: 41px;
+    }
+}
+
+// THe welcoming section
+.welcome{
+    color: #1A1C1E;   
+    & .title{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;        
+        margin-bottom: 6px;
+    }
+    & .subtitle{
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 28px;     
+    }
+}
+
+// The profile CTA
+app-profile-cta{
+    --margin-top: 24px;
+    --margin-bottom: 24px;
+}
+
+// The menu below the profile CTA
+app-section-heading{
+    --margin-top: -4px; // Margin correction to fit with the figma design
+    --margin-bottom: -8px; // Margin correction to fit with the figma design
+}
+.button-group{
+    @include button-group;
+}
+
+// section-heading-2
+.section-heading-2{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+    color: #6C7278;
+    margin-top: 18px;
+}
 .half-half{
     display: flex;
     gap: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+// The horizontal scrolling item
+.recommended-jobs{
+    margin-top: 24px;
+    Margin-bottom: 24px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    & .title{
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 26.25px;
+        margin-bottom: 16px;
+    }
+
+    & .horizontal-scroll{
+        display: flex; // Can consider to put it as a mixin
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; // Firefox
+        -ms-overflow-style: none; // IE
+        &::-webkit-scrollbar {
+            display: none; // Chrome
+        } // End the future mixin
+
+
+        gap: 10px;
+
+        & > *{
+            min-width: 258px;
+        }
+    }
+}
+
+// The recommended assessments sections
+
+
+// The bottom floating bar
+.floating-bottom{
+    @include floating-bottom;
 }

@@ -1,0 +1,50 @@
+
+.dashboard-interview-cta{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 12px;
+
+    & .left{
+        & .title{
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 19.6px;
+            color: #1A1C1E;
+            margin-bottom: 2px;
+        }
+        & .subtitle{
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16.8px;  
+            color: #6C7278;
+        }
+    }
+
+    & .right{
+        & ion-button{
+            --ion-padding-start: 0;
+            --ion-padding-end: 0;
+            --ion-padding-top: 0;
+            --ion-padding-bottom: 0;
+            --border-radius: 30px;
+            height: 30px;
+            & > .inner{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 7px;
+                margin-left: -3px; // Small correction to fit the figma design
+                margin-right: -3px; // Small correction to fit the figma design
+                & span{
+                    font-size: 13px;
+                    font-weight: 500;
+                    line-height: 10px;
+                }
+            }
+        }
+    }
+}

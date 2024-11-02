@@ -7,8 +7,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: var(--margin-top, 8px);
+    margin-bottom: var(--margin-bottom, 8px);
 
     & .left{
         flex-grow: 1;

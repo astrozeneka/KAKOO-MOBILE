@@ -57,7 +57,7 @@
     background: rgba(var(--ion-color-primary-rgb), 0.08);
     color: var(--ion-color-primary);
     display: inline-block;
-    flex-direction: row;
+    flex-direction: row; // ???
     align-items: center;
     height: 22px;
     line-height: 22px;
@@ -120,4 +120,16 @@
         background: white;
     }
 
+}
+
+// The button group
+@mixin button-group{
+    border: 1px solid #E7E7E9;
+    border-radius: 6px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    
+    &>app-button-group-item:last-of-type{
+        --border-bottom: 0px solid black;
+    }
 }

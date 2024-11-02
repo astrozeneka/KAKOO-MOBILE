@@ -1,3 +1,4 @@
+@import 'src/theme/mixins.scss';
 
 ion-header{
     box-shadow: none;
@@ -59,14 +60,7 @@ app-profile-cta{
 
 // The grouppped button
 .button-group{
-    border: 1px solid #E7E7E9;
-    border-radius: 6px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    
-    &>app-button-group-item:last-of-type{
-        --border-bottom: 0px solid black;
-    }
+    @include button-group;
 }
 
 // The button with icon (maybe can be reused in the future)

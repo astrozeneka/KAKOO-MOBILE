@@ -7,7 +7,7 @@
 
 .filter-chips.scrollable{
     // Fit the children in one row
-    display: flex;
+    display: flex; // Can consider to put it as a mixin
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;

@@ -113,10 +113,25 @@
     --ion-padding-right: 24px;
     --ion-padding-top: 24px;
     --ion-padding-bottom: 24px;
+
     --ion-margin-left: 24px;
     --ion-margin-right: 24px;
     --ion-margin-top: 24px;
     --ion-margin-bottom: 24px;
+}
+.ion-padding-horizontal{
+    padding-left: var(--ion-padding-left);
+    padding-right: var(--ion-padding-right);
+}
+.ion-padding-vertical{
+    padding-top: var(--ion-padding-top);
+    padding-bottom: var(--ion-padding-bottom);
+}
+.ion-padding{
+    padding-left: var(--ion-padding-left);
+    padding-right: var(--ion-padding-right);
+    padding-top: var(--ion-padding-top);
+    padding-bottom: var(--ion-padding-bottom);
 }
 
 ion-input{

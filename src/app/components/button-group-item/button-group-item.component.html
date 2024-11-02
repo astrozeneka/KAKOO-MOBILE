@@ -12,6 +12,13 @@
         <ng-content select="*[slot=subtitle]"></ng-content>
       </div>
     </div>
-    <ion-icon [src]="'/assets/svg/icon-carret-right-button-group-' + color + '.svg'"/>
+    <div class="right">
+      @if (chip > 0 && chip < 10) {
+        <div class="chip">{{ chip }}</div>
+      } @else {
+        <div class="chip">9+</div>
+      }
+      <ion-icon [src]="'/assets/svg/icon-carret-right-button-group/icon-carret-right-button-group-' + color + '.svg'"/>
+    </div>
   </div>
 </ion-button>
