@@ -1,13 +1,55 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>add-skills</ion-title>
-  </ion-toolbar>
+<!-- The architecture of this page is different from the others-->
+ <!-- Here, the header is ouside the ion-content -->
+<ion-header [translucent]="false">
+  <app-topbar [progress]="0.2">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>Setup your profile</div>
+    <div slot="end">
+      <ion-button
+        color="primary"
+        fill="clear"
+      >
+        Skip
+      </ion-button>
+    </div>
+  </app-topbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">add-skills</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- putting ion-header inside the content will avoid it to stick when changing page -->
+  <!-- more consistent with various type of header -->
+  <!-- the code used to stick the Save&Continue button should be reused -->
+  <div class="ion-padding-horizontal form-wrapper">
+    <div class="form-header">
+      <h2 class="display-2">Add skills</h2>
+      <div class="helper">
+        Let us know you a bit lorem ipsum is a dummy text for the printing.
+      </div>
+    </div>
+
+
+    <!-- the component below still have a bug -->
+    <!-- ERROR TypeError: Cannot read properties of null (reading 'toLowerCase') -->
+    <!-- Need futher evaluation before declaring as a prioritary or not -->
+    <app-chip-input
+      label="Skills *"
+      placeholder="Skill (ex: Full Stack Developer)"
+      [options]="['Accounts', 'Admin', 'Agriculture', 'Architecture', 'Art', 'Automotive', 'Banking', 'Beauty', 'Business', 'Charity', 'Construction', 'Consulting', 'Creative', 'Customer Service', 'Design', 'Digital', 'Education', 'Engineering', 'Entertainment', 'Fashion', 'Finance', 'Food', 'Health', 'Hospitality', 'HR', 'IT', 'Legal', 'Logistics', 'Management', 'Manufacturing', 'Marketing', 'Media', 'Medical', 'Music', 'Nursing', 'Operations', 'Pharmaceutical', 'PR', 'Property', 'Retail', 'Sales', 'Science', 'Security', 'Social Care', 'Sport', 'Tech', 'Telecoms', 'Tourism', 'Transport', 'Travel', 'Utilities', 'Web Development']"
+      [formControl]="testSkillsFormControl"
+      [errorText]="displayedErrorTestSkills"
+      (blur)="testSkillsControlBlur()"
+    ></app-chip-input>
+
+
+    <div class="bottom-controls">
+      <div class="inner">
+        <ion-button
+          color="primary"
+          expand="block"
+        >
+          Save &amp; continue
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>

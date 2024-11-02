@@ -1,0 +1,14 @@
+@import 'src/theme/mixins.scss';
+
+ion-header{
+    box-shadow: none;
+    background: white;
+}
+
+.form-wrapper{
+    @include form-wrapper-with-bottom-controls;
+}
+
+.form-header{
+    padding-top: 30px;
+}

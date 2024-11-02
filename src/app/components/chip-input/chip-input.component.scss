@@ -124,6 +124,9 @@
 }
 
 // The chip, similar to ion-chip of ionic
+.chip-container{
+    margin-top: 10px;
+}
 .chip{
     background: rgba(var(--ion-color-primary-rgb), 0.08);
     color: var(--ion-color-primary);
@@ -134,7 +137,8 @@
     border-radius: 18px; // 18px;
     padding-left: 18px;
     padding-right: 18px;
-    margin-top: 10px;
+    margin-top: 6px;
+    margin-right: 6px;
     & > div{
         display: flex;
         align-items: center;

@@ -133,3 +133,23 @@
         --border-bottom: 0px solid black;
     }
 }
+
+// Form-wrapper with bottom controls
+@mixin form-wrapper-with-bottom-controls{
+    min-height: 100%;
+    position: relative;
+    & .bottom-controls{
+        height: calc(83px + env(safe-area-inset-bottom));
+        & .inner{
+            background: white;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding-left: var(--ion-padding-left);
+            padding-right: var(--ion-padding-right);
+            padding-top: calc(var(--ion-padding-top) / 2);
+            padding-bottom: calc(var(--ion-padding-bottom) / 2 + env(safe-area-inset-bottom));
+        }
+    }
+}
