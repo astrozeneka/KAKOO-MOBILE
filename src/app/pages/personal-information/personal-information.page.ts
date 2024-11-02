@@ -25,6 +25,16 @@ export class PersonalInformationPage implements OnInit {
   displayedErrorTest2:string|undefined = undefined
   displayedErrorTestCountry:string|undefined = undefined
 
+
+  // Test (o be deleted later)
+  testStateFormControl:FormControl = new FormControl(null, [Validators.required]);
+  testCityFormControl:FormControl = new FormControl(null, [Validators.required]);
+  displayedErrorTestState:string|undefined = undefined
+  displayedErrorTestCity:string|undefined = undefined
+  testStateControlBlur = () => {}
+  testCityControlBlur = () => {}
+
+
   countryKeyAccessor = (country: any) => country.name;
 
   constructor() { }
