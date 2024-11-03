@@ -48,7 +48,10 @@
     &.kakoo{
         & .content{
             text-align: left;
-            padding-left: var(--ion-padding-left);
+            padding-left: var(--ion-padding-left); // idk if this will need refactor for future design
+        }
+        & .end{
+            padding-right: var(--ion-padding-right); // idk if this will need refactor for future design
         }
         & .progress-bar{
             display: none;
