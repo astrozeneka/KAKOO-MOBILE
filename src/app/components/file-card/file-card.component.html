@@ -1,6 +1,10 @@
-<div class="file-card">
+<div [class]="'file-card ' + variant">
   <div class="left">
-    <ion-icon src="/assets/svg/icon-file-card-pdf.svg"></ion-icon>
+    @if (variant == 'default'){
+      <ion-icon src="/assets/svg/file-card/icon-file-card-default.svg"></ion-icon>
+    } @else if (variant == 'review-1' || variant == 'welcome') {
+      <ion-icon src="/assets/svg/file-card/icon-file-card-review-1.svg"></ion-icon>
+    }
   </div>
   <div class="right">
     <div class="title">
@@ -10,4 +14,15 @@
       <ng-content select="*[slot='subtitle']"></ng-content>
     </div>
   </div>
+  @if (variant == 'review-1'){
+    <div class="controls">
+      <ion-button
+        color="dark"
+        fill="clear"
+        shape="round"
+      >
+        <ion-icon src="/assets/svg/file-card/ellipsis.svg"></ion-icon>
+      </ion-button>
+    </div>
+  }
 </div>

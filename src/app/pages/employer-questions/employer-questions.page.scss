@@ -1,0 +1,44 @@
+
+@import 'src/theme/mixins';
+
+ion-header{
+    box-shadow: none;
+}
+
+app-topbar{
+    & ion-button{
+        --padding-start: 0px;
+        --padding-end: 0px;
+        --padding-top: 0px;
+        --padding-bottom: 0px;
+        --border-radius: 50%;
+        height: 48px;
+        width: 48px;
+
+    }
+}
+
+.display-5{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 23.4px;
+    color: #1A1C1E;
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+ion-textarea{
+    height: 95px;
+    margin-top: 0px;
+    margin-bottom: px;
+}
+
+// In the future, can consider to put this in the global stylesheet
+ion-input[fill=outline], ion-textarea[fill=outline]{
+    --border-color: #79747E;
+}
+
+
+.form-wrapper{
+    @include form-wrapper-with-bottom-controls;
+}

@@ -28,6 +28,12 @@
     border: 1px solid #E7E7E9;
 }
 
+
+app-file-card{
+    --margin-top: 24px;
+    --margin-bottom: 24px;
+}
+
 .iconed-card{
     padding: 20px; // Can consider to put it in a higher level
     margin-top: 24px;

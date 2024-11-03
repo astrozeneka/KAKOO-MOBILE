@@ -19,7 +19,8 @@
         Please use your resume to fill out your profile. We’ll auto fetch the data.
       </div>
 
-      <div class="rounded-card-2 iconed-card">
+      <!-- Always prefer simple and functionnal code to cumbuersome and hard to read codes -->
+      <!--<div class="rounded-card-2 iconed-card">
         <div class="">
           <ion-icon src="/assets/svg/icon-document.svg"/>
         </div>
@@ -29,7 +30,14 @@
             Max size file <em>2MB</em> (.pdf, .doc, .docx)
           </div>
         </div>
-      </div>
+      </div>-->
+
+
+      <app-file-card variant="welcome">
+        Rishabh Rai CV.pdf
+        <div slot="subtitle">Added less than a minute ago</div>
+      </app-file-card>
+
       <ion-button
         expand="block"
         class="submit-button"

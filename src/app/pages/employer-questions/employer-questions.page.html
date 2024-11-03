@@ -1,13 +1,60 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>employer-questions</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <app-topbar variant="light">
+    <!--<app-back-button slot="start" variant="topbar"></app-back-button>-->
+    <ion-button
+      slot="start"
+      fill="clear"
+      color=dark
+      shape="round"
+    >
+      <ion-icon src="/assets/svg/icon-close-2.svg"></ion-icon>
+    </ion-button>
+    <div>Answer employer questions</div>
+  </app-topbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">employer-questions</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+<ion-content>
+  <div class="ion-padding-horizontal form-wrapper">
+    <h2 class="display-5">How comfortable are you with Java frameworks like Spring or Hibernate?</h2>
+    <ion-textarea
+      fill="outline"
+      placeholder="Type answer"
+    ></ion-textarea>
+
+    <h2 class="display-5">Can you discuss a project where you successfully delivered a challenging feature using Java?</h2>
+    <ion-textarea
+      fill="outline"
+      placeholder="Type answer"
+    ></ion-textarea>
+
+    <h2 class="display-5">How do you stay updated with the latest trends and technologies in Java development?</h2>
+    <ion-textarea
+      fill="outline"
+      placeholder="Type answer"
+    ></ion-textarea>
+
+    <h2 class="display-5">How do you stay updated with the latest trends and technologies in Java development?</h2>
+    <ion-textarea
+      fill="outline"
+      placeholder="Type answer"
+    ></ion-textarea>
+
+    <h2 class="display-5">Documents</h2>
+    <app-file-card variant="review-1">
+      Rishabh Rai CV.pdf
+      <div slot="subtitle">Added less than a minute ago</div>
+    </app-file-card>
+
+    <div class="bottom-controls">
+      <div class="inner">
+        <ion-button
+          color="primary"
+          expand="block"
+        >
+          Save &amp; continue
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>
