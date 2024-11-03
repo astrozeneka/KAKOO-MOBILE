@@ -1,84 +1,96 @@
-<ion-content>
-  <ion-header>
-    <app-topbar [progress]="0.7">
-      <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Setup your profile</div>
-      <div slot="end">
-        <ion-button
-          color="primary"
-          fill="clear"
-        >
-          Skip
-        </ion-button>
-      </div>
-    </app-topbar>
-  </ion-header>
 
-
-  <div class="ion-padding-horizontal heading">
-    <h2 class="display-2">Social Accounts</h2>
-    <div class="helper">
-      Let us know you a bit lorem ipsum is a dummy text for the printing.
-    </div>
-  </div>
-  
-  <div class="ion-padding-horizontal">
-    <div class="input-wrapper">
-      <app-social-account-input
-        label="Facebook"
-        placeholder="https://www.facebook.com/"
-        icon="/assets/svg/social-icons/icon-facebook.svg"
-        [formControl]="testFormControl"
-        [errorText]="displayedErrorTest"
-      ></app-social-account-input>
-      <!-- TODO, use the BE data structure and set variables Name -->
-    </div>
-    <div class="input-wrapper">
-      <app-social-account-input
-        label="X"
-        placeholder="https://www.x.com/"
-        icon="/assets/svg/social-icons/icon-x.svg"
-        [errorText]="undefined"
-      ></app-social-account-input>
-      <!-- TODO, use the BE data structure and set variables Name -->
-    </div>
-    <div class="input-wrapper">
-      <app-social-account-input
-        label="LinkedIn"
-        placeholder="https://www.linkedin.com/"
-        icon="/assets/svg/social-icons/icon-linkedin.svg"
-        [errorText]="undefined"
-      ></app-social-account-input>
-      <!-- TODO, use the BE data structure and set variables Name -->
-    </div>
-    <div class="input-wrapper">
-      <app-social-account-input
-        label="Instagram"
-        placeholder="https://www.instagram.com/"
-        icon="/assets/svg/social-icons/icon-instagram.svg"
-        [errorText]="undefined"
-      ></app-social-account-input>
-      <!-- TODO, use the BE data structure and set variables Name -->
-    </div>
-    <div class="input-wrapper">
-      <app-social-account-input
-        label="Youtube"
-        placeholder="https://www.youtube.com/"
-        icon="/assets/svg/social-icons/icon-youtube.svg"
-        [errorText]="undefined"
-      ></app-social-account-input>
-      <!-- TODO, use the BE data structure and set variables Name -->
-    </div>
-
-    <br/>
-    <div class="controls">
+<ion-header>
+  <app-topbar [progress]="0.7">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>Setup your profile</div>
+    <div slot="end">
       <ion-button
         color="primary"
-        expand="block"
+        fill="clear"
       >
-        Save &amp; continue
+        Skip
       </ion-button>
     </div>
-  </div>
+  </app-topbar>
+</ion-header>
+<ion-content>
 
+  <div class="ion-padding-horizontal form-wrapper">
+    <div class="heading">
+      <h2 class="display-2">Social Accounts</h2>
+      <div class="helper">
+        Let us know you a bit lorem ipsum is a dummy text for the printing.
+      </div>
+    </div>
+    
+    <div><!-- can consider to delete this div -->
+      <div class="input-wrapper">
+        <app-social-account-input
+          label="Facebook"
+          placeholder="https://www.facebook.com/"
+          icon="/assets/svg/social-icons/icon-facebook.svg"
+          [formControl]="testFormControl"
+          [errorText]="displayedErrorTest"
+        ></app-social-account-input>
+        <!-- TODO, use the BE data structure and set variables Name -->
+      </div>
+      <div class="input-wrapper">
+        <app-social-account-input
+          label="X"
+          placeholder="https://www.x.com/"
+          icon="/assets/svg/social-icons/icon-x.svg"
+          [errorText]="undefined"
+        ></app-social-account-input>
+        <!-- TODO, use the BE data structure and set variables Name -->
+      </div>
+      <div class="input-wrapper">
+        <app-social-account-input
+          label="LinkedIn"
+          placeholder="https://www.linkedin.com/"
+          icon="/assets/svg/social-icons/icon-linkedin.svg"
+          [errorText]="undefined"
+        ></app-social-account-input>
+        <!-- TODO, use the BE data structure and set variables Name -->
+      </div>
+      <div class="input-wrapper">
+        <app-social-account-input
+          label="Instagram"
+          placeholder="https://www.instagram.com/"
+          icon="/assets/svg/social-icons/icon-instagram.svg"
+          [errorText]="undefined"
+        ></app-social-account-input>
+        <!-- TODO, use the BE data structure and set variables Name -->
+      </div>
+      <div class="input-wrapper">
+        <app-social-account-input
+          label="Youtube"
+          placeholder="https://www.youtube.com/"
+          icon="/assets/svg/social-icons/icon-youtube.svg"
+          [errorText]="undefined"
+        ></app-social-account-input>
+        <!-- TODO, use the BE data structure and set variables Name -->
+      </div>
+
+      <!--<br/>
+      <div class="controls">
+        <ion-button
+          color="primary"
+          expand="block"
+        >
+          Save &amp; continue
+        </ion-button>
+      </div>-->
+    </div>
+
+    <div class="bottom-controls">
+      <div class="inner">
+        <ion-button
+          color="primary"
+          expand="block"
+        >
+          Save &amp; continue
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>

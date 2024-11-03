@@ -1,8 +1,14 @@
+@import 'src/theme/mixins.scss';
+
 ion-header{
     box-shadow: none;
 }
 
 .heading{
-    margin-top: 30px;
+    padding-top: 30px;
     margin-bottom: 30px;
+}
+
+.form-wrapper{
+    @include form-wrapper-with-bottom-controls;
 }
