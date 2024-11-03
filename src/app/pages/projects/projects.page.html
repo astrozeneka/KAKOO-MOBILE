@@ -1,30 +1,63 @@
+<ion-header>
+  <app-topbar [progress]="0.5">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>Setup your profile</div>
+    <div slot="end">
+      <ion-button
+        color="primary"
+        fill="clear"
+      >
+        Skip
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
 <ion-content>
-  <ion-header>
-    <app-topbar [progress]="0.5">
-      <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Setup your profile</div>
-      <div slot="end">
+
+  <div class="ion-padding-horizontal form-wrapper">
+
+
+    <div class="form-header">
+      <h2 class="display-2">Projects</h2>
+      <div class="helper">
+        Let us know you a bit lorem ipsum is a dummy text for the printing.
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <app-section-heading class="project-heading">
+      Education
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+      >
+        Add
+      </ion-button>
+    </app-section-heading>
+    <app-experience-card>
+      <div slot="image">
+        <ion-icon src="/assets/svg/icon-briefcase.svg" style="font-size: 22px"></ion-icon>
+      </div>
+      <div slot="title">VulnTracker</div>
+      <div slot="content">
+        A web application that helps businesses track and manage vulnerabilities in their software systems by scanning codebases and reporting weaknesses.
+      </div>
+      <div slot="footer">
+        Duration: <b>July 1, 2024 – September 30, 2024</b>
+      </div>
+    </app-experience-card>
+
+
+    <div class="bottom-controls">
+      <div class="inner">
         <ion-button
           color="primary"
-          fill="clear"
+          expand="block"
         >
-          Skip
+          Save &amp; continue
         </ion-button>
       </div>
-    </app-topbar>
-  </ion-header>
-
-  <br/>
-  <app-experience-card>
-    <div slot="image">
-      <ion-icon src="/assets/svg/icon-briefcase.svg" style="font-size: 22px"></ion-icon>
     </div>
-    <div slot="title">VulnTracker</div>
-    <div slot="content">
-      A web application that helps businesses track and manage vulnerabilities in their software systems by scanning codebases and reporting weaknesses.
-    </div>
-    <div slot="footer">
-      Duration: <b>July 1, 2024 – September 30, 2024</b>
-    </div>
-  </app-experience-card>
+  </div>
 </ion-content>
