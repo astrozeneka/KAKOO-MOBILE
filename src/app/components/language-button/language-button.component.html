@@ -1,0 +1,36 @@
+<div class="language-option-list-wrapper">
+  <ion-button
+    class="language-button"
+    fill="outline"
+    (click)="toggleList($event)"
+  >
+    <div class="language-button-inner">
+      <img [src]="activeLanguageFlag"/>
+      {{ activeLanguageDisplay }}
+      <ion-icon src="/assets/svg/right-line.svg"></ion-icon>
+      <!-- TODO, switch carret direction -->
+    </div>
+  </ion-button>
+  <div [class]="'language-option-list ' + (listHidden?'hidden':'')">
+    <ion-button
+      fill="clear"
+      color="dark"
+      (click)="changeLanguage($event, 'en-US')"
+    >
+      <div class="inner">
+        <img src="/assets/svg/flag-uk.svg"/><!-- TODO, update it to flag-en-18.svg -->
+        <span>en</span>
+      </div>
+    </ion-button>
+    <ion-button
+      fill="clear"
+      color="dark"
+      (click)="changeLanguage($event, 'fr-FR')"
+    >
+      <div class="inner">
+        <img src="/assets/svg/flag-fr.svg"/><!-- TODO, update it to flag-fr-18.svg -->
+        <span>fr</span>
+      </div>
+    </ion-button>
+  </div>
+</div>

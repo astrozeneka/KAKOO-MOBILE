@@ -13,22 +13,13 @@
         <img src="/assets/kakoo-logo.png" width="91px">
       </div>
       <div>
-        <ion-button
-          class="language-button"
-          fill="outline"
-        >
-          <div class="language-button-inner">
-            <img src="/assets/svg/flag-uk.svg"/>
-            en
-            <ion-icon src="/assets/svg/right-line.svg"></ion-icon>
-          </div>
-        </ion-button>
+        <app-language-button></app-language-button>
       </div>
     </div>
 
     <div>
-      <h2>Hello Kakooster! 👋</h2>
-      <div class="helper">to access Kakoo Software Solutions, {{ 'HELLO' | translate }}</div>
+      <h2>{{ "Hello Kakooster! 👋" |_ }}</h2>
+      <div class="helper">{{ "to access Kakoo Software Solutions" |_ }}</div>
       <!-- The space below should be fixed -->
     </div>
     <div class="container">
@@ -40,7 +31,7 @@
             placeholder="user@mail.com"
             fill="outline"
             label-placement="stacked"
-            label="Email"
+            label="{{ 'Email' |_ }}"
             formControlName="email"
           ></ion-input>
           <div class="input-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors">
@@ -52,10 +43,10 @@
         <div class="input-wrapper">
           <ion-input
             type="password"
-            placeholder="password"
+            placeholder="{{ 'password' |_ }}"
             fill="outline"
             label-placement="stacked"
-            label="Password"
+            label="{{ 'Password' |_ }}"
             formControlName="password"
           ></ion-input>
           <div class="input-error" *ngIf="form.get('password')?.touched && form.get('password')?.errors">
@@ -64,7 +55,7 @@
         </div>
 
         <div class="ion-text-right">
-          <a class="#" href="/forgot-password">Forgot password?</a>
+          <a class="#" href="/forgot-password">{{ "Forgot password?" |_ }}</a>
         </div>
 
         <ion-button
@@ -72,19 +63,19 @@
           type="submit"
           color="primary"
         >
-          Login
+          {{ "Login" |_ }}
         </ion-button>
       </form>
 
       <!-- TODO: find an appropriate class name for the below element -->
       <div class="ion-text-center ion-margin-vertical in-text">
-        Don't have an account? <a href="/signup" color="primary">Sign up</a>
+        {{ "Don't have an account?" |_ }} <a href="/signup" color="primary">{{ "Sign up" |_ }}</a>
       </div>
 
       <!-- todo for later, should use a class for this font-size:12px; -->
       <div class="ion-text-center ion-margin-vertical separate-or" style="font-size: 12px">
         <div class="line"></div>
-        <span>Or</span>
+        <span>{{ "Or" |_ }}</span>
         <div class="line"></div>
       </div>
 
@@ -96,7 +87,7 @@
         (click)="loginUsingProvider('google')"
       >
         <img src="/assets/svg/google-logo.svg" width="18px"/>
-        Continue with Google
+        {{ "Continue with Google" |_ }}
       </ion-button>
 
       <!-- TODO, should create a more suitable button class -->
@@ -107,13 +98,13 @@
         (click)="loginUsingProvider('linkedin')"
       >
       <img src="/assets/svg/linkedin-logo.svg" width="18px"/>
-        Continue with LinkedIn
+        {{ "Continue with LinkedIn" |_ }}
       </ion-button>
     </div>
 
     <!-- TODO, should allow the element below stick at the bottom (possible) -->
     <p class="footer-text ion-text-center">
-      By tapping on Login, you are agreeing to <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>
+      {{ "By tapping on Login, you are agreeing to" |_ }} <a href="/terms">{{ "Terms of Service" |_ }}</a> {{ "and" |_ }} <a href="/privacy">{{ "Privacy Policy" |_ }}</a>
     </p>
 
   </div>

@@ -8,7 +8,8 @@ import { UXForm } from 'src/app/utils/ux-form';
 import { ContentService } from 'src/app/services/content.service';
 import { BackButtonComponent } from "../../back-button/back-button.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { I18nPipe } from 'src/app/i18n.pipe';
+import { I18nPipe, I18nPipeShortened } from 'src/app/i18n.pipe';
+import { LanguageButtonComponent } from 'src/app/components/language-button/language-button.component';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ import { I18nPipe } from 'src/app/i18n.pipe';
   standalone: true,
   imports: [
     IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, BackButtonComponent,
-    TranslateModule, I18nPipe
+    TranslateModule, I18nPipe, I18nPipeShortened, LanguageButtonComponent
   ]
 })
 export class LoginPage extends AbstractPage implements OnInit {
@@ -41,6 +42,12 @@ export class LoginPage extends AbstractPage implements OnInit {
     this.translate.setDefaultLang('en');
     // Example, set the language to french
     // this.translate.use('fr');
+    /*this.translate.get('HELLO').subscribe((res) => {
+      console.log(res)
+    })*/
+
+
+    console.log(translate.getLangs())
   }
 
   ngOnInit() {

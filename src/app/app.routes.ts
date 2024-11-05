@@ -130,4 +130,8 @@ export const routes: Routes = [
     path: 'more-29',
     loadComponent: () => import('./pages/more-29/more-29.page').then( m => m.More29Page)
   },
+  {
+    path: 'splash-icon',
+    loadComponent: () => import('./pages/splash-icon/splash-icon.page').then( m => m.SplashIconPage)
+  },
 ];

@@ -7,9 +7,11 @@ import { AppComponent } from './app/app.component';
 import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThemeDetection } from '@ionic-native/theme-detection/ngx';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { importProvidersFrom } from '@angular/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { HttpLoaderFactory } from './app/translation-loader.factory';
+import { appInitializerFactory } from './app/app-initializer';
+import { AppLanguageService } from './app/services/app-language.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -29,5 +31,14 @@ bootstrapApplication(AppComponent, {
         deps: [HttpClient],
       }
     })),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFactory,
+      deps: [
+        TranslateService,
+        AppLanguageService
+      ],
+      multi: true
+    }
   ],
 });
