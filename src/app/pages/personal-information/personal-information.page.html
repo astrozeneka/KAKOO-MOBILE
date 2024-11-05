@@ -73,13 +73,21 @@
     </div>
     <div class="input-wrapper">
       <!-- TODO, phone number, adapt the component used by training-day 1 hours to do that -->
-      <ion-input
+      <!-- <ion-input
         type="phone"
         placeholder="Enter phone number"
         fill="outline"
         label-placement="stacked"
         label="Phone number*"
-      ></ion-input>
+      ></ion-input> -->
+      <app-phone-selector
+        placeholder="Enter your phone"
+        label="Phone number"
+        variant="outline"
+        [formControl]="testPhoneFormControl"
+        [errorText]="displayedErrorTestPhone"
+        (blur)="testPhoneControlBlur()"
+      ></app-phone-selector>
     </div>
     <div class="input-wrapper">
       <ion-input

@@ -53,6 +53,13 @@
             color: #B3261E;
         }
     }
+    &.has-focus{ // Not yet tested
+        border-color: #007E48;
+        border-width: 1.5px;
+        & label{
+            color: #007E48;
+        }
+    }
 }
 
 
