@@ -10,6 +10,9 @@ import { BackButtonComponent } from "../../back-button/back-button.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { I18nPipe, I18nPipeShortened } from 'src/app/i18n.pipe';
 import { LanguageButtonComponent } from 'src/app/components/language-button/language-button.component';
+import { DevDebugButtonComponent } from "../../dev-prod-components/debug-button/dev-debug-button/dev-debug-button.component";
+import { environment } from 'src/environments/environment';
+import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
 
 @Component({
   selector: 'app-login',
@@ -21,8 +24,9 @@ import { LanguageButtonComponent } from 'src/app/components/language-button/lang
   standalone: true,
   imports: [
     IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, BackButtonComponent,
-    TranslateModule, I18nPipe, I18nPipeShortened, LanguageButtonComponent
-  ]
+    TranslateModule, I18nPipe, I18nPipeShortened, LanguageButtonComponent,
+    ...[(environment.production ? ProdDebugButtonComponent : DevDebugButtonComponent)]
+]
 })
 export class LoginPage extends AbstractPage implements OnInit {
 

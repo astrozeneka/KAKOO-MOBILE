@@ -22,7 +22,7 @@ export class LanguageButtonComponent  implements OnInit {
 
   // 3. The language actually used by the system
   activeLanguage: 'en-US'|'fr-FR' = 'en-US';
-  activeLanguageDisplay: string = "en"
+  activeLanguageDisplay: string = "en-US"
   activeLanguageFlag: string = "/assets/svg/flag-uk.svg"
 
   constructor(
@@ -33,9 +33,9 @@ export class LanguageButtonComponent  implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     // 3. The active language
-    this.activeLanguage = this.als.languageStorage.get() as 'en-US'|'fr-FR';
+    this.activeLanguage = await this.als.languageStorage.get() as 'en-US'|'fr-FR';
     this.activeLanguageDisplay = this.activeLanguage === 'en-US' ? 'en' : 'fr';
     this.activeLanguageFlag = this.activeLanguage === 'en-US' ? "/assets/svg/flag-uk.svg" : "/assets/svg/flag-fr.svg";
   }

@@ -12,6 +12,7 @@ import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { HttpLoaderFactory } from './app/translation-loader.factory';
 import { appInitializerFactory } from './app/app-initializer';
 import { AppLanguageService } from './app/services/app-language.service';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -39,6 +40,9 @@ bootstrapApplication(AppComponent, {
         AppLanguageService
       ],
       multi: true
-    }
+    },
+    importProvidersFrom(
+      IonicStorageModule.forRoot()
+    )
   ],
 });

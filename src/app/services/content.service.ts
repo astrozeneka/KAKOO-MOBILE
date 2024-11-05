@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,8 +9,11 @@ import { environment } from 'src/environments/environment';
 export class ContentService {
 
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private storage: Storage
+  ) {
+    this.storage.create()
+  }
 
   post(suffix: string, body: any) {
     // TODO later, fetch the header bearers from the local storage
