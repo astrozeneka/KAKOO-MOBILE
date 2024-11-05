@@ -94,7 +94,7 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
     this.onChange = fn;
   }
 
-  onTouch: any = () => {};
+  onTouch: any = () => {}; /// onTouched
   registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }
