@@ -18,3 +18,16 @@ a{
     }
 }
 
+// TODO for later, move the code below to the global
+.alert-error{
+    background: #b3261e39;
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+    & > span{
+        flex-grow: 1;
+    }
+}

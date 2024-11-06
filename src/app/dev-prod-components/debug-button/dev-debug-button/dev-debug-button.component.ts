@@ -33,9 +33,11 @@ export class DevDebugButtonComponent extends ProdDebugButtonComponent implements
   async clearCache(){
     // List all index in the storage
     let keys = (await this.storage.keys()).filter(v=>v.startsWith(environment.cachePrefix));
+    //keys = [...keys, 'token']
     keys.forEach(key=>{
       this.storage.remove(key)
     })
+    console.log("Cache cleared: " + keys)
 
   }
 

@@ -14,5 +14,9 @@
     "By tapping on Login, you are agreeing to": "En appuyant sur Se connecter, vous acceptez",
     "Terms of Service": "les conditions d'utilisation",
     "and": "et",
-    "Privacy Policy": "la politique de confidentialité"
+    "Privacy Policy": "la politique de confidentialité",
+
+    "Email address required": "Adresse e-mail requise",
+    "Email address is invalid": "Adresse e-mail invalide",
+    "Password required": "Mot de passe requis"
 }
