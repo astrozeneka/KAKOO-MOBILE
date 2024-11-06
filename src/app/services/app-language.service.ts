@@ -23,6 +23,7 @@ export class AppLanguageService {
       } else {
         console.debug("Language " + v + " detected")
       }
+      this.contentService.languageShortened = v === 'fr-FR' ? 'fr' : 'en';
     });
     /*
     (async ()=>{

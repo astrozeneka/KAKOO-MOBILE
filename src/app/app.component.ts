@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { Preferences } from '@capacitor/preferences';
 import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -14,7 +14,7 @@ import { AppLanguageService } from './services/app-language.service';
     IonRouterOutlet
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   prefDark = window.matchMedia('(prefers-color-scheme: dark)');
   constructor(
     private translate: TranslateService,
@@ -24,5 +24,10 @@ export class AppComponent {
       key: 'mode',
       value: this.prefDark.matches ? 'light' : 'dark',
     })
+  }
+
+  ngOnInit(): void {
+    // TODO, non valid token will be redirected to login page
+    
   }
 }

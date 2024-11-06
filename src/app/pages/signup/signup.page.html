@@ -45,6 +45,7 @@
               label-placement="stacked"
               label="First Name"
               formControlName="firstName"
+              [errorText]="displayedError['firstName']"
             ></ion-input>
           </div>
           <div class="col-6">
@@ -56,6 +57,7 @@
               label-placement="stacked"
               label="Last name"
               formControlName="lastName"
+              [errorText]="displayedError['lastName']"
             ></ion-input>
           </div>
         </div>
@@ -68,6 +70,7 @@
             label-placement="stacked"
             label="Email"
             formControlName="email"
+            [errorText]="displayedError['email']"
           ></ion-input>
         </div>
         <div>
@@ -76,8 +79,9 @@
             placeholder="Enter your phone"
             label="Phone number"
             variant="outline"
-            formControlName="phone"
-            [errorText]="displayedError['phone']"
+            formControlName="phonefull"
+            [errorText]="displayedError['phonefull']"
+            [split]="true"
           ></app-phone-selector>
           <!--
           <div class="phone-input-container">
@@ -109,6 +113,7 @@
             label-placement="stacked"
             label="Referral Code"
             formControlName="referralCode"
+            [errorText]="displayedError['referralCode']"
           ></ion-input>
         </div>
         <div>

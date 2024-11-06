@@ -81,26 +81,18 @@ export class LoginPage extends AbstractPage implements OnInit {
 
 
     // Test JWT exchange
-    this.httpClient.post('https://web.kakoo-software.com/kakoo-back-end/login', {
-      username: 'ryanrasoarahona3@gmail.com',
-      password: 'ryanrasoarahona1_'
-    }, { observe: 'response'})
+    this.cs.requestLogin({
+      username: this.form.value.email,
+      password: this.form.value.password
+    })
       .pipe(catchError((error)=>{
-        // if 401
-        if (error.status == 401){
-          console.log("Unauthorized") // Credential failed
-        }
+        // Todo, manage Feedback (use the feedback service)
+        console.error("Credential failed")
         return throwError(error)
       }))
-      .pipe(map((response: HttpResponse<any>)=>{
-        // Success
-        const token = response.headers.get('Authorization')
-        return token
-      }))
       .subscribe((response)=>{
-        console.log(response)
-      })
-    
+        // Here, redirect the user to the next page
+      })    
   }
 
   async loginUsingProvider(provider: string) {
