@@ -2,6 +2,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- TODO, the header TO MANAGE LATER, same as login.html -->
   <div class="placeholder ion-padding-horizontal" style="height: 46px"><!-- Should consider to update later -->
     <!-- TODO, make this button match the Design -->
     <app-back-button></app-back-button>
@@ -33,7 +34,7 @@
       <!-- The space below should be fixed -->
     </div>
     <div class="container">
-      <form>
+      <form [formGroup]="form" (submit)="submit()">
         <div class="row">
           <div class="col-6">
             <!-- This kind of input doesn't display correctly on mobile -->
@@ -43,6 +44,7 @@
               fill="outline"
               label-placement="stacked"
               label="First Name"
+              formControlName="firstName"
             ></ion-input>
           </div>
           <div class="col-6">
@@ -53,6 +55,7 @@
               fill="outline"
               label-placement="stacked"
               label="Last name"
+              formControlName="lastName"
             ></ion-input>
           </div>
         </div>
@@ -64,9 +67,19 @@
             fill="outline"
             label-placement="stacked"
             label="Email"
+            formControlName="email"
           ></ion-input>
         </div>
         <div>
+
+          <app-phone-selector
+            placeholder="Enter your phone"
+            label="Phone number"
+            variant="outline"
+            formControlName="phone"
+            [errorText]="displayedError['phone']"
+          ></app-phone-selector>
+          <!--
           <div class="phone-input-container">
             <label>Phone number</label>
             <div>
@@ -86,6 +99,7 @@
               ></ion-input>
             </div>
           </div>
+          -->
         </div>
         <div>
           <ion-input
@@ -94,16 +108,18 @@
             fill="outline"
             label-placement="stacked"
             label="Referral Code"
+            formControlName="referralCode"
           ></ion-input>
         </div>
         <div>
-          <ion-button
+          <app-ux-button
             expand="block"
             type="submit"
             color="primary"
+            [loading]="formIsLoading"
           >
             Register
-          </ion-button>
+          </app-ux-button>
         </div>
       </form>
 

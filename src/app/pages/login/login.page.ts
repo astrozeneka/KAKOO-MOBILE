@@ -13,6 +13,8 @@ import { LanguageButtonComponent } from 'src/app/components/language-button/lang
 import { DevDebugButtonComponent } from "../../dev-prod-components/debug-button/dev-debug-button/dev-debug-button.component";
 import { environment } from 'src/environments/environment';
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { catchError, map, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +40,8 @@ export class LoginPage extends AbstractPage implements OnInit {
   constructor(
     private router:Router,
     private cs: ContentService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private httpClient: HttpClient
   ) {
     super(
       router
@@ -63,18 +66,41 @@ export class LoginPage extends AbstractPage implements OnInit {
 
   async requestLogin() {
     // mark form as touched
-    this.form.markAllAsTouched();
-    if (this.form.invalid) {
+    //this.form.markAllAsTouched();
+    /*if (this.form.invalid) {
       return;
-    }
-    this.cs.post('/request-login', {...this.form.value}).subscribe((res) => {
+    }*/
+    /*this.cs.post('/request-login', {...this.form.value}).subscribe((res) => {
       console.log(res)
       // 2.1 Here, should store the value inside the local storage using storageObservable
 
       // 2.2 Depending on the backend, here it is possible that we need to load user data separately
 
       // 2.3 After that, redirect the user to another page
-    });
+    });*/
+
+
+    // Test JWT exchange
+    this.httpClient.post('https://web.kakoo-software.com/kakoo-back-end/login', {
+      username: 'ryanrasoarahona3@gmail.com',
+      password: 'ryanrasoarahona1_'
+    }, { observe: 'response'})
+      .pipe(catchError((error)=>{
+        // if 401
+        if (error.status == 401){
+          console.log("Unauthorized") // Credential failed
+        }
+        return throwError(error)
+      }))
+      .pipe(map((response: HttpResponse<any>)=>{
+        // Success
+        const token = response.headers.get('Authorization')
+        return token
+      }))
+      .subscribe((response)=>{
+        console.log(response)
+      })
+    
   }
 
   async loginUsingProvider(provider: string) {
