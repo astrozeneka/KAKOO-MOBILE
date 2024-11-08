@@ -108,7 +108,7 @@ export class WorkExperiencePage extends CandidateForm implements OnInit { // I d
               return throwError(error)
             }), finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
             .subscribe(async (response)=>{
-              this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code 
+              this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
             })
           }
         }

@@ -27,7 +27,7 @@ export class ExperienceCardComponent  implements OnInit {
 
   // A fadeaway is needed when the item is about to be deleted for better UX
   @Input() fadeAway$:Observable<boolean> = new Observable();
-  fadeAway: boolean = true;
+  fadeAway: boolean = false; // Doesn't work
 
   constructor(
     private cdr:ChangeDetectorRef

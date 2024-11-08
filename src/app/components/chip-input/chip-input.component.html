@@ -20,7 +20,7 @@
             @if (customList) {
               <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option }"></ng-container>
             } @else {
-              <div>{{ option }}</div>
+              <div>{{ keyAccessor(option) }}</div>
             }
             </ion-button>
           }

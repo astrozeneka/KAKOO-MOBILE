@@ -77,12 +77,12 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
     // When the inner form is blurred (experimental feature)
     if (this.mode == 'single') { // Maybe another condition is suitable
       this.innerFormControl.valueChanges.subscribe((value) => {
-        console.log(value);
         // Check if one option correspond exactly
         let found:T|undefined = this.options.find(option => this.keyAccessor(option) == value);
         if (found) {
-          this.formControl?.setValue(this.keyAccessor(found), { emitEvent: false });
+          this.formControl?.setValue(found as any, { emitEvent: false });
         } else {
+          console.log("Reset the form " + this.formControlName)
           this.formControl?.setValue('', { emitEvent: false });
         }
         this.blur.emit({});
@@ -92,7 +92,7 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
     // In case of single mode, patch the value to the inner control
     if (this.mode == 'single'){
       this.formControl?.valueChanges.subscribe((value) => {
-        this.innerFormControl.patchValue(value);
+        this.innerFormControl.patchValue(this.keyAccessor(value as any), {emitEvent: false});
       })
     }
   }
@@ -122,27 +122,36 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
     if (this.mode == 'multiple'){
       (this.formControl?.value as any[]).push(option);
     }else if(this.mode == 'single'){
-      this.formControl?.patchValue(this.keyAccessor(option));
-      this.innerFormControl.patchValue(this.keyAccessor(option));
+      //this.formControl?.patchValue(this.keyAccessor(option));
+      console.log(option)
+      this.formControl?.patchValue(option as any, {emitEvent: false});
+      // this.innerFormControl.patchValue(this.keyAccessor(option));
     }
     this._filterOptions();
     this.onChange(this.formControl?.value);
     this.onTouch();
-    this.innerFormControl.patchValue("");
-    if (this.mode == 'single') this.innerFormControl.patchValue(this.keyAccessor(option))
+    this.innerFormControl.patchValue("", {emitEvent: false});
+
+    // It is mandatory to put the below code here in order to be displayed in the innerForm Control
+    if (this.mode == 'single') this.innerFormControl.patchValue(this.keyAccessor(option), {emitEvent: false});
     this.blur.emit({}); // Experimental feature
   }
 
   // 4. Allow to filter a value from the options
-  private _filterOptions(value: string = this.innerFormControl?.value) {
+  private _filterOptions(rawValue: string = this.innerFormControl?.value) {
     if (this.mode == 'multiple') {
       this.displayedOption = this.options.filter(
-        option => this.keyAccessor(option).toLowerCase().includes(value.toLowerCase()) && !this.formControl?.value.includes(this.keyAccessor(option))
+        option => this.keyAccessor(option).toLowerCase().includes(rawValue.toLowerCase()) && !this.formControl?.value.includes(this.keyAccessor(option))
       );
     } else if (this.mode == 'single') {
-      this.displayedOption = this.options.filter(
-        option => this.keyAccessor(option).toLowerCase().includes(value.toLowerCase())
-      );
+      /*console.log(this.options)
+      console.log(this.options.map((opt)=>this.keyAccessor(opt).toLowerCase()))
+      console.log(rawValue.toLowerCase())*/
+      if (rawValue == undefined) this.displayedOption = this.options
+      else 
+        this.displayedOption = this.options.filter(
+          option => this.keyAccessor(option).toLowerCase().includes(rawValue.toLowerCase())
+        );
     }
   }
 

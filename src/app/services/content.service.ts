@@ -116,6 +116,20 @@ export class ContentService {
       */
   }
 
+  get_exp_fullurl(fullurl: string, headers: {[key: string]:any}): Observable<any>{
+    return from(new Promise(async(resolve)=>{
+      let token = await this.token.get()
+      let hdrs ={
+        ...headers,
+        ...(token?{Authorization: token}:{})
+      }
+      // Additionnal options can be suffixed to the URL
+      resolve(firstValueFrom((this.http.get(fullurl, {
+        headers: hdrs
+      }))))
+    }))
+  }
+
   requestLogin(data:{username:string, password:string}){
     return this.http.post(
       // Language proof

@@ -22,16 +22,16 @@
       </div>
     </div>
     
-    <div><!-- Can consider to delete this div -->
+    <form [formGroup]="form" (submit)="submit()"><!-- Can consider to delete this div -->
       <div class="input-wrapper">
         <app-chip-input
           label="Type of employment"
           placeholder="Select Type of Employment"
-          [options]="['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Freelance']"
-          [formControl]="testFormControl"
-          [errorText]="displayedErrorTest"
-          (blur)="testControlBlur()"
+          formControlName="employmentTypeEntity"
+          [options]="employmentTypeOptions"
+          [errorText]="displayedError['employmentTypeEntity']"
           mode="single"
+          [keyAccessor]="employmentTypeKeyAccessor"
         ></app-chip-input>
         <!-- TODO, use the BE data structure and set variables Name -->
       </div>
@@ -39,37 +39,47 @@
         <app-chip-input
           label="Work Type"
           placeholder="Select Work Type"
-          [options]="['Remote', 'On-site', 'Hybrid']"
-          [errorText]="undefined"
+          [options]="workTypeOptions"
+          formControlName="workTypeEntity"
+          [errorText]="displayedError['workTypeEntity']"
+          [keyAccessor]="workTypeKeyAccessor"
           mode="single"></app-chip-input>
-        <!-- TODO, use the BE data structure and set variables Name -->
       </div>
       <div class="input-wrapper">
         <app-chip-input
           label="Salary Expectations"
           placeholder="Select Salary Expectations"
-          [options]="['$0 - $500', '$500 - $1000', '$1000 - $1500', '$1500 - $2000', '$2000 - $2500', '$2500 - $3000', '$3000 - $3500', '$3500 - $4000', '$4000 - $4500', '$4500 - $5000', '$5000 - $5500', '$5500 - $6000', '$6000 - $6500', '$6500 - $7000', '$7000 - $7500', '$7500 - $8000', '$8000 - $8500', '$8500 - $9000', '$9000 - $9500', '$9500 - $10000', '$10000+']"
-          [errorText]="undefined"
+          [options]="salaryExpectationOptions"
+          [keyAccessor]="salaryExpectationKeyAccessor"
+          [errorText]="displayedError['salaryExpectationEntity']"
+          formControlName="salaryExpectationEntity"
           mode="single"
         ></app-chip-input>
         <!-- TODO, use the BE data structure and set variables Name -->
       </div>
       <div class="input-wrapper">
+        <!-- the form below is in the user, not candidate, to study later-->
+        <!-- Form value should be loaded from server -->
         <app-chip-input
           label="Notice Period for Full-time"
           placeholder="Select Notice Period for Full-time"
-          [options]="['Immediate', '1 week', '2 weeks', '3 weeks', '1 month', '2 months', '3 months', '4 months', '5 months', '6 months', '7 months', '8 months', '9 months', '10 months', '11 months', '12 months']"
-          [errorText]="undefined"
+          [options]="noticePeriodOptions"
+          formControlName="noticePeriodEntity"
+          [errorText]="displayedError['noticePeriodEntity']"
+          [keyAccessor]="noticePeriodKeyAccessor"
           mode="single"
         ></app-chip-input>
-        <!-- TODO, use the BE data structure and set variables Name -->
       </div>
       <div class="input-wrapper">
+        <!-- the form below is in the user, not candidate, to study later-->
+        <!-- Form value should be loaded from server -->
         <app-chip-input
           label="Hiring Status"
           placeholder="Select Hiring Status"
-          [options]="['Actively looking', 'Open to opportunities', 'Not looking']"
-          [errorText]="undefined"
+          [options]="hiringStatusOptions"
+          formControlName="hiringStatusEntity"
+          [errorText]="displayedError['hiringStatusEntity']"
+          [keyAccessor]="hiringStatusKeyAccessor"
           mode="single"
         ></app-chip-input>
         <!-- TODO, use the BE data structure and set variables Name -->
@@ -79,8 +89,8 @@
           label="Mobility"
           placeholder="Add Mobility and press Enter/Return key"
           [options]="['Accounting', 'Finance', 'Marketing', 'Sales', 'IT', 'HR', 'Admin', 'Customer Service', 'Engineering', 'Design', 'Education', 'Healthcare', 'Legal', 'Logistics', 'Manufacturing', 'Media', 'Retail', 'Science', 'Transportation', 'Others']"
-          [errorText]="undefined"
-          [formControl]="testMobilityControl"
+          formControlName="selfCandidateMobilityEntities"
+          [errorText]="displayedError['selfCandidateMobilityEntities']"
           mode="multiple"
         ></app-chip-input>
       </div>
@@ -94,16 +104,19 @@
           Save &amp; continue
         </ion-button>
       </div>-->
-    </div>
-    <div class="bottom-controls">
-      <div class="inner">
-        <ion-button
-          color="primary"
-          expand="block"
-        >
-          Save &amp; continue
-        </ion-button>
+
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            color="primary"
+            expand="block"
+            type="submit"
+            [loading]="formIsLoading"
+          >
+            Save &amp; continue
+          </app-ux-button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </ion-content>
