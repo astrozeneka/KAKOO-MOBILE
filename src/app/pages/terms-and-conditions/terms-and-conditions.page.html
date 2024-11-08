@@ -98,22 +98,28 @@
     <h3 class="display-4">Kakoo Software</h3>
     <p>privacy&commat;kakoo-software.com</p>
   </div>
-  <div class="checkbox-container ion-padding-horizontal">
-    <!-- Still cannot find how to align it exactly as the figma template -->
-    <ion-checkbox 
-      id="checkbox"
-      labelPlacement="end"
-    >
-      <div>I agree to the terms & conditions and privacy policy</div>
-    </ion-checkbox>
-  </div>
-  <div class="bottom ion-padding-horizontal">
-    <ion-button 
-      expand="block" 
-      fill="solid" 
-      color="primary"
-    >
-      Submit
-    </ion-button>
-  </div>
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="checkbox-container ion-padding-horizontal">
+      <!-- Still cannot find how to align it exactly as the figma template -->
+      <ion-checkbox 
+        id="checkbox"
+        labelPlacement="end"
+        formControlName="accepted"
+      >
+        <div>I agree to the terms & conditions and privacy policy</div>
+      </ion-checkbox>
+    </div>
+    <div class="bottom ion-padding-horizontal">
+      <app-ux-button 
+        expand="block" 
+        fill="solid" 
+        color="primary"
+        [disabled]="!form.valid"
+        [loading]="formIsLoading"
+        type="submit"
+      >
+        Submit
+      </app-ux-button>
+    </div>
+  </form>
 </ion-content>
