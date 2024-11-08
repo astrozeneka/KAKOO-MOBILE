@@ -23,14 +23,14 @@
       </div>
     </div>
     
-    <div><!-- can consider to delete this div -->
+    <form [formGroup]="form" (submit)="submit()"><!-- can consider to delete this div -->
       <div class="input-wrapper">
         <app-social-account-input
           label="Facebook"
           placeholder="https://www.facebook.com/"
           icon="/assets/svg/social-icons/icon-facebook.svg"
-          [formControl]="testFormControl"
-          [errorText]="displayedErrorTest"
+          formControlName="facebook"
+          [errorText]="displayedError['facebook']"
         ></app-social-account-input>
         <!-- TODO, use the BE data structure and set variables Name -->
       </div>
@@ -39,7 +39,8 @@
           label="X"
           placeholder="https://www.x.com/"
           icon="/assets/svg/social-icons/icon-x.svg"
-          [errorText]="undefined"
+          formControlName="x"
+          [errorText]="displayedError['x']"
         ></app-social-account-input>
         <!-- TODO, use the BE data structure and set variables Name -->
       </div>
@@ -48,7 +49,8 @@
           label="LinkedIn"
           placeholder="https://www.linkedin.com/"
           icon="/assets/svg/social-icons/icon-linkedin.svg"
-          [errorText]="undefined"
+          formControlName="linkedin"
+          [errorText]="displayedError['linkedin']"
         ></app-social-account-input>
         <!-- TODO, use the BE data structure and set variables Name -->
       </div>
@@ -57,7 +59,8 @@
           label="Instagram"
           placeholder="https://www.instagram.com/"
           icon="/assets/svg/social-icons/icon-instagram.svg"
-          [errorText]="undefined"
+          formControlName="instagram"
+          [errorText]="displayedError['instagram']"
         ></app-social-account-input>
         <!-- TODO, use the BE data structure and set variables Name -->
       </div>
@@ -66,7 +69,18 @@
           label="Youtube"
           placeholder="https://www.youtube.com/"
           icon="/assets/svg/social-icons/icon-youtube.svg"
-          [errorText]="undefined"
+          formControlName="youtube"
+          [errorText]="displayedError['youtube']"
+        ></app-social-account-input>
+        <!-- TODO, use the BE data structure and set variables Name -->
+      </div>
+      <div class="input-wrapper">
+        <app-social-account-input
+          label="Github"
+          placeholder="https://www.github.com/"
+          icon="/assets/svg/social-icons/icon-github.svg"
+          formControlName="github"
+          [errorText]="displayedError['github']"
         ></app-social-account-input>
         <!-- TODO, use the BE data structure and set variables Name -->
       </div>
@@ -80,17 +94,20 @@
           Save &amp; continue
         </ion-button>
       </div>-->
-    </div>
-
-    <div class="bottom-controls">
-      <div class="inner">
-        <ion-button
-          color="primary"
-          expand="block"
-        >
-          Save &amp; continue
-        </ion-button>
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            color="primary"
+            expand="block"
+            type="submit"
+            [loading]="formIsLoading"
+          >
+            Save &amp; continue
+          </app-ux-button>
+        </div>
       </div>
-    </div>
+    </form>
+
+   
   </div>
 </ion-content>

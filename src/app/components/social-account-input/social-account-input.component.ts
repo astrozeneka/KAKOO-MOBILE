@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlContainer, ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { IonIcon, IonButton, IonInput } from "@ionic/angular/standalone";
 
 @Component({
@@ -17,7 +17,8 @@ import { IonIcon, IonButton, IonInput } from "@ionic/angular/standalone";
   ]
 })
 export class SocialAccountInputComponent  implements ControlValueAccessor, OnInit {
-  @Input() formControl: FormControl<string|null> = new FormControl('');
+  @Input() formControl: FormControl<string|null> | undefined;
+  @Input() formControlName: string|undefined;
   @Input() label: string = ""
   @Input() placeholder: string = ""
   @Input() errorText: string | undefined = undefined
@@ -25,7 +26,14 @@ export class SocialAccountInputComponent  implements ControlValueAccessor, OnIni
   // The asset src
   @Input() icon: string = ""
 
-  constructor() { }
+  constructor(
+    private controlContainer: ControlContainer,
+  ) { }
+
+  ngOnInit() {
+    console.log(this.formControlName)
+    this.formControl = this.formControl || this.controlContainer.control?.get(this.formControlName!) as FormControl<string|null>;
+  }
 
   writeValue(obj: any): void {
     // TODO later
@@ -45,9 +53,7 @@ export class SocialAccountInputComponent  implements ControlValueAccessor, OnIni
     // TODO later
   }
 
-  ngOnInit() {}
-
   clear(){
-    this.formControl.patchValue('')
+    this.formControl?.patchValue('')
   }
 }

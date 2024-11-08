@@ -7,7 +7,7 @@
         <ion-input
           fill="clear"
           [placeholder]="placeholder"
-          [formControl]="formControl"
+          [formControl]="formControl!"
         ></ion-input>
       </div>
     </div>
@@ -19,7 +19,7 @@
       <ion-icon src="/assets/svg/icon-trash-red.svg"></ion-icon>
     </ion-button>
   </div>
-  @if (formControl.invalid && formControl.touched) {
+  @if (formControl?.invalid && formControl?.touched) {
     <div class="input-error">
       {{ errorText }}
     </div>

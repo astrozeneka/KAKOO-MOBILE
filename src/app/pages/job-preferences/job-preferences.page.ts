@@ -117,7 +117,6 @@ export class JobPreferencesPage implements OnInit {
     // Step 1. Load candidate data
     this.cs.registerCandidateDataObserverV2()
       .subscribe(async (candidate: Candidate|null) => {
-        console.log(candidate)
         this.candidate = candidate!
         this.postLoadProcessing()
         this.form.patchValue(this.candidate)
@@ -215,7 +214,6 @@ export class JobPreferencesPage implements OnInit {
 
   submit(){
     // Mark form as touched
-    console.log(this.form.value)
     this.form.markAllAsTouched()
     if (this.form.invalid){
       displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
