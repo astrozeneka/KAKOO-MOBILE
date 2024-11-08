@@ -36,7 +36,7 @@ export interface Candidate {
     workExperienceEntities: WorkExperienceEntity[]
     projectPortfolioEntities: ProjectPortfolioEntity[]
     socialAccountEntities: SocialAccountEntity[]
-    skillListEntities: SkillListEntity[]
+    skillListEntities: SkillEntity[]
     languageEntities: LanguageEntity[]
     candidateEducationEntities: CandidateEducationEntity[]
     candidateCertificateEntities: CandidateCertificateEntity[]
@@ -97,7 +97,7 @@ export interface Candidate {
     projectURL: string
     startDate: any
     endDate: any
-    skillListEntities: any
+    skillListEntities: SkillEntity[]
   }
   
   export interface SocialAccountEntity {
@@ -106,7 +106,7 @@ export interface Candidate {
     profileUrl: string
   }
   
-  export interface SkillListEntity {
+  export interface SkillEntity {
     id: any
     name: string
     skillTypeEntity: any

@@ -1,4 +1,4 @@
-<div class="experience-card">
+<div [class]="'experience-card ' + (fadeAway ? 'fade-away' : '')">
   <div class="left">
     <ng-content select="*[slot='image']"></ng-content>
   </div>
@@ -38,4 +38,9 @@
       </ion-button>
     }
   </div>
+  @if (fadeAway) {
+    <div class="fade-away-placeholder">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  }
 </div>

@@ -92,4 +92,24 @@
             --spinner-size: 13px;
         }
     }
+
+
+    &.fade-away{
+        position: relative;
+        & > .left, & .center, & > .right{
+            opacity: 0.4;
+        }
+    }
+    & .fade-away-placeholder{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        & ion-spinner{
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
 }

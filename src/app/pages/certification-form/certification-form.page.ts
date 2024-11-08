@@ -62,8 +62,8 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
     return {
       ...ce,
       // The properties below or unused in v2
-      issueDate: new Date(ce.issueDate).toISOString(), // Not yet tested
-      expireDate: new Date(ce.expireDate).toISOString() // Not yet tested
+      // issueDate: new Date(ce.issueDate).toISOString(), // Not yet tested
+      // expireDate: new Date(ce.expireDate).toISOString() // Not yet tested
     } as CandidateCertificateEntity
   }
 
@@ -108,10 +108,23 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
           this.cs.requestCandidateDataRefresh()
           this.router.navigate(["/education-and-certification"])
         })
+    } else if (this.formMode == 'edit'){
+      let data = this.form.value
+      this.cs.post_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/update-certificate/${this.entityId}`, data, {})
+        .pipe(catchError((error)=>{
+          // TODO, this pipe should be reused
+          // The code below actually doesn't work
+          if (error.error.status == 400){ // Token invalid
+            this.router.navigate(["/login"])
+          }
+          return throwError(error)
+        }), finalize(()=>{this.formIsLoading = false;}))
+        .subscribe(async (response:{code:any, type:any, message:string})=>{
+          this.cs.requestCandidateDataRefresh()
+          // this.router.navigate(["/education-and-certification"]) // to uncomment later
+        })
+
     }
-
-    
-
   }
 
 }

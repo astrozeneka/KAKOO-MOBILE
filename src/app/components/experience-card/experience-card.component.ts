@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IonIcon, IonButton } from "@ionic/angular/standalone";
+import { IonIcon, IonButton, IonSpinner } from "@ionic/angular/standalone";
 import { Observable } from 'rxjs';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 
@@ -8,7 +8,7 @@ import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalo
   templateUrl: './experience-card.component.html',
   styleUrls: ['./experience-card.component.scss'],
   standalone: true,
-  imports: [IonButton, IonIcon, UxButtonComponent]
+  imports: [IonSpinner, IonButton, IonIcon, UxButtonComponent]
 })
 export class ExperienceCardComponent  implements OnInit {
 
@@ -25,6 +25,10 @@ export class ExperienceCardComponent  implements OnInit {
 
   // Edit button (maybe not needed)
 
+  // A fadeaway is needed when the item is about to be deleted for better UX
+  @Input() fadeAway$:Observable<boolean> = new Observable();
+  fadeAway: boolean = true;
+
   constructor(
     private cdr:ChangeDetectorRef
   ) { }
@@ -33,7 +37,10 @@ export class ExperienceCardComponent  implements OnInit {
     // The delete button
     this.deleteButtonIsLoading$.subscribe((value:boolean) => {
       this.deleteButtonIsLoading = value
-      console.log("Here", value)
+      this.cdr.detectChanges()
+    })
+    this.fadeAway$.subscribe((value:boolean) => {
+      this.fadeAway = value
       this.cdr.detectChanges()
     })
 

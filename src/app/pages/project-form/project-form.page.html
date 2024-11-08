@@ -1,0 +1,110 @@
+<ion-header>
+  <app-topbar variant="light">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>
+      @if (formMode == 'edit'){
+        {{ "Edit Project Portfolio" |_ }}
+      } @else {
+        {{ "Add Project Portfolio" |_ }}
+      }
+    </div>
+    <div slot="end">
+      <ion-button
+        color="danger"
+        fill="clear"
+      >
+      {{ "Delete" |_ }}
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding-horizontal form-wrapper">
+    <form [formGroup]="form" (submit)="submit()">
+      <div>
+        <ion-input
+          type="text"
+          formControlName="projectTitle"
+          placeholder="{{ 'Project Title' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Project Title*' |_ }}"
+          [errorText]="displayedError['projectTitle']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          formControlName="projectDescription"
+          placeholder="{{ 'Project Description' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Project Description*' |_ }}"
+          [errorText]="displayedError['projectDescription']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="url"
+          formControlName="projectURL"
+          placeholder="{{ 'Project URL' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Project URL*' |_ }}"
+          [errorText]="displayedError['projectURL']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="date"
+          formControlName="startDate"
+          placeholder="{{ 'Start Date' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Start Date*' |_ }}"
+          [errorText]="displayedError['startDate']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="date"
+          formControlName="endDate"
+          placeholder="{{ 'End Date' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'End Date*' |_ }}"
+          [errorText]="displayedError['endDate']"
+        ></ion-input>
+      </div>
+      <div>
+        <!-- The component below is not handled to reach the project deadline -->
+        <!-- the component below still have a bug -->
+        <!-- ERROR TypeError: Cannot read properties of null (reading 'toLowerCase') -->
+        <!-- Need futher evaluation before declaring as a prioritary or not -->
+        <!-- An exhaustive list of auto suggestion will be added later -->
+        <!--<app-chip-input
+          labels="Skills"
+          placeholder="Skill (ex: Full Stack Developer)"
+          [options]="['Accounts', 'Admin', 'Agriculture', 'Architecture', 'Art', 'Automotive', 'Banking', 'Beauty', 'Business', 'Charity', 'Construction', 'Consulting', 'Creative', 'Customer Service', 'Design', 'Digital', 'Education', 'Engineering', 'Entertainment', 'Fashion', 'Finance', 'Food', 'Health', 'Hospitality', 'HR', 'IT', 'Legal', 'Logistics', 'Management', 'Manufacturing', 'Marketing', 'Media', 'Medical', 'Music', 'Nursing', 'Operations', 'Pharmaceutical', 'PR', 'Property', 'Retail', 'Sales', 'Science', 'Security', 'Social Care', 'Sport', 'Tech', 'Telecoms', 'Tourism', 'Transport', 'Travel', 'Utilities', 'Web Development']"
+          formControlName="skills"
+          [errorText]="displayedError['skills']"
+          mode="multiple"
+        ></app-chip-input>-->
+      </div>
+
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            type="submit"
+            color="primary"
+            expand="block"
+            [loading]="formIsLoading"
+          >
+            {{ "Save" | _ }}
+          </app-ux-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

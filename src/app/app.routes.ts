@@ -146,4 +146,8 @@ export const routes: Routes = [
     path: 'certification-form',
     loadComponent: () => import('./pages/certification-form/certification-form.page').then( m => m.CertificationFormPage)
   },
+  {
+    path: 'project-form',
+    loadComponent: () => import('./pages/project-form/project-form.page').then( m => m.ProjectFormPage)
+  },
 ];

@@ -24,27 +24,56 @@
 
     <!-- Projects -->
     <app-section-heading class="project-heading">
-      Education
-      <ion-button
-        color="primary"
-        fill="clear"
-        slot="end"
-      >
-        Add
-      </ion-button>
+      Project Portfolio
+      @if (candidateProjectEntities.length > 0){
+        <ion-button
+          color="primary"
+          fill="clear"
+          slot="end"
+          (click)="router.navigateByUrl('/project-form?mode=add')"
+        >
+        {{ "Add" |_ }}
+        </ion-button>
+      }
     </app-section-heading>
-    <app-experience-card>
-      <div slot="image">
-        <ion-icon src="/assets/svg/icon-briefcase.svg" style="font-size: 22px"></ion-icon>
-      </div>
-      <div slot="title">VulnTracker</div>
-      <div slot="content">
-        A web application that helps businesses track and manage vulnerabilities in their software systems by scanning codebases and reporting weaknesses.
-      </div>
-      <div slot="footer">
-        Duration: <b>July 1, 2024 – September 30, 2024</b>
-      </div>
-    </app-experience-card>
+
+    <div>
+      @if (candidateProjectEntities.length == 0){
+        <ion-button
+          fill="outline"
+          color="primary"
+          class='add-button'
+          (click)="router.navigateByUrl('/project-form?mode=add')"
+        >
+          <div class="inner">
+            Add project
+          </div>
+        </ion-button>
+      }
+    </div>
+
+    @for (entity of candidateProjectEntities; track $index) {
+      <app-experience-card
+        (edit)="router.navigateByUrl('/project-form?mode=edit&id=' + entity.id)"
+        (delete)="deleteProject(entity)"
+        [fadeAway$]="entity.fadeAway$"
+      >
+        <div slot="image">
+          <ion-icon src="/assets/svg/icon-briefcase.svg" style="font-size: 22px"></ion-icon>
+        </div>
+        <div slot="title">{{ entity.projectTitle}}</div>
+        <div slot="content">
+          @if (entity.projectURL) {
+            <a href="{{ entity.projectURL }}" target="_blank">{{ entity.projectURL }}</a>
+            <br/>
+          }
+          {{ entity.projectDescription }}
+        </div>
+        <div slot="footer">
+          Duration: <b>{{ entity.startDate | date: 'MMM yyyy'}} – {{ entity.endDate | date: 'MMM yyyy' }}</b>
+        </div>
+      </app-experience-card>
+    }
 
 
     <div class="bottom-controls">
