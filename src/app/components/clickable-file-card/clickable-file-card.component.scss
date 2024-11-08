@@ -1,0 +1,74 @@
+
+.clickable-file-card{
+    font-family: 'SF Pro Display', sans-serif;
+    letter-spacing: unset;
+    text-align: inherit;
+    margin-top: var(--margin-top, 8px);
+    margin-bottom: var(--margin-bottom, 8px);
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --border-color: #E7E7E9;
+    --border-width: 1px;
+    --border-style: solid;
+    height: auto;
+
+    & .inner{
+        width: 100%;
+        padding: 18px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        
+        & .left{
+            min-width: 40px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #E7E7E9;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            & .img, & ion-icon{
+                width: 20px;
+                height: 20px;
+            }
+        }
+    
+        & .right{
+            flex-grow: 1;
+            & .title{
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 19.6px;  
+                color: #1A1C1E;
+            }
+            & .subtitle{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 18.2px;            
+                color: #6C7278;
+            }
+        }
+    }
+    &.welcome{
+        & .left{
+            border-width: 0!important;
+            & .img, & ion-icon{
+                width: 24px!important;
+                height: 24px!important;
+                margin-left: -6px!important; // Adjustment to fit the figma design
+            }
+        }
+        & .right{
+            & .title{
+                font-size: 18px!important;
+                font-weight: 500!important; // Override existing value
+                line-height: 25.2px!important; // Override existing value
+            }
+        }
+    }
+}

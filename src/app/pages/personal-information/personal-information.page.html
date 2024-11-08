@@ -23,194 +23,207 @@
         Let us know you a bit lorem ipsum is a dummy text for the printing.
       </div>
     </div>
-
-    <div class="input-wrapper row">
-      <div class="col-6">
-        <ion-input
-          type="text"
-          placeholder="Mohit"
-          fill="outline"
-          label-placement="stacked"
-          label="First Name*"
-        ></ion-input>
+    <form [formGroup]="form" (submit)="submit()">
+      <div class="input-wrapper row">
+        <div class="col-6">
+          <ion-input
+            type="text"
+            placeholder="Mohit"
+            fill="outline"
+            label-placement="stacked"
+            label="First Name*"
+            formControlName="firstName"
+            [errorText]="displayedError['firstName']"
+          ></ion-input>
+        </div>
+        <div class="col-6">
+          <ion-input
+            type="text"
+            placeholder="Sharma"
+            fill="outline"
+            label-placement="stacked"
+            label="Middle name"
+            formControlName="middleName"
+            [errorText]="displayedError['middleName']"
+          ></ion-input>
+        </div>
       </div>
-      <div class="col-6">
+      <div class="input-wrapper">
         <ion-input
           type="text"
           placeholder="Sharma"
           fill="outline"
           label-placement="stacked"
-          label="Middle name"
+          formControlName="lastName"
+          label="Last name*"
+          [errorText]="displayedError['lastName']"
         ></ion-input>
       </div>
-    </div>
-    <div class="input-wrapper">
-      <ion-input
-        type="text"
-        placeholder="Sharma"
-        fill="outline"
-        label-placement="stacked"
-        label="Last name*"
-      ></ion-input>
-    </div>
-    <div class="input-wrapper">
-      <ion-input
-        type="date"
-        placeholder="01/07/1999"
-        fill="outline"
-        labelPlacement="stacked"
-        label="Date of birth*"
-      ></ion-input>
-    </div>
-    <div class="input-wrapper">
-      <ion-input
-        type="email"
-        placeholder="jhinganmohit79@gmail.com"
-        fill="outline"
-        label-placement="stacked"
-        label="Email"
-      ></ion-input>
-    </div>
-    <div class="input-wrapper">
-      <!-- TODO, phone number, adapt the component used by training-day 1 hours to do that -->
-      <!-- <ion-input
-        type="phone"
-        placeholder="Enter phone number"
-        fill="outline"
-        label-placement="stacked"
-        label="Phone number*"
-      ></ion-input> -->
-      <app-phone-selector
-        placeholder="Enter your phone"
-        label="Phone number"
-        variant="outline"
-        [formControl]="testPhoneFormControl"
-        [errorText]="displayedErrorTestPhone"
-        (blur)="testPhoneControlBlur()"
-      ></app-phone-selector>
-    </div>
-    <div class="input-wrapper">
-      <ion-input
-        type="text"
-        placeholder="Office assistant course"
-        fill="outline"
-        label-placement="stacked"
-        label="Job title"
-      ></ion-input>
-    </div>
-    <div class="input-wrapper row">
-      <div class="col-6">
+      <div class="input-wrapper">
         <ion-input
-          type="text"
-          placeholder="Total experience"
+          type="date"
+          placeholder="01/07/1999"
+          fill="outline"
+          labelPlacement="stacked"
+          label="Date of birth*"
+          formControlName="birthDay"
+          [errorText]="displayedError['birthDay']"
+        ></ion-input>
+      </div>
+      <div class="input-wrapper">
+        <ion-input
+          type="email"
+          placeholder="jhinganmohit79@gmail.com"
           fill="outline"
           label-placement="stacked"
-          label="Experience"
+          formControlName="email"
+          label="Email"
+          [errorText]="displayedError['email']"
         ></ion-input>
       </div>
-      <div class="col-6">
-        <ion-input
-          type="text"
-          label="Daily rate (Euro)"
-          placeholder="€ 0"
+      <div class="input-wrapper">
+        <!-- TODO, phone number, adapt the component used by training-day 1 hours to do that -->
+        <!-- <ion-input
+          type="phone"
+          placeholder="Enter phone number"
           fill="outline"
           label-placement="stacked"
+          label="Phone number*"
+        ></ion-input> -->
+        <app-phone-selector
+          placeholder="Enter your phone"
+          label="Phone number"
+          variant="outline"
+          formControlName="phonefull"
+          [split]="true"
+          [errorText]="displayedError['phonefull']"
+        ></app-phone-selector>
+      </div>
+      <div class="input-wrapper">
+        <!--- Kesako ?? -->
+        <ion-input
+          type="text"
+          placeholder="Office assistant course"
+          fill="outline"
+          label-placement="stacked"
+          label="Job title"
+          
         ></ion-input>
       </div>
-    </div>
-    <div class="input-wrapper">
-      <!-- the component below still have a bug -->
-      <!-- ERROR TypeError: Cannot read properties of null (reading 'toLowerCase') -->
-      <!-- Need futher evaluation before declaring as a prioritary or not -->
-      <app-chip-input
-        label="Language"
-        placeholder="Enter your languages"
-        [options]="['French', 'English', 'Chinese', 'Spanish', 'Japanese', 'Arab', 'German']"
-        [formControl]="testFormControl"
-        [errorText]="displayedErrorTest"
-        (blur)="testControlBlur()"
-      ></app-chip-input>
-    </div>
-    <div class="input-wrapper">
-      <app-chip-input
-        label="Country"
-        placeholder="Enter your country"
-        [options]="[
-          {'name': 'Albania', 'slug': 'albania'}, 
-          {'name': 'Algeria', 'slug': 'algeria'},
-          {'name': 'Andorra', 'slug': 'andorra'},
-          {'name': 'Angola', 'slug': 'angola'},
-          {'name': 'Antigua and barbuda', 'slug': 'antigua-and-barbuda'}
-        ]"
-        [formControl]="testCountryFormControl"
-        [errorText]="displayedErrorTestCountry"
-        (blur)="testCountryControlBlur()"
-        [keyAccessor]="countryKeyAccessor"
-        [customList]="true"
-        mode="single"
-      >
-        <ng-template let-option>
-          <div class="country-item">
-            <div class="img-container">
-              <img [src]="'/assets/png/country-flags/' + option.slug + '.png'" class="country-flag"/>
-            </div>
-            <span>
-              {{ option.name }}
-            </span>
-          </div>
-        </ng-template>
-      </app-chip-input>
-    </div>
-    <div class="input-wrapper">
-      <app-chip-input
-        label="State"
-        placeholder="Enter your state"
-        [options]="['Option A', 'Option B', 'Option C']"
-        [formControl]="testStateFormControl"
-        [errorText]="displayedErrorTestState"
-        (blur)="testStateControlBlur()"
-        mode="single"
-      ></app-chip-input>
-    </div>
-    <div class="input-wrapper">
-      <app-chip-input
-        label="City"
-        placeholder="Enter your city"
-        [options]="['Option A', 'Option B', 'Option C']"
-        [formControl]="testCityFormControl"
-        [errorText]="displayedErrorTestCity"
-        (blur)="testCityControlBlur()"
-        mode="single"
-      ></app-chip-input>  
-    </div>
-    <div class="input-wrapper">
-      <ion-input
-        label="Address"
-        placeholder="Enter your address"
-        fill="outline"
-        label-placement="stacked"
-      ></ion-input>
-    </div>
-
-    <!--<div>
-      <ion-input
-        label="test1"
-        placeholder="Test2 placeholder"
-        [formControl]="testFormControl2"
-        [errorText]="displayedErrorTest2"
-      ></ion-input>
-    </div>-->
-
-    <div class="bottom-controls">
-      <div class="inner">
-        <ion-button
-          color="primary"
-          expand="block"
-          (click)="testSubmit()"
+      <div class="input-wrapper row">
+        <!--- Kesako ?? -->
+        <div class="col-6">
+          <ion-input
+            type="text"
+            placeholder="Total experience"
+            fill="outline"
+            label-placement="stacked"
+            label="Experience"
+          ></ion-input>
+        </div>
+        <div class="col-6">
+          <ion-input
+            type="text"
+            label="Daily rate (Euro)"
+            placeholder="€ 0"
+            fill="outline"
+            label-placement="stacked"
+            formControlName="dailyRate"
+            [errorText]="displayedError['dailyRate']"
+          ></ion-input>
+        </div>
+      </div>
+      <div class="input-wrapper">
+        <!-- the component below still have a bug -->
+        <!-- ERROR TypeError: Cannot read properties of null (reading 'toLowerCase') -->
+        <!-- Need futher evaluation before declaring as a prioritary or not -->
+        <app-chip-input
+          label="Language"
+          placeholder="Enter your languages"
+          [options]="['french', 'english', 'chinese', 'spanish', 'japanese', 'arab', 'german', 'thai', 'malagasy', 'italian']"
+          formControlName="languages"
+          [errorText]="displayedError['languages']"
+        ></app-chip-input>
+      </div>
+      <div class="input-wrapper">
+        <app-chip-input
+          label="Country"
+          placeholder="Enter your country"
+          [options]="[
+            {'name': 'Albania', 'slug': 'albania'}, 
+            {'name': 'Algeria', 'slug': 'algeria'},
+            {'name': 'Andorra', 'slug': 'andorra'},
+            {'name': 'Angola', 'slug': 'angola'},
+            {'name': 'Antigua and barbuda', 'slug': 'antigua-and-barbuda'}
+          ]"
+          formControlName="country"
+          [errorText]="displayedError['country']"
+          [keyAccessor]="countryKeyAccessor"
+          [customList]="true"
+          mode="single"
         >
-          Save &amp; continue
-        </ion-button>
+          <ng-template let-option>
+            <div class="country-item">
+              <div class="img-container">
+                <img [src]="'/assets/png/country-flags/' + option.slug + '.png'" class="country-flag"/>
+              </div>
+              <span>
+                {{ option.name }}
+              </span>
+            </div>
+          </ng-template>
+        </app-chip-input>
       </div>
-    </div>
+      <div class="input-wrapper">
+        <app-chip-input
+          label="State"
+          placeholder="Enter your state"
+          [options]="['Option A', 'Option B', 'Option C']"
+          formControlName="state"
+          [errorText]="displayedError['state']"
+          mode="single"
+        ></app-chip-input>
+      </div>
+      <div class="input-wrapper">
+        <app-chip-input
+          label="City"
+          placeholder="Enter your city"
+          [options]="['Option A', 'Option B', 'Option C']"
+          formControlName="city"
+          [errorText]="displayedError['city']"
+          mode="single"
+        ></app-chip-input>  
+      </div>
+      <div class="input-wrapper">
+        <ion-input
+          label="Address"
+          placeholder="Enter your address"
+          fill="outline"
+          label-placement="stacked"
+          [errorText]="displayedError['address']"
+        ></ion-input>
+      </div>
+
+      <!--<div>
+        <ion-input
+          label="test1"
+          placeholder="Test2 placeholder"
+          [formControl]="testFormControl2"
+          [errorText]="displayedErrorTest2"
+        ></ion-input>
+      </div>-->
+
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            color="primary"
+            expand="block"
+            [loading]="formIsLoading"
+          >
+            Save &amp; continue
+          </app-ux-button>
+        </div>
+      </div>
+    </form>
   </div>
 </ion-content>

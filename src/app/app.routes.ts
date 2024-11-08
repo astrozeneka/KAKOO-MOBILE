@@ -134,4 +134,16 @@ export const routes: Routes = [
     path: 'splash-icon',
     loadComponent: () => import('./pages/splash-icon/splash-icon.page').then( m => m.SplashIconPage)
   },
+  {
+    path: 'education-form',
+    loadComponent: () => import('./pages/education-form/education-form.page').then( m => m.EducationFormPage)
+  },
+  {
+    path: 'work-experience-form',
+    loadComponent: () => import('./pages/work-experience-form/work-experience-form.page').then( m => m.WorkExperienceFormPage)
+  },
+  {
+    path: 'certification-form',
+    loadComponent: () => import('./pages/certification-form/certification-form.page').then( m => m.CertificationFormPage)
+  },
 ];

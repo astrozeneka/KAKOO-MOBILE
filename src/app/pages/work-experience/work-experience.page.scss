@@ -1,9 +1,17 @@
+@import 'src/theme/mixins.scss';
 
-ion-header {
-    box-shadow:none;
+ion-header{
+    box-shadow: none;
 }
 
-app-experience-card div[slot=footer] b{
-    font-weight: inherit;
-    color: #1A1C1E;
+.form-wrapper{
+    @include form-wrapper-with-bottom-controls;
+}
+
+.form-header{
+    padding-top: 30px;
+}
+
+.project-heading{
+    --margin-bottom: 0px;
 }

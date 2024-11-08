@@ -1,0 +1,75 @@
+<ion-header>
+  <app-topbar variant="light">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>
+      @if (formMode == 'edit'){
+        {{ "Edit Education" |_ }}
+      } @else {
+        {{ "Add Education" |_ }}
+      }
+    </div>
+    <div slot="end">
+      <ion-button
+        color="danger"
+        fill="clear"
+      >
+      {{ "Delete" |_ }}
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding-horizontal form-wrapper">
+    <form [formGroup]="form" (submit)="submit()">
+      
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'SSSS College of commerce and Allied Studies' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'School/College/University/Institution Name*' |_ }}"
+          formControlName="college"
+          [errorText]="displayedError['college']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'Bachelor of Commerce' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Degree*' |_ }}"
+          formControlName="degreeName"
+          [errorText]="displayedError['degreeName']"
+        ></ion-input>
+      </div>
+      <div>
+        <!-- For later, use an appropriate form control -->
+        <ion-input
+          type="text"
+          placeholder="{{ '2022' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Year of Graduation*' |_ }}"
+          formControlName="year"
+          [errorText]="displayedError['year']"
+        ></ion-input>
+      </div>
+
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            type="submit"
+            color="primary"
+            expand="block"
+            [loading]="formIsLoading"
+          >
+            {{ "Save" | _ }}
+          </app-ux-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

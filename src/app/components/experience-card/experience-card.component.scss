@@ -47,11 +47,15 @@
 
     & .right{
         display: flex;
+        flex-direction: row;
         height: 22.4px;
-        align-items: center;
+        align-items: flex-start;
         margin-right: -6px; // To equilibrate the card margin
+        //background: red;
 
-        & ion-button{
+        // BUG HERE, the button should be displayed horizontally, not vertically
+        & ion-button, & app-ux-button{
+            
             --padding-start: 0;
             --padding-end: 0;
             --padding-top: 0;
@@ -61,6 +65,8 @@
             line-height: 18px;
             margin: 0;
 
+            position: relative;
+
             & ion-icon.trash{
                 max-height: 14px;
             }
@@ -68,6 +74,22 @@
             & ion-icon.edit{
                 max-height: 16.5px;
             }
+
+            & ion-icon{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+        }
+
+        & app-ux-button{
+            --width: 25.2px;
+            --height: 18px;
+            --line-height: 18px;
+            --margin: 0;
+            --spinner-size: 13px;
         }
     }
 }

@@ -85,8 +85,8 @@ export class SignupPage extends AbstractPage implements OnInit{
       phoneCode: this.form.controls['phonefull'].value[0],
       phone: this.form.controls['phonefull'].value[1]
     }
-    console.log(data)
-    this.cs.post_exp('https://web.kakoo-software.com/kakoo-back-end/api/v1/self-candidate/register', data)
+    
+    this.cs.post_exp('https://web.kakoo-software.com/kakoo-back-end/api/v1/self-candidate/register', data, {})
       .pipe(catchError((error)=>{
         let message:string = error.error.message
         // If 400

@@ -31,22 +31,30 @@
           </div>
         </div>
       </div>-->
+      <form [formGroup]="form" (submit)="submit()">
+        <!-- TODO later merge the native and the builded component -->
+        <app-clickable-file-card 
+          variant="welcome"
+          formControlName="file"
+        >
+          Rishabh Rai CV.pdf
+          <div slot="subtitle">Added less than a minute ago</div>
+        </app-clickable-file-card>
+        <!--<app-file-card variant="welcome" [clickable]="true">
+          Rishabh Rai CV.pdf
+          <div slot="subtitle">Added less than a minute ago</div>
+        </app-file-card>-->
 
-      <!-- TODO later merge the native and the builded component -->
-      <input type="file" #fileInput/>
-      <app-file-card variant="welcome">
-        Rishabh Rai CV.pdf
-        <div slot="subtitle">Added less than a minute ago</div>
-      </app-file-card>
-
-      <ion-button
-        expand="block"
-        class="submit-button"
-        color="primary"
-        type="submit"
-      >
-        Continue
-      </ion-button>
+        <app-ux-button
+          expand="block"
+          class="submit-button"
+          color="primary"
+          type="submit"
+          [loading]="formIsLoading"
+        >
+          Continue
+        </app-ux-button>
+      </form>
     </div>
   </div>
 

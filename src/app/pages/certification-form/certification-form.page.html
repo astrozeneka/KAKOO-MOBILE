@@ -1,0 +1,140 @@
+<ion-header>
+  <app-topbar variant="light">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>
+      @if (formMode == 'edit'){
+        {{ "Edit Certificate" |_ }}
+      } @else {
+        {{ "Add Certificate" |_ }}
+      }
+    </div>
+    <div slot="end">
+      <ion-button
+        color="danger"
+        fill="clear"
+      >
+      {{ "Delete" |_ }}
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding-horizontal form-wrapper">
+    <form [formGroup]="form" (submit)="submit()">
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'Amazon' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Institution Name*' |_ }}"
+          formControlName="institution"
+          [errorText]="displayedError['institution']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'Certificate in Digital Marketing' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Certificate Name*' |_ }}"
+          formControlName="name"
+          [errorText]="displayedError['name']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          formControlName="year"
+          type="text"
+          placeholder="{{ '2022' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Year*' |_ }}"
+          [errorText]="displayedError['year']"
+        ></ion-input>
+      </div>
+      <!-- THE V1
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'Certificate in Digital Marketing' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Certificate Name*' |_ }}"
+          formControlName="title"
+          [errorText]="displayedError['title']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          formControlName="licenceId"
+          placeholder="{{ '123456' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'License ID*' |_ }}"
+          [errorText]="displayedError['licenceId']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          formControlName="issuingOrganization"
+          placeholder="{{ 'Google' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Issuing Organization*' |_ }}"
+          [errorText]="displayedError['issuingOrganization']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="date"
+          formControlName="issueDate"
+          placeholder="{{ '2022-01-01' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Issue Date*' |_ }}"
+          [errorText]="displayedError['issueDate']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="date"
+          formControlName="expireDate"
+          placeholder="{{ '2022-01-01' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Expire Date*' |_ }}"
+          [errorText]="displayedError['expireDate']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          formControlName="licenceURL"
+          placeholder="{{ 'https://certificate.com/abcdefgh' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'License URL*' |_ }}"
+          [errorText]="displayedError['licenceURL']"
+        ></ion-input>
+      </div>-->
+
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            type="submit"
+            color="primary"
+            expand="block"
+            [loading]="formIsLoading"
+          >
+            {{ "Save" | _ }}
+          </app-ux-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

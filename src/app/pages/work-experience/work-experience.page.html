@@ -1,31 +1,70 @@
+<ion-header>
+  <app-topbar [progress]="0.5">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>Setup your profile</div>
+    <div slot="end">
+      <ion-button
+        color="primary"
+        fill="clear"
+      >
+        Skip
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
+
 <ion-content>
-  <ion-header>
-    <app-topbar [progress]="0.5">
-      <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Setup your profile</div>
-      <div slot="end">
+
+  <div class="ion-padding-horizontal form-wrapper">
+    <div class="form-header">
+      <h2 class="display-2">Work Experience</h2>
+      <div class="helper">
+        Let us know you a bit lorem ipsum is a dummy text for the printing.
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <app-section-heading class="project-heading">
+      Experience
+      <ion-button
+        color="primary"
+        fill="clear"
+        slot="end"
+        (click)="router.navigateByUrl('/work-experience-form?mode=add')"
+      >
+        {{ "Add" |_ }}
+      </ion-button>
+    </app-section-heading>
+
+    @for (entity of candidateWorkExperienceEntities; track $index) {
+      <app-experience-card
+        (edit)="router.navigateByUrl('/work-experience-form?mode=edit&id=' + entity.id)"
+        (delete)="deleteWorkExperience(entity)"
+        [deleteButtonIsLoading$]="entity.deleteIsLoading$"
+      >
+        <div slot="image">
+          <img src="/assets/png/sample-image-1.png" width="33px">
+        </div>
+        <div slot="title">{{ entity.jobTitle }}</div>
+        <div slot="content">
+          {{ entity.companyName }}<br/>
+          {{ entity.location }}
+        </div>
+        <div slot="footer">
+          {{ entity.startDate | date: 'MMM yyyy' }} - {{ entity.endDate | date: 'MMM yyyy' }}
+        </div>
+      </app-experience-card>
+    }
+
+    <div class="bottom-controls">
+      <div class="inner">
         <ion-button
           color="primary"
-          fill="clear"
+          expand="block"
         >
-          Skip
+          Save &amp; continue
         </ion-button>
       </div>
-    </app-topbar>
-  </ion-header>
-
-  <br/>
-  <app-experience-card>
-    <div slot="image">
-      <img src="/assets/png/sample-image-1.png" width="33px">
     </div>
-    <div slot="title">Charted Accountant Article ship</div>
-    <div slot="content">
-      R.S and Sons Charted Accountant Pvt. Ltd.<br/>
-      Amritsar Punjab, India
-    </div>
-    <div slot="footer">
-      May 2019 - Jun 2021
-    </div>
-  </app-experience-card>
+  </div>
 </ion-content>

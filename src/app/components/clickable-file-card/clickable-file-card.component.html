@@ -1,0 +1,47 @@
+<div class="wrapper">
+  <input type="file" #fileInput class="ion-hide" accept="application/pdf" (change)="onNativeFileInputChange($event)"/>
+  <ion-button
+    fill="clear"
+    expand="block"
+    color="dark"
+    [class]="'clickable-file-card ' + variant"
+    (click)="onClick($event)"
+  >
+    <div class="inner">
+      <div class="left">
+        @if (variant == 'default'){
+          <ion-icon src="/assets/svg/file-card/icon-file-card-default.svg"></ion-icon>
+        } @else if (variant == 'review-1' || variant == 'welcome') {
+          <ion-icon src="/assets/svg/file-card/icon-file-card-review-1.svg"></ion-icon>
+        }
+      </div>
+      <div class="right">
+        <div class="title">
+          @if (!file) {
+            {{ "Upload a resume" |_ }}
+          } @else {
+            {{ file.name }}
+          }
+        </div>
+        <div class="subtitle">
+          @if (!file) {
+            {{ "max size file" |_ }} <span>2MB</span> (.pdf)
+          } @else {
+            {{ "Added less than a minute ago" |_ }}
+          }
+        </div>
+      </div>
+      @if (variant == 'review-1'){
+        <div class="controls">
+          <ion-button
+            color="dark"
+            fill="clear"
+            shape="round"
+          >
+            <ion-icon src="/assets/svg/file-card/ellipsis.svg"></ion-icon>
+          </ion-button>
+        </div>
+      }
+    </div>
+  </ion-button>
+</div>

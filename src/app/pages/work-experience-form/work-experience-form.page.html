@@ -1,0 +1,130 @@
+<ion-header>
+  <app-topbar variant="light">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>{{ "Edit Work Experience" |_ }}</div>
+    <div slot="end">
+      <ion-button
+        color="danger"
+        fill="clear"
+      >
+        {{ "Delete" |_ }}
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding-horizontal form-wrapper">
+    <form [formGroup]="form" (submit)="submit()">
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'Company Name' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Company Name*' |_ }}"
+          formControlName="companyName"
+          [errorText]="displayedError['companyName']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'Software Engineer' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Job Title*' |_ }}"
+          formControlName="jobTitle"
+          [errorText]="displayedError['jobTitle']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'Design and develop marketplace (App Store/Play Store) quality level mobile application for customers' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Job Description*' |_ }}"
+          formControlName="description"
+          [errorText]="displayedError['description']"
+        ></ion-input>
+      </div>
+      <div>
+        <app-chip-input
+          label="Type of employment"
+          placeholder="Select Type of Employment"
+          [options]="['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Freelance']"
+          formControlName="employmentType"
+          [errorText]="displayedError['employmentType']"
+          mode="single"
+        ></app-chip-input>
+      </div>
+      <div>
+        <app-chip-input
+          label="Work Type"
+          placeholder="Select Work Type"
+          [options]="['Remote', 'On-site', 'Hybrid']"
+          formControlName="workType"
+          [errorText]="displayedError['workType']"
+          mode="single"></app-chip-input>
+      </div>
+      <div>
+        <ion-input
+          type="date"
+          placeholder="{{ '01/01/2022' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Start Date*' |_ }}"
+          formControlName="startDate"
+          [errorText]="displayedError['startDate']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="date"
+          placeholder="{{ '31/12/2022' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'End Date*' |_ }}"
+          formControlName="endDate"
+          [errorText]="displayedError['endDate']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          label="{{ 'Responsibilities and Achievements' |_ }}"
+          placeholder="{{ 'Design and develop marketplace (App Store/Play Store) quality level mobile application for customers' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          formControlName="responsibilitiesAndAchievements"
+          [errorText]="displayedError['responsibilitiesAndAchievements']"
+        ></ion-input>
+      </div>
+      <div>
+        <ion-input
+          type="text"
+          placeholder="{{ 'New York, NY, USA' |_ }}"
+          fill="outline"
+          label-placement="stacked"
+          label="{{ 'Location*' |_ }}"
+          formControlName="location"
+          [errorText]="displayedError['location']"
+        ></ion-input>
+      </div>
+
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            type="submit"
+            color="primary"
+            expand="block"
+            [loading]="formIsLoading"
+          >
+            {{ "Save &amp; continue" | _ }}
+          </app-ux-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

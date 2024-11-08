@@ -1,6 +1,6 @@
 import { JsonPipe, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, EventEmitter, forwardRef, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, TouchedChangeEvent } from '@angular/forms';
+import { ChangeDetectorRef, Component, ContentChild, EventEmitter, forwardRef, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { ControlContainer, ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, TouchedChangeEvent } from '@angular/forms';
 import { IonInput, IonButton, IonIcon } from "@ionic/angular/standalone";
 import { filter } from 'rxjs';
 
@@ -20,6 +20,7 @@ import { filter } from 'rxjs';
 })
 export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
   @Input() formControl: FormControl<any[]|string> | undefined;
+  @Input() formControlName: string|undefined;
   @Input() label: string = ""
   @Input() placeholder: string = ""
   @Input() options: T[] = []
@@ -44,9 +45,14 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
   @Input() customList: boolean = false;
   @ContentChild(TemplateRef) itemTemplate: TemplateRef<any> | null = null;
 
-  constructor() { }
+  constructor(
+    private controlContainer: ControlContainer,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
+    this.formControl = this.formControl || this.controlContainer.control?.get(this.formControlName!) as FormControl<any[]|string>;
+
     // Manage the inner control value change
     this.innerFormControl.valueChanges.subscribe((value:string) => {
       this._filterOptions(value);
@@ -82,6 +88,13 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
         this.blur.emit({});
       })
     }
+
+    // In case of single mode, patch the value to the inner control
+    if (this.mode == 'single'){
+      this.formControl?.valueChanges.subscribe((value) => {
+        this.innerFormControl.patchValue(value);
+      })
+    }
   }
 
   writeValue(obj: any): void {
@@ -115,7 +128,7 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
     this._filterOptions();
     this.onChange(this.formControl?.value);
     this.onTouch();
-    this.innerFormControl.patchValue(null);
+    this.innerFormControl.patchValue("");
     if (this.mode == 'single') this.innerFormControl.patchValue(this.keyAccessor(option))
     this.blur.emit({}); // Experimental feature
   }

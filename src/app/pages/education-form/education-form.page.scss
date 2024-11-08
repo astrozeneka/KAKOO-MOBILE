@@ -1,0 +1,15 @@
+@import 'src/theme/mixins.scss';
+
+ion-header{
+    box-shadow: none;
+}
+
+.form-wrapper{
+    padding-top: 32px;
+    @include form-wrapper-with-bottom-controls;
+
+    & ion-input:first-of-type{
+        // The margin is overflown out of the form-wrapper
+        margin-top: 0px; // Correction
+    }
+}

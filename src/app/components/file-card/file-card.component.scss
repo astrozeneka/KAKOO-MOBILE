@@ -5,7 +5,7 @@
     border: 1px solid #E7E7E9;
     border-radius: 6px;
     padding: 18px;
-    display: flex;
+    display: flex; //************
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -79,4 +79,8 @@
             }
         }
     }
+
+    // The ripple
+    position: relative;
+    overflow: hidden;
 }

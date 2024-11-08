@@ -26,72 +26,115 @@
     <!-- Education -->
     <app-section-heading class="education-heading">
       Education
-      <ion-button
-        color="primary"
-        fill="clear"
-        slot="end"
-      >
-        Add
-      </ion-button>
+      @if (candidateEducationEntities.length > 0){
+        <ion-button
+          color="primary"
+          fill="clear"
+          slot="end"
+          (click)="router.navigateByUrl('/education-form?mode=add')"
+        >
+        {{ "Add" |_ }}
+        </ion-button>
+      }
     </app-section-heading>
-    <app-experience-card
-      [editButton]="true"
-      [deleteButton]="true"
-    >
-      <div slot="image">
-        <div class="rounded-container">
-          <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+
+    <div>
+      @if (candidateEducationEntities.length == 0){
+        <ion-button
+          fill="outline"
+          color="primary"
+          class='add-button'
+          (click)="router.navigateByUrl('/education-form?mode=add')"
+        >
+          <div class="inner">
+            Add education
+          </div>
+        </ion-button>
+      }
+    </div>
+
+    @for (entity of candidateEducationEntities; track $index) {
+      <app-experience-card
+        [editButton]="true"
+        [deleteButton]="true"
+        (edit)="router.navigateByUrl('/education-form?mode=edit&id=' + entity.id)"
+        (delete)="deleteEducation(entity)"
+        [deleteButtonIsLoading$]="entity.deleteIsLoading$"
+      >
+        <div slot="image">
+          <div class="rounded-container">
+            <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+          </div>
         </div>
-      </div>
-      <div slot="title">Bachelor of Commerce</div>
-      <div slot="content">
-        SSSS College of commerce and Allied
-      </div>
-      <div slot="footer">
-        <div class="chip">2024</div>
-      </div>
-    </app-experience-card>
-    <app-experience-card
-      [editButton]="true"
-      [deleteButton]="true"
-    >
-      <div slot="image">
-        <div class="rounded-container">
-          <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+        <div slot="title">{{ entity.degreeName }}</div>
+        <div slot="content">
+          {{ entity.college }}
         </div>
-      </div>
-      <div slot="title">Higher Secondary</div>
-      <div slot="content">
-        SSSS College of commerce and Allied
-      </div>
-      <div slot="footer">
-        <div class="chip">2024</div>
-      </div>
-    </app-experience-card>
+        <div slot="footer">
+          <div class="chip">{{ entity.year }}</div>
+        </div>
+      </app-experience-card>
+    }
 
     <!-- Certification -->
     <app-section-heading class="certification-heading">
       Certification
+      @if (candidateCertificateEntities.length > 0){
+        <ion-button
+          color="primary"
+          fill="clear"
+          slot="end"
+          (click)="router.navigateByUrl('/certification-form?mode=add')"
+        >
+        {{ "Add" |_ }}
+        </ion-button>
+      }
     </app-section-heading>
     <div>
-      <ion-button
-        fill="outline"
-        color="primary"
-        class='add-button'
-      >
-        <div class="inner">
-          Add certificate
-        </div>
-      </ion-button>
+      @if (candidateCertificateEntities.length == 0){
+        <ion-button
+          fill="outline"
+          color="primary"
+          class='add-button'
+          (click)="router.navigateByUrl('/certification-form?mode=add')"
+        >
+          <div class="inner">
+            Add certificate
+          </div>
+        </ion-button>
+      }
     </div>
+    @for (entity of candidateCertificateEntities; track $index) {
+      <app-experience-card
+        [editButton]="true"
+        [deleteButton]="true"
+        (edit)="router.navigateByUrl('/certification-form?mode=edit&id=' + entity.id)"
+        (delete)="deleteCertificate(entity)"
+        [deleteButtonIsLoading$]="entity.deleteIsLoading$"
+      >
+        <div slot="image">
+          <div class="rounded-container">
+            <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+          </div>
+        </div>
+        <div slot="title">{{ entity.name }}</div>
+        <div slot="content">
+          {{ entity.institution }}
+        </div>
+        <div slot="footer">
+          <div class="chip">{{ entity.year }}</div>
+        </div>
+      </app-experience-card>
+    }
 
     <div class="bottom-controls">
       <div class="inner">
         <ion-button
           color="primary"
           expand="block"
+          (click)="router.navigateByUrl('/work-experience')"
         >
-          Save &amp; continue
+        {{ "Save &amp; continue" | _ }}
         </ion-button>
       </div>
     </div>

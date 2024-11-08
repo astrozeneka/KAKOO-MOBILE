@@ -15,19 +15,24 @@
   </div>
   <div class="right">
     @if (editButton) {
-      <ion-button
+      <app-ux-button
         color="dark"
         fill="clear"
         shape="round"
+        (click)="deleteClicked($event)"
+        [loading]="deleteButtonIsLoading"
+        [customSizing]="true"
+        spinner="dots"
       >
         <ion-icon src="/assets/svg/icon-trash.svg" class="trash"></ion-icon>
-      </ion-button>
+      </app-ux-button>
     }
     @if (deleteButton) {
       <ion-button
         color="dark"
         fill="clear"
         shape="round"
+        (click)="editClicked($event)"
       >
         <ion-icon src="/assets/svg/icon-edit.svg" class="edit"></ion-icon>
       </ion-button>

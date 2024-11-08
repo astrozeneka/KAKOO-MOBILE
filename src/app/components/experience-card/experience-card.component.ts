@@ -1,20 +1,51 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonIcon, IonButton } from "@ionic/angular/standalone";
+import { Observable } from 'rxjs';
+import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 
 @Component({
   selector: 'app-experience-card',
   templateUrl: './experience-card.component.html',
   styleUrls: ['./experience-card.component.scss'],
   standalone: true,
-  imports: [IonButton, IonIcon]
+  imports: [IonButton, IonIcon, UxButtonComponent]
 })
 export class ExperienceCardComponent  implements OnInit {
 
   @Input() editButton:boolean = true;
   @Input() deleteButton:boolean = true;
 
-  constructor() { }
+  // The related edit and elete event
+  @Output() edit:EventEmitter<any> = new EventEmitter();
+  @Output() delete:EventEmitter<any> = new EventEmitter
 
-  ngOnInit() {}
+  // Ux improving of the buttons
+  @Input() deleteButtonIsLoading$:Observable<boolean> = new Observable();
+  deleteButtonIsLoading:boolean = false;
+
+  // Edit button (maybe not needed)
+
+  constructor(
+    private cdr:ChangeDetectorRef
+  ) { }
+
+  ngOnInit() {
+    // The delete button
+    this.deleteButtonIsLoading$.subscribe((value:boolean) => {
+      this.deleteButtonIsLoading = value
+      console.log("Here", value)
+      this.cdr.detectChanges()
+    })
+
+    // Test (delete later)
+  }
+
+  editClicked(event:any){
+    this.edit.emit(event);
+  }
+
+  deleteClicked(event:any){
+    this.delete.emit(event)
+  }
 
 }
