@@ -26,8 +26,10 @@
         <div class="subtitle">
           @if (!file) {
             {{ "max size file" |_ }} <span>2MB</span> (.pdf)
-          } @else {
-            {{ "Added less than a minute ago" |_ }}
+          } @else if (file.createdAt){
+            {{ computeTimeStr(file.createdAt) }}
+          } @else if (file.base64) {
+            {{ file.type}}
           }
         </div>
       </div>

@@ -1,12 +1,13 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { BehaviorSubject, filter, firstValueFrom, from, map, merge, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, filter, firstValueFrom, from, map, merge, Observable, switchMap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import StoredData from '../submodules/stored-data/StoredData';
 import { AppLanguageService } from './app-language.service';
 import { Candidate } from '../models/Candidate';
 import { Router } from '@angular/router';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,15 @@ import { Router } from '@angular/router';
 export class ContentService {
   token: StoredData<string>
   languageShortened:'fr'|'en' = 'en' // Set by external service (language service)
-  candidateData: StoredData<Candidate>
 
   // Experimental features (candidate data rxjs subject)
+  candidateData: StoredData<Candidate>
   candidateDataSubject = new BehaviorSubject<Candidate|null>(null)
   candidateData$ = this.candidateDataSubject.asObservable()
+
+  userData: StoredData<User>
+  userDataSubject = new BehaviorSubject<User|null>(null)
+  userData$ = this.userDataSubject.asObservable()
 
 
   constructor(
@@ -29,7 +34,7 @@ export class ContentService {
     this.storage.create()
     this.token = new StoredData<string>('token', this.storage)
     this.candidateData = new StoredData<Candidate>('candidateData', this.storage)
-
+    this.userData = new StoredData<User>('userData', this.storage)
     // Experimental feature for the candidate data
   }
 
@@ -95,16 +100,24 @@ export class ContentService {
   }
 
   get_exp(uri: string, headers: {[key: string]:any}): Observable<any>{
-    return from(new Promise(async(resolve)=>{
+    return from(new Promise(async(resolve, reject)=>{
       let token = await this.token.get()
       let hdrs ={
         ...headers,
         ...(token?{Authorization: token}:{})
       }
-      // console.log(hdrs)
-      resolve(firstValueFrom((this.http.get(`${environment.apiEndpoint}${uri}?language=${this.languageShortened}`, {
-        headers: hdrs
-      }))))
+      try{
+        const response = await firstValueFrom(
+          this.http.get(`${environment.apiEndpoint}${uri}?language=${this.languageShortened}`, {
+            headers: hdrs
+          }).pipe(catchError((error)=>{
+            return throwError(error)
+          }))
+        )
+        resolve(response)
+      }catch(error){
+        reject(error)
+      }
     }));
     // print token
     /*
@@ -185,17 +198,74 @@ export class ContentService {
     output$ = output$.pipe(filter((data)=>data!=null))
     return output$
   }
-  requestCandidateDataRefresh(){
+  async requestCandidateDataRefresh(){
+    let candidateId = (await this.candidateData.get())?.candidateId ||
+      (await this.userData.get())?.candidateId
+    console.log(candidateId)
+    if (candidateId){
+      this.get_exp(`/api/v2/self-candidate/get-by-id/${candidateId}`, {})
+        .subscribe((data: Candidate)=>{
+          this.candidateData.set(data)
+          this.candidateDataSubject.next(data)
+        })
+    }
+  }
+
+  // Another endpoint is used here, but doesn't handle if the user has just created an account
+  registerCandidateDataObserverV3(getFromCache=true, getFromServer=true): Observable<Candidate|null>{
+    let additionalEventsSubject = new BehaviorSubject<Candidate|null>(null)
+    let additionalEvents$ = additionalEventsSubject.asObservable()
+
+    // 1. Fire the cached data
     this.candidateData.get().then((data)=>{
-      let id = data?.candidateId
-      if (id){
-        this.get_exp(`/api/v2/self-candidate/get-by-id/${id}`, {})
-          .subscribe((data: Candidate)=>{
-            this.candidateData.set(data)
-            this.candidateDataSubject.next(data)
-          })
-        }
-      })
+      if (getFromCache)
+        additionalEventsSubject.next(data)
+    })
+
+    // 2. Fire from the server
+    if (getFromServer) {
+      this.get_exp(`/api/v1/self-candidate`, {})
+        .pipe(catchError((error)=>{
+          console.log("Unable to fetch the candidate, probably first time")
+          return throwError(error)
+        }))
+        .subscribe((data: Candidate)=>{
+          additionalEventsSubject.next(data)
+          // 3. Update the cache
+          this.candidateData.set(data)
+        })
+    }
+    let output$ = merge(this.candidateData$, additionalEvents$)
+    output$ = output$.pipe(filter((data)=>data!=null))
+    return output$
+  }
+
+  // Same architecture as registerCandidateDataObserverV2 but for id
+  registerUserDataObserver(getFromCache=true, getFromServer=true):Observable<User|null>{
+    let additionalEventsSubject = new BehaviorSubject<User|null>(null)
+    let additionalEvents$ = additionalEventsSubject.asObservable()
+
+    // 1. Fire the cached data
+    if (getFromCache)
+    this.userData.get().then((data)=>{
+        additionalEventsSubject.next(data)
+    })
+
+    // 2. Call the server, then fire the server data to the same observer
+    // no id needed, only the bearer token
+    if (getFromServer) {
+      this.get_exp(`/api/v1/self-candidate/get-user`, {})
+        .subscribe(async (data: User)=>{
+          // 3. Update the cache
+          console.log(data)
+          await this.userData.set(data)
+          additionalEventsSubject.next(data)
+        })
+    }
+
+    let output$ = merge(this.userData$, additionalEvents$)
+    output$ = output$.pipe(filter((data)=>data!=null))
+    return output$
   }
 
   
@@ -229,6 +299,7 @@ export class ContentService {
     // Same architecture as in training-day
     await this.token.set('')
     await this.candidateData.set(null as any)
+    await this.userData.set(null as any)
     this.router.navigate(['/login'])
   }
 }

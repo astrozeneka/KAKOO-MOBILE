@@ -30,7 +30,7 @@ export interface Candidate {
     countryEntity: CountryEntity
     stateEntity: StateEntity
     cityEntity: CityEntity
-    resumeAttachmentEntity: any
+    resumeAttachmentEntity: ResumeAttachmentEntity,
     educationCertificateEntities: EducationCertificateEntity[]
     licenceCertificateEntities: any // ???
     workExperienceEntities: WorkExperienceEntity[]
@@ -137,5 +137,16 @@ export interface Candidate {
     licenceId: string
     licenceURL: string
     title: string
+  }
+  
+  export interface ResumeAttachmentEntity {
+    attachmentId: number
+    name: string
+    fullPath: any
+    fileUUTD: string
+    createdBy: number
+    fileType: string
+    createdAt: string
+    storageCloudType: string
   }
   
