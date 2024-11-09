@@ -38,11 +38,15 @@ ion-input{
     // The has-touched can't be used yet for now (maybe to be updated later)
 }
 
-ion-button{
+ion-button, app-ux-button{
     line-height: 19px;
     color: #1A1C1E;
     --border-width: 1px;
     --border-color: #79747E; // TODO, use a color scheme for the app
+}
+
+app-ux-button{
+    --border-width: 0px!important;
 }
 
 .in-text{
@@ -67,10 +71,15 @@ ion-button{
 .login-provider{
     & img{
         position: absolute;
-        left: 2px;
+        left: calc(2px + 17px);
     }
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+app-ux-button .inner{
+    padding-left: 17px;
+    padding-right: 17px;
 }
 
 .footer-text{

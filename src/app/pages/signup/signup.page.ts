@@ -10,6 +10,9 @@ import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalo
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { catchError, finalize, map, throwError } from 'rxjs';
 import { ContentService } from 'src/app/services/content.service';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { Browser } from '@capacitor/browser';
+import { GoogleAuthorize } from 'src/app/models/GoogleAuthorize';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +23,7 @@ import { ContentService } from 'src/app/services/content.service';
   ],
   standalone: true,
   imports: [IonSelect, IonSelectOption, IonInput, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, BackButtonComponent,
-    ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent
+    ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent, I18nPipeShortened
   ]
 })
 export class SignupPage extends AbstractPage implements OnInit{
@@ -45,7 +48,10 @@ export class SignupPage extends AbstractPage implements OnInit{
     // 'phoneCode': undefined, // Computed on submit
     'referralCode': undefined,
   }
+  // Three button of logging (native, google and linkedin)
   formIsLoading: boolean = false;
+  googleIsLoading: boolean = false;
+  linkedinIsLoading: boolean = false;
 
   constructor(
     private router:Router,
@@ -152,6 +158,40 @@ export class SignupPage extends AbstractPage implements OnInit{
         this.displayedError[key] = undefined
       }
     }
+  }
+
+  signupWithGoogle(){
+    // This need to consult with the team
+    this.googleIsLoading = true
+    console.log("Calling /oauth2/authorize/google/v2")
+    // Test to use /authorize/google/v2 Endpoint
+    this.cs.get_exp('/oauth2/authorize/google/v2', {})
+    .pipe(catchError((error)=>{
+      console.log(error)
+      return throwError(error)
+    }))
+    .subscribe((res:GoogleAuthorize)=>{
+      // Open the browser (This doesn't work)
+      console.log(res)
+      Browser.open({url: res.url})
+    })
+  }
+
+  signupWithLinkedin(){
+    this.linkedinIsLoading = true
+    console.log("Calling /oauth2/authorize/linkedin/v2")
+    this.cs.get_exp('/oauth2/authorize/linkedin/v2', {})
+    .pipe(catchError((error)=>{
+      console.log(error)
+      return throwError(error)
+      // Maybe can try to use ngrok first, then talk with them to implement later
+    }))
+    .subscribe((res:any)=>{
+      // Open the browser
+      console.log(res)
+      // Browser.open({url: res.url})
+      // Maybe can try to use ngrok first, then talk with them to implement later
+    })
   }
 
 }

@@ -139,24 +139,30 @@
       </div>
       
       <!-- TODO, should create a more suitable button class -->
-      <ion-button
+      <app-ux-button
         expand="block"
-        fill="outline"
         class="login-provider"
+        (click)="signupWithGoogle()"
+        [loading]="googleIsLoading"
+        variant="kakoo"
       >
-        <img src="/assets/svg/google-logo.svg" width="18px"/>
-        Continue with Google
-      </ion-button>
+        <div class="inner">
+          <img src="/assets/svg/google-logo.svg" width="18px"/>
+          {{ "Continue with Google" |_ }}
+        </div>
+      </app-ux-button>
       
       <!-- TODO, should create a more suitable button class -->
-      <ion-button
+      <app-ux-button
         expand="block"
         fill="outline"
         class="login-provider"
+        (click)="signupWithLinkedin()"
+        variant="kakoo"
       >
-      <img src="/assets/svg/linkedin-logo.svg" width="18px"/>
-        Continue with LinkedIn
-      </ion-button>
+        <img src="/assets/svg/linkedin-logo.svg" width="18px"/>
+          {{ "Continue with LinkedIn" |_ }}
+      </app-ux-button>
     </div>
 
     <p class="footer-text ion-text-center">
