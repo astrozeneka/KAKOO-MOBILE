@@ -20,6 +20,7 @@ import { alertCircleOutline } from 'ionicons/icons';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { User, Role } from 'src/app/models/User';
+import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ import { User, Role } from 'src/app/models/User';
   standalone: true,
   imports: [
     IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, BackButtonComponent,
-    TranslateModule, I18nPipe, I18nPipeShortened, LanguageButtonComponent, UxButtonComponent,
+    TranslateModule, I18nPipe, I18nPipeShortened, LanguageButtonComponent, UxButtonComponent, TopbarComponent,
     ...[(environment.production ? ProdDebugButtonComponent : DevDebugButtonComponent)]
 ]
 })

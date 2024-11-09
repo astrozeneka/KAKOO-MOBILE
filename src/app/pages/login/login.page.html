@@ -1,27 +1,36 @@
-<ion-header [translucent]="true">
+
+<ion-header>
+  <app-topbar variant="kakoo">
+    <div slot="title">
+      <img src="/assets/kakoo-logo.png" height="26px">
+    </div>
+    <div slot="end">
+      <div class="img-container">
+        <app-language-button></app-language-button>
+      </div>
+    </div>
+  </app-topbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <!-- TODO, the header TO MANAGE LATER, same as signup.html -->
-  <div class="placeholder ion-padding-horizontal" style="height: 46px"><!-- Should consider to update later -->
+  <!--<div class="placeholder ion-padding-horizontal" style="height: 46px">
     <app-back-button></app-back-button>
-  </div>
+  </div>-->
 
   <div class="ion-padding-horizontal">
-    <div class="left-right">
+    <!--<div class="left-right">
       <div>
-        <!-- TODO, width should be responsive -->
         <img src="/assets/kakoo-logo.png" width="91px">
       </div>
       <div>
         <app-language-button></app-language-button>
       </div>
-    </div>
+    </div>-->
 
     <div>
       <h2>{{ "Hello Kakooster! 👋" |_ }}</h2>
       <div class="helper">{{ "to access Kakoo Software Solutions" |_ }}</div>
-      <!-- The space below should be fixed -->
     </div>
     <div class="container">
       @if (credentialFailed) {

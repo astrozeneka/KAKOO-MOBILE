@@ -41,6 +41,10 @@ export class WelcomePage implements OnInit {
     console.log(token)
     // TODO, if token is null disconnect the user
 
+    this.form.valueChanges.subscribe((value)=>{
+      console.log(value)
+    })
+
     // Testing formControl (test passed)
     /* setTimeout(()=>{
       this.fileControl.setValue({
@@ -69,7 +73,7 @@ export class WelcomePage implements OnInit {
     })*/
 
     // Test viewchild
-    console.log(this.fileInput)
+    /*console.log(this.fileInput)
     // On change (the code below doesn't run)
     this.fileInput?.nativeElement.addEventListener('change', (event:any)=>{
       // Get the value of the file
@@ -104,7 +108,7 @@ export class WelcomePage implements OnInit {
         })
       }
       reader.readAsDataURL(file)
-    })
+    })*/
 
 
 
@@ -130,14 +134,26 @@ export class WelcomePage implements OnInit {
     // testing a file sending, this should use the get_exp (experimental first)
     
     // a. Preparing fileData
-    const byteCharacters = atob(fileData.base64.split(',')[1]);
-    const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i));
-    const byteArray = new Uint8Array(byteNumbers);
-    const file = new File([byteArray], fileData.name, { type: fileData.type });
+    console.log("Preparing file data")
     const formData = new FormData();
-    formData.append('file', file);
+    try{
+      const byteCharacters = atob(fileData.base64.split(',')[1]);
+      console.log("Preparing byteNumbers")
+      const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i));
+      console.log("Preparing byteArray")
+      const byteArray = new Uint8Array(byteNumbers);
+      console.log("Preparing file")
+      const file = new File([byteArray], fileData.name, { type: fileData.type });
+      console.log("Appending file")
+      formData.append('file', file);
+    }catch(error){
+      console.error("Error while preparing file data")
+      console.log(error)
+      return
+    }
 
     // b. Preparing query
+    console.log("Preparing query")
     let token = await this.cs.token.get()
     const headers = new HttpHeaders({
       'Authorization': token!

@@ -99,7 +99,7 @@ export class ClickableFileCardComponent implements ControlValueAccessor, OnInit 
         this.file = {
           name: file.name,
           type: file.type,
-          base64: file.data
+          base64: 'data:' + file.type + ';base64,' + file.data
         } as any;
         this.formControl?.setValue(this.file)
       }
