@@ -29,6 +29,10 @@
             width: 100%;
             flex-direction: row;
             align-items: center;
+
+            & ion-input{
+                --border-width: 0;
+            }
         }
 
         & ion-button{
@@ -49,15 +53,16 @@
     // TODO, focus
     &.has-error{
         border-color: #B3261E;
+        border-width: 1.5px;
         & label{
             color: #B3261E;
         }
     }
     &.has-focus{ // Not yet tested
-        border-color: #007E48;
-        border-width: 1.5px;
+        border-color: #007E48!important;
+        border-width: 1.5px!important;
         & label{
-            color: #007E48;
+            color: #007E48!important;
         }
     }
 }

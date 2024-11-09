@@ -21,6 +21,7 @@ import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalo
 import { displayErrors } from 'src/app/utils/display-errors';
 import { User, Role } from 'src/app/models/User';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
+import { OutlineInputComponent } from "../../components/outline-input/outline-input.component";
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
   imports: [
     IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, BackButtonComponent,
     TranslateModule, I18nPipe, I18nPipeShortened, LanguageButtonComponent, UxButtonComponent, TopbarComponent,
-    ...[(environment.production ? ProdDebugButtonComponent : DevDebugButtonComponent)]
+    ...[(environment.production ? ProdDebugButtonComponent : DevDebugButtonComponent)],
+    OutlineInputComponent
 ]
 })
 export class LoginPage extends AbstractPage implements OnInit {
@@ -78,6 +80,13 @@ export class LoginPage extends AbstractPage implements OnInit {
 
     // 1.0 - Handle passwordless login
     
+    // Experimental for a better feedback management
+    this.form.statusChanges.subscribe((status)=>{
+      if (this.form.invalid) {
+        displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+        this.cdr.detectChanges()
+      }
+    })
 
   }
 

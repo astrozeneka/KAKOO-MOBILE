@@ -1,11 +1,15 @@
 <div class="component">
   <!-- TODO: The on-focus will be on this part -->
-  <div [class]="'wrapper ' + (formControl?.invalid && formControl?.touched ? 'has-error' : '')">
+  <div [class]="
+    'wrapper ' + 
+    (formControl?.invalid && formControl?.touched ? 'has-error' : '') +
+    (hasFocus ? 'has-focus ' : ' ')
+  ">
     <label>{{ label }}</label>
     <div>
       <div class="innerbox">
         <ion-input
-          fill="clear"
+          fill="outline"
           [placeholder]="placeholder"
           [formControl]="innerFormControl"
           #innerInput
@@ -13,7 +17,7 @@
         <div class="option-list">
           @for (option of displayedOption; track option) {
             <ion-button
-              fill="clear"
+              fill="outline"
               color="dark"
               (click)="clickOption(option)"
             >

@@ -18,5 +18,7 @@
 
     "Email address required": "Adresse e-mail requise",
     "Email address is invalid": "Adresse e-mail invalide",
-    "Password required": "Mot de passe requis"
+    "Password required": "Mot de passe requis",
+
+    "Required field": "Champ requis"
 }

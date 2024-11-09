@@ -42,7 +42,16 @@
       <form (submit)="requestLogin()" [formGroup]="form">
         
         <div class="input-wrapper">
-          <ion-input
+          
+          <app-outline-input
+            placeholder="user@mail.com"
+            type="email"
+            label="{{ 'Email' |_ }}"
+            formControlName="email"
+            [errorText]="displayedError['email']"  
+          ></app-outline-input>
+          
+          <!--<ion-input
             type="email"
             placeholder="user@mail.com"
             fill="outline"
@@ -53,7 +62,7 @@
           <div class="input-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors">
             <span *ngIf="form.get('email')?.getError('required')">{{ "Email address required" |_ }}<br/></span>
             <span *ngIf="form.get('email')?.getError('email')">{{ "Email address is invalid" |_ }}</span>
-          </div>
+          </div>-->
         </div>
 
         <div class="input-wrapper">

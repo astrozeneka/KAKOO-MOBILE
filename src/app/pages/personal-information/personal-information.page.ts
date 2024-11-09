@@ -15,6 +15,9 @@ import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-butt
 import { DevDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/dev-debug-button/dev-debug-button.component';
 import { environment } from 'src/environments/environment';
 import { catch400Error } from 'src/app/utils/catch400Error';
+import { OutlineInputComponent } from "../../components/outline-input/outline-input.component";
+import { TranslateService } from '@ngx-translate/core';
+import { displayErrors } from 'src/app/utils/display-errors';
 
 @Component({
   selector: 'app-personal-information',
@@ -22,8 +25,7 @@ import { catch400Error } from 'src/app/utils/catch400Error';
   styleUrls: ['./personal-information.page.scss'],
   standalone: true,
   imports: [IonLabel, IonItem, IonInput, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ChipInputComponent, ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent,
-    ...(environment.production ? [ProdDebugButtonComponent] : [DevDebugButtonComponent])
-  ],
+    ...(environment.production ? [ProdDebugButtonComponent] : [DevDebugButtonComponent]), OutlineInputComponent],
   providers: [
   ]
 })
@@ -93,7 +95,8 @@ export class PersonalInformationPage implements OnInit {
   constructor(
     private cdr:ChangeDetectorRef,
     private cs:ContentService,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService,
   ) { }
 
   async ngOnInit() {
@@ -186,6 +189,12 @@ export class PersonalInformationPage implements OnInit {
   }*/
 
   submit(){
+    // Manage form validation
+    this.form.markAllAsTouched()
+    if (this.form.invalid){
+      displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+      return;
+    }
     
     let data = {
       ...this.form.value,
@@ -196,6 +205,7 @@ export class PersonalInformationPage implements OnInit {
       stateEntity: null, // !!! should prepare
       cityEntity: null, // !!! should prepare
     }
+    console.log(data)
     this.formIsLoading = true
     // Develop the patch method
     this.cs.post_exp('/api/v1/self-candidate/basic-information', data, {})

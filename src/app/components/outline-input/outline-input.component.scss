@@ -1,0 +1,68 @@
+.outline-input{
+
+    .wrapper{
+        position: relative;
+        height: var(--height, 56px); // Height is configurable
+        //display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & label{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            transform: matrix(0.75, 0, 0, 0.75, 0, -6.08);
+            transform-origin: 0px 0px;
+            max-width: calc(133.333% - 53.3333px);
+            background: white;
+            padding-left: 5px;
+            padding-right: 5px;
+            left: calc(16px - 5px);
+        }
+
+        & .innerbox{
+            height: var(--height, 56px);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            & ion-input{
+                --border-width: 0;
+            }
+        }
+
+
+        // The outline border
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--border-color, #79747E);
+        border-radius: var(--border-radius, 8px);
+
+    }
+
+    & .wrapper.has-focus {
+        // Shared among other controls
+        border-color: #007E48!important;
+        border-width: 1.5px;
+        & label{
+            color: #007E48!important;
+        }
+    }
+    & .wrapper.has-error {
+        // Shared among other controls
+        border-color: #B3261E;
+        border-width: 1.5px;
+        & label{
+            color: #B3261E;
+        }
+    }
+    & .input-error{
+        // Actually, we cannot insert a mixin directly
+        // This is for a low-coupling architecture
+        font-size: 14px;
+        line-height: 21px;
+        margin-top: 6px;
+        color: #B3261E;
+    }
+}

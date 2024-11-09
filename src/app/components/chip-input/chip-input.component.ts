@@ -1,5 +1,5 @@
 import { JsonPipe, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, ContentChild, EventEmitter, forwardRef, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, EventEmitter, forwardRef, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, TouchedChangeEvent } from '@angular/forms';
 import { IonInput, IonButton, IonIcon } from "@ionic/angular/standalone";
 import { filter } from 'rxjs';
@@ -18,7 +18,7 @@ import { filter } from 'rxjs';
     }
   ]
 })
-export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
+export class ChipInputComponent<T> implements ControlValueAccessor, OnInit, AfterViewInit {
   @Input() formControl: FormControl<any[]|string> | undefined;
   @Input() formControlName: string|undefined;
   @Input() label: string = ""
@@ -27,6 +27,7 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
   @Input() errorText: string | undefined = undefined
 
   @ViewChild('innerInput') innerInput: IonInput | undefined;
+  hasFocus: boolean = false
 
   // Experimental features (blur) event
   @Output() blur: EventEmitter<any> = new EventEmitter();
@@ -95,6 +96,18 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit {
         this.innerFormControl.patchValue(this.keyAccessor(value as any), {emitEvent: false});
       })
     }
+  }
+
+  ngAfterViewInit(): void {
+    // 1. Managing the focus/blur
+    // On focus of the innerInput
+    this.innerInput?.ionFocus.subscribe(() => {
+      this.hasFocus = true
+    })
+    // Blur
+    this.innerInput?.ionBlur.subscribe(() => {
+      this.hasFocus = false
+    })
   }
 
   writeValue(obj: any): void {

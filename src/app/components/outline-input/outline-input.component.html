@@ -1,0 +1,23 @@
+<div class="outline-input">
+  <div [class]="
+    'wrapper ' +
+    ((formControl?.invalid && formControl?.touched) ? 'has-error ' : ' ') +
+    (hasFocus ? 'has-focus ' : ' ')
+  ">
+    <label>{{ label }}</label>
+    <div class="innerbox">
+      <ion-input
+        #innerInput
+        fill="outline"
+        [placeholder]="placeholder"
+        [formControl]="formControl!"
+      ></ion-input>
+    </div>
+  </div>
+
+  @if (formControl?.invalid && formControl?.touched) {
+    <div class="input-error">
+      {{ errorText }}
+    </div>
+  }
+</div>

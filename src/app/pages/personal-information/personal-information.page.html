@@ -49,6 +49,14 @@
         </div>
       </div>
       <div class="input-wrapper">
+        <!-- The below component will replace the other controls for later -->
+        <app-outline-input
+          placeholder="Sharma"
+          label="Last name*"
+          formControlName="lastName"
+          [errorText]="displayedError['lastName']"
+        ></app-outline-input>
+        <!--
         <ion-input
           type="text"
           placeholder="Sharma"
@@ -57,7 +65,7 @@
           formControlName="lastName"
           label="Last name*"
           [errorText]="displayedError['lastName']"
-        ></ion-input>
+        ></ion-input>-->
       </div>
       <div class="input-wrapper">
         <ion-input

@@ -138,12 +138,13 @@ ion-input{ //
     margin-top: 24px; // TODO, should use a variable for a sustainable development
     margin-bottom: 24px;
     // The code below doesn't work on iOS
-    &[fill=outline]{
+    // the outline-input component is used instead
+    /*&[fill=outline]{
         // Override the iOS default styles
         --border-width: 1px!important;
         --border-style: solid!important;
         --border-color: #79747E!important;
-    }
+    }*/
 }
 
 /**
