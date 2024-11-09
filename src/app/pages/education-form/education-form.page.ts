@@ -13,6 +13,7 @@ import { ContentService } from 'src/app/services/content.service';
 import { Candidate, CandidateCertificateEntity } from 'src/app/models/Candidate';
 import { catchError, finalize, throwError } from 'rxjs';
 import { EditAddForm } from 'src/app/utils/edit-add-form';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 @Component({
   selector: 'app-education-form',
@@ -110,15 +111,10 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
       ]
       // Why use v1 here ??
       this.cs.post_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/add-education-certificate`, data, {})
-        .pipe(catchError((error)=>{
-          // TODO, this pipe should be reused
-          // The code below actually doesn't work
-          if (error.error.status == 400){ // Token invalid
-            this.router.navigate(["/login"])
-          }
-          return throwError(error)
-        }), finalize(()=>{this.formIsLoading = false;}))
-        .subscribe(async (response)=>{
+        .pipe(
+          catch400Error(this.cs), // Experimental feature
+          finalize(()=>{this.formIsLoading = false;}))
+        .subscribe(async (response:any)=>{
           let candidate = response; // !!! CAUTION, the data structure retrieved from server is DIFFERENT
           await this.cs.candidateDataSubject.next(candidate); // Patch the candidate data
           await this.cs.candidateData.set(candidate); // Update cached data
@@ -127,15 +123,11 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
     } else if (this.formMode == 'edit'){
       let data = this.form.value
       this.cs.put_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/update-education/${this.entityId}`, data, {})
-      .pipe(catchError((error)=>{
-        // TODO, this pipe should be reused
-        // The code below actually doesn't work
-        if (error.error.status == 400){ // Token invalid
-          this.router.navigate(["/login"])
-        }
-        return throwError(error)
-      }), finalize(()=>{this.formIsLoading = false;}))
-      .subscribe(async (response: {code:any, type:any, message:any})=>{
+      .pipe(
+        catch400Error(this.cs), // Experimental feature
+        finalize(()=>{this.formIsLoading = false;})
+      )
+      .subscribe(async (response: {code:any, type:any, message:any}|any)=>{
         // !!! CAUTION, the data structure retrieved from server is DIFFERENT
         this.cs.requestCandidateDataRefresh()
         this.router.navigate(["/education-and-certification"])

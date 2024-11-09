@@ -10,6 +10,7 @@ import { ContentService } from 'src/app/services/content.service';
 import { Router } from '@angular/router';
 import { catchError, finalize, throwError } from 'rxjs';
 import { UxButtonComponent } from "../../submodules/angular-ux-button/standalone/ux-button.component";
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 @Component({
   selector: 'app-add-skills',
@@ -41,6 +42,9 @@ export class AddSkillsPage implements OnInit {
 
   async ngOnInit() {
 
+    // TODO, personal-information should use the registerV2 subscription
+    // Waiting for it to have a thorough test first, then begin to implement in this page
+
     // 1. Load stored data in the cache
     let extractedData: Candidate|null = await this.cs.candidateData.get();
 
@@ -55,13 +59,8 @@ export class AddSkillsPage implements OnInit {
     // TODO, this evening, cached form, use Inheritance to manage the below codee 
     // 2. Load the data from the server as a fallback of the cached data
     this.cs.get_exp(`/api/v2/self-candidate/get-by-id/${this.candidate.candidateId}`, {})
-      .pipe(catchError((error)=>{
-        if (error.error.status == 400){ // Token invalid
-          this.router.navigate(["/login"])
-        }
-        return throwError(error)
-      }))
-      .subscribe(async (response)=>{
+      .pipe(catch400Error(this.cs)) // Experimental feature
+      .subscribe(async (response:any)=>{
         console.log(response)
         // The code below should be reused *** this evening, apply also for education-and-certification page
         this.candidate = response;
@@ -117,12 +116,10 @@ export class AddSkillsPage implements OnInit {
     // This is the old strategy (cannot be used)
     // Cannot deserialize
     this.cs.post_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/technical-skills`, data, {})
-      .pipe(catchError((error)=>{
-        if (error.error.status == 400){
-          this.router.navigate(["/education-and-certification"])
-        }
-        return throwError(error);
-      }), finalize(()=>{this.formIsLoading = false;}))
+      .pipe(
+        catch400Error(this.cs), // Experilmental feature
+        finalize(()=>{this.formIsLoading = false;}
+      ))
       .subscribe((response)=>{
         console.log(response)
         this.router.navigate(["/education-and-certification"])

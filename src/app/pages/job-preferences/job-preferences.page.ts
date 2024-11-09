@@ -17,6 +17,7 @@ import { WorkType } from 'src/app/models/WorkType';
 import NoticePeriod from 'src/app/models/NoticePeriod';
 import { SalaryExpectation } from 'src/app/models/SalaryExpectation';
 import { displayErrors } from 'src/app/utils/display-errors';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 @Component({
   selector: 'app-job-preferences',
@@ -156,9 +157,6 @@ export class JobPreferencesPage implements OnInit {
     return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/employment-type`, {})
       // For later, the code below should be managed
       .pipe(catchError((error)=>{
-        if (error.error.status == 400){ // Token invalid
-          this.router.navigate(["/login"])
-        }
         return throwError(error)
       })) as Observable<EmploymentType[]>
   }
@@ -167,9 +165,6 @@ export class JobPreferencesPage implements OnInit {
     return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/hiring-status`, {})
     // For later, the code below should be managed
     .pipe(catchError((error)=>{
-      if (error.error.status == 400){ // Token invalid
-        this.router.navigate(["/login"])
-      }
       return throwError(error)
     })) as Observable<HiringStatus[]>
   }
@@ -178,9 +173,6 @@ export class JobPreferencesPage implements OnInit {
     return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/work-type`, {})
     // For later, the code below should be managed
     .pipe(catchError((error)=>{
-      if (error.error.status == 400){ // Token invalid
-        this.router.navigate(["/login"])
-      }
       return throwError(error)
     })) as Observable<HiringStatus[]>
   }
@@ -189,9 +181,6 @@ export class JobPreferencesPage implements OnInit {
     return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/notice-period`, {})
     // For later, the code below should be managed
     .pipe(catchError((error)=>{
-      if (error.error.status == 400){ // Token invalid
-        this.router.navigate(["/login"])
-      }
       return throwError(error)
     })) as Observable<HiringStatus[]>
   }
@@ -200,9 +189,6 @@ export class JobPreferencesPage implements OnInit {
     return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/salary-expectation`, {})
     // For later, the code below should be managed
     .pipe(catchError((error)=>{
-      if (error.error.status == 400){ // Token invalid
-        this.router.navigate(["/login"])
-      }
       return throwError(error)
     })) as Observable<SalaryExpectation[]>
   }
@@ -241,15 +227,11 @@ export class JobPreferencesPage implements OnInit {
     console.log(data);
     
     this.cs.post_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/job-preference-work-availability`, data, {})
-      .pipe(catchError((error)=>{
-        // TODO, this pipe should be reused
-        // The code below actually doesn't work
-        if (error.error.status == 400){ // Token invalid
-          this.router.navigate(["/login"])
-        }
-        return throwError(error)
-      }), finalize(()=>{this.formIsLoading = false;}))
-      .subscribe((result: Candidate)=>{
+      .pipe(
+        catch400Error(this.cs), // Experimental feature
+        finalize(()=>{this.formIsLoading = false;})
+      )
+      .subscribe((result: Candidate|any)=>{
         this.router.navigate(["/social-accounts"])
       })
     

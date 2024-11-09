@@ -14,6 +14,7 @@ import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { catchError, finalize, throwError } from 'rxjs';
 import { Candidate, WorkExperienceEntity } from 'src/app/models/Candidate';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 @Component({
   selector: 'app-work-experience-form',
@@ -94,14 +95,10 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
     if (this.formMode == 'add'){ // Not yet tested
       let data = [this.extractFormData(this.form.value)]
       this.cs.post_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/add-work-experience`, data, {})
-      .pipe(catchError((error)=>{
-        // TODO, this pipe should be reused
-        // The code below actually doesn't work
-        if (error.error.status == 400){ // Token invalid
-          this.router.navigate(["/login"])
-        }
-        return throwError(error)
-      }), finalize(()=>{this.formIsLoading = false;}))
+      .pipe(
+        catch400Error(this.cs), // Experimental feature
+        finalize(()=>{this.formIsLoading = false;})
+      )
       .subscribe(async (response:WorkExperienceEntity[])=>{
         // await this.cs.candidateData.set(response); // Update cached data
         let candidate:Candidate = await this.cs.candidateData.get() as any;
@@ -114,14 +111,10 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
       let data = this.extractFormData(this.form.value)
       // Why use V1 here ??
       this.cs.put_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/update-work-experience/${this.entityId}`, data, {})
-      .pipe(catchError((error)=>{
-        // TODO, this pipe should be reused
-        // The code below actually doesn't work
-        if (error.error.status == 400){ // Token invalid
-          this.router.navigate(["/login"])
-        }
-        return throwError(error)
-      }), finalize(()=>{this.formIsLoading = false;}))
+      .pipe(
+        catch400Error(this.cs), // Experimental feature
+        finalize(()=>{this.formIsLoading = false;})
+      )
       .subscribe(async (response:WorkExperienceEntity)=>{
         let candidate:Candidate = await this.cs.candidateData.get() as any;
         let index = candidate.workExperienceEntities.findIndex((v)=>v.id == response.id);

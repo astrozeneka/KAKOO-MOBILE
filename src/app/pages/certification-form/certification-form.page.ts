@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { catchError, finalize, throwError } from 'rxjs';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 @Component({
   selector: 'app-certification-form',
@@ -96,30 +97,21 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
         this.form.value
       ]
       this.cs.post_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/add-certificate`, data, {})
-        .pipe(catchError((error)=>{
-          // TODO, this pipe should be reused
-          // The code below actually doesn't work
-          if (error.error.status == 400){ // Token invalid
-            this.router.navigate(["/login"])
-          }
-          return throwError(error)
-        }), finalize(()=>{this.formIsLoading = false;}))
-        .subscribe(async (response:{code:any, type:any, message:string})=>{
+        .pipe(
+          catch400Error(this.cs), // Experimental feature
+          finalize(()=>{this.formIsLoading = false;}))
+        .subscribe(async (response:{code:any, type:any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
           this.router.navigate(["/education-and-certification"])
         })
     } else if (this.formMode == 'edit'){
       let data = this.form.value
       this.cs.post_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/update-certificate/${this.entityId}`, data, {})
-        .pipe(catchError((error)=>{
-          // TODO, this pipe should be reused
-          // The code below actually doesn't work
-          if (error.error.status == 400){ // Token invalid
-            this.router.navigate(["/login"])
-          }
-          return throwError(error)
-        }), finalize(()=>{this.formIsLoading = false;}))
-        .subscribe(async (response:{code:any, type:any, message:string})=>{
+        .pipe(
+          catch400Error(this.cs), // Experimental feature
+          finalize(()=>{this.formIsLoading = false;})
+        )
+        .subscribe(async (response:{code:any, type:any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
           // this.router.navigate(["/education-and-certification"]) // to uncomment later
         })

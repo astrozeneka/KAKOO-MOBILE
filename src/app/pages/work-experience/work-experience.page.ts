@@ -14,6 +14,7 @@ import {AlertController} from "@ionic/angular";
 import { CandidateForm } from 'src/app/utils/candidate-form';
 import { Candidate, WorkExperienceEntity } from 'src/app/models/Candidate';
 import { BehaviorSubject, catchError, filter, finalize, Observable, throwError } from 'rxjs';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 interface UXWorkExperienceEntity extends WorkExperienceEntity {
   deleteIsLoadingSubject: BehaviorSubject<boolean>;
@@ -101,12 +102,9 @@ export class WorkExperiencePage extends CandidateForm implements OnInit { // I d
             console.log('Deleting')
             entity.deleteIsLoadingSubject.next(true)
             this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-work-experience/${entity.id}`, {})
-            .pipe(catchError((error)=>{ // This code should be reused
-              if (error.error.status == 400){ // Token invalid
-                this.router.navigate(["/login"])
-              }
-              return throwError(error)
-            }), finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+            .pipe(
+              catch400Error(this.cs), // Experimental feature
+              finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
             .subscribe(async (response)=>{
               this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
             })

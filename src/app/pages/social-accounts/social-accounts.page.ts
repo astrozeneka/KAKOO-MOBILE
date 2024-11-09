@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { key } from 'ionicons/icons';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 @Component({
   selector: 'app-social-accounts',
@@ -117,24 +118,14 @@ export class SocialAccountsPage implements OnInit {
         return null
       }if(entity.id){ // Update existing
         return this.cs.put_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/update-social-account/${entity.id}`, entity, {})
-          .pipe(catchError((error)=>{
-            // TODO, this pipe should be reused
-            // The code below actually doesn't work
-            if (error.error.status == 400){ // Token invalid
-              this.router.navigate(["/login"])
-            }
-            return throwError(error)
-          }))
+          .pipe(
+            catch400Error(this.cs), // Experimental feature
+          )
       }else{ // Add new
         return this.cs.post_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/add-social-account`, [entity], {})
-          .pipe(catchError((error)=>{
-            // TODO, this pipe should be reused
-            // The code below actually doesn't work
-            if (error.error.status == 400){ // Token invalid
-              this.router.navigate(["/login"])
-            }
-            return throwError(error)
-          }))
+          .pipe(
+            catch400Error(this.cs), // Experimental feature
+          )
       }
     }).filter(o => o!=null) as Array<Observable<any>>
 

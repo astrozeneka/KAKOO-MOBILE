@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {AlertController} from "@ionic/angular";
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 
 interface UXProjectPortfolioEntity extends ProjectPortfolioEntity {
@@ -90,12 +91,10 @@ export class ProjectsPage extends CandidateForm implements OnInit { // Candidate
           handler: () => {
             project.deleteIsLoadingSubject.next(true)
             this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-project-portfolio/${project.id}`, {})
-              .pipe(catchError((error)=>{ // This code should be reused (should be refactored later)
-                if (error.error.status == 400){ // Token invalid
-                  this.router.navigate(["/login"])
-                }
-                return throwError(error)
-              }), finalize(()=>{project.deleteIsLoadingSubject.next(false)}))
+              .pipe(
+                catch400Error(this.cs), // Experimental feature
+                finalize(()=>{project.deleteIsLoadingSubject.next(false)})
+              )
               .subscribe(async (response)=>{
                 console.log(response) // Expected to be null
                 project.fadeAwaySubject.next(true)

@@ -11,13 +11,19 @@ import { ContentService } from 'src/app/services/content.service';
 import { catchError, finalize, throwError } from 'rxjs';
 import { UxButtonComponent } from "../../submodules/angular-ux-button/standalone/ux-button.component";
 import { Router } from '@angular/router';
+import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
+import { DevDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/dev-debug-button/dev-debug-button.component';
+import { environment } from 'src/environments/environment';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 @Component({
   selector: 'app-personal-information',
   templateUrl: './personal-information.page.html',
   styleUrls: ['./personal-information.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonInput, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ChipInputComponent, ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent],
+  imports: [IonLabel, IonItem, IonInput, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ChipInputComponent, ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent,
+    ...(environment.production ? [ProdDebugButtonComponent] : [DevDebugButtonComponent])
+  ],
   providers: [
   ]
 })
@@ -91,6 +97,9 @@ export class PersonalInformationPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+
+    // TODO, personal-information should use the registerV2 subscription
+    // Waiting for it to have a thorough test first, then begin to implement in this page
 
     // 1. Load stored data loaded from resume
     let extractedData: Candidate|null = await this.cs.candidateData.get();
@@ -190,13 +199,10 @@ export class PersonalInformationPage implements OnInit {
     this.formIsLoading = true
     // Develop the patch method
     this.cs.post_exp('/api/v1/self-candidate/basic-information', data, {})
-      .pipe(catchError((error)=>{
-        if (error.error.status == 400){ // Token invalid
-          this.router.navigate(["/login"])
-        }
-        console.log(error)
-        return throwError(error)
-      }), finalize(()=>{this.formIsLoading = false}))
+      .pipe(
+        catch400Error(this.cs), // Experimental feature
+        finalize(()=>{this.formIsLoading = false})
+      )
       .subscribe(async (response)=>{
         let candidate: Candidate = response as Candidate
         await this.cs.candidateData.set(candidate)

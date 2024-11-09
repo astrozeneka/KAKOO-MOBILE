@@ -14,6 +14,7 @@ import {AlertController} from "@ionic/angular";
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, catchError, filter, finalize, Observable, throwError } from 'rxjs';
 import { CandidateForm } from 'src/app/utils/candidate-form';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 interface UXCandidateEducationEntity extends CandidateEducationEntity {
   deleteIsLoadingSubject: BehaviorSubject<boolean>;
@@ -158,12 +159,9 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
           handler: () => {
             entity.deleteIsLoadingSubject.next(true);
             this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-education/${entity.id}`, {})
-              .pipe(catchError((error)=>{ // This code should be reused (should be refactored later)
-                if (error.error.status == 400){ // Token invalid
-                  this.router.navigate(["/login"])
-                }
-                return throwError(error)
-              }), finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+              .pipe(
+                catch400Error(this.cs), // Experimental feature
+                finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
               .subscribe(async (response)=>{
                 this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
               })
@@ -188,12 +186,9 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
           handler: () => {
             entity.deleteIsLoadingSubject.next(true);
             this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-certificate/${entity.id}`, {})
-              .pipe(catchError((error)=>{ // This code should be reused (should be refactored later)
-                if (error.error.status == 400){ // Token invalid
-                  this.router.navigate(["/login"])
-                }
-                return throwError(error)
-              }), finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+              .pipe(
+                catch400Error(this.cs), // Experimental feature
+                finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
               .subscribe(async (response)=>{
                 console.log(response)
                 this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code

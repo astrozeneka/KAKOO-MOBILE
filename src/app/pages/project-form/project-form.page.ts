@@ -14,6 +14,7 @@ import { ContentService } from 'src/app/services/content.service';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { catchError, finalize, throwError } from 'rxjs';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { catch400Error } from 'src/app/utils/catch400Error';
 
 interface EditableProjectPortfolioEntity extends ProjectPortfolioEntity{
   skills: string[]
@@ -101,30 +102,22 @@ export class ProjectFormPage extends EditAddForm<ProjectPortfolioEntity> impleme
       console.log(data)
       // Error: the given id must not be null
       this.cs.post_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/add-project-portfolio`, data, {})
-        .pipe(catchError((error)=>{
-          // TODO, this pipe should be reused
-          // The code below actually doesn't work
-          if (error.error.status == 400){ // Token invalid
-            this.router.navigate(["/login"])
-          }
-          return throwError(error)
-        }), finalize(()=>{this.formIsLoading = false;}))
-        .subscribe(async (response:{code: any, type: any, message:string})=>{
+        .pipe(
+          catch400Error(this.cs), // Experimental feature
+          finalize(()=>{this.formIsLoading = false;})
+        )
+        .subscribe(async (response:{code: any, type: any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
           this.router.navigate(["/projects"]) // uncomment later
         })
     } else if (this.formMode == 'edit'){
       let data = this.extractFormData(this.form.value)
       this.cs.put_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/update-project-portfolio/${this.entityId}`, data, {})
-        .pipe(catchError((error)=>{
-          // TODO, this pipe should be reused
-          // The code below actually doesn't work
-          if (error.error.status == 400){ // Token invalid
-            this.router.navigate(["/login"])
-          }
-          return throwError(error)
-        }), finalize(()=>{this.formIsLoading = false;}))
-        .subscribe(async (response:{code: any, type: any, message:string})=>{
+        .pipe(
+          catch400Error(this.cs), // Experimental feature
+          finalize(()=>{this.formIsLoading = false;})
+        )
+        .subscribe(async (response:{code: any, type: any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
           this.router.navigate(["/projects"]) // uncomment later
         })
