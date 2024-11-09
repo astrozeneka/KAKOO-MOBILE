@@ -8,6 +8,9 @@ import { ProfileCtaComponent } from 'src/app/components/profile-cta/profile-cta.
 import { FileCardComponent } from "../../components/file-card/file-card.component";
 import { SectionHeadingComponent } from 'src/app/components/section-heading/section-heading.component';
 import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-navbar.component';
+import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
+import { Router } from '@angular/router';
+import { ContentService } from 'src/app/services/content.service';
 @Component({
   selector: 'app-more-29',
   templateUrl: './more-29.page.html',
@@ -18,9 +21,14 @@ import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-n
     SectionHeadingComponent, BottomNavbarComponent
   ]
 })
-export class More29Page implements OnInit { // The class name is subjected to change in the future
+export class More29Page extends BottomNavbarTarget implements OnInit { // The class name is subjected to change in the future
 
-  constructor() { }
+  constructor(
+    router: Router,
+    public cs:ContentService
+  ) { 
+    super(router)
+  }
 
   ngOnInit() {
   }

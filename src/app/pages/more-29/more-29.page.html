@@ -110,6 +110,7 @@
     <div class="button-group">
       <app-button-group-item
         color="danger"
+        (click)="cs.logout()"
       >
         Logout
       </app-button-group-item>
@@ -117,6 +118,6 @@
   </div>
 
   <div class="floating-bottom">
-    <app-bottom-navbar></app-bottom-navbar>
+    <app-bottom-navbar [tabName]="tabName"></app-bottom-navbar>
   </div>
 </ion-content>

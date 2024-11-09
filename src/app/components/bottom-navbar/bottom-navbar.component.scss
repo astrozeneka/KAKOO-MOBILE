@@ -23,6 +23,7 @@
         & ion-icon{
             height: 24px;
             width: 24px;
+            fill: #484848;
         }
 
         & .label{
@@ -31,9 +32,49 @@
             font-weight: 500;
             line-height: 16px;
 
-            &.active .label{
+            /*&.active .label{
                 background: #9C2829;
+            }*/
+        }
+
+        /* Inactive button colorings */
+        & .dashboard-icon, & .meetings-icon{
+            fill: #484848;
+        }
+        & .jobs-icon{
+            fill: #484848;
+            stroke: #484848;
+        }
+        & .more-icon{
+            stroke: #484848;
+            fill: none;
+        }
+
+
+        &.active{
+            & .label{
+                color: #9C2829;
             }
+            /* Each Icon have different design */
+            & .dashboard-icon, & .meetings-icon{
+                fill: #9C2829;
+            }
+            & .jobs-icon{
+                fill: #9C2829;
+                stroke: #9C2829;
+            }
+            & .more-icon{
+                stroke: #9C2829;
+                fill: none;
+            }
+
+            /*
+            & ion-icon{
+                fill: #9C2829;
+                stroke: #9C2829;
+                
+            }
+            */
         }
     }
 }

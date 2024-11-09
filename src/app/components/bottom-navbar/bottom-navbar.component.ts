@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 
 @Component({
@@ -9,8 +10,11 @@ import { IonButton, IonIcon } from '@ionic/angular/standalone';
   imports: [IonButton, IonIcon]
 })
 export class BottomNavbarComponent  implements OnInit {
+  @Input() tabName: string|null = null
 
-  constructor() { }
+  constructor(
+    public router: Router,
+  ) { }
 
   ngOnInit() {}
 

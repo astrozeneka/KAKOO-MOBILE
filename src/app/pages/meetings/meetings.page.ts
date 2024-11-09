@@ -5,6 +5,8 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
 import { MeetingCardComponent } from 'src/app/components/meeting-card/meeting-card.component';
 import { TopbarDashboardComponent } from 'src/app/topbar-dashboard/topbar-dashboard.component';
 import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-navbar.component';
+import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-meetings',
@@ -15,9 +17,13 @@ import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-n
     TopbarDashboardComponent, BottomNavbarComponent
   ]
 })
-export class MeetingsPage implements OnInit {
+export class MeetingsPage extends BottomNavbarTarget implements OnInit {
 
-  constructor() { }
+  constructor(
+    router: Router
+  ) { 
+    super(router)
+  }
 
   ngOnInit() {
   }

@@ -7,6 +7,8 @@ import { JobCardComponent } from 'src/app/components/job-card/job-card.component
 import { TopbarDashboardComponent } from 'src/app/topbar-dashboard/topbar-dashboard.component';
 import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-navbar.component';
 import { FilterChipsComponent } from 'src/app/components/filter-chips/filter-chips.component';
+import { Router } from '@angular/router';
+import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
 @Component({
   selector: 'app-jobboard',
   templateUrl: './jobboard.page.html',
@@ -16,10 +18,14 @@ import { FilterChipsComponent } from 'src/app/components/filter-chips/filter-chi
     BottomNavbarComponent, FilterChipsComponent, ReactiveFormsModule
   ]
 })
-export class JobboardPage implements OnInit {
+export class JobboardPage extends BottomNavbarTarget implements OnInit {
   chipControl = new FormControl<string|null>(null)
 
-  constructor() { }
+  constructor(
+    router: Router
+  ) { 
+    super(router)
+  }
 
   ngOnInit() {
     setTimeout(()=>{

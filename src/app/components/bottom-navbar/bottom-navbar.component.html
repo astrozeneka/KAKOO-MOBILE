@@ -2,42 +2,51 @@
   <div class="nav">
     <ion-button
       fill="clear"
+      (click)="router.navigate(['/dashboard'])"
+      [class]="tabName === 'dashboard' ? 'active' : ''"
     >
       <div class="inner">
-        <ion-icon src="/assets/svg/navbar/home.svg"></ion-icon>
+        <ion-icon src="/assets/svg/navbar/home.svg" class="dashboard-icon"></ion-icon>
         <div class="label">Home</div>
       </div>
     </ion-button>
     <ion-button
       fill="clear"
+      (click)="router.navigate(['/meetings'])"
+      [class]="tabName === 'meetings' ? 'active' : ''"
     >
       <div class="inner">
-        <ion-icon src="/assets/svg/navbar/meetings.svg"></ion-icon>
+        <ion-icon src="/assets/svg/navbar/meetings.svg" class="meetings-icon"></ion-icon>
         <div class="label">Meetings</div>
       </div>
     </ion-button>
     <ion-button 
-      class="active"
       fill="clear"
+      (click)="router.navigate(['/jobboard'])"
+      [class]="tabName === 'jobboard' ? 'active' : ''"
     >
       <div class="inner">
-        <ion-icon src="/assets/svg/navbar/jobs.svg"></ion-icon>
+        <ion-icon src="/assets/svg/navbar/jobs.svg" class="jobs-icon"></ion-icon>
         <div class="label">Jobs</div>
       </div>
     </ion-button>
     <ion-button
       fill="clear"
+      (click)="router.navigate(['/referrals'])"
+      [class]="tabName === 'referrals' ? 'active' : ''"
     >
       <div class="inner">
-        <ion-icon src="/assets/svg/navbar/referral.svg"></ion-icon>
+        <ion-icon [src]="'/assets/svg/navbar/referral' + (tabName==='referrals'?'-active':'')+'.svg'" class="referrals-icon"></ion-icon>
         <div class="label">Referral</div>
       </div>
     </ion-button>
     <ion-button
       fill="clear"
+      (click)="router.navigate(['/more-29'])"
+      [class]="tabName === 'more' ? 'active' : ''"
     >
       <div class="inner">
-        <ion-icon src="/assets/svg/navbar/more.svg"></ion-icon>
+        <ion-icon src="/assets/svg/navbar/more.svg" class="more-icon"></ion-icon>
         <div class="label">More</div>
       </div>
     </ion-button>

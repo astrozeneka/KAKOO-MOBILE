@@ -11,6 +11,8 @@ import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { ProfileCtaComponent } from 'src/app/components/profile-cta/profile-cta.component';
 import { SectionHeadingComponent } from 'src/app/components/section-heading/section-heading.component';
 import { ButtonGroupItemComponent } from 'src/app/components/button-group-item/button-group-item.component';
+import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,9 +23,13 @@ import { ButtonGroupItemComponent } from 'src/app/components/button-group-item/b
     BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent
   ]
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage extends BottomNavbarTarget implements OnInit {
 
-  constructor() { }
+  constructor(
+    router: Router
+  ) { 
+    super(router)
+  }
 
   ngOnInit() {
   }

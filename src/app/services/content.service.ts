@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import StoredData from '../submodules/stored-data/StoredData';
 import { AppLanguageService } from './app-language.service';
 import { Candidate } from '../models/Candidate';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class ContentService {
 
   constructor(
     private http: HttpClient,
-    private storage: Storage
+    private storage: Storage,
+    private router: Router
   ) {
     this.storage.create()
     this.token = new StoredData<string>('token', this.storage)
@@ -222,4 +224,11 @@ export class ContentService {
     output$ = output$.pipe(filter((data)=>data!=null))
     return output$
   }*/
+
+  async logout(){
+    // Same architecture as in training-day
+    await this.token.set('')
+    await this.candidateData.set(null as any)
+    this.router.navigate(['/login'])
+  }
 }
