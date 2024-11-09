@@ -80,7 +80,7 @@ export class LoginPage extends AbstractPage implements OnInit {
 
     // 1.0 - Handle passwordless login
     
-    // Experimental for a better feedback management
+    // Feature for a better feedback management (I think it is ok)
     this.form.statusChanges.subscribe((status)=>{
       if (this.form.invalid) {
         displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))

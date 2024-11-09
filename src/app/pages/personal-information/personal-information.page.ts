@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonInput, IonItem, IonLabel } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonInput, IonItem, IonLabel, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from "../../back-button/back-button.component";
 import { ChipInputComponent } from 'src/app/components/chip-input/chip-input.component';
@@ -24,7 +24,7 @@ import { displayErrors } from 'src/app/utils/display-errors';
   templateUrl: './personal-information.page.html',
   styleUrls: ['./personal-information.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonInput, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ChipInputComponent, ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent,
+  imports: [IonIcon, IonLabel, IonItem, IonInput, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ChipInputComponent, ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent,
     ...(environment.production ? [ProdDebugButtonComponent] : [DevDebugButtonComponent]), OutlineInputComponent],
   providers: [
   ]
@@ -118,7 +118,16 @@ export class PersonalInformationPage implements OnInit {
 
     this.form.patchValue(extractedData as any);
 
-    console.log("Patching value to the form")
+
+
+    // Feature for a better feedback management (I think it is ok)
+    this.form.statusChanges.subscribe((status)=>{
+      if (this.form.invalid) {
+        console.log("Form is invalid")
+        displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+        this.cdr.detectChanges()
+      }
+    })
 
 
 

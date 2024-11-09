@@ -1,13 +1,13 @@
 import { AfterViewInit, ChangeDetectorRef, Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { IonInput } from '@ionic/angular/standalone';
+import { IonInput, IonButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-outline-input',
   templateUrl: './outline-input.component.html',
   styleUrls: ['./outline-input.component.scss'],
   standalone: true,
-  imports: [IonInput, FormsModule, ReactiveFormsModule],
+  imports: [IonButton, IonInput, FormsModule, ReactiveFormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -21,6 +21,7 @@ export class OutlineInputComponent  implements ControlValueAccessor, OnInit, Aft
   @Input() formControlName: string|undefined;
   @Input() label: string = ""
   @Input() placeholder: string = ""
+  @Input() type: string = "text"
   @Input() errorText: string | undefined = undefined
 
   @ViewChild('innerInput') innerInput: IonInput | undefined;
@@ -63,4 +64,7 @@ export class OutlineInputComponent  implements ControlValueAccessor, OnInit, Aft
     // throw new Error('Method not implemented.');
   }
 
+  setFocus(){
+    this.innerInput?.setFocus()
+  }
 }

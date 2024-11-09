@@ -68,6 +68,16 @@
         ></ion-input>-->
       </div>
       <div class="input-wrapper">
+        <app-outline-input
+          placeholder="01/07/1999"
+          label="Date of birth*"
+          formControlName="birthDay"
+          [errorText]="displayedError['birthDay']"
+          type="date"
+        >
+          <ion-icon src="/assets/svg/icon-calendar.svg" slot="icon"></ion-icon>
+        </app-outline-input>
+        <!--
         <ion-input
           type="date"
           placeholder="01/07/1999"
@@ -77,6 +87,7 @@
           formControlName="birthDay"
           [errorText]="displayedError['birthDay']"
         ></ion-input>
+        -->
       </div>
       <div class="input-wrapper">
         <ion-input

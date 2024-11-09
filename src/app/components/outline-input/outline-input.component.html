@@ -8,10 +8,16 @@
     <div class="innerbox">
       <ion-input
         #innerInput
+        [type]="type"
         fill="outline"
         [placeholder]="placeholder"
         [formControl]="formControl!"
       ></ion-input>
+        <div class="icon-container" (click)="setFocus()">
+          <div class="icon-container-inner">
+            <ng-content select="[slot='icon']"></ng-content>
+          </div>
+        </div>
     </div>
   </div>
 

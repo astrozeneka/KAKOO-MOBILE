@@ -175,5 +175,6 @@
 
 
 .input-error{ // Reused by the chip-input, should consider to put it in a higher level stylesheet
-    @include input-error-1
+    @include input-error-1;
+    margin-top: -6px!important;
 }
