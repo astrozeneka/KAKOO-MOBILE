@@ -1,6 +1,7 @@
 {
 
     "HELLO": "Bonjour",
+    "Hello": "Salut",
     "to access Kakoo Software Solutions": "pour accéder à Kakoo Software Solutions",
     "password": "Mot de passe",
     "Password": "Mot de passe",
@@ -16,9 +17,40 @@
     "and": "et",
     "Privacy Policy": "la politique de confidentialité",
 
+    
     "Email address required": "Adresse e-mail requise",
     "Email address is invalid": "Adresse e-mail invalide",
     "Password required": "Mot de passe requis",
+    "Required field": "Champ requis",
+    "Invalid phone number": "Numéro de téléphone invalide",
+    "Invalid email": "Adresse e-mail invalide",
+    "Too short": "Trop court",
+    "Too long": "Trop long",
+    "Invalid URL": "URL invalide",
+    "Invalid year": "Année invalide",
+    "Email already exists": "L'e-mail existe déjà",
+    "Phone number already exists": "Le numéro de téléphone existe déjà",
+    
 
-    "Required field": "Champ requis"
+    "First name": "Prénom",
+    "Last name": "Nom",
+    "Email": "E-mail",
+    "Enter your phone": "Entrez votre téléphone",
+    "Phone number": "Numéro de téléphone",
+    "Referral Code": "Code de parrainage",
+    "Register": "S'inscrire",
+    "Already have an account?": "Vous avez déjà un compte ? ",
+
+    "Check your email": "Vérifiez votre e-mail",
+    "Successful operation! This email will contain a link to verify your email address and set up your password.": "Opération réussie ! Cet e-mail contiendra un lien pour vérifier votre adresse e-mail et configurer votre mot de passe.",
+    "Open mail app": "Ouvrir l'application mail",
+    "Did not receive the email? Check your spam folder or": "Vous n'avez pas reçu l'e-mail ? Vérifiez votre dossier de courrier indésirable ou",
+    "resend email": "renvoyer l'e-mail",
+
+    "Welcome,": "Bienvenue,",
+    "Discover Your Dream Career: Join Our Kakoo Portal Today and Open Doors to Limitless Opportunities!": "Découvrez votre carrière de rêve : rejoignez notre portail Kakoo dès aujourd'hui et ouvrez les portes à des opportunités illimitées !",
+    "Resume": "CV",
+    "Please use your resume to fill out your profile. We’ll auto fetch the data." : "Veuillez utiliser votre CV pour remplir votre profil. Nous récupérerons automatiquement les données.",
+    "Continue": "Continuer"
+
 }

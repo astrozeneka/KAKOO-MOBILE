@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { AbstractPage } from 'src/app/abstract-page';
 import { Router } from '@angular/router';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-check-your-email',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
     '../../stylesheets/login-signup.scss'
   ],
   standalone: true,
-  imports: [IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, I18nPipeShortened]
 })
 export class CheckYourEmailPage extends AbstractPage implements OnInit {
 

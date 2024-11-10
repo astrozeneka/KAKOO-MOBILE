@@ -1,36 +1,23 @@
-<ion-header [translucent]="true">
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <!-- TODO, the header TO MANAGE LATER, same as login.html -->
-  <div class="placeholder ion-padding-horizontal" style="height: 46px"><!-- Should consider to update later -->
-    <!-- TODO, make this button match the Design -->
-    <app-back-button></app-back-button>
-  </div>
-
-  <div class="ion-padding-horizontal">
-    <div class="left-right">
-      <div>
-        <!-- TODO, width should be responsive -->
-        <img src="/assets/kakoo-logo.png" width="91px">
-      </div>
-      <div>
-        <ion-button
-          class="language-button"
-          fill="outline"
-        >
-          <div class="language-button-inner">
-            <img src="/assets/svg/flag-uk.svg"/>
-            en
-            <ion-icon src="/assets/svg/right-line.svg"></ion-icon>
-          </div>
-        </ion-button>
+<ion-header>
+  <app-topbar variant="kakoo" color="none">
+    <div slot="title">
+      <img src="/assets/kakoo-logo.png" height="26px">
+    </div>
+    <div slot="end">
+      <div class="img-container">
+        <app-language-button></app-language-button>
       </div>
     </div>
+  </app-topbar>
+</ion-header>
+<ion-content>
+
+  <div class="ion-padding-horizontal">
 
     <div>
-      <h2>Hello Kakooster! 👋</h2>
-      <div class="helper">to access Kakoo Software Solutions</div>
+      <h2>{{ "Hello" |_ }} Kakooster! 👋</h2>
+      <div class="helper">{{ "to access Kakoo Software Solutions" |_ }}</div>
       <!-- The space below should be fixed -->
     </div>
     <div class="container">
@@ -38,72 +25,72 @@
         <div class="row">
           <div class="col-6">
             <!-- This kind of input doesn't display correctly on mobile -->
-            <ion-input
+            <!--<ion-input
               type="text"
               placeholder="Mohit"
               fill="outline"
               label-placement="stacked"
-              label="First Name"
+              label="{{ 'First name' |_ }}"
               formControlName="firstName"
               [errorText]="displayedError['firstName']"
-            ></ion-input>
+            ></ion-input>-->
+            <app-outline-input
+              placeholder="Mohit"
+              type="text"
+              label="{{ 'First name' |_ }}"
+              formControlName="firstName"
+              [errorText]="displayedError['firstName']"
+            ></app-outline-input>
           </div>
           <div class="col-6">
             <!-- This kind of input doesn't display correctly on mobile -->
-            <ion-input
+            <!--<ion-input
               type="text"
               placeholder="Sharma"
               fill="outline"
               label-placement="stacked"
-              label="Last name"
+              label="{{ 'Last name' |_ }}"
               formControlName="lastName"
               [errorText]="displayedError['lastName']"
-            ></ion-input>
+            ></ion-input>-->
+            <app-outline-input
+              placeholder="Sharma"
+              type="text"
+              label="{{ 'Last name' |_ }}"
+              formControlName="lastName"
+              [errorText]="displayedError['lastName']"
+            ></app-outline-input>
           </div>
         </div>
         <div>
           <!-- This kind of input doesn't display correctly on mobile -->
-          <ion-input
+          <!--<ion-input
             type="email"
             placeholder="user@mail.com"
             fill="outline"
             label-placement="stacked"
-            label="Email"
+            label="{{ 'Email' |_ }}"
             formControlName="email"
             [errorText]="displayedError['email']"
-          ></ion-input>
+          ></ion-input>-->
+          <app-outline-input
+            type="email"
+            placeholder="user@mail.com"
+            label="{{ 'Email' |_ }}"
+            formControlName="email"
+            [errorText]="displayedError['email']"
+          ></app-outline-input>
         </div>
         <div>
 
           <app-phone-selector
-            placeholder="Enter your phone"
-            label="Phone number"
+            placeholder="{{ 'Enter your phone' |_ }}"
+            label="{{ 'Phone number' |_ }}"
             variant="outline"
             formControlName="phonefull"
             [errorText]="displayedError['phonefull']"
             [split]="true"
           ></app-phone-selector>
-          <!--
-          <div class="phone-input-container">
-            <label>Phone number</label>
-            <div>
-              <div class="ion-select-container">
-                <ion-select
-                  value="+91"
-                  justify="end"
-                >
-                  <ion-select-option [value]="'+91'">+91</ion-select-option>
-                </ion-select>
-                <div class="spacer"></div>
-              </div>
-              <ion-input
-                type="phone"
-                placeholder="Enter your phone number"
-                fill="clear"
-              ></ion-input>
-            </div>
-          </div>
-          -->
         </div>
         <div>
           <ion-input
@@ -111,7 +98,7 @@
             placeholder="OIU587654"
             fill="outline"
             label-placement="stacked"
-            label="Referral Code"
+            label="{{ 'Referral Code' |_ }}"
             formControlName="referralCode"
             [errorText]="displayedError['referralCode']"
           ></ion-input>
@@ -123,18 +110,18 @@
             color="primary"
             [loading]="formIsLoading"
           >
-            Register
+            {{ "Register" |_ }}
           </app-ux-button>
         </div>
       </form>
 
       <div class="ion-text-center ion-margin-vertical in-text">
-        Already have an account? <a href="/login" color="primary">Login</a>
+        {{ "Already have an account?" |_ }} <a href="/login" color="primary">{{ "Login" |_ }}</a>
       </div>
 
       <div class="ion-text-center ion-margin-vertical separate-or" style="font-size: 12px">
         <div class="line"></div>
-        <span>Or</span>
+        <span>{{ "Or" |_ }}</span>
         <div class="line"></div>
       </div>
       
@@ -166,7 +153,7 @@
     </div>
 
     <p class="footer-text ion-text-center">
-      By tapping on Login, you are agreeing to <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>
+      {{ "By tapping on Login, you are agreeing to" |_ }}<a href="/terms">{{ "Terms of Service" |_ }}</a> {{ "and "}} <a href="/privacy">{{ "Privacy Policy" |_ }}</a>
     </p>
   </div>
 </ion-content>

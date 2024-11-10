@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonInput, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
@@ -13,6 +13,12 @@ import { ContentService } from 'src/app/services/content.service';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { Browser } from '@capacitor/browser';
 import { GoogleAuthorize } from 'src/app/models/GoogleAuthorize';
+import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
+import { LanguageButtonComponent } from 'src/app/components/language-button/language-button.component';
+import { displayErrors } from 'src/app/utils/display-errors';
+import { TranslateService } from '@ngx-translate/core';
+import { OutlineInputComponent } from 'src/app/components/outline-input/outline-input.component';
+import { EmailValidator } from 'src/app/utils/validators';
 
 @Component({
   selector: 'app-signup',
@@ -23,7 +29,7 @@ import { GoogleAuthorize } from 'src/app/models/GoogleAuthorize';
   ],
   standalone: true,
   imports: [IonSelect, IonSelectOption, IonInput, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, BackButtonComponent,
-    ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent, I18nPipeShortened
+    ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent, I18nPipeShortened, TopbarComponent, LanguageButtonComponent, OutlineInputComponent
   ]
 })
 export class SignupPage extends AbstractPage implements OnInit{
@@ -32,7 +38,7 @@ export class SignupPage extends AbstractPage implements OnInit{
   form:FormGroup = new FormGroup({
     'firstName': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
     'lastName': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
-    'email': new FormControl("", [Validators.required, Validators.email]),
+    'email': new FormControl("", [Validators.required, EmailValidator]),
     'phonefull': new FormControl("", [phoneFullValidator]),
     // 'phone': undefined,     // Computed on submit
     // 'phoneCode': undefined, // Computed on submit
@@ -57,6 +63,8 @@ export class SignupPage extends AbstractPage implements OnInit{
     private router:Router,
     private httpClient: HttpClient, // Will be moved to contentService later
     private cs: ContentService,
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef
   ) { 
     super(
       router
@@ -73,13 +81,23 @@ export class SignupPage extends AbstractPage implements OnInit{
     /*setTimeout(()=>{
       this.form.controls['phonefull'].patchValue(["+44", "11122211111"])
     }, 1000)*/
+
+
+    // Feature for a better feedback management (I think it is ok)
+    this.form.statusChanges.subscribe((status)=>{
+      console.log("statuschange")
+      if (this.form.invalid) {
+        displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+        this.cdr.detectChanges()
+      }
+    })
   }
 
   async submit(){
     // Mark form as touched
     this.form.markAllAsTouched()
-    if (this.form.invalid){
-      this.displayErrors()
+    if (this.form.invalid){      
+      displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
       return;
     }
     this.formIsLoading = true
@@ -101,13 +119,14 @@ export class SignupPage extends AbstractPage implements OnInit{
           console.log(error)
           
           if (message.includes("Email already exist") || message.includes("L'email existe déjà")){ // TODO the french variant
-            this.displayedError['email'] = "Email already exists"
-            this.form.controls['email'].setErrors({'email': true})
+            // this.displayedError['email'] = "Email already exists"
+            this.form.controls['email'].setErrors({'email_exists': true})
           }
           if (message.includes("Phone already exist") || message.includes("Le téléphone existe déjà")){ // TODO the french variant
-            this.displayedError['phonefull'] = "Phone already exists"
-            this.form.controls['phonefull'].setErrors({'phone': true})  
+            // this.displayedError['phonefull'] = "Phone already exists"
+            this.form.controls['phonefull'].setErrors({'phone_exists': true})  
           }
+          displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
         }
         /*if (status == 'BAD_REQUEST'){
           console.log("Bad Request")
@@ -135,7 +154,7 @@ export class SignupPage extends AbstractPage implements OnInit{
 
   }
 
-  // Experimental feature (compute displayed error) client-side <--- (IMPORTANT, THIS CODE SHOULD BE AN UTILITIES)
+  // Unused anymore, replaced by the utility function 'utils/displayErrors'
   displayErrors(){
     // For all items in the form
     for (let key in this.form.controls){

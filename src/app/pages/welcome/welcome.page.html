@@ -7,16 +7,16 @@
     <div class="image-container">
       <img src="/assets/svg/welcome-image.svg"/>
     </div>
-    <h1 class="banner-title-1 ion-padding-horizontal">Welcome, Mohit Sharma!</h1>
+    <h1 class="banner-title-1 ion-padding-horizontal">{{ "Welcome," |_ }} {{ user?.firstName }} {{ user?.lastName }} !</h1>
     <div class="helper ion-padding-horizontal"> 
-      Discover Your Dream Career: Join Our Kakoo Portal Today and Open Doors to Limitless Opportunities!
+      {{ "Discover Your Dream Career: Join Our Kakoo Portal Today and Open Doors to Limitless Opportunities!" |_ }}
     </div>
   </div>
   <div class="content">
     <div class="ion-padding">
-      <h2>Resume</h2>
+      <h2>{{ "Resume" |_ }}</h2>
       <div class="helper">
-        Please use your resume to fill out your profile. We’ll auto fetch the data.
+        {{ "Please use your resume to fill out your profile. We’ll auto fetch the data." |_}}
       </div>
 
       <!-- Always prefer simple and functionnal code to cumbuersome and hard to read codes -->
@@ -37,8 +37,6 @@
           variant="welcome"
           formControlName="file"
         >
-          Rishabh Rai CV.pdf
-          <div slot="subtitle">Added less than a minute ago</div>
         </app-clickable-file-card>
         <!--<app-file-card variant="welcome" [clickable]="true">
           Rishabh Rai CV.pdf
@@ -51,7 +49,7 @@
           type="submit"
           [loading]="formIsLoading"
         >
-          Continue
+          {{ "Continue" |_ }}
         </app-ux-button>
       </form>
     </div>

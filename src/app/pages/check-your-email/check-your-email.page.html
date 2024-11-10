@@ -18,9 +18,9 @@
       </ion-button>
     </div>
 
-    <h1 class="display-bold-1">Check your email</h1>
+    <h1 class="display-bold-1">{{ "Check your email" |_ }}</h1>
     <div class="helper">
-      Successful operation! This email will contain a link to verify your email address and set up your password.
+      {{ "Successful operation! This email will contain a link to verify your email address and set up your password." |_}}
     </div>
     <form>
       <div>
@@ -30,11 +30,11 @@
           color="primary"
           type="submit"
         >
-          Open mail app
+          {{ "Open mail app" |_}}
         </ion-button>
       </div>
       <div class="ion-text-center ion-margin-vertical in-text">
-        Did not receive the email? Check your spam folder or <a href="#" color="primary">resend email</a>
+        {{ "Did not receive the email? Check your spam folder or" |_ }} <a href="#" color="primary">{{ "resend email" |_ }}</a>
       </div>
     </form>
   </div>

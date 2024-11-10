@@ -12,17 +12,21 @@ export const displayErrors = (
         if (form.controls[key].errors?.['required']){
           displayedError[key] = translate("Required field")
         } else if (form.controls[key].errors?.['email']){
-          displayedError[key] = "Invalid email"
+          displayedError[key] = translate("Invalid email")
         } else if (form.controls[key].errors?.['phone']) {
-          displayedError[key] = "Invalid phone number"
+          displayedError[key] = translate("Invalid phone number")
         } else if (form.controls[key].errors?.['minlength']) {
-          displayedError[key] = "Too short"
+          displayedError[key] = translate("Too short")
         } else if (form.controls[key].errors?.['maxlength']) {
-          displayedError[key] = "Too long"
+          displayedError[key] = translate("Too long")
         } else if (form.controls[key].errors?.['url']) {
-          displayedError[key] = "Invalid URL"
+          displayedError[key] = translate("Invalid URL")
         } else if (form.controls[key].errors?.['year']) {
-          displayedError[key] = "Invalid year"
+          displayedError[key] = translate("Invalid year")
+        } else if (form.controls[key].errors?.['email_exists']) {
+          displayedError[key] = translate("Email already exists")
+        } else if (form.controls[key].errors?.['phone_exists']) {
+          displayedError[key] = translate("Phone number already exists")
         } else {
           console.warn("Unhandled validation error message " + key)
         }

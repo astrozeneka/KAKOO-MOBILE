@@ -13,6 +13,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { catch400Error } from 'src/app/utils/catch400Error';
 import { UploadedFile } from 'src/app/models/File';
 import { User } from 'src/app/models/User';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-welcome',
@@ -23,7 +24,7 @@ import { User } from 'src/app/models/User';
   ],
   standalone: true,
   imports: [IonButton, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, FileCardComponent,
-    ClickableFileCardComponent, ReactiveFormsModule, UxButtonComponent
+    ClickableFileCardComponent, ReactiveFormsModule, UxButtonComponent, I18nPipeShortened
   ]
 })
 export class WelcomePage implements OnInit {
@@ -35,6 +36,10 @@ export class WelcomePage implements OnInit {
 
   // The candidate information
   candidate: Candidate|null = null
+
+  // The user information (since the candidate might be null)
+  user: User|null = null
+
   postLoadProcessing(){
     if (this.candidate?.resumeAttachmentEntity){
       console.log(this.candidate.resumeAttachmentEntity)
@@ -77,12 +82,18 @@ export class WelcomePage implements OnInit {
       })
     
     // For performance, only from server is loaded ONCE (not from cache)
-    this.cs.registerUserDataObserver(false, true)
+    this.cs.registerUserDataObserver(false, true) //
       .subscribe((userData: User|null) =>{
-        console.log(userData)
+        this.user = userData
         setTimeout(()=>{
           this.cs.requestCandidateDataRefresh()
         }, 1000);
+      })
+    
+    // The subscription below is not the same as above, since here we allow to load from the cache
+    this.cs.registerUserDataObserver(true, false)
+      .subscribe((userData: User|null) =>{
+        this.user = userData
       })
     
     

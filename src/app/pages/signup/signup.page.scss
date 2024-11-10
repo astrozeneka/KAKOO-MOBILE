@@ -1,10 +1,17 @@
+ion-header{
+    box-shadow: none;
+}
 
 .row{
     // Move the padding to the outer element
     // The below code is redundant
-    ion-input{
+    & ion-input{
         margin-top: 0;
         margin-bottom: 0;
+    }
+    & app-outline-input{
+        --margin-top: 0;
+        --margin-bottom: 0;
     }
     margin-top: 24px;
     margin-bottom: 24px;

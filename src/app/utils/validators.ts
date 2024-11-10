@@ -16,3 +16,11 @@ export const YearValidator = (control: AbstractControl) => {
     if (!yearPattern.test(value)) return { year: true }
     return null
 }
+
+export const EmailValidator = (control: AbstractControl) => {
+    const value = control.value as string
+    if (!value) return null
+    const mailPattern = /^[a-zA-Z0-9._%+-]+(\+[a-zA-Z0-9._%+-]+)?@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if (!mailPattern.test(value)) return { email: true }
+    return null
+}
