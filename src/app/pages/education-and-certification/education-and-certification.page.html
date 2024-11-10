@@ -53,7 +53,7 @@
       }
     </div>
 
-    @for (entity of candidateEducationEntities; track $index) {
+    @for (entity of candidateEducationEntities; track entity.id) {
       <app-experience-card
         [editButton]="true"
         [deleteButton]="true"
@@ -105,7 +105,7 @@
         </ion-button>
       }
     </div>
-    @for (entity of candidateCertificateEntities; track $index) {
+    @for (entity of candidateCertificateEntities; track entity.id) {
       <app-experience-card
         [editButton]="true"
         [deleteButton]="true"

@@ -19,8 +19,6 @@ export class BackButtonComponent  implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.color)
-    console.log(this.color == 'light')
   }
 
   back(){

@@ -105,7 +105,7 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
         candidate.workExperienceEntities = candidate.workExperienceEntities.concat(response);
         await this.cs.candidateData.set(candidate);
         this.cs.candidateDataSubject.next(candidate); // Patch the candidate data
-        this.router.navigate(["/work-experience"])
+        this.router.navigate(["/work-experience"], {replaceUrl: true})
       })
     } else if (this.formMode == 'edit'){
       let data = this.extractFormData(this.form.value)
@@ -121,7 +121,7 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
         candidate.workExperienceEntities[index] = response;
         await this.cs.candidateData.set(candidate);
         this.cs.candidateDataSubject.next(candidate); // Patch the candidate data
-        this.router.navigate(["/work-experience"])
+        this.router.navigate(["/work-experience"], {replaceUrl: true})
       })
     }
   }

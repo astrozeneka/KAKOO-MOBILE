@@ -28,6 +28,7 @@ export class ExperienceCardComponent  implements OnInit {
   // A fadeaway is needed when the item is about to be deleted for better UX
   @Input() fadeAway$:Observable<boolean> = new Observable();
   fadeAway: boolean = false; // Doesn't work
+  // _fadeAway$: any = {} as any
 
   constructor(
     private cdr:ChangeDetectorRef
@@ -41,10 +42,12 @@ export class ExperienceCardComponent  implements OnInit {
     })
     this.fadeAway$.subscribe((value:boolean) => {
       this.fadeAway = value
+      console.log("Fade away is set to ", value)
       this.cdr.detectChanges()
     })
 
     // Test (delete later)
+    // this._fadeAway$ = this.fadeAway$ as any
   }
 
   editClicked(event:any){

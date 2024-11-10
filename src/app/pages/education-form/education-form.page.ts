@@ -14,6 +14,7 @@ import { Candidate, CandidateCertificateEntity } from 'src/app/models/Candidate'
 import { catchError, finalize, throwError } from 'rxjs';
 import { EditAddForm } from 'src/app/utils/edit-add-form';
 import { catch400Error } from 'src/app/utils/catch400Error';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-education-form',
@@ -55,7 +56,8 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
     translate: TranslateService,
     cdr: ChangeDetectorRef,
     cs: ContentService,
-    router: Router
+    router: Router,
+    private location: Location
   ) { 
     super (route, translate, cdr, cs, router)
   }
@@ -118,7 +120,7 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
           let candidate = response; // !!! CAUTION, the data structure retrieved from server is DIFFERENT
           await this.cs.candidateDataSubject.next(candidate); // Patch the candidate data
           await this.cs.candidateData.set(candidate); // Update cached data
-          this.router.navigate(["/education-and-certification"])
+          this.router.navigate(["/education-and-certification"], {replaceUrl: true})
         })
     } else if (this.formMode == 'edit'){
       let data = this.form.value
@@ -130,7 +132,7 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
       .subscribe(async (response: {code:any, type:any, message:any}|any)=>{
         // !!! CAUTION, the data structure retrieved from server is DIFFERENT
         this.cs.requestCandidateDataRefresh()
-        this.router.navigate(["/education-and-certification"])
+        this.router.navigate(["/education-and-certification"], {replaceUrl:true})
         /*await this.cs.candidateDataSubject.next(candidate); // Patch the candidate data
         await this.cs.candidateData.set(candidate); // Update cached data (this actually can be merged with the directive above)
         this.router.navigate(["/education-and-certification"])*/

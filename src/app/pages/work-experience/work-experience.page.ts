@@ -104,14 +104,14 @@ export class WorkExperiencePage extends CandidateForm implements OnInit { // I d
         }, {
           text: this.t.instant('Okay'),
           handler: () => {
-            console.log('Deleting')
-            entity.deleteIsLoadingSubject.next(true)
+            entity.fadeAwaySubject.next(true)
+            // entity.deleteIsLoadingSubject.next(true) // Unused anymore
             this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-work-experience/${entity.id}`, {})
             .pipe(
               catch400Error(this.cs), // Experimental feature
               finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
             .subscribe(async (response)=>{
-              entity.fadeAwaySubject.next(true)
+              // entity.fadeAwaySubject.next(true)
               this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
             })
           }

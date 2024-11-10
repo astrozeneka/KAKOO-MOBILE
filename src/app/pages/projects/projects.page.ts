@@ -41,15 +41,16 @@ export class ProjectsPage extends CandidateForm implements OnInit { // Candidate
 
   postLoadProcessing(){
     this.candidateProjectEntities = this.candidate.projectPortfolioEntities?.map((project: ProjectPortfolioEntity) => {
-      const existingEntity = this.candidateProjectEntities?.find((entity) => entity.id === project.id)
-      const deleteIsLoadingSubject = existingEntity?.deleteIsLoadingSubject || new BehaviorSubject<boolean>(false);
-      const fadeAwaySubject = existingEntity?.fadeAwaySubject || new BehaviorSubject<boolean>(false);
+      let existingEntity = this.candidateProjectEntities?.find((entity) => entity.id === project.id)
+      let deleteIsLoadingSubject = existingEntity?.deleteIsLoadingSubject || new BehaviorSubject<boolean>(false);
+      let fadeAwaySubject = existingEntity?.fadeAwaySubject || new BehaviorSubject<boolean>(false);
+      // (fadeAway$ as any).title = project.projectTitle // For debug use
       return {
         ...project,
         deleteIsLoadingSubject,
         deleteIsLoading$: deleteIsLoadingSubject.asObservable(),
         fadeAwaySubject,
-        fadeAway$: fadeAwaySubject.asObservable()
+        fadeAway$: fadeAwaySubject.asObservable() 
       }
     })
     this.cdr.detectChanges()
@@ -89,15 +90,17 @@ export class ProjectsPage extends CandidateForm implements OnInit { // Candidate
         }, {
           text: this.t.instant('Okay'),
           handler: () => {
-            project.deleteIsLoadingSubject.next(true)
+            // project.deleteIsLoadingSubject.next(true) -> The fade Away is more friendly
+            project.fadeAwaySubject.next(true)
             this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-project-portfolio/${project.id}`, {})
               .pipe(
                 catch400Error(this.cs), // Experimental feature
-                finalize(()=>{project.deleteIsLoadingSubject.next(false)})
+                finalize(()=>{
+                  // project.deleteIsLoadingSubject.next(false) -> The fade Away is more friendly
+                })
               )
               .subscribe(async (response)=>{
-                console.log(response) // Expected to be null
-                project.fadeAwaySubject.next(true)
+                // project.fadeAwaySubject.next(true), // this property doesn't work properly
                 this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code  
               })
             }

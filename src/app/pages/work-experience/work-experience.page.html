@@ -53,7 +53,7 @@
       }
     </div>
 
-    @for (entity of candidateWorkExperienceEntities; track $index) {
+    @for (entity of candidateWorkExperienceEntities; track entity.id) {
       <app-experience-card
         (edit)="router.navigateByUrl('/work-experience-form?mode=edit&id=' + entity.id)"
         (delete)="deleteWorkExperience(entity)"

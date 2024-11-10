@@ -102,7 +102,7 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
           finalize(()=>{this.formIsLoading = false;}))
         .subscribe(async (response:{code:any, type:any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
-          this.router.navigate(["/education-and-certification"])
+          this.router.navigate(["/education-and-certification"], {replaceUrl: true})
         })
     } else if (this.formMode == 'edit'){
       let data = this.form.value
@@ -113,7 +113,7 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
         )
         .subscribe(async (response:{code:any, type:any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
-          // this.router.navigate(["/education-and-certification"]) // to uncomment later
+          this.router.navigate(["/education-and-certification"], {replaceUrl: true}) // to uncomment later
         })
 
     }

@@ -43,6 +43,8 @@ export abstract class EditAddForm<T>{
             let entity = this.propertyAccessor(this.candidate).find((v)=>(v as any).id == this.entityId) as any;
             //  let entity = this.candidate.candidateEducationEntities.find((v)=>v.id == this.entityId) as any;
             this.form.patchValue(this.prepareFormData(entity) as any);
+        } else {
+            this.form.reset();
         }
 
         // 3. Data fallback from the server (don't need)

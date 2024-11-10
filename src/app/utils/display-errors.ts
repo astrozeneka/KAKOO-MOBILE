@@ -19,8 +19,10 @@ export const displayErrors = (
           displayedError[key] = "Too short"
         } else if (form.controls[key].errors?.['maxlength']) {
           displayedError[key] = "Too long"
+        } else if (form.controls[key].errors?.['url']) {
+          displayedError[key] = "Invalid URL"
         } else {
-          console.warn("Unhandled vadation error message " + key)
+          console.warn("Unhandled validation error message " + key)
         }
       } else {
         displayedError[key] = undefined

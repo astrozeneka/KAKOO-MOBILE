@@ -167,7 +167,8 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
         }, {
           text: this.t.instant("Okay"),
           handler: () => {
-            entity.deleteIsLoadingSubject.next(true);
+            entity.fadeAwaySubject.next(true)
+            // entity.deleteIsLoadingSubject.next(true); // Unused anymore
             this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-education/${entity.id}`, {})
               .pipe(
                 catch400Error(this.cs), // Experimental feature
@@ -195,7 +196,8 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
         }, {
           text: this.t.instant("Okay"),
           handler: () => {
-            entity.deleteIsLoadingSubject.next(true);
+            entity.fadeAwaySubject.next(true)
+            // entity.deleteIsLoadingSubject.next(true); // Unused anymore
             this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-certificate/${entity.id}`, {})
               .pipe(
                 catch400Error(this.cs), // Experimental feature

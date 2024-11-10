@@ -52,7 +52,8 @@
       }
     </div>
 
-    @for (entity of candidateProjectEntities; track $index) {
+    <!-- very important, think to use a more suitable other than $index using for loop in angular-->
+    @for (entity of candidateProjectEntities; track entity.id) {
       <app-experience-card
         (edit)="router.navigateByUrl('/project-form?mode=edit&id=' + entity.id)"
         (delete)="deleteProject(entity)"
