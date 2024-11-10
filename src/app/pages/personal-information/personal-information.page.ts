@@ -235,14 +235,13 @@ export class PersonalInformationPage implements OnInit {
       displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
       return;
     }
-    
+    console.log(this.form.value.formfull)
+    let [phoneCode, phoneNumber] = this.form.value.phonefull
     let data = {
       ...this.form.value,
-      phoneCode: null, // !!! should prepare
-      phoneNumber: null, // !!! should prepare
-      countryEntity: null, // !!! should prepare
-      stateEntity: null, // !!! should prepare
-      cityEntity: null, // !!! should prepare
+      phoneCode,
+      phoneNumber
+      // TODO birthday, Experience
     }
     console.log(data)
     this.formIsLoading = true

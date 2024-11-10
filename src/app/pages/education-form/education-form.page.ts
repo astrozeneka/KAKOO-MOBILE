@@ -15,6 +15,9 @@ import { catchError, finalize, throwError } from 'rxjs';
 import { EditAddForm } from 'src/app/utils/edit-add-form';
 import { catch400Error } from 'src/app/utils/catch400Error';
 import { Location } from '@angular/common';
+import { YearValidator } from 'src/app/utils/validators';
+import { createDeletePrompt } from 'src/app/utils/delete-prompt';
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-education-form',
@@ -29,7 +32,7 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
   form:FormGroup = new FormGroup({
     college: new FormControl('', [Validators.required]),
     degreeName: new FormControl('', [Validators.required]),
-    year: new FormControl('', [Validators.required]),
+    year: new FormControl('', [Validators.required, YearValidator]),
   })
   displayedError:{[key:string]:string|undefined} = {
     college: undefined,
@@ -57,7 +60,9 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
     cdr: ChangeDetectorRef,
     cs: ContentService,
     router: Router,
-    private location: Location
+    private location: Location,
+    private alertController: AlertController,
+    private t: TranslateService // Injected twice
   ) { 
     super (route, translate, cdr, cs, router)
   }
@@ -138,6 +143,22 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
         this.router.navigate(["/education-and-certification"])*/
       })
     }
+  }
+
+  deleteItem(){
+    createDeletePrompt({} as any, this.alertController, this.translate, this.cs)
+      .subscribe((response)=>{
+        this.deleteIsLoading = true;
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-education/${this.entityId}`, {})
+          .pipe(
+            finalize(()=>{this.deleteIsLoading = false})
+          )
+          .subscribe(async (response:any)=>{
+            // !!! CAUTION, the data structure retrieved from server is DIFFERENT
+            this.cs.requestCandidateDataRefresh()
+            this.router.navigate(["/education-and-certification"], {replaceUrl:true})
+          })
+      })
   }
 
 }

@@ -16,6 +16,8 @@ import { catchError, finalize, throwError } from 'rxjs';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { catch400Error } from 'src/app/utils/catch400Error';
 import { UrlValidator } from 'src/app/submodules/url-validator/url-validator';
+import {AlertController} from "@ionic/angular";
+import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 
 interface EditableProjectPortfolioEntity extends ProjectPortfolioEntity{
   skills: string[]
@@ -76,7 +78,8 @@ export class ProjectFormPage extends EditAddForm<ProjectPortfolioEntity> impleme
     translate: TranslateService,
     cdr: ChangeDetectorRef,
     cs: ContentService,
-    router: Router
+    router: Router,
+    private alertController: AlertController
   ) { 
     super (route, translate, cdr, cs, router)
   }
@@ -125,6 +128,21 @@ export class ProjectFormPage extends EditAddForm<ProjectPortfolioEntity> impleme
           
 
     }
+  }
+
+  deleteItem(){
+    createDeletePrompt({} as any, this.alertController, this.translate, this.cs)
+      .subscribe((response)=>{
+        this.deleteIsLoading = true;
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-project-portfolio/${this.entityId}`, {})
+          .pipe(
+            finalize(()=>{this.deleteIsLoading = false})
+          )
+          .subscribe(async (response:any)=>{
+            this.cs.requestCandidateDataRefresh()
+            this.router.navigate(["/projects"], {replaceUrl: true})
+          })
+      })
   }
 
 }

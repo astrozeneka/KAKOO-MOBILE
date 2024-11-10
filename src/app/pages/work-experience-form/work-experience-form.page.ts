@@ -15,6 +15,8 @@ import { displayErrors } from 'src/app/utils/display-errors';
 import { catchError, finalize, throwError } from 'rxjs';
 import { Candidate, WorkExperienceEntity } from 'src/app/models/Candidate';
 import { catch400Error } from 'src/app/utils/catch400Error';
+import {AlertController} from "@ionic/angular";
+import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 
 @Component({
   selector: 'app-work-experience-form',
@@ -69,7 +71,8 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
     translate: TranslateService,
     cdr: ChangeDetectorRef,
     cs: ContentService,
-    router: Router
+    router: Router,
+    private alertController: AlertController
   ) {
     super(
       route, translate, cdr, cs, router
@@ -124,5 +127,23 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
         this.router.navigate(["/work-experience"], {replaceUrl: true})
       })
     }
+  }
+
+  deleteItem(){
+    createDeletePrompt({} as any, this.alertController, this.translate, this.cs)
+      .subscribe((response)=>{
+        this.deleteIsLoading = true;
+        this.cs.delete_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/delete-work-experience/${this.entityId}`, {})
+          .pipe(
+            finalize(()=>{this.deleteIsLoading = false})
+          )
+          .subscribe(async (response:any)=>{
+            let candidate:Candidate = await this.cs.candidateData.get() as any;
+            candidate.workExperienceEntities = candidate.workExperienceEntities.filter((v)=>v.id != this.entityId);
+            await this.cs.candidateData.set(candidate);
+            this.cs.candidateDataSubject.next(candidate);
+            this.router.navigate(["/work-experience"], {replaceUrl: true})
+          })
+      })
   }
 }

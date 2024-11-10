@@ -21,6 +21,8 @@ export const displayErrors = (
           displayedError[key] = "Too long"
         } else if (form.controls[key].errors?.['url']) {
           displayedError[key] = "Invalid URL"
+        } else if (form.controls[key].errors?.['year']) {
+          displayedError[key] = "Invalid year"
         } else {
           console.warn("Unhandled validation error message " + key)
         }

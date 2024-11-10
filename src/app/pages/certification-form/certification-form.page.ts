@@ -14,6 +14,9 @@ import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { catchError, finalize, throwError } from 'rxjs';
 import { catch400Error } from 'src/app/utils/catch400Error';
+import { createDeletePrompt } from 'src/app/utils/delete-prompt';
+import {AlertController} from "@ionic/angular";
+import { YearValidator } from 'src/app/utils/validators';
 
 @Component({
   selector: 'app-certification-form',
@@ -29,7 +32,7 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
     // V2
     name: new FormControl('', [Validators.required]),
     institution: new FormControl('', [Validators.required]),
-    year: new FormControl('', [Validators.required]),
+    year: new FormControl('', [Validators.required, YearValidator]),
     // V1
     /*title: new FormControl('', [Validators.required]),
     licenceId: new FormControl('', []),
@@ -73,7 +76,9 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
     translate: TranslateService,
     cdr: ChangeDetectorRef,
     cs: ContentService,
-    router: Router
+    router: Router,
+    private alertController: AlertController,
+    private t: TranslateService // Injected twice
   ) { 
     super (route, translate, cdr, cs, router)
   }
@@ -117,6 +122,21 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
         })
 
     }
+  }
+
+  deleteItem(){
+    createDeletePrompt({} as any, this.alertController, this.translate, this.cs)
+      .subscribe((response)=>{
+        this.deleteIsLoading = true;
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-certificate/${this.entityId}`, {})
+          .pipe(
+            finalize(()=>{this.deleteIsLoading = false})
+          )
+          .subscribe(async (response:any)=>{
+            this.cs.requestCandidateDataRefresh()
+            this.router.navigate(["/education-and-certification"], {replaceUrl: true})
+          })
+      })
   }
 
 }

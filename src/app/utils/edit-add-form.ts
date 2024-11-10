@@ -21,6 +21,7 @@ export abstract class EditAddForm<T>{
     public formIsLoading: boolean = false;
     protected candidate: Candidate = {} as any; // Is subjected to priviledge escalation
     entityId: number|undefined = undefined; // Used for edit mode
+    deleteIsLoading: boolean = false;
 
     // II - ABstract properties
     public abstract form: FormGroup;

@@ -15,13 +15,17 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, catchError, filter, finalize, Observable, throwError } from 'rxjs';
 import { CandidateForm } from 'src/app/utils/candidate-form';
 import { catch400Error } from 'src/app/utils/catch400Error';
+import { createDeletePrompt, DeletableEntity } from 'src/app/utils/delete-prompt';
 
+interface UXCandidateEducationEntity extends CandidateEducationEntity, DeletableEntity {}
+/*
 interface UXCandidateEducationEntity extends CandidateEducationEntity {
   deleteIsLoadingSubject: BehaviorSubject<boolean>;
   deleteIsLoading$: Observable<boolean>;
   fadeAwaySubject: BehaviorSubject<boolean>;
   fadeAway$: Observable<boolean>;
 }
+*/
 
 interface UXCandidateCertificateEntity extends CandidateCertificateEntity { // TODO later
   deleteIsLoadingSubject: BehaviorSubject<boolean>;
@@ -153,7 +157,18 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
   }*/
 
   async deleteEducation(entity:UXCandidateEducationEntity){
-    const alert = await this.alertController.create({
+    createDeletePrompt(entity, this.alertController, this.t, this.cs)
+      .subscribe(async (response)=>{
+        entity.fadeAwaySubject.next(true);
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-education/${entity.id}`, {})
+          .pipe(
+            catch400Error(this.cs), // Experimental feature
+            finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+          .subscribe(async (response)=>{
+            this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
+          })
+      })
+    /*const alert = await this.alertController.create({
       header: this.t.instant("Confirm"),
       message: this.t.instant("Are you sure you want to delete this entry?"),
       buttons: [
@@ -181,11 +196,22 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
         }
       ]
     });
-    await alert.present();
+    await alert.present();*/
   }
 
   async deleteCertificate(entity:UXCandidateCertificateEntity){
-    const alert = await this.alertController.create({
+    createDeletePrompt(entity, this.alertController, this.t, this.cs)
+      .subscribe(async (response)=>{
+        entity.fadeAwaySubject.next(true);
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-certificate/${entity.id}`, {})
+          .pipe(
+            catch400Error(this.cs), // Experimental feature
+            finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+          .subscribe(async (response)=>{
+            this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
+          })
+      })
+    /*const alert = await this.alertController.create({
       header: this.t.instant("Confirm"),
       message: this.t.instant("Are you sure you want to delete this entry?"),
       buttons: [
@@ -210,7 +236,7 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
         }
       ]
     });
-    await alert.present();
+    await alert.present();*/
   }
 
   submit(){

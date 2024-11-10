@@ -3,12 +3,18 @@
     <app-back-button slot="start" variant="topbar"></app-back-button>
     <div>{{ "Edit Work Experience" |_ }}</div>
     <div slot="end">
-      <ion-button
-        color="danger"
-        fill="clear"
-      >
+      @if (formMode == 'edit') {
+        <app-ux-button
+          color="danger"
+          fill="clear"
+          [loading]="deleteIsLoading"
+          variant="topbar"
+          (click)="deleteItem()"
+          [fixedWidth]="true"
+        >
         {{ "Delete" |_ }}
-      </ion-button>
+        </app-ux-button>
+      }
     </div>
   </app-topbar>
 </ion-header>

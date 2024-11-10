@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {AlertController} from "@ionic/angular";
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { catch400Error } from 'src/app/utils/catch400Error';
+import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 
 
 interface UXProjectPortfolioEntity extends ProjectPortfolioEntity {
@@ -75,8 +76,19 @@ export class ProjectsPage extends CandidateForm implements OnInit { // Candidate
       })
   }
 
-  async deleteProject(project: UXProjectPortfolioEntity){
-    const alert = await this.alertController.create({
+  async deleteProject(entity: UXProjectPortfolioEntity){
+    createDeletePrompt(entity, this.alertController, this.t, this.cs)
+      .subscribe(async (response)=>{
+        entity.fadeAwaySubject.next(true);
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-project-portfolio/${entity.id}`, {})
+        .pipe(
+          catch400Error(this.cs), // Experimental feature
+          finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+        .subscribe(async (response)=>{
+          this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
+        })
+      })
+    /*const alert = await this.alertController.create({
       header: this.t.instant('Confirm'),
       message: this.t.instant('Are you sure you want to delete this project?'),
       buttons: [
@@ -107,6 +119,6 @@ export class ProjectsPage extends CandidateForm implements OnInit { // Candidate
           }
         ]}
       );
-    await alert.present();
+    await alert.present();*/
   }
 }

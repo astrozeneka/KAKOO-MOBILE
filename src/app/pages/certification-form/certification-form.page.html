@@ -9,12 +9,18 @@
       }
     </div>
     <div slot="end">
-      <ion-button
-        color="danger"
-        fill="clear"
-      >
-      {{ "Delete" |_ }}
-      </ion-button>
+      @if (formMode == 'edit') {
+        <app-ux-button
+          color="danger"
+          fill="clear"
+          [loading]="deleteIsLoading"
+          variant="topbar"
+          (click)="deleteItem()"
+          [fixedWidth]="true"
+        >
+        {{ "Delete" |_ }}
+        </app-ux-button>
+      }
     </div>
   </app-topbar>
 </ion-header>
