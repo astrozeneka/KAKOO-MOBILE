@@ -26,20 +26,38 @@
     <!-- Experience -->
     <app-section-heading class="project-heading">
       Experience
-      <ion-button
-        color="primary"
-        fill="clear"
-        slot="end"
-        (click)="router.navigateByUrl('/work-experience-form?mode=add')"
-      >
-        {{ "Add" |_ }}
-      </ion-button>
+      @if (candidateWorkExperienceEntities.length > 0){
+        <ion-button
+          color="primary"
+          fill="clear"
+          slot="end"
+          (click)="router.navigateByUrl('/work-experience-form?mode=add')"
+        >
+          {{ "Add" |_ }}
+        </ion-button>
+      }
     </app-section-heading>
+
+    <div>
+      @if (candidateWorkExperienceEntities.length == 0){
+        <ion-button
+          fill="outline"
+          color="primary"
+          class='add-button'
+          (click)="router.navigateByUrl('/work-experience-form?mode=add')"
+        >
+          <div class="inner">
+            Add experience
+          </div>
+        </ion-button>
+      }
+    </div>
 
     @for (entity of candidateWorkExperienceEntities; track $index) {
       <app-experience-card
         (edit)="router.navigateByUrl('/work-experience-form?mode=edit&id=' + entity.id)"
         (delete)="deleteWorkExperience(entity)"
+        [fadeAway$]="entity.fadeAway$"
         [deleteButtonIsLoading$]="entity.deleteIsLoading$"
       >
         <div slot="image">

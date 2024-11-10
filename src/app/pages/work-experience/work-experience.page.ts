@@ -19,6 +19,8 @@ import { catch400Error } from 'src/app/utils/catch400Error';
 interface UXWorkExperienceEntity extends WorkExperienceEntity {
   deleteIsLoadingSubject: BehaviorSubject<boolean>;
   deleteIsLoading$: Observable<boolean>;
+  fadeAwaySubject: BehaviorSubject<boolean>;
+  fadeAway$: Observable<boolean>;
 }
 
 @Component({
@@ -40,10 +42,13 @@ export class WorkExperiencePage extends CandidateForm implements OnInit { // I d
     this.candidateWorkExperienceEntities = this.candidate.workExperienceEntities?.map((workExperience: WorkExperienceEntity) => {
       const existingEntity = this.candidateWorkExperienceEntities?.find((entity) => entity.id === workExperience.id)
       const deleteIsLoadingSubject = existingEntity?.deleteIsLoadingSubject || new BehaviorSubject<boolean>(false);
+      const fadeAwaySubject = existingEntity?.fadeAwaySubject || new BehaviorSubject<boolean>(false);
       return {
         ...workExperience,
         deleteIsLoadingSubject,
-        deleteIsLoading$: deleteIsLoadingSubject.asObservable()
+        deleteIsLoading$: deleteIsLoadingSubject.asObservable(),
+        fadeAwaySubject,
+        fadeAway$: fadeAwaySubject.asObservable()
       }
     })
     this.cdr.detectChanges()
@@ -106,6 +111,7 @@ export class WorkExperiencePage extends CandidateForm implements OnInit { // I d
               catch400Error(this.cs), // Experimental feature
               finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
             .subscribe(async (response)=>{
+              entity.fadeAwaySubject.next(true)
               this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
             })
           }

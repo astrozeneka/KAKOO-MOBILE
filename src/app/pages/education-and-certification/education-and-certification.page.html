@@ -59,6 +59,7 @@
         [deleteButton]="true"
         (edit)="router.navigateByUrl('/education-form?mode=edit&id=' + entity.id)"
         (delete)="deleteEducation(entity)"
+        [fadeAway$]="entity.fadeAway$"
         [deleteButtonIsLoading$]="entity.deleteIsLoading$"
       >
         <div slot="image">
@@ -110,6 +111,7 @@
         [deleteButton]="true"
         (edit)="router.navigateByUrl('/certification-form?mode=edit&id=' + entity.id)"
         (delete)="deleteCertificate(entity)"
+        [fadeAway$]="entity.fadeAway$"
         [deleteButtonIsLoading$]="entity.deleteIsLoading$"
       >
         <div slot="image">

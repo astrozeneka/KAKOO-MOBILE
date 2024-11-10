@@ -19,11 +19,15 @@ import { catch400Error } from 'src/app/utils/catch400Error';
 interface UXCandidateEducationEntity extends CandidateEducationEntity {
   deleteIsLoadingSubject: BehaviorSubject<boolean>;
   deleteIsLoading$: Observable<boolean>;
+  fadeAwaySubject: BehaviorSubject<boolean>;
+  fadeAway$: Observable<boolean>;
 }
 
 interface UXCandidateCertificateEntity extends CandidateCertificateEntity { // TODO later
   deleteIsLoadingSubject: BehaviorSubject<boolean>;
   deleteIsLoading$: Observable<boolean>;
+  fadeAwaySubject: BehaviorSubject<boolean>;
+  fadeAway$: Observable<boolean>;
 }
 
 @Component({
@@ -45,19 +49,25 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
     this.candidateEducationEntities = this.candidate.candidateEducationEntities?.map((education: CandidateEducationEntity) => {
       const existingEntity = this.candidateEducationEntities?.find((entity) => entity.id === education.id)
       const deleteIsLoadingSubject = existingEntity?.deleteIsLoadingSubject || new BehaviorSubject<boolean>(false);
+      const fadeAwaySubject = existingEntity?.fadeAwaySubject || new BehaviorSubject<boolean>(false);
       return {
         ...education,
         deleteIsLoadingSubject,
-        deleteIsLoading$: deleteIsLoadingSubject.asObservable()
+        deleteIsLoading$: deleteIsLoadingSubject.asObservable(),
+        fadeAwaySubject,
+        fadeAway$: fadeAwaySubject.asObservable()
       }
     })
     this.candidateCertificateEntities = this.candidate.candidateCertificateEntities?.map((certificate: CandidateCertificateEntity) => {
       const existingEntity = this.candidateCertificateEntities?.find((entity) => entity.id === certificate.id)
       const deleteIsLoadingSubject = existingEntity?.deleteIsLoadingSubject || new BehaviorSubject<boolean>(false);
+      const fadeAwaySubject = existingEntity?.fadeAwaySubject || new BehaviorSubject<boolean>(false);
       return {
         ...certificate,
         deleteIsLoadingSubject,
-        deleteIsLoading$: deleteIsLoadingSubject.asObservable()
+        deleteIsLoading$: deleteIsLoadingSubject.asObservable(),
+        fadeAwaySubject,
+        fadeAway$: fadeAwaySubject.asObservable()
       }
     })
     this.cdr.detectChanges()
@@ -163,6 +173,7 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
                 catch400Error(this.cs), // Experimental feature
                 finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
               .subscribe(async (response)=>{
+                entity.fadeAwaySubject.next(true)
                 this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
               })
           }
@@ -190,7 +201,7 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
                 catch400Error(this.cs), // Experimental feature
                 finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
               .subscribe(async (response)=>{
-                console.log(response)
+                entity.fadeAwaySubject.next(true)
                 this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
               })
           }
