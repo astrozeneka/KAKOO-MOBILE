@@ -149,6 +149,7 @@
             label-placement="stacked"
             formControlName="dailyRate"
             [errorText]="displayedError['dailyRate']"
+            inputMode="digits"
           ></ion-input>
         </div>
       </div>
@@ -159,24 +160,20 @@
         <app-chip-input
           label="Language"
           placeholder="Enter your languages"
-          [options]="['french', 'english', 'chinese', 'spanish', 'japanese', 'arab', 'german', 'thai', 'malagasy', 'italian']"
-          formControlName="languages"
-          [errorText]="displayedError['languages']"
+          [options]="languageOptions"
+          [keyAccessor]="languageOptionsKeyAccessor"
+          formControlName="languageEntities"
+          [errorText]="displayedError['languageEntities']"
         ></app-chip-input>
       </div>
       <div class="input-wrapper">
         <app-chip-input
           label="Country"
           placeholder="Enter your country"
-          [options]="[
-            {'name': 'Albania', 'slug': 'albania'}, 
-            {'name': 'Algeria', 'slug': 'algeria'},
-            {'name': 'Andorra', 'slug': 'andorra'},
-            {'name': 'Angola', 'slug': 'angola'},
-            {'name': 'Antigua and barbuda', 'slug': 'antigua-and-barbuda'}
-          ]"
-          formControlName="country"
-          [errorText]="displayedError['country']"
+          [options]="countryOptions"
+          [keyAccessor]="countryKeyAccessor"
+          formControlName="countryEntity"
+          [errorText]="displayedError['countryEntity']"
           [keyAccessor]="countryKeyAccessor"
           [customList]="true"
           mode="single"
@@ -197,9 +194,10 @@
         <app-chip-input
           label="State"
           placeholder="Enter your state"
-          [options]="['Option A', 'Option B', 'Option C']"
-          formControlName="state"
-          [errorText]="displayedError['state']"
+          [options]="stateOptions"
+          [keyAccessor]="stateKeyAccessor"
+          formControlName="stateEntity"
+          [errorText]="displayedError['stateEntity']"
           mode="single"
         ></app-chip-input>
       </div>
@@ -207,11 +205,12 @@
         <app-chip-input
           label="City"
           placeholder="Enter your city"
-          [options]="['Option A', 'Option B', 'Option C']"
-          formControlName="city"
-          [errorText]="displayedError['city']"
+          [options]="cityOptions"
+          [keyAccessor]="cityKeyAccessor"
+          formControlName="cityEntity"
+          [errorText]="displayedError['cityEntity']"
           mode="single"
-        ></app-chip-input>  
+        ></app-chip-input> 
       </div>
       <div class="input-wrapper">
         <ion-input
@@ -219,6 +218,7 @@
           placeholder="Enter your address"
           fill="outline"
           label-placement="stacked"
+          formControlName="address"
           [errorText]="displayedError['address']"
         ></ion-input>
       </div>

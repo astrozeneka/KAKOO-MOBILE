@@ -46,6 +46,9 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit, Afte
   @Input() customList: boolean = false;
   @ContentChild(TemplateRef) itemTemplate: TemplateRef<any> | null = null;
 
+  // The disabled state
+  @Input() disabled: boolean = false;
+
   constructor(
     private controlContainer: ControlContainer,
     private cdr: ChangeDetectorRef
@@ -105,9 +108,6 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit, Afte
       this.hasFocus = true
     })
     // Blur
-    this.innerInput?.ionBlur.subscribe(() => {
-      this.hasFocus = false
-    })
   }
 
   writeValue(obj: any): void {
@@ -126,6 +126,12 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit, Afte
   }
 
   setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    if (isDisabled){
+      this.innerFormControl.disable();  
+    } else {
+      this.innerFormControl.enable();
+    }
     // TODO later
     //throw new Error('Method not implemented.');
   }

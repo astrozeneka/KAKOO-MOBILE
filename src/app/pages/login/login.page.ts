@@ -22,6 +22,8 @@ import { displayErrors } from 'src/app/utils/display-errors';
 import { User, Role } from 'src/app/models/User';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { OutlineInputComponent } from "../../components/outline-input/outline-input.component";
+import { FastSigninComponent as DevFastSigninComponent } from 'src/app/submodules/fast-signin/standalone/fast-signin.component';
+import { ProdFastSigninComponent } from 'src/app/submodules/fast-signin/standalone/prod-fast-signin.component';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +37,7 @@ import { OutlineInputComponent } from "../../components/outline-input/outline-in
     IonIcon, IonButton, IonBackButton, IonInput, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, BackButtonComponent,
     TranslateModule, I18nPipe, I18nPipeShortened, LanguageButtonComponent, UxButtonComponent, TopbarComponent,
     ...[(environment.production ? ProdDebugButtonComponent : DevDebugButtonComponent)],
+    ...[(environment.production ? ProdFastSigninComponent : DevFastSigninComponent)],
     OutlineInputComponent
 ]
 })

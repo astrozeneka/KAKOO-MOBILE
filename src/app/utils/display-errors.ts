@@ -10,7 +10,6 @@ export const displayErrors = (
       // If the item is invalid
       if (form.controls[key].invalid){
         if (form.controls[key].errors?.['required']){
-          console.log("Required field")
           displayedError[key] = translate("Required field")
         } else if (form.controls[key].errors?.['email']){
           displayedError[key] = "Invalid email"

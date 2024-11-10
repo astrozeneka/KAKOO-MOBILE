@@ -6,9 +6,9 @@ import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from "../../back-button/back-button.component";
 import { ChipInputComponent } from 'src/app/components/chip-input/chip-input.component';
 import { phoneFullValidator, PhoneSelectorComponent } from "../../submodules/phone-selector/phone-selector.component";
-import { Candidate } from 'src/app/models/Candidate';
+import { Candidate, CityEntity, CountryEntity, LanguageEntity, StateEntity } from 'src/app/models/Candidate';
 import { ContentService } from 'src/app/services/content.service';
-import { catchError, finalize, throwError } from 'rxjs';
+import { catchError, filter, finalize, Observable, throwError } from 'rxjs';
 import { UxButtonComponent } from "../../submodules/angular-ux-button/standalone/ux-button.component";
 import { Router } from '@angular/router';
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
@@ -43,11 +43,14 @@ export class PersonalInformationPage implements OnInit {
     'jobTitle': new FormControl("", []), // NOT PRESENT IN THE ACTUAL SYSTEM, should be tested thoroughly
     'totalExperience': new FormControl("", [Validators.required]), // ok
     'dailyRate': new FormControl("", [Validators.required]), // ok
-    'languages': new FormControl([], [Validators.required, Validators.minLength(1)]), // !!! Should prepare it while form submission
+    'languageEntities': new FormControl([], [Validators.required, Validators.minLength(1)]), // !!! Should prepare it while form submission
     
-    'country': new FormControl(null, [Validators.required]), // !!! Should prepare it while form submission
+    /*'country': new FormControl(null, [Validators.required]), // !!! Should prepare it while form submission
     'state': new FormControl(null, [Validators.required]), // !!! Should prepare it while form submission
-    'city': new FormControl(null, [Validators.required]), // !!! Should prepare it while form submission
+    'city': new FormControl(null, [Validators.required]), // !!! Should prepare it while form submission*/
+    'countryEntity': new FormControl(null, [Validators.required]), // 
+    'stateEntity': new FormControl(null, [Validators.required]), // 
+    'cityEntity': new FormControl(null, [Validators.required]), // 
     'address': new FormControl("", [Validators.required]), // ok
   })
   displayedError:{[key:string]:string|undefined} = {
@@ -60,10 +63,10 @@ export class PersonalInformationPage implements OnInit {
     'jobTitle': undefined,
     'totalExperience': undefined,
     'dailyRate': undefined,
-    'languages': undefined,
-    'country': undefined,
-    'state': undefined,
-    'city': undefined,
+    'languageEntities': undefined,
+    'countryEntity': undefined,
+    'stateEntity': undefined,
+    'cityEntity': undefined,
     'address': undefined,
   }
   formIsLoading: boolean = false;
@@ -90,31 +93,47 @@ export class PersonalInformationPage implements OnInit {
   displayedErrorTestPhone:string|undefined = "Required"
   testPhoneControlBlur = () => {}*/
 
-  countryKeyAccessor = (country: any) => country.name;
+
+
+  lang: "en"|"fr" = "en"
+  languageOptions: LanguageEntity[] = []
+  languageOptionsKeyAccessor = (language: LanguageEntity):string =>
+    this.lang == "en" ? language.name : (language.nameFr||language.name) as string
+  countryOptions: CountryEntity[] = []
+  countryKeyAccessor = (country: CountryEntity) => country.name;
+  stateOptions: StateEntity[] = []
+  stateKeyAccessor = (state: StateEntity) => state.name;
+  cityOptions: CityEntity[] = []
+  cityKeyAccessor = (city: CityEntity) => city.name;
+  
 
   constructor(
     private cdr:ChangeDetectorRef,
     private cs:ContentService,
     private router:Router,
     private translate: TranslateService,
-  ) { }
+  ) {
+    this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
+   }
 
   async ngOnInit() {
 
     // TODO, personal-information should use the registerV2 subscription
     // Waiting for it to have a thorough test first, then begin to implement in this page
 
-    // 1. Load stored data loaded from resume
+    // 1. Load stored data loaded from resume OR FROM THE SERVER
     let extractedData: Candidate|null = await this.cs.candidateData.get();
+    console.log(extractedData)
 
     // 1.a - Patch the phone number
     extractedData = {
       ...extractedData,
       phonefull: [extractedData?.phoneCode, extractedData?.phoneNumber],
-      languages: extractedData?.languageEntities?.map((languageEntity)=>languageEntity.name),
+      languages: extractedData?.languageEntities ?? []
+      // languages: extractedData?.languageEntities?.map((languageEntity)=>languageEntity.name),
       // The other data needing preparation
     } as any
-    console.log(extractedData)
+    console.log(extractedData?.languageEntities)
 
     this.form.patchValue(extractedData as any);
 
@@ -129,7 +148,42 @@ export class PersonalInformationPage implements OnInit {
       }
     })
 
+    // Step 2. Load the dropdown values
+    this._loadLanguageOptions().subscribe((languageOptions)=>{
+      this.languageOptions = languageOptions
+    })
+    this._loadCountryOptions().subscribe((countryOptions)=>{
+      this.countryOptions = countryOptions
+    })
 
+    // At first state and city will be disabled, and will be enabled only when the above entity is selected
+    this.form.get('stateEntity')?.disable()
+    this.form.get('cityEntity')?.disable()
+    this.form.get('countryEntity')?.valueChanges.subscribe((country:CountryEntity)=>{
+      if (country) {
+        this._loadStateOptions(country.countryId).subscribe((stateOptions:StateEntity[])=>{
+          this.form.get('stateEntity')?.reset()
+          this.form.get('stateEntity')?.enable()
+          console.log(stateOptions)
+          this.stateOptions = stateOptions
+        })
+      } else {
+        this.form.get('stateEntity')?.disable()
+        this.form.get('cityEntity')?.disable()
+      }
+    })
+    this.form.get('stateEntity')?.valueChanges.subscribe((state:StateEntity)=>{
+      if (state) {
+        console.log("Selected", state)
+        this._loadCityOptions(state.stateId).subscribe((cityOptions:CityEntity[])=>{
+          this.form.get('cityEntity')?.reset();
+          this.form.get('cityEntity')?.enable();
+          this.cityOptions = cityOptions
+        })
+      } else {
+        this.form.get('cityEntity')?.disable();
+      }
+    })
 
 
     /*this.testFormControl.valueChanges.subscribe((value) => {
@@ -148,54 +202,31 @@ export class PersonalInformationPage implements OnInit {
 
   }
 
-  /*testControlBlur(){
-    this.displayedErrorTest = 
-    (this.testFormControl.errors as any)?.required ? "This field is required"
-    : (this.testFormControl.errors as any)?.minlength ? "You should at least add 2 skills" : undefined;
-    console.log("DisplayedErrorTest", this.displayedErrorTest)
-    console.log("Errors", this.testFormControl.errors)
-  }*/
 
-  /*testSubmit(){
-
-    console.log(this.testFormControl.errors)
-    
-    // THIS IS THE STANDARD WAY TO SET ERRORS ON CONTROLS
-    this.displayedErrorTest2 = "This is an error message from the server";
-    this.testFormControl2.setErrors({serverError: true});
-    this.testFormControl2.markAsTouched();
-
-    // Test on the firstControl
-    // similarly to previous projects, the displayedError text is managed from the parent
-    // However
-    this.displayedErrorTest = 
-      (this.testFormControl.errors as any).required ? "This field is required"
-      : (this.testFormControl.errors as any).minLength ? "You should at least add 2 skills" : undefined;
-    this.testFormControl.setErrors({required: true});
-    this.testFormControl.markAsTouched();
-
-    // The county
-    this.testCountryFormControl.setErrors({required: true});
-    this.displayedErrorTestCountry = 
-    (this.testCountryFormControl.errors as any)?.required ? "This field is required"
-    : undefined;
-    this.testCountryFormControl.markAsTouched();
-
-    // The phone
-    this.testPhoneFormControl.setErrors({required: true});
-    this.displayedErrorTestPhone = 
-    (this.testPhoneFormControl.errors as any)?.required ? "This field is required"
-    : undefined;
-    this.testPhoneFormControl.markAsTouched();
-    
-  }*/
-  
-  /*testCountryControlBlur(){
-    this.displayedErrorTestCountry = 
-    (this.testCountryFormControl.errors as any)?.required ? "This field is required"
-    : undefined;
-    console.log("Test error")
-  }*/
+  private _loadLanguageOptions(){
+    return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/candidate-drop-down/language`, {})
+      .pipe(catchError((error) => {
+          return throwError(error);
+        })) as unknown as Observable<LanguageEntity[]>
+  }
+  private _loadCountryOptions(){
+    return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/location/get-country`, {})
+      .pipe(catchError((error) => {
+        return throwError(error)
+      })) as Observable<CountryEntity[]>
+  }
+  private _loadStateOptions(countryId:number){
+    return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/location/get-state-by-country/${countryId}`, {})
+      .pipe(catchError((error) => {
+        return throwError(error)
+      })) as Observable<StateEntity[]>
+  }
+  private _loadCityOptions(stateId:number){ // Not yet tested
+    return this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/location/get-city-by-state/${stateId}`, {})
+      .pipe(catchError((error) => {
+        return throwError(error)
+      })) as Observable<CityEntity[]>
+  }
 
   submit(){
     // Manage form validation
@@ -207,7 +238,6 @@ export class PersonalInformationPage implements OnInit {
     
     let data = {
       ...this.form.value,
-      languageEntities: null, // !!! Should prepare it while form submission
       phoneCode: null, // !!! should prepare
       phoneNumber: null, // !!! should prepare
       countryEntity: null, // !!! should prepare

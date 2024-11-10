@@ -34,7 +34,7 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
     workType: new FormControl('', [Validators.required]),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
-    responsibilitiesAndAchievements: new FormControl('', [Validators.required]),
+    responsibilitiesAndAchievements: new FormControl('', []),
     location: new FormControl('', [Validators.required]),
   })
   displayedError:{[key:string]:string|undefined} = {

@@ -115,6 +115,7 @@ export interface Candidate {
   export interface LanguageEntity {
     id: any
     name: string
+    nameFr?: string
   }
   
   export interface CandidateEducationEntity {

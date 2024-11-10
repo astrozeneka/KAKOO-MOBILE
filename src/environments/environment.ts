@@ -7,7 +7,21 @@ export const environment = {
   // apiEndpoint: 'https://f666bfa7-b6c4-4059-bd09-2823b447609e.mock.pstmn.io',
   apiEndpoint: 'https://web.kakoo-software.com/kakoo-back-end',
 
-  cachePrefix: 'kakoodev-'
+  cachePrefix: 'kakoodev-',
+
+  mFormMode: 'email', // Only 'email' is available
+  mFormOptions: [
+    {
+      label: 'Ryan +3',
+      email: 'ryanrasoarahona3+3@gmail.com',
+      password: 'ryanrasoarahona1'
+    },
+    {
+      label: 'Ryan +4',
+      email: 'ryanrasoarahona3+4@gmail.com',
+      password: 'ryanrasoarahona1'
+    }
+  ]
 };
 
 /*

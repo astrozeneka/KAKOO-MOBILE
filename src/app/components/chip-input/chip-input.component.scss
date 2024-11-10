@@ -65,6 +65,9 @@
             color: #007E48!important;
         }
     }
+    &.disabled{
+        // Custom styles for disabled element
+    }
 }
 
 
@@ -80,6 +83,8 @@
     background: white;
     margin-top: 2px;
     & ion-button{
+        --border-width: 0px;
+        --background: cyan;
         height: 32px;
         width: 100%;
         margin: 0;
