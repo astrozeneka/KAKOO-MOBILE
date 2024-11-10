@@ -93,7 +93,14 @@
           ></app-phone-selector>
         </div>
         <div>
-          <ion-input
+          <app-outline-input
+            placeholder="OIU587654"
+            type="text"
+            label="{{ 'Referral Code' |_ }}"
+            formControlName="referralCode"
+            [errorText]="displayedError['referralCode']"
+          ></app-outline-input>
+          <!--<ion-input
             type="text"
             placeholder="OIU587654"
             fill="outline"
@@ -101,7 +108,7 @@
             label="{{ 'Referral Code' |_ }}"
             formControlName="referralCode"
             [errorText]="displayedError['referralCode']"
-          ></ion-input>
+          ></ion-input>-->
         </div>
         <div>
           <app-ux-button

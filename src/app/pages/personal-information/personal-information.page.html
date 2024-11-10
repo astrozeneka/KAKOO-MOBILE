@@ -26,7 +26,13 @@
     <form [formGroup]="form" (submit)="submit()">
       <div class="input-wrapper row">
         <div class="col-6">
-          <ion-input
+          <app-outline-input
+            placeholder="Mohit"
+            label="First name*"
+            formControlName="firstName"
+            [errorText]="displayedError['firstName']"
+          ></app-outline-input>
+          <!--<ion-input
             type="text"
             placeholder="Mohit"
             fill="outline"
@@ -34,10 +40,16 @@
             label="First Name*"
             formControlName="firstName"
             [errorText]="displayedError['firstName']"
-          ></ion-input>
+          ></ion-input>-->
         </div>
         <div class="col-6">
-          <ion-input
+          <app-outline-input
+            placeholder="Sharma"
+            label="Middle name"
+            formControlName="middleName"
+            [errorText]="displayedError['middleName']"
+          ></app-outline-input>
+          <!--<ion-input
             type="text"
             placeholder="Sharma"
             fill="outline"
@@ -45,7 +57,7 @@
             label="Middle name"
             formControlName="middleName"
             [errorText]="displayedError['middleName']"
-          ></ion-input>
+          ></ion-input>-->
         </div>
       </div>
       <div class="input-wrapper">
@@ -90,7 +102,13 @@
         -->
       </div>
       <div class="input-wrapper">
-        <ion-input
+        <app-outline-input
+          placeholder="jhinganmohit79@gmail.com"
+          label="Email*"
+          formControlName="email"
+          [errorText]="displayedError['email']"
+        ></app-outline-input>
+        <!--<ion-input
           type="email"
           placeholder="jhinganmohit79@gmail.com"
           fill="outline"
@@ -98,7 +116,7 @@
           formControlName="email"
           label="Email"
           [errorText]="displayedError['email']"
-        ></ion-input>
+        ></ion-input>-->
       </div>
       <div class="input-wrapper">
         <!-- TODO, phone number, adapt the component used by training-day 1 hours to do that -->
@@ -120,28 +138,47 @@
       </div>
       <div class="input-wrapper">
         <!--- Kesako ?? -->
-        <ion-input
+        <app-outline-input
+          placeholder="Office assistant course"
+          label="Job title"
+          formControlName="jobTitle"
+          [errorText]="displayedError['jobTitle']"
+        ></app-outline-input>
+        <!--<ion-input
           type="text"
           placeholder="Office assistant course"
           fill="outline"
           label-placement="stacked"
           label="Job title"
           
-        ></ion-input>
+        ></ion-input>-->
       </div>
       <div class="input-wrapper row">
         <!--- Kesako ?? -->
         <div class="col-6">
-          <ion-input
+          <app-outline-input
+            placeholder="5"
+            label="Total experience"
+            formControlName="totalExperience"
+            [errorText]="displayedError['totalExperience']"
+          ></app-outline-input>
+          <!--<ion-input
             type="text"
             placeholder="Total experience"
             fill="outline"
             label-placement="stacked"
             label="Experience"
-          ></ion-input>
+          ></ion-input>-->
         </div>
         <div class="col-6">
-          <ion-input
+          <app-outline-input
+            placeholder="€ 0"
+            label="Daily rate (Euro)"
+            formControlName="dailyRate"
+            [errorText]="displayedError['dailyRate']"
+            inputMode="digits"
+          ></app-outline-input>
+          <!--<ion-input
             type="text"
             label="Daily rate (Euro)"
             placeholder="€ 0"
@@ -150,7 +187,7 @@
             formControlName="dailyRate"
             [errorText]="displayedError['dailyRate']"
             inputMode="digits"
-          ></ion-input>
+          ></ion-input>-->
         </div>
       </div>
       <div class="input-wrapper">

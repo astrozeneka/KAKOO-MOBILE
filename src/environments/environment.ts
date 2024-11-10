@@ -20,6 +20,11 @@ export const environment = {
       label: 'Ryan +4',
       email: 'ryanrasoarahona3+4@gmail.com',
       password: 'ryanrasoarahona1'
+    },
+    {
+      label: 'Ryan +10',
+      email: 'ryanrasoarahona3+10@gmail.com',
+      password: 'ryanrasoarahona1'
     }
   ]
 };

@@ -19,7 +19,11 @@ ion-input[fill=outline]{
 .row{
     // Move the padding to the outer element
     // The below code is redundant
-    @include form-row-margin-correction;
+    @include form-row-margin-correction; // This way of writing is not used anymore
+    & app-outline-input{
+        --margin-top: 0px;
+        --margin-bottom: 0px;
+    }
 }
 
 

@@ -66,14 +66,21 @@
         </div>
 
         <div class="input-wrapper">
-          <ion-input
+          <app-outline-input
+            placeholder="{{ 'password' |_ }}"
+            type="password"
+            label="{{ 'Password' |_ }}"
+            formControlName="password"
+            [errorText]="displayedError['password']"
+          ></app-outline-input>
+          <!--<ion-input
             type="password"
             placeholder="{{ 'password' |_ }}"
             fill="outline"
             label-placement="stacked"
             label="{{ 'Password' |_ }}"
             formControlName="password"
-          ></ion-input>
+          ></ion-input>-->
           <div class="input-error" *ngIf="form.get('password')?.touched && form.get('password')?.errors">
             <span *ngIf="form.get('password')?.getError('required')">{{ "Password required" |_ }}</span>
           </div>

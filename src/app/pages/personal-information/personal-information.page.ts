@@ -100,12 +100,13 @@ export class PersonalInformationPage implements OnInit {
   languageOptionsKeyAccessor = (language: LanguageEntity):string =>
     this.lang == "en" ? language.name : (language.nameFr||language.name) as string
   countryOptions: CountryEntity[] = []
-  countryKeyAccessor = (country: CountryEntity) => country.name;
+  countryKeyAccessor = (country: CountryEntity) => country?.name;
   stateOptions: StateEntity[] = []
-  stateKeyAccessor = (state: StateEntity) => state.name;
+  stateKeyAccessor = (state: StateEntity) => state?.name;
   cityOptions: CityEntity[] = []
-  cityKeyAccessor = (city: CityEntity) => city.name;
+  cityKeyAccessor = (city: CityEntity) => city?.name;
   
+  candidate: Candidate|null = null
 
   constructor(
     private cdr:ChangeDetectorRef,
@@ -122,6 +123,31 @@ export class PersonalInformationPage implements OnInit {
     // Waiting for it to have a thorough test first, then begin to implement in this page
 
     // 1. Load stored data loaded from resume OR FROM THE SERVER
+    this.cs.registerCandidateDataObserverV3().subscribe((candidate:Candidate|null)=>{
+      if (!candidate){
+        console.warn("No candidate data")
+        return
+      }
+      this.candidate = candidate
+      
+      // In case of the form was previously filled
+      /*this.form.get('countryEntity')?.enable() // No need
+      this._loadCountryOptions().subscribe((countryOptions:CountryEntity[])=>{
+        this.countryOptions = countryOptions
+        this.form.patchValue({countryEntity: candidate.countryEntity})
+        if (candidate.countryEntity) {
+          
+        }
+      })*/
+      
+
+      /*if (candidate.stateEntity) this.form.get('stateEntity')?.enable()
+      if (candidate.cityEntity) this.form.get('cityEntity')?.enable()
+      this.form.patchValue(candidate)*/
+    
+    })
+
+    // OLd way of loading candidate data
     let extractedData: Candidate|null = await this.cs.candidateData.get();
     console.log(extractedData)
 
@@ -129,13 +155,16 @@ export class PersonalInformationPage implements OnInit {
     extractedData = {
       ...extractedData,
       phonefull: [extractedData?.phoneCode, extractedData?.phoneNumber],
-      languages: extractedData?.languageEntities ?? []
+      languages: extractedData?.languageEntities ?? [],
       // languages: extractedData?.languageEntities?.map((languageEntity)=>languageEntity.name),
-      // The other data needing preparation
+      // The other data needing preparation,
+      experience: null, // Should be managed later
     } as any
-    console.log(extractedData?.languageEntities)
+    console.log(extractedData)
 
-    this.form.patchValue(extractedData as any);
+    setTimeout(()=>{
+      this.form.patchValue(extractedData as any);
+    }, 100)
 
 
 
@@ -162,10 +191,13 @@ export class PersonalInformationPage implements OnInit {
     this.form.get('countryEntity')?.valueChanges.subscribe((country:CountryEntity)=>{
       if (country) {
         this._loadStateOptions(country.countryId).subscribe((stateOptions:StateEntity[])=>{
-          this.form.get('stateEntity')?.reset()
-          this.form.get('stateEntity')?.enable()
-          console.log(stateOptions)
           this.stateOptions = stateOptions
+          this.form.get('stateEntity')?.enable()
+          if (this.candidate?.stateEntity){
+            this.form.get('stateEntity')?.patchValue(this.candidate?.stateEntity)
+          } else {
+            this.form.get('stateEntity')?.reset()
+          }
         })
       } else {
         this.form.get('stateEntity')?.disable()
@@ -174,9 +206,12 @@ export class PersonalInformationPage implements OnInit {
     })
     this.form.get('stateEntity')?.valueChanges.subscribe((state:StateEntity)=>{
       if (state) {
-        console.log("Selected", state)
         this._loadCityOptions(state.stateId).subscribe((cityOptions:CityEntity[])=>{
-          this.form.get('cityEntity')?.reset();
+          if (this.candidate?.cityEntity){
+            this.form.get('cityEntity')?.patchValue(this.candidate?.cityEntity)
+          }else{
+            this.form.get('cityEntity')?.reset();
+          }
           this.form.get('cityEntity')?.enable();
           this.cityOptions = cityOptions
         })

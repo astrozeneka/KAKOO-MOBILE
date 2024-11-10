@@ -134,7 +134,11 @@ export class LoginPage extends AbstractPage implements OnInit {
 
         // First, load the use data using api
         this.cs.get_exp('/api/v1/self-candidate/get-user', {}) 
-          .subscribe((response: User)=>{
+          .subscribe(async (response: User)=>{
+
+            await this.cs.userData.set(response)
+
+            // Another condition will be used, but not the candidateId
             if(!response.candidateId || false){
               this.router.navigate(['/welcome'])
             }else{
