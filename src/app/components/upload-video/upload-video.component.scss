@@ -1,0 +1,19 @@
+
+.upload-video{
+    & app-ux-button{
+        & .inner{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            margin-left: -1px; // Small correction to fit the figma design
+            margin-right: -1px; // Small correction to fit the figma design
+            & span{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 10px;
+            }
+        }
+    }
+}

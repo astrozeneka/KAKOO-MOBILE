@@ -200,7 +200,7 @@ export class WelcomePage implements OnInit {
     const fileData = this.form.get('file')?.value
     // testing a file sending, this should use the get_exp (experimental first)
     
-    // a. Preparing fileData
+    // a. Preparing fileData (same code as in dashboard-interview-cta.component.ts)
     let formData = new FormData();
     try{
       const byteCharacters = atob(fileData.base64.split(',')[1]);

@@ -35,32 +35,29 @@ export class PersonalInformationPage implements OnInit {
     'firstName': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
     'middleName': new FormControl("", [Validators.minLength(3), Validators.maxLength(25)]),
     'lastName': new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
-    'birthDay': new FormControl("", [Validators.required]), // ACTUALLY, NOT PRESENT IN THE ACTUAL SAMPLE DATA
+    'birthDay': new FormControl("", []), // Disabled actually
     'email': new FormControl("", [Validators.required, Validators.email]),
 
     'phonefull': new FormControl("", [phoneFullValidator]),
     
-    'jobTitle': new FormControl("", []), // NOT PRESENT IN THE ACTUAL SYSTEM, should be tested thoroughly
-    'totalExperience': new FormControl("", [Validators.required]), // ok
-    'dailyRate': new FormControl("", [Validators.required]), // ok
-    'languageEntities': new FormControl([], [Validators.required, Validators.minLength(1)]), // !!! Should prepare it while form submission
+    'jobTitle': new FormControl("", []), // Disabled actually
+    'totalExperience': new FormControl("", [Validators.required]), //
+    'dailyRate': new FormControl("", [Validators.required]), //
+    'languageEntities': new FormControl([], [Validators.required, Validators.minLength(1)]),
     
-    /*'country': new FormControl(null, [Validators.required]), // !!! Should prepare it while form submission
-    'state': new FormControl(null, [Validators.required]), // !!! Should prepare it while form submission
-    'city': new FormControl(null, [Validators.required]), // !!! Should prepare it while form submission*/
     'countryEntity': new FormControl(null, [Validators.required]), // 
     'stateEntity': new FormControl(null, [Validators.required]), // 
     'cityEntity': new FormControl(null, [Validators.required]), // 
-    'address': new FormControl("", [Validators.required]), // ok
+    'address': new FormControl("", [Validators.required]), //
   })
   displayedError:{[key:string]:string|undefined} = {
     'firstName': undefined,
     'middleName': undefined,
     'lastName': undefined,
-    'birthDay': undefined, // ?????
+    'birthDay': undefined, // Disabled actually
     'email': undefined,
     'phonefull': undefined,
-    'jobTitle': undefined,
+    'jobTitle': undefined, // Disabled actually
     'totalExperience': undefined,
     'dailyRate': undefined,
     'languageEntities': undefined,
@@ -234,6 +231,9 @@ export class PersonalInformationPage implements OnInit {
       this.testPhoneFormControl.patchValue("+33123456789")
     }, 300)*/
   
+    // 4. Skip birthday and job title for now (might be updated later)
+    this.form.get('birthDay')?.disable()
+    this.form.get('jobTitle')?.disable()
 
   }
 

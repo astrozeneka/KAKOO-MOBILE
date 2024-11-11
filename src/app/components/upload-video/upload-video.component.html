@@ -1,0 +1,17 @@
+<div class="upload-video">
+  <input type="file" #fileInput class="ion-hide" accept="video/mp4,video/quicktime" (change)="nativeInputChanged($event)">
+
+  <app-ux-button
+    fill="solid"
+    color="primary"
+    (click)="clickButton($event)"
+    variant="kakoo-rounded"
+    [loading]="formIsLoading"
+    [fixedWidth]="true"
+  >
+    <div class="inner">
+      <ion-icon src="/assets/svg/dashboard/icon-record-white.svg"></ion-icon>
+      <span>Upload video</span>
+    </div>
+  </app-ux-button>
+</div>

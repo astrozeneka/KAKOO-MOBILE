@@ -8,14 +8,12 @@
     </div>
   </div>
   <div class="right">
-    <ion-button
-      fill="solid"
-      color="primary"
-    >
-      <div class="inner">
-        <ion-icon src="/assets/svg/dashboard/icon-record-white.svg"></ion-icon>
-        <span>Record video</span>
-      </div>
-    </ion-button>
+    <form [formGroup]="form">
+      <app-upload-video
+        formControlName="video"
+        [errorText]="displayedError['video']"
+        [loading$]="formIsLoading$"
+      ></app-upload-video>
+    </form>
   </div>
 </div>
