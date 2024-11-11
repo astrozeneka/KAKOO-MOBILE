@@ -45,7 +45,7 @@ export class AddSkillsPage implements OnInit {
     // TODO, personal-information should use the registerV2 subscription
     // Waiting for it to have a thorough test first, then begin to implement in this page
 
-    // 1. Load stored data in the cache
+    // 1. Load stored data in the cache (this is not the good way to load user data)
     let extractedData: Candidate|null = await this.cs.candidateData.get();
 
     // 1.a. Patch the data to the form

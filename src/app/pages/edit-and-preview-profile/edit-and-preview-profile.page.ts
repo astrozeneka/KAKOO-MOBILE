@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { ExperienceCardComponent } from 'src/app/components/experience-card/experience-card.component';
 import { ProfileBasicDetailsCardComponent } from 'src/app/components/profile-basic-details-card/profile-basic-details-card.component';
@@ -10,6 +10,10 @@ import { ProfileSocialMediaLinksCardComponent } from 'src/app/components/profile
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { SectionHeadingComponent } from 'src/app/components/section-heading/section-heading.component';
+import { ChipInputComponent } from "../../components/chip-input/chip-input.component";
+import { Candidate } from 'src/app/models/Candidate';
+import { ContentService } from 'src/app/services/content.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-and-preview-profile',
@@ -18,14 +22,32 @@ import { SectionHeadingComponent } from 'src/app/components/section-heading/sect
   standalone: true,
   imports: [IonButton, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ExperienceCardComponent,
     ProfileBasicDetailsCardComponent, ProfileJobPreferencesCardComponent, ProfileSkillChipsCardComponent,
-    ProfileSocialMediaLinksCardComponent, TopbarComponent, BackButtonComponent, SectionHeadingComponent
+    ProfileSocialMediaLinksCardComponent, TopbarComponent, BackButtonComponent, SectionHeadingComponent, ChipInputComponent,
+    ChipInputComponent, ReactiveFormsModule
   ]
 })
 export class EditAndPreviewProfilePage implements OnInit {
+  form:FormGroup = new FormGroup({
+    'skills': new FormControl([], [])
+  })
+  displayedError:{[key:string]:string|undefined} = {
+    'skills': undefined
+  }
 
-  constructor() { }
+  candidate: Candidate = {} as any;
+
+  constructor(
+    private cs:ContentService,
+    private router:Router
+  ) { }
 
   ngOnInit() {
+    this.cs.registerCandidateDataObserverV3().subscribe((candidate)=>{
+      this.candidate = candidate!;
+      this.form.patchValue({
+        skills: candidate?.skillListEntities.map((skill)=>skill.name) || []
+      });
+    })
   }
 
 }

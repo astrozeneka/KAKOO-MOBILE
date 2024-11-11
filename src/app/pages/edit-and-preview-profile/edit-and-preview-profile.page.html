@@ -38,9 +38,20 @@
         </div>
       </ion-button>
     </app-section-heading>
-    <app-profile-skill-chips-card
+    
+    <form [formGroup]="form">
+      <app-chip-input
+        label="Skills"
+        placeholder="You can add your skills here"
+        formControlName="skills"
+        mode="multiple"
+        [errorText]="displayedError['skills']"
+        variant="kakoo-profile"
+      ></app-chip-input>
+    </form>
+    <!--<app-profile-skill-chips-card
       [items]="['Accounts', 'Microsoft Office Suite', 'Tally', 'Business Coaching']"
-    ></app-profile-skill-chips-card>
+    ></app-profile-skill-chips-card>-->
   </div>
   
   <div class="ion-padding-horizontal">

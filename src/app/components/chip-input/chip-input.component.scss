@@ -183,3 +183,61 @@
     @include input-error-1;
     margin-top: -6px!important;
 }
+
+// The variant
+.component.kakoo-profile{
+    border: 1px solid #E7E7E9;
+    padding: 14px;
+    border-radius: 5px;
+    & .wrapper{
+        margin-top: 0px; // Unused
+        margin-bottom: 0px; // Unused
+        height: 46px;
+        border: none;
+        margin-top: -14px;
+        margin-bottom: -14px;
+        margin-left: -14px;
+        margin-right: -14px;
+
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+        & label{
+            display: none;
+        }
+
+        & ion-input{
+            --border-width: 1px;
+            --border-style: solid;
+            --border-color: red;
+            margin-bottom: 22px;
+        }
+    }
+
+    .chip-container{
+        height: 28px;
+    }
+    
+    & div.chip{
+        height: 22px;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 10px;
+        line-height: 22px;
+        padding-left: 11px;
+        padding-right: 11px;
+        & > div {
+            height: 22px;
+            & ion-button{
+                height: 22px;
+                --height: 22px!important;
+                --padding-top: 0px!important;
+                --padding-bottom: 0px!important;
+                margin-right: -3px;
+                font-size: 0.9em;
+                & ion-icon{
+                    height: 9px;
+                }
+            }
+        }
+    }
+}

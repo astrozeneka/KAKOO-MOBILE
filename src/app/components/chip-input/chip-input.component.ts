@@ -25,6 +25,7 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit, Afte
   @Input() placeholder: string = ""
   @Input() options: T[] = []
   @Input() errorText: string | undefined = undefined
+  @Input() variant: string = "default"
 
   @ViewChild('innerInput') innerInput: IonInput | undefined;
   hasFocus: boolean = false
