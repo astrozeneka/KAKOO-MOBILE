@@ -121,4 +121,13 @@ export class ProjectsPage extends CandidateForm implements OnInit { // Candidate
       );
     await alert.present();*/
   }
+
+  skip(){
+    // Might be subjected to updates later
+    this.router.navigate(['/job-preferences'])
+  }
+
+  submit(){
+    this.router.navigate(['/job-preferences'])
+  }
 }

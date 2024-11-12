@@ -199,6 +199,10 @@ export class JobPreferencesPage implements OnInit {
 
   }
 
+  skip(){
+    this.router.navigate(["/social-accounts"])  
+  }
+
   submit(){
     // Mark form as touched
     this.form.markAllAsTouched()

@@ -132,4 +132,13 @@ export class WorkExperiencePage extends CandidateForm implements OnInit { // I d
     })
     await alert.present()*/
   }
+
+  skip(){
+    // Might be subjected to updates later
+    this.router.navigate(['/projects'])
+  }
+
+  submit(){
+    this.router.navigate(['/projects'])
+  }
 }

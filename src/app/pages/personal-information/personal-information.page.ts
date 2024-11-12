@@ -263,6 +263,11 @@ export class PersonalInformationPage implements OnInit {
       })) as Observable<CityEntity[]>
   }
 
+  skip(){
+    // Might be subjected to updates later
+    this.router.navigate(['/add-skills'])
+  }
+
   submit(){
     // Manage form validation
     this.form.markAllAsTouched()

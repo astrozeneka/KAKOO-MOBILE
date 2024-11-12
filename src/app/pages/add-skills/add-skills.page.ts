@@ -145,6 +145,10 @@ export class AddSkillsPage implements OnInit {
     return output$;
   }
   
+  skip(){
+    // Might be subjected to update later
+    this.router.navigate(["/education-and-certification"])
+  }
 
   submit(){
     this.form.markAllAsTouched()

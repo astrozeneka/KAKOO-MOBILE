@@ -6,6 +6,7 @@
       <ion-button
         color="primary"
         fill="clear"
+        (click)="skip()"
       >
         Skip
       </ion-button>
@@ -79,7 +80,7 @@
         <ion-button
           color="primary"
           expand="block"
-          (click)="router.navigate(['/projects'])"
+          (click)="submit()"
         >
           Save &amp; continue
         </ion-button>

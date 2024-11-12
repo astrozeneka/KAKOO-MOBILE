@@ -93,6 +93,11 @@ export class SocialAccountsPage implements OnInit {
       })*/
   }
 
+  skip(){
+    // Might be subjected to future updates
+    this.router.navigate(["/terms-and-conditions"])
+  }
+
   submit(){
     // Mark form as touched
     this.form.markAllAsTouched()

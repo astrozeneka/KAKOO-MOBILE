@@ -33,6 +33,11 @@ export class TermsAndConditionsPage implements OnInit {
     
   }
 
+  skip(){
+    // Might be subjected to changes in the future
+    this.router.navigate(['/dashboard'])
+  }
+
   submit(){
     // Handle if needed
     this.router.navigate(['/dashboard'])

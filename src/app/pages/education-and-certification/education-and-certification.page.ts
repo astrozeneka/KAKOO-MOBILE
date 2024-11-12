@@ -239,7 +239,13 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
     await alert.present();*/
   }
 
-  submit(){
+  skip(){
+    // Might be subjected to updates later
+    this.router.navigateByUrl('/work-experience')
+  }
 
+  submit(){
+    // Same as skip
+    this.router.navigateByUrl('/work-experience')
   }
 }
