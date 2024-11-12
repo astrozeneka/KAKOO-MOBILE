@@ -24,6 +24,7 @@ export class OutlineInputComponent  implements ControlValueAccessor, OnInit, Aft
   @Input() type: string = "text"
   @Input() errorText: string | undefined = undefined
   @Input() inputMode: string = "text"
+  @Input() variant: string = "default"
 
   @ViewChild('innerInput') innerInput: IonInput | undefined;
   hasFocus: boolean = false

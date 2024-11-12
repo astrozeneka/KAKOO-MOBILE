@@ -232,7 +232,7 @@ export class PersonalInformationPage implements OnInit {
     }, 300)*/
   
     // 4. Skip birthday and job title for now (might be updated later)
-    this.form.get('birthDay')?.disable()
+    //this.form.get('birthDay')?.disable()
     this.form.get('jobTitle')?.disable()
 
   }

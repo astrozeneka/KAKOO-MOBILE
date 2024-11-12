@@ -92,3 +92,17 @@
         color: #B3261E;
     }
 }
+
+.outline-input.date{
+    //background: red;
+    & ion-input{
+        --border-width: 1px;
+        --border-style: solid;
+        --border-color: green;
+        //--background: yellow;
+        z-index: 999;
+    }
+    & .icon-container{
+        z-index: 998!important;
+    }
+}

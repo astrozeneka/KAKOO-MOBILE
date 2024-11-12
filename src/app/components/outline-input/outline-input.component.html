@@ -1,4 +1,4 @@
-<div class="outline-input">
+<div [class]="'outline-input ' + variant">
   <div [class]="
     'wrapper ' +
     ((formControl?.invalid && formControl?.touched) ? 'has-error ' : ' ') +
@@ -6,6 +6,11 @@
   ">
     <label>{{ label }}</label>
     <div class="innerbox">
+      <div class="icon-container" (click)="setFocus()">
+        <div class="icon-container-inner">
+          <ng-content select="[slot='icon']"></ng-content>
+        </div>
+      </div>
       <ion-input
         #innerInput
         [type]="type"
@@ -14,11 +19,6 @@
         [formControl]="formControl!"
         [inputMode]="inputMode"
       ></ion-input>
-        <div class="icon-container" (click)="setFocus()">
-          <div class="icon-container-inner">
-            <ng-content select="[slot='icon']"></ng-content>
-          </div>
-        </div>
     </div>
   </div>
 
