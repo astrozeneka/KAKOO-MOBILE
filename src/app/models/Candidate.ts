@@ -109,7 +109,12 @@ export interface Candidate {
   export interface SkillEntity {
     id: any
     name: string
-    skillTypeEntity: any
+    skillTypeEntity: SkillTypeEntity
+  }
+
+  export interface SkillTypeEntity {
+    id: any
+    name: string
   }
   
   export interface LanguageEntity {

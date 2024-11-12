@@ -131,12 +131,12 @@ export class ContentService {
       */
   }
 
-  get_exp_fullurl(fullurl: string, headers: {[key: string]:any}): Observable<any>{
+  get_exp_fullurl(fullurl: string, headers: {[key: string]:any}, authenticated=true): Observable<any>{
     return from(new Promise(async(resolve)=>{
       let token = await this.token.get()
       let hdrs ={
         ...headers,
-        ...(token?{Authorization: token}:{})
+        ...((token && authenticated)?{Authorization: token}:{})
       }
       // Additionnal options can be suffixed to the URL
       resolve(firstValueFrom((this.http.get(fullurl, {
