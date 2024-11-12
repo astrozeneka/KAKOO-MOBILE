@@ -162,3 +162,100 @@ export interface Candidate {
     storageCloudType: string
   }
   
+
+  // The job
+  export interface Job {
+    jobId: number
+    jobIdToDisplay: any
+    positionTitle: string
+    title: any
+    description: any
+    onOfPosition: any
+    language: any
+    isOtherProfile: any
+    totalExperience: number
+    postalCode: any
+    certificationsLicensesIsRequired: boolean
+    skillListEntities: SkillEntity[]
+    regionList: any[]
+    stateEntities: any[]
+    cityEntities: CityEntity[]
+    jobAdditionalDetails: JobAdditionalDetail[]
+    workTypeEntity: WorkTypeEntity
+    employmentTypeEntity: EmploymentTypeEntity
+    minimumQualification: any
+    certificateName: any
+    salaryRangeSalaryExpectationEntity: SalaryRangeSalaryExpectationEntity
+    jobPriority: string
+    jobStatus: string
+    createdBy: number
+    updatedBy: number
+    createdByUserDetail: any
+    client: any
+    companyId: number
+    isInternal: any
+    clientId: any
+    recruitmentQuota: any
+    isFromAi: any
+    totalInvited: any
+    totalApplied: any
+    totalInterview: any
+    createdAt: string
+    updatedAt: string
+    cultureFitQuestionEntities: any[]
+    prescreeningQuestionEntities: any[]
+    jobRequirementEntities: any[]
+    jobQualificationEntities: any
+    jobAdditionalSkillsEntities: any
+    jobKeyResponsibilityEntities: any[]
+    jobCustomQuestionEntities: any[]
+    jobQualificationHTML: any
+    jobDescriptionHTML: any
+    otherSkills: any[]
+    spokenLanguageEntities: any[]
+    qualifiedCount: any
+    interviewedCount: any
+    financialNegotiationCount: any
+    sentToClintCount: any
+    hiredCount: any
+    allStatusCounts: any
+    isPostedOnMonster: boolean
+    industryCode: any
+    basePayAmountMin: any
+    basePayAmountMax: any
+    userAreaDuration: any
+    userAreapartTimeDuration: any
+    userAreadisplayedPay: any
+    userAreaStatusJob: any
+    userAreajobType: any
+    travelArea: any
+    expectedStartDate: any
+    companyName: any
+    apecJobPostStatus: any
+    apecJobPostedAt: any
+  }
+
+  export interface JobAdditionalDetail {
+    jobAdditionalDetailId: number
+    name: string
+    details: string
+  }
+
+  export interface WorkTypeEntity {
+    id: number
+    name: string
+    name_fr: string
+  }
+
+  export interface EmploymentTypeEntity {
+    id: number
+    name: string
+    name_fr: string
+  }
+
+  export interface SalaryRangeSalaryExpectationEntity {
+    id: number
+    from_amount: number
+    to_amount: number
+    currency: string
+  }
