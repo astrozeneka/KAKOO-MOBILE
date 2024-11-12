@@ -161,7 +161,8 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit, Afte
   private _filterOptions(rawValue: string = this.innerFormControl?.value) {
     if (this.mode == 'multiple') {
       this.displayedOption = this.options.filter(
-        option => this.keyAccessor(option).toLowerCase().includes(rawValue.toLowerCase()) && !this.formControl?.value.includes(this.keyAccessor(option))
+        // option => this.keyAccessor(option).toLowerCase().includes(rawValue.toLowerCase()) && !this.formControl?.value.includes(this.keyAccessor(option))
+        option => this.keyAccessor(option).toLowerCase().includes(rawValue.toLowerCase()) && !this.formControl?.value.includes(option as any)
       );
     } else if (this.mode == 'single') {
       /*console.log(this.options)
