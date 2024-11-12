@@ -226,7 +226,7 @@ export class ContentService {
     if (getFromServer) {
       this.get_exp(`/api/v1/self-candidate`, {})
         .pipe(catchError((error)=>{
-          console.log("Unable to fetch the candidate, probably first time")
+          console.log("Unable to fetch the candidate, probably first time") // Unused, can be deleted
           return throwError(error)
         }))
         .subscribe((data: Candidate)=>{

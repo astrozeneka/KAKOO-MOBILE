@@ -6,7 +6,7 @@ import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { ChipInputComponent } from 'src/app/components/chip-input/chip-input.component';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
-import { Candidate } from 'src/app/models/Candidate';
+import { Candidate, MobilityEntity } from 'src/app/models/Candidate';
 import { ContentService } from 'src/app/services/content.service';
 import { catchError, finalize, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ import NoticePeriod from 'src/app/models/NoticePeriod';
 import { SalaryExpectation } from 'src/app/models/SalaryExpectation';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { catch400Error } from 'src/app/utils/catch400Error';
+import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
 
 @Component({
   selector: 'app-job-preferences',
@@ -99,6 +100,10 @@ export class JobPreferencesPage implements OnInit {
   noticePeriodKeyAccessor: (e:NoticePeriod) => string = (option: NoticePeriod) => 
     (this.lang=="en" ? option.name : option.name_fr)
 
+  mobilityOptions: MobilityEntity[] = []
+  mobilityKeyAccessor: (e:MobilityEntity) => string = (option: MobilityEntity) =>
+    (this.lang=="en" ? option.name : option.nameFr)
+
   postLoadProcessing(){
     this.candidate.selfCandidateMobilityEntities = this.candidate.selfCandidateMobilityEntities?.map((v:any)=>v.name)
   }
@@ -108,7 +113,8 @@ export class JobPreferencesPage implements OnInit {
     protected cs: ContentService,
     private router: Router,
     private translate: TranslateService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private profileUtils: ProfileUtilsService
   ) { 
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }
@@ -139,6 +145,12 @@ export class JobPreferencesPage implements OnInit {
     this._loadSalaryExpectationOptions().subscribe((salaryExpectations)=>{
       this.salaryExpectationOptions = salaryExpectations
     })
+
+    this.profileUtils.onMobilityOptions().subscribe((mobilityOptions)=>{
+      this.mobilityOptions = mobilityOptions
+      console.log(mobilityOptions)
+    })
+
 
     // test (delete later)
     /*this.form.get('desiredWorkType')?.valueChanges.subscribe((value)=>{

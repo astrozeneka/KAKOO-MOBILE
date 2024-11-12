@@ -88,7 +88,8 @@
         <app-chip-input
           label="Mobility"
           placeholder="Add Mobility and press Enter/Return key"
-          [options]="['Accounting', 'Finance', 'Marketing', 'Sales', 'IT', 'HR', 'Admin', 'Customer Service', 'Engineering', 'Design', 'Education', 'Healthcare', 'Legal', 'Logistics', 'Manufacturing', 'Media', 'Retail', 'Science', 'Transportation', 'Others']"
+          [options]="mobilityOptions"
+          [keyAccessor]="mobilityKeyAccessor"
           formControlName="selfCandidateMobilityEntities"
           [errorText]="displayedError['selfCandidateMobilityEntities']"
           mode="multiple"

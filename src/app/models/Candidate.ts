@@ -40,7 +40,7 @@ export interface Candidate {
     languageEntities: LanguageEntity[]
     candidateEducationEntities: CandidateEducationEntity[]
     candidateCertificateEntities: CandidateCertificateEntity[]
-    selfCandidateMobilityEntities: any
+    selfCandidateMobilityEntities: MobilityEntity[]
     profileCompleted: boolean
   }
   
@@ -143,6 +143,12 @@ export interface Candidate {
     licenceId: string
     licenceURL: string
     title: string
+  }
+
+  export interface MobilityEntity {
+    id: number
+    name: string
+    nameFr: string
   }
   
   export interface ResumeAttachmentEntity {
