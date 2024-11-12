@@ -201,7 +201,6 @@ export class ContentService {
   async requestCandidateDataRefresh(){
     let candidateId = (await this.candidateData.get())?.candidateId ||
       (await this.userData.get())?.candidateId
-    console.log(candidateId)
     if (candidateId){
       this.get_exp(`/api/v2/self-candidate/get-by-id/${candidateId}`, {})
         .subscribe((data: Candidate)=>{

@@ -8,7 +8,7 @@ import { ChipInputComponent } from 'src/app/components/chip-input/chip-input.com
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 import { Candidate, MobilityEntity } from 'src/app/models/Candidate';
 import { ContentService } from 'src/app/services/content.service';
-import { catchError, finalize, Observable, throwError } from 'rxjs';
+import { catchError, combineLatest, finalize, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { EmploymentType } from 'src/app/models/EmploymentType';
 import { TranslateService } from '@ngx-translate/core';
@@ -102,11 +102,7 @@ export class JobPreferencesPage implements OnInit {
 
   mobilityOptions: MobilityEntity[] = []
   mobilityKeyAccessor: (e:MobilityEntity) => string = (option: MobilityEntity) =>
-    (this.lang=="en" ? option.name : option.nameFr)
-
-  postLoadProcessing(){
-    this.candidate.selfCandidateMobilityEntities = this.candidate.selfCandidateMobilityEntities?.map((v:any)=>v.name)
-  }
+    (this.lang=="fr" ? option.name : option.nameFr) // !!! CAUTION, the language is reversed from the back-end
   
 
   constructor(
@@ -122,12 +118,7 @@ export class JobPreferencesPage implements OnInit {
   ngOnInit() {
 
     // Step 1. Load candidate data
-    this.cs.registerCandidateDataObserverV2()
-      .subscribe(async (candidate: Candidate|null) => {
-        this.candidate = candidate!
-        this.postLoadProcessing()
-        this.form.patchValue(this.candidate)
-      })
+    let candidate$ = this.cs.registerCandidateDataObserverV2(true, true)
 
     // Step 2. Load job preferences options from the server
     this._loadEmploymentTypeOptions().subscribe((employmentTypes)=>{
@@ -146,23 +137,21 @@ export class JobPreferencesPage implements OnInit {
       this.salaryExpectationOptions = salaryExpectations
     })
 
-    this.profileUtils.onMobilityOptions().subscribe((mobilityOptions)=>{
-      this.mobilityOptions = mobilityOptions
-      console.log(mobilityOptions)
-    })
+    let mobilityOptions$ = this.profileUtils.onMobilityOptions();
 
-
-    // test (delete later)
-    /*this.form.get('desiredWorkType')?.valueChanges.subscribe((value)=>{
-      console.log(value)
-    })*/
-
-    /*this.form.get('employmentType')?.valueChanges.subscribe((value)=>{
-      console.log(value)
-    })
-    this.form?.valueChanges.subscribe((value) => {
-      console.log(value)
-    })*/
+    combineLatest([candidate$, mobilityOptions$])
+      .subscribe(([candidate, mobilityOptions])=>{
+        this.candidate = candidate!
+        this.mobilityOptions = mobilityOptions
+        this.form.patchValue({
+          ...this.candidate,
+          // An issue with the backend is that the mobility is not translated but the name field is provided
+          selfCandidateMobilityEntities: this.candidate.selfCandidateMobilityEntities.map((untranslatedMobility:MobilityEntity)=>{
+            let translated = mobilityOptions.find((mobility:MobilityEntity)=>mobility.id==untranslatedMobility.id)
+            return translated || ({...untranslatedMobility, nameFr:untranslatedMobility.name});
+          })
+        })
+      })
   }
 
   private _loadEmploymentTypeOptions(){
@@ -232,11 +221,8 @@ export class JobPreferencesPage implements OnInit {
     }*/
     let data = {
       ...this.form.value,
-      selfCandidateMobilityEntities: this.form.get('selfCandidateMobilityEntities')?.value.map(
-        (v:any)=>({id:null, name:v})
-      )
+      selfCandidateMobilityEntities: this.form.get('selfCandidateMobilityEntities')?.value
     }
-    console.log(data);
     
     this.cs.post_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/job-preference-work-availability`, data, {})
       .pipe(
@@ -251,3 +237,7 @@ export class JobPreferencesPage implements OnInit {
 
 
 }
+function mergeLatest() {
+  throw new Error('Function not implemented.');
+}
+
