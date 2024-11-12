@@ -34,6 +34,7 @@ export class ClickableFileCardComponent implements ControlValueAccessor, OnInit 
 
   // the language
   lang: "en"|"fr" = "en"
+  
   constructor(
     public translate: TranslateService,
     private platform: Platform,

@@ -38,6 +38,8 @@
       } @else if (status == 'rejected') {
         <ion-icon src="/assets/svg/icon-rejected.svg"></ion-icon>
         <span>Rejected</span>
+      } @else {
+        <span>{{ status }}</span>
       }
     </div>
   </div>

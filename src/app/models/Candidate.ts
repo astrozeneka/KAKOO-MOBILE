@@ -1,3 +1,5 @@
+import { User } from "./User"
+
 export interface Candidate {
     candidateId: any
     userId: any
@@ -161,10 +163,36 @@ export interface Candidate {
     createdAt: string
     storageCloudType: string
   }
-  
 
+  export interface PaginedJobInvitationArray {
+    content: JobInvitationEntity[]
+    pageNumber: number
+    pageSize: number
+    totalElement: number
+    totalPages: number
+    lastPage: boolean
+  }
+  
+  export interface JobInvitationEntity {
+    id: number
+    jobEntity: JobEntity
+    candidateIdHr: number
+    coverLater: any
+    inviteStatus: string
+    candidateJobStatus: string
+    sendToClintStatus: any
+    attachmentEntities: any[]
+    candidateNote?: string
+    createdById: number
+    createdBy: User // ???? Not sure yet
+    updatedBy: number
+    companyId?: number
+    createdAt: string
+    updatedAt: string
+    jobAppliedAnswer: any
+  }
   // The job
-  export interface Job {
+  export interface JobEntity {
     jobId: number
     jobIdToDisplay: any
     positionTitle: string

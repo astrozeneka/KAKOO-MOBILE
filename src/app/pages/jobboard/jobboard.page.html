@@ -26,6 +26,29 @@
   </div> 
   <br/>
   <div class="ion-padding-horizontal">
+    @for (invitation of displayedInvitationEntities; track invitation.id) {
+      <app-job-card
+        [status]="invitation.inviteStatus"
+      >
+        <div slot="date">
+          <!-- Todo, the language -->
+          {{ invitation.createdAt | date: 'MMM d, y, h:mm a' }}
+        </div>
+        <div slot="title">
+          {{ invitation.jobEntity.title }}
+        </div>
+        <div slot="subtitle">
+          {{ invitation.jobEntity.companyName }}
+          - <!-- Cannot find the company location -->
+        </div>
+        <div slot="footer">
+          <!-- TODO, translation -->
+          <div class="chip">{{ invitation.jobEntity.employmentTypeEntity.name }}</div>
+          <div class="chip">{{ invitation.jobEntity.workTypeEntity.name }}</div>
+        </div>
+      </app-job-card>
+    }
+    <br/>
     <app-job-card
       status="applied"
     >

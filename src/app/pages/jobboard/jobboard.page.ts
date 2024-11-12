@@ -10,6 +10,8 @@ import { FilterChipsComponent } from 'src/app/components/filter-chips/filter-chi
 import { Router } from '@angular/router';
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
 import { ContentService } from 'src/app/services/content.service';
+import { JobInvitationEntity, PaginedJobInvitationArray } from 'src/app/models/Candidate';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-jobboard',
   templateUrl: './jobboard.page.html',
@@ -21,13 +23,20 @@ import { ContentService } from 'src/app/services/content.service';
 })
 export class JobboardPage extends BottomNavbarTarget implements OnInit {
   chipControl = new FormControl<string|null>(null)
+  invitationEntities:JobInvitationEntity[] = []
+  displayedInvitationEntities:JobInvitationEntity[] = [] // Since we have a filter option
 
+  // the language
+  lang: "en"|"fr" = "en"
+  
   constructor(
+    public translate: TranslateService,
     router: Router,
     private cs: ContentService,
     private cdr: ChangeDetectorRef
   ) { 
     super(router)
+    this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }
 
   ngOnInit() {
@@ -43,9 +52,16 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
 
     // Testing 2, job by users
     this.cs.get_exp(`/api/v1/job/invited-job-list-by-user`, {})
-      .subscribe((data)=>{
-        console.log(data)
+      .subscribe((data:PaginedJobInvitationArray)=>{
+        this.invitationEntities = data.content
+        console.log(this.invitationEntities)
+        this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
       })
+  }
+
+  private _filterDisplayed(invitationEntities:JobInvitationEntity[]):JobInvitationEntity[]{
+    // filters will be applied here
+    return invitationEntities
   }
 
 }
