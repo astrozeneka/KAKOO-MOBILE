@@ -33,10 +33,19 @@
       <!-- ERROR TypeError: Cannot read properties of null (reading 'toLowerCase') -->
       <!-- Need futher evaluation before declaring as a prioritary or not -->
       <!-- An exhaustive list of auto suggestion will be added later -->
-      <app-chip-input
+      <!--<app-chip-input
         label="Skills *"
         placeholder="Skill (ex: Full Stack Developer)"
         [options]="['Accounts', 'Admin', 'Agriculture', 'Architecture', 'Art', 'Automotive', 'Banking', 'Beauty', 'Business', 'Charity', 'Construction', 'Consulting', 'Creative', 'Customer Service', 'Design', 'Digital', 'Education', 'Engineering', 'Entertainment', 'Fashion', 'Finance', 'Food', 'Health', 'Hospitality', 'HR', 'IT', 'Legal', 'Logistics', 'Management', 'Manufacturing', 'Marketing', 'Media', 'Medical', 'Music', 'Nursing', 'Operations', 'Pharmaceutical', 'PR', 'Property', 'Retail', 'Sales', 'Science', 'Security', 'Social Care', 'Sport', 'Tech', 'Telecoms', 'Tourism', 'Transport', 'Travel', 'Utilities', 'Web Development']"
+        formControlName="skills"
+        [errorText]="displayedErrors['skills']"
+        (blur)="testSkillsControlBlur()"
+      ></app-chip-input>-->
+      <app-chip-input
+        label="Skills *"
+        placeholder="Skill (ex: Full Stack Developer)"
+        [options]="skillOptions"
+        [keyAccessor]="skillOptionsKeyAccessor"
         formControlName="skills"
         [errorText]="displayedErrors['skills']"
         (blur)="testSkillsControlBlur()"

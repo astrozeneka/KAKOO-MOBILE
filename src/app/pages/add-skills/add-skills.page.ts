@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { ChipInputComponent } from 'src/app/components/chip-input/chip-input.component';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, finalize, forkJoin, merge, Observable, switchMap, tap, throwError } from 'rxjs';
 import { UxButtonComponent } from "../../submodules/angular-ux-button/standalone/ux-button.component";
 import { catch400Error } from 'src/app/utils/catch400Error';
+import { displayErrors } from 'src/app/utils/display-errors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-skills',
@@ -24,7 +26,7 @@ export class AddSkillsPage implements OnInit {
   candidate: Candidate = {} as any;
 
   form:FormGroup = new FormGroup({
-    'skills': new FormControl([], [])
+    'skills': new FormControl([], [Validators.required])
   })
   displayedErrors:{[key:string]:string|undefined} = {
     'skills': undefined
@@ -35,12 +37,24 @@ export class AddSkillsPage implements OnInit {
   displayedErrorTestSkills = undefined;
   testSkillsControlBlur = ()=>{}
 
+  // Form options
+  skillOptions:SkillEntity[] = [
+    /*{id:null, name:"Agriculture", skillTypeEntity:null!},
+    {id:null, name:"Architecture", skillTypeEntity:null!},
+    {id:null, name:"Art", skillTypeEntity:null!},
+    {id:null, name:"IT", skillTypeEntity:null!},*/
+  ];
+  skillOptionsKeyAccessor = (skill:SkillEntity)=>skill.name;
+
   constructor(
     private cs:ContentService,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   async ngOnInit() {
+
 
     // TODO, personal-information should use the registerV2 subscription
     // Waiting for it to have a thorough test first, then begin to implement in this page
@@ -74,15 +88,24 @@ export class AddSkillsPage implements OnInit {
     this.cs.registerCandidateDataObserverV3(false, true).subscribe((candidate)=>{
       console.log(candidate)
       this.candidate = candidate!
+      console.log(candidate?.skillListEntities)
       this.form.patchValue({
-        skills: this.candidate.skillListEntities.map((skill:any)=>skill.name)
+        skills: this.candidate.skillListEntities.map((skill:any)=>{
+          return {
+            id: skill.id,
+            name: skill.name,
+            skillTypeEntity: skill.skillTypeEntity
+          }
+        })
       })
     })
     
 
     // Loading the skills
     this._loadSkillOptions(false).subscribe((skills)=>{
-      // console.log(skills)
+      this.skillOptions = skills;
+      this.cdr.detectChanges();
+      console.log(skills)
     })
   }
 
@@ -124,7 +147,11 @@ export class AddSkillsPage implements OnInit {
   
 
   submit(){
-
+    this.form.markAllAsTouched()
+    if (this.form.invalid){
+      displayErrors(this.form, this.displayedErrors, (v)=>this.translate.instant(v))
+      return;
+    }
     // Test, delete this later
     /*let testData = [] as any
     console.log(testData)
@@ -146,7 +173,7 @@ export class AddSkillsPage implements OnInit {
     let data = (this.form.value.skills as string[]).map((skill)=>({
         candidateSkillId: null,
         id: null,
-        name:skill,
+        name:(skill as any).name,
         description: "",
         evaluation: "-",
         nExperience: 0,
