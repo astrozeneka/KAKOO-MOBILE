@@ -6,7 +6,10 @@
       </div>
       <div slot="end">
         <div class="img-container">
-          <img src="/assets/svg/icon-profile-example-ms.svg" alt="Profile Picture"/>
+          @if (candidate) {
+            <!-- This SVG might just be a fallback, the uploaded data can be used on behalf -->
+            <app-svg-profile [candidate]="candidate" size="41"></app-svg-profile>
+          }
         </div>
       </div>
     </app-topbar>
@@ -17,7 +20,7 @@
       Good Morning 👋
     </div>
     <div class="subtitle">
-      Welcome Mohit
+      {{ candidate?.firstName }} {{ candidate?.lastName }}
     </div>
   </div>
 

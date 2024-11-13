@@ -14,7 +14,8 @@ ion-header{
     padding-bottom: 24px;
     padding-left: var(--ion-padding-left);
     padding-right: var(--ion-padding-right);
-    gap: 38px;
+    //gap: 38px; //
+    gap: 32px;
     border-bottom: 1px solid #E9E7EA;
     & .left{
 
@@ -93,5 +94,14 @@ app-clickable-file-card{
     transition: opacity 0.2s;
     &.faded{
         opacity: 0.4;
+    }
+}
+
+// Fix the email-overflow
+.detail-item{
+    & span{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

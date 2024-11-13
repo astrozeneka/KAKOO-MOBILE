@@ -1,0 +1,11 @@
+<svg [attr.width]="size" viewBox="0 0 102 102" xmlns="http://www.w3.org/2000/svg">
+  <!-- Filled circle -->
+  <circle cx="51" cy="51" r="51" fill="#007E48" />
+
+  <!-- Centered text -->
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-weight="600" font-size="40" font-family="SF Pro Display, Arial">
+    @if (svgText) {
+      {{ svgText }}
+    }
+  </text>
+</svg>

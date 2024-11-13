@@ -71,7 +71,7 @@ export class WelcomePage implements OnInit {
     // KNOWN BUG 1. Priority: Low
     // The user log in with a use with CV uploaded account, then disconnect
     // When he reconnect, the CV of former account is still displayed
-    this.cs.registerCandidateDataObserverV3(false, true)
+    this.cs.registerCandidateDataObserverV3(false, true) // Cache is disabled due to some bugs
       .subscribe((candidate: Candidate|null) => {
         // It is not fired the first time the user uses his account
         // If the user has just been connected, this will not be triggered

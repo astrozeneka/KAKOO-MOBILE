@@ -11,7 +11,7 @@ import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-n
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
 import { Router } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
-import { Candidate } from 'src/app/models/Candidate';
+import { Candidate, CityEntity, CountryEntity } from 'src/app/models/Candidate';
 import { UploadedFile } from 'src/app/models/File';
 import { ClickableFileCardComponent } from 'src/app/components/clickable-file-card/clickable-file-card.component';
 import { displayErrors } from 'src/app/utils/display-errors';
@@ -19,6 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 import prepareFileFormData from 'src/app/utils/prepare-file-form-data';
 import { catchError, finalize, firstValueFrom, throwError } from 'rxjs';
+import { SvgProfileComponent } from 'src/app/svg-profile/svg-profile.component';
 @Component({
   selector: 'app-more-29',
   templateUrl: './more-29.page.html',
@@ -27,11 +28,11 @@ import { catchError, finalize, firstValueFrom, throwError } from 'rxjs';
   imports: [IonInput, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule,
     TopbarComponent, ButtonGroupItemComponent, ProfileCtaComponent, FileCardComponent, FileCardComponent,
     SectionHeadingComponent, BottomNavbarComponent, FormsModule, ReactiveFormsModule, ClickableFileCardComponent,
-    UxButtonComponent
+    UxButtonComponent, SvgProfileComponent
   ]
 })
 export class More29Page extends BottomNavbarTarget implements OnInit { // The class name is subjected to change in the future
-  candidate:Candidate = {} as any
+  candidate:Candidate = null as any
 
   // The resume section
   resumeForm: FormGroup = new FormGroup({
@@ -43,6 +44,10 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
   resumeFormChanged: boolean = false
   resumeFormIsLoading:boolean = false // Might be used for the clickable file-card
 
+  lang: "en"|"fr" = "en" // Used to translate some dto entities
+  cityKeyAccessor = (city: CityEntity) => city?.name;
+  countryKeyAccessor = (country: CountryEntity) => country?.name;
+
   constructor(
     router: Router,
     public cs:ContentService,
@@ -50,6 +55,7 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
     private translate: TranslateService
   ) { 
     super(router)
+    this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }
 
   ngOnInit() {

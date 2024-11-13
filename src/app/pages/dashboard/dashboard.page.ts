@@ -13,6 +13,9 @@ import { SectionHeadingComponent } from 'src/app/components/section-heading/sect
 import { ButtonGroupItemComponent } from 'src/app/components/button-group-item/button-group-item.component';
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
 import { Router } from '@angular/router';
+import { SvgProfileComponent } from "../../svg-profile/svg-profile.component";
+import { ContentService } from 'src/app/services/content.service';
+import { Candidate } from 'src/app/models/Candidate';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,18 +23,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, DashboardCardComponent, DashboardRecommendedJobCardComponent, DashboardRecommendedAssessmentCardComponent, DashboardInterviewCtaComponent,
-    BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent
-  ]
+    BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent, SvgProfileComponent]
 })
 export class DashboardPage extends BottomNavbarTarget implements OnInit {
 
+  // The candidate data
+  candidate:Candidate|null = null
+
   constructor(
-    router: Router
+    router: Router,
+    private cs: ContentService
   ) { 
     super(router)
   }
 
   ngOnInit() {
+    this.cs.registerCandidateDataObserverV3()
+      .subscribe((candidate:Candidate|null)=>{
+        this.candidate = candidate
+      })
   }
 
 }

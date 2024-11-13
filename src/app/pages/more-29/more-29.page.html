@@ -18,25 +18,29 @@
 
   <div class="profile-header">
     <div class="left">
-      <img src="/assets/svg/profile-picture-example-1.svg" class="profile-pic">
+      @if (candidate) {
+        <app-svg-profile [candidate]="candidate"></app-svg-profile>
+      }
     </div>
     <div class="right">
-      <div class="title">Mohit Sharma</div>
-      <div class="subtitle">Senior UI/UX Designer</div>
-      <div class="detail-list">
-        <div class="detail-item">
-          <ion-icon src="/assets/svg/profile/mail.svg"></ion-icon>
-          <span>jhinganmohit79&commat;gmail.com</span>
+      @if (candidate) {
+        <div class="title">{{ candidate.firstName }} {{ candidate.middleName }} {{ candidate.lastName}}</div>
+        <div class="subtitle">-</div><!-- To consult with the back-end team-->
+        <div class="detail-list">
+          <div class="detail-item">
+            <ion-icon src="/assets/svg/profile/mail.svg"></ion-icon>
+            <span>{{ candidate.email }}</span>
+          </div>
+          <div class="detail-item">
+            <ion-icon src="/assets/svg/profile/phone.svg"></ion-icon>
+            <span>{{ candidate.phoneCode }} {{ candidate.phoneNumber }}</span>
+          </div>
+          <div class="detail-item">
+            <ion-icon src="/assets/svg/profile/location.svg"></ion-icon>
+            <span>{{ cityKeyAccessor(candidate.cityEntity) }}, {{ countryKeyAccessor(candidate.countryEntity) }}</span>
+          </div>
         </div>
-        <div class="detail-item">
-          <ion-icon src="/assets/svg/profile/phone.svg"></ion-icon>
-          <span>+91 9876543210</span>
-        </div>
-        <div class="detail-item">
-          <ion-icon src="/assets/svg/profile/location.svg"></ion-icon>
-          <span>Delhi, India</span>
-        </div>
-      </div>
+      }
     </div>
   </div>
 
@@ -79,7 +83,7 @@
   <div class="ion-padding-horizontal">
     <app-section-heading>
       Others
-      <ion-button
+      <!--<ion-button
         color="primary"
         fill="clear"
         slot="end"
@@ -88,38 +92,47 @@
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
           Edit
         </div>
-      </ion-button>
+      </ion-button>-->
     </app-section-heading>
     <!-- a groupped button -->
     <div class="button-group"> <!-- TODO, use a reusable component -->
       <app-button-group-item
-        (click)="testEvent('refer a friend')"
+        routerLink="/refer-a-friend"
       >
         Refer a Friend
       </app-button-group-item>
       <app-button-group-item>
+        <!-- Not present in the page, might be deleted later -->
         Newsletter
       </app-button-group-item>
       <app-button-group-item>
+        <!-- Not present in the page, might be deleted later -->
         Tips
       </app-button-group-item>
     </div>
     <div class="button-group">
       <app-button-group-item>
+        <!-- Not present in the page, might be deleted later -->
         About Kakoo
       </app-button-group-item>
       <app-button-group-item>
+        <!-- Not present in the page, might be deleted later -->
         Privacy &amp; Policy
       </app-button-group-item>
       <app-button-group-item>
+        <!-- The terms and conditions should be created in a new page terms-and-conditions-component, terms-and-condition-page, and accept-terms-and-condition -->
         Terms &amp; Conditions
       </app-button-group-item>
     </div>
     <div class="button-group">
-      <app-button-group-item>
+      <app-button-group-item
+        routerLink="/support"
+      >
         Support
       </app-button-group-item>
-      <app-button-group-item>
+      <app-button-group-item
+        routerLink="/contact-us"
+      >
         Contact us
       </app-button-group-item>
       <app-button-group-item>

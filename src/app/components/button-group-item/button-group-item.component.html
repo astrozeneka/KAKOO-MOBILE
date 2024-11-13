@@ -2,6 +2,7 @@
   fill="clear"
   expand="block"
   [color]="color"
+  [routerLink]="routerLink"
 >
   <div class="inner">
     <div class="left">
@@ -15,7 +16,7 @@
     <div class="right">
       @if (chip > 0 && chip < 10) {
         <div class="chip">{{ chip }}</div>
-      } @else {
+      } @else if (chip >= 10) {
         <div class="chip">9+</div>
       }
       <ion-icon [src]="'/assets/svg/icon-carret-right-button-group/icon-carret-right-button-group-' + color + '.svg'"/>
