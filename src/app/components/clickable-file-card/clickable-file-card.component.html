@@ -7,7 +7,10 @@
     [class]="'clickable-file-card ' + variant"
     (click)="onClick($event)"
   >
-    <div class="inner">
+    <div [class]="'inner ' + (loading?'loading':'')">
+      <div class="loading-placeholder">
+        <ion-spinner [name]="spinner"></ion-spinner>
+      </div>
       <div class="left">
         @if (variant == 'default'){
           <ion-icon src="/assets/svg/file-card/icon-file-card-default.svg"></ion-icon>

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
 import { TranslateService } from '@ngx-translate/core';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { Platform } from '@ionic/angular';
@@ -22,7 +22,7 @@ import { PhoneSelectorComponent } from 'src/app/submodules/phone-selector/phone-
       multi: true
     }
   ],
-  imports: [IonButton, IonIcon, I18nPipeShortened, ReactiveFormsModule, JsonPipe]
+  imports: [IonSpinner, IonButton, IonIcon, I18nPipeShortened, ReactiveFormsModule, JsonPipe]
 })
 export class ClickableFileCardComponent implements ControlValueAccessor, OnInit {
   @Input() variant: string = "default"
@@ -31,6 +31,9 @@ export class ClickableFileCardComponent implements ControlValueAccessor, OnInit 
 
   @Input() formControl: FormControl<any> | undefined;
   @Input() formControlName: string | undefined;
+
+  @Input() loading:boolean = false
+  @Input() spinner = "crescent"
 
   // the language
   lang: "en"|"fr" = "en"

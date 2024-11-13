@@ -71,4 +71,33 @@
             }
         }
     }
+
+
+    // Managing the loading spinner
+    & .inner{
+        position: relative;
+        & .loading-placeholder{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &.loading{
+            &>.left, &>.right, &>.controls{
+                //
+                //opacity: 0.2;
+                filter: blur(3px);
+            }
+            .loading-placeholder{
+                display: flex;
+                background: rgba(var(--ion-color-light-rgb), 0.1);
+                z-index: 9;
+            }
+        }
+    }
 }
