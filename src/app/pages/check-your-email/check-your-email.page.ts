@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from 
 import { AbstractPage } from 'src/app/abstract-page';
 import { Router } from '@angular/router';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import Intent from 'src/app/capacitor-plugins/intent.plugin';
 
 @Component({
   selector: 'app-check-your-email',
@@ -25,6 +26,12 @@ export class CheckYourEmailPage extends AbstractPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  async openMailApp(){
+    console.log("Opening mail app")
+    let res = await Intent.openMailApp({})
+    console.log(res)
   }
 
 }

@@ -6,6 +6,7 @@ import { bugOutline } from 'ionicons/icons';
 import { ActionSheetController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class DevDebugButtonComponent extends ProdDebugButtonComponent implements
 
   constructor(
     private actionSheetController: ActionSheetController,
-    private storage: Storage
+    private storage: Storage,
+    private router: Router
   ) { 
     super();
   }
@@ -42,6 +44,20 @@ export class DevDebugButtonComponent extends ProdDebugButtonComponent implements
   }
 
   async presentActionSheet(){
+
+    // Quick Navigation buttons
+    let quickNavTools = this.tools.filter(v=>v.includes('quick-navigate'))
+    let quickNavButtons = quickNavTools.map(v=>{
+      let uri = v.split(":")[1].trim()
+      return {
+        'text': 'Go to ' + uri,
+        'icon': 'arrow-forward',
+        'handler': () => {
+          this.router.navigateByUrl(uri)
+        }
+      }
+    })
+
     let as = await this.actionSheetController.create({
       'header': 'Debug',
       'buttons': [
@@ -51,7 +67,8 @@ export class DevDebugButtonComponent extends ProdDebugButtonComponent implements
           'handler': () => {
             this.clearCache()
           }
-        }]: [])
+        }]: []),
+        ...quickNavButtons
       ]
     })
     await as.present();

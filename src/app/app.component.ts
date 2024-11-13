@@ -4,6 +4,7 @@ import { Preferences } from '@capacitor/preferences';
 import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { AppLanguageService } from './services/app-language.service';
+import { IntentPlugin } from './capacitor-plugins/intent.plugin'; // Should be loaded in the main app component
 
 @Component({
   selector: 'app-root',
