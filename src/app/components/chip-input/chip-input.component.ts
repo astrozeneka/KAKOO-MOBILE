@@ -194,6 +194,6 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit, Afte
     // Put focus on the input
     this.displayedOption = this.options;
     // Add focus to the input
-    this.innerFormControl.patchValue('');
+    // this.innerFormControl.patchValue('');
   }
 }
