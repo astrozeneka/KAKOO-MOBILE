@@ -13,3 +13,10 @@ ion-header{
 .form-wrapper{
     @include form-wrapper-with-bottom-controls;
 }
+
+.input-error{
+    font-size: 14px;
+    line-height: 21px;
+    margin-top: 6px;
+    color: #B3261E;
+}

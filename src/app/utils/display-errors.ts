@@ -5,6 +5,13 @@ export const displayErrors = (
   displayedError:{[key:string]:string|undefined},
   translate:(v:string)=>string
 ) => {
+    // The form level validation
+    if (form.errors?.['atLeastOneRequired']){
+      displayedError['.'] = translate("At least one field is required")
+    } else {
+      displayedError['.'] = undefined
+    }
+
     // For all items in the form
     for (let key in form.controls){
       // If the item is invalid
@@ -27,6 +34,8 @@ export const displayErrors = (
           displayedError[key] = translate("Email already exists")
         } else if (form.controls[key].errors?.['phone_exists']) {
           displayedError[key] = translate("Phone number already exists")
+        } else if (form.controls[key].errors?.['atLeastOneRequired']) {
+          displayedError[key] = translate("At least one field is required")
         } else {
           console.warn("Unhandled validation error message " + key)
         }

@@ -30,6 +30,10 @@
         }
         margin-right: -5px; // margin correction (should be verified later when external margin applied)
     }
+    & ion-input{
+        // Remove the border (since we use outline form)
+        --border-width: 0px;
+    }
 }
 
 .input-error{

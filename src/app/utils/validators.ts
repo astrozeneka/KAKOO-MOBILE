@@ -24,3 +24,9 @@ export const EmailValidator = (control: AbstractControl) => {
     if (!mailPattern.test(value)) return { email: true }
     return null
 }
+
+export const AtLeastOneFieldRequiredValidator = (form: AbstractControl) => {
+    return Object.values((form as any).controls).some(control => (control as any).value) 
+      ? null 
+      : { atLeastOneRequired: true };
+}

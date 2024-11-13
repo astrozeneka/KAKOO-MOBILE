@@ -25,6 +25,13 @@
     </div>
     
     <form [formGroup]="form" (submit)="submit()"><!-- can consider to delete this div -->
+      <div class="">
+        <div class="input-error">
+          @if (form.invalid && form.touched && displayedError['.']) {
+            {{ displayedError['.'] }}
+          }
+        </div>
+      </div>
       <div class="input-wrapper">
         <app-social-account-input
           label="Facebook"

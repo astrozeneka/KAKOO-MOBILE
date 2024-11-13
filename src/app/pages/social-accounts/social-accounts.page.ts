@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, TouchedChangeEvent, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, TouchedChangeEvent, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
@@ -14,6 +14,7 @@ import { key } from 'ionicons/icons';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 import { catch400Error } from 'src/app/utils/catch400Error';
+import { AtLeastOneFieldRequiredValidator, UrlValidator } from 'src/app/utils/validators';
 
 @Component({
   selector: 'app-social-accounts',
@@ -28,20 +29,23 @@ export class SocialAccountsPage implements OnInit {
   candidate: Candidate = {} as any;
   candidateSocialAccounts:{[key:string]:string} = {}
   form:FormGroup = new FormGroup({
-    "facebook": new FormControl('', [Validators.pattern('https?://.+')]),
+    "facebook": new FormControl('', [UrlValidator]),
     "x": new FormControl('', [Validators.pattern('https?://.+')]),
     "linkedin": new FormControl('', [Validators.pattern('https?://.+')]),
     "instagram": new FormControl('', [Validators.pattern('https?://.+')]),
     "youtube": new FormControl('', [Validators.pattern('https?://.+')]),
     "github": new FormControl('', [Validators.pattern('https?://.+')])
-  })
+  
+  }, {validators: AtLeastOneFieldRequiredValidator}) // Experimental validator
+
   displayedError:{[key:string]:string|undefined} = {
     facebook: undefined,
     x: undefined,
     linkedin: undefined,
     instagram: undefined,
     youtube: undefined,
-    github: undefined
+    github: undefined,
+    ".": undefined
   }
   formIsLoading: boolean = false
 
@@ -91,6 +95,14 @@ export class SocialAccountsPage implements OnInit {
           this.displayedErrorTest = (this.testFormControl.errors as any)?.required ? 'This field is required' 
           : (this.testFormControl.errors as any)?.pattern ? 'Is not a valid URL' : '';
       })*/
+
+    // Handling validation error for a better feedback management
+    this.form.statusChanges.subscribe((status)=>{
+      if (this.form.invalid) {
+        displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+        this.cdr.detectChanges()
+      }
+    })
   }
 
   skip(){
@@ -103,6 +115,7 @@ export class SocialAccountsPage implements OnInit {
     this.form.markAllAsTouched()
     if (this.form.invalid){
       displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+      console.log(this.form.errors)
       this.cdr.detectChanges()
       return;
     }

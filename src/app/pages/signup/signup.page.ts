@@ -83,9 +83,8 @@ export class SignupPage extends AbstractPage implements OnInit{
     }, 1000)*/
 
 
-    // Feature for a better feedback management (I think it is ok)
+    // Feature for a better feedback management
     this.form.statusChanges.subscribe((status)=>{
-      console.log("statuschange")
       if (this.form.invalid) {
         displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
         this.cdr.detectChanges()
@@ -155,6 +154,9 @@ export class SignupPage extends AbstractPage implements OnInit{
   }
 
   // Unused anymore, replaced by the utility function 'utils/displayErrors'
+  /**
+   * @deprecated use the global function in the utils instead
+   */
   displayErrors(){
     // For all items in the form
     for (let key in this.form.controls){
