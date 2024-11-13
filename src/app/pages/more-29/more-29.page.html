@@ -46,8 +46,39 @@
   </div>
 
   <div class="ion-padding-horizontal">
+    <form [formGroup]="resumeForm" (submit)="resumeSubmit()">
+      <app-section-heading>
+        Resume
+        <!-- Experimental UI Features, maybe subjected to changes-->
+        @if (resumeFormChanged) {
+          <app-ux-button
+            color="primary"
+            fill="clear"
+            slot="end"
+            type="submit"
+            [loading]="resumeFormIsLoading"
+            [fixedWidth]="true"
+            variant="section-heading"
+          >
+            <div class="inner">
+              <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+              Save
+            </div>
+          </app-ux-button>
+        }
+        <!-- End here -->
+      </app-section-heading>
+      <app-clickable-file-card
+        [class]="resumeFormIsLoading ? 'faded' : ''"
+        formControlName="file"
+      ></app-clickable-file-card>
+    </form>
+  </div>
+
+
+  <div class="ion-padding-horizontal">
     <app-section-heading>
-      Resume
+      Others
       <ion-button
         color="primary"
         fill="clear"
@@ -58,17 +89,6 @@
           Edit
         </div>
       </ion-button>
-    </app-section-heading>
-    <app-file-card>
-      Rishabh Rai CV.pdf
-      <div slot="subtitle">Added less than a minute ago</div>
-    </app-file-card>
-  </div>
-
-
-  <div class="ion-padding-horizontal">
-    <app-section-heading>
-      Others
     </app-section-heading>
     <!-- a groupped button -->
     <div class="button-group"> <!-- TODO, use a reusable component -->

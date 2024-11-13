@@ -65,7 +65,7 @@ app-profile-cta{
 
 // The button with icon (maybe can be reused in the future)
 app-section-heading{
-    & ion-button{
+    & ion-button, & app-ux-button{
         & .inner{
             display: flex;
             align-items: center;
@@ -85,5 +85,13 @@ app-section-heading{
         bottom: 0;
         width: 100%;
         padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+// Improve UX on the clickable-file-card
+app-clickable-file-card{
+    transition: opacity 0.2s;
+    &.faded{
+        opacity: 0.4;
     }
 }

@@ -115,7 +115,7 @@ export class SocialAccountsPage implements OnInit {
     this.form.markAllAsTouched()
     if (this.form.invalid){
       displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
-      console.log(this.form.errors)
+      // console.log(this.form.errors) // Delete later
       this.cdr.detectChanges()
       return;
     }

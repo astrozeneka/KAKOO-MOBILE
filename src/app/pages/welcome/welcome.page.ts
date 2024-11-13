@@ -200,6 +200,7 @@ export class WelcomePage implements OnInit {
     const fileData = this.form.get('file')?.value
     // testing a file sending, this should use the get_exp (experimental first)
     
+    // The below portion of code should use 'prepare-file-form-data' utility instead
     // a. Preparing fileData (same code as in dashboard-interview-cta.component.ts)
     let formData = new FormData();
     try{
@@ -233,7 +234,7 @@ export class WelcomePage implements OnInit {
     } else {
       console.log("(1/3) CV file not set, skipping sending file to the server, directly skipping to the next step")
       this.form.get('file')?.setValue(null) // (no need) Try to remove the file-card information,  (doesn't work)
-      this.router.navigate(['/personal-information']);
+      this.router.navigate(['/personal-information']); // This should not be (CV is mandatory)
     }
 
     // Step 2. Once submitted and success, save the basic information to the server
