@@ -12,6 +12,7 @@ import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
 import { ContentService } from 'src/app/services/content.service';
 import { JobInvitationEntity, PaginedJobInvitationArray } from 'src/app/models/Candidate';
 import { TranslateService } from '@ngx-translate/core';
+import { ProfileDataService } from 'src/app/services/profile-data.service';
 @Component({
   selector: 'app-jobboard',
   templateUrl: './jobboard.page.html',
@@ -33,7 +34,8 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
     public translate: TranslateService,
     router: Router,
     private cs: ContentService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private pds: ProfileDataService
   ) { 
     super(router)
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
@@ -44,6 +46,14 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
       this.chipControl.patchValue("all")
     }, 1000)
 
+    // CAUTION, the pagined data should be managed carefully
+    this.pds.onJobInvitationsData(true, true)
+      .subscribe((data:JobInvitationEntity[])=>{
+        console.log("Invitation data", data)
+        this.invitationEntities = data
+        this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
+      })
+
     // Testing, will be deleted
     /*this.cs.get_exp(`/api/v1/job/get-all`, {})
       .subscribe((data:any)=>{
@@ -51,12 +61,12 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
       })*/
 
     // Testing 2, job by users
-    this.cs.get_exp(`/api/v1/job/invited-job-list-by-user`, {})
+    /*this.cs.get_exp(`/api/v1/job/invited-job-list-by-user`, {})
       .subscribe((data:PaginedJobInvitationArray)=>{
         this.invitationEntities = data.content
         console.log(this.invitationEntities)
         this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
-      })
+      })*/
   }
 
   private _filterDisplayed(invitationEntities:JobInvitationEntity[]):JobInvitationEntity[]{

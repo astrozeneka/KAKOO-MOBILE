@@ -49,6 +49,10 @@
             width: 45px;
             border-radius: 5px;
             overflow: hidden;
+            background: rgba(215, 215, 215, 0.309);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         & .title{
             font-size: 16px;

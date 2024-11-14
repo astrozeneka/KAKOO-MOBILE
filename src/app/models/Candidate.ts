@@ -3,7 +3,7 @@ import { User } from "./User"
 export interface Candidate {
     candidateId: any
     userId: any
-    profile: string
+    profile: string // This is job title
     firstName: string
     middleName: any
     lastName: string
