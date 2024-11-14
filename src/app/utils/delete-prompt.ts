@@ -4,6 +4,7 @@ import { BehaviorSubject, from, Observable } from "rxjs";
 import { ContentService } from "../services/content.service";
 
 export interface DeletableEntity {
+    id: any; // Required
     deleteIsLoadingSubject: BehaviorSubject<boolean>; // Unused
     deleteIsLoading$: Observable<boolean>;            // Unused
     fadeAwaySubject: BehaviorSubject<boolean>;

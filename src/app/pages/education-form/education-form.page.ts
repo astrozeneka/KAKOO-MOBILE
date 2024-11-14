@@ -162,7 +162,9 @@ export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> i
           .subscribe(async (response:any)=>{
             // !!! CAUTION, the data structure retrieved from server is DIFFERENT
             this.cs.requestCandidateDataRefresh()
-            this.router.navigate(["/education-and-certification"], {replaceUrl:true})
+
+            this.location.back()
+            // this.router.navigate(["/education-and-certification"], {replaceUrl:true})
           })
       })
   }

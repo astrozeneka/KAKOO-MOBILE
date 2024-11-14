@@ -139,7 +139,7 @@ export interface Candidate {
 
     // V1 properties
     expireDate: string
-    id: number
+    id: any
     issueDate: string
     issuingOrganization: string
     licenceId: string

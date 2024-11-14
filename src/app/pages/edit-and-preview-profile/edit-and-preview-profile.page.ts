@@ -11,7 +11,7 @@ import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { SectionHeadingComponent } from 'src/app/components/section-heading/section-heading.component';
 import { ChipInputComponent } from "../../components/chip-input/chip-input.component";
-import { Candidate, CandidateEducationEntity } from 'src/app/models/Candidate';
+import { Candidate, CandidateCertificateEntity, CandidateEducationEntity, ProjectPortfolioEntity, WorkExperienceEntity } from 'src/app/models/Candidate';
 import { ContentService } from 'src/app/services/content.service';
 import { Router } from '@angular/router';
 import { createDeletePrompt, DeletableEntity } from 'src/app/utils/delete-prompt';
@@ -20,6 +20,11 @@ import {AlertController} from "@ionic/angular";
 import { TranslateService } from '@ngx-translate/core';
 
 interface UXCandidateEducationEntity extends CandidateEducationEntity, DeletableEntity {}
+interface UXCandidateCertificateEntity extends CandidateCertificateEntity, DeletableEntity {}
+interface UXWorkExperienceEntity extends WorkExperienceEntity, DeletableEntity {}
+interface UXProjectPortfolioEntity extends ProjectPortfolioEntity, DeletableEntity {}
+
+type Identifiable = CandidateEducationEntity & CandidateCertificateEntity & WorkExperienceEntity & ProjectPortfolioEntity
 
 @Component({
   selector: 'app-edit-and-preview-profile',
@@ -42,18 +47,14 @@ export class EditAndPreviewProfilePage implements OnInit {
 
   candidate: Candidate = {} as any;
 
-  // Candidate Education
-  candidateEducationCertificateEntities: UXCandidateEducationEntity[] = []
-  candidateEducationCertificateSubject = new BehaviorSubject<CandidateEducationEntity[]>([])
-  candidateEducationCertificate$ = this.candidateEducationCertificateSubject.asObservable()
-  processCandidateEducationCertificateEntities = (educationEntities:CandidateEducationEntity[]):UXCandidateEducationEntity[] =>{
-    // same job as postLoadProcessing
-    return educationEntities.map((educationEntity)=>{
-      const existingEntity = this.candidateEducationCertificateEntities.find((entity)=>entity.id === educationEntity.id)
+  // Manage the fadeAway subject and the deleteIsloading (equivalent to the postLoadProcessing)
+  processDeletableEntities = (entities:Identifiable[], existingDeletables:DeletableEntity[]):DeletableEntity[]=>{
+    return entities.map((entity:Identifiable)=>{
+      const existingEntity = existingDeletables.find((existingEntity)=>existingEntity.id === entity.id)
       const deleteIsLoadingSubject = existingEntity?.deleteIsLoadingSubject || new BehaviorSubject<boolean>(false)
       const fadeAwaySubject = existingEntity?.fadeAwaySubject || new BehaviorSubject<boolean>(false)
       return {
-        ...educationEntity,
+        ...entity,
         deleteIsLoadingSubject,
         deleteIsLoading$: deleteIsLoadingSubject.asObservable(),
         fadeAwaySubject,
@@ -61,6 +62,27 @@ export class EditAndPreviewProfilePage implements OnInit {
       }
     })
   }
+
+  // Candidate Education
+  candidateEducationCertificateEntities: UXCandidateEducationEntity[] = []
+  candidateEducationCertificateSubject = new BehaviorSubject<CandidateEducationEntity[]>([])
+  candidateEducationCertificate$ = this.candidateEducationCertificateSubject.asObservable()
+
+  // Candidate Certification
+  candidateCertificateEntities: UXCandidateCertificateEntity[] = []
+  candidateCertificateSubject = new BehaviorSubject<CandidateCertificateEntity[]>([])
+  candidateCertificate$ = this.candidateCertificateSubject.asObservable()
+
+  // Work Experience
+  candidateWorkExperienceEntities: UXWorkExperienceEntity[] = []
+  candidateWorkExperienceSubject = new BehaviorSubject<WorkExperienceEntity[]>([])
+  candidateWorkExperience$ = this.candidateWorkExperienceSubject.asObservable()
+
+  // Projects Portfolio
+  candidateProjectEntities: UXProjectPortfolioEntity[] = []
+  candidateProjectSubject = new BehaviorSubject<ProjectPortfolioEntity[]>([])
+  candidateProject$ = this.candidateProjectSubject.asObservable()
+
 
   constructor(
     private cs:ContentService,
@@ -82,15 +104,45 @@ export class EditAndPreviewProfilePage implements OnInit {
 
       // Education
       this.candidateEducationCertificateSubject.next(candidate?.candidateEducationEntities || [])
+      // Certification
+      this.candidateCertificateSubject.next(candidate?.candidateCertificateEntities || [])
+      // Work Experience
+      this.candidateWorkExperienceSubject.next(candidate?.workExperienceEntities || [])
+      // Projects
+      this.candidateProjectSubject.next(candidate?.projectPortfolioEntities || [])
 
     })
 
     // Managing data: Education
     this.candidateEducationCertificate$
-      .pipe(map(this.processCandidateEducationCertificateEntities))
-      .subscribe((educationEntities:UXCandidateEducationEntity[])=>{
-        this.candidateEducationCertificateEntities = educationEntities
+      .pipe(map((educations: CandidateEducationEntity[])=>
+        this.processDeletableEntities(educations as Identifiable[], this.candidateEducationCertificateEntities)
+      ))
+      .subscribe((educationEntities:DeletableEntity[])=>{
+        this.candidateEducationCertificateEntities = educationEntities as UXCandidateEducationEntity[]
       })
+    // Manage data: Certification
+    this.candidateCertificate$
+      .pipe(map((certificates: CandidateCertificateEntity[])=>
+        this.processDeletableEntities(certificates as Identifiable[], this.candidateCertificateEntities)))
+      .subscribe((certificates:DeletableEntity[])=>{
+        this.candidateCertificateEntities = certificates as UXCandidateCertificateEntity[]
+      })
+    // Manage data: Work Experience
+    this.candidateWorkExperience$
+      .pipe(map((workExperiences: WorkExperienceEntity[])=>
+        this.processDeletableEntities(workExperiences as Identifiable[], this.candidateWorkExperienceEntities)))
+      .subscribe((workExperiences:DeletableEntity[])=>{
+        this.candidateWorkExperienceEntities = workExperiences as UXWorkExperienceEntity[]
+      })
+    // Manage data: Projects
+    this.candidateProject$
+      .pipe(map((projects: ProjectPortfolioEntity[])=>
+        this.processDeletableEntities(projects as Identifiable[], this.candidateProjectEntities)))
+      .subscribe((projects:DeletableEntity[])=>{
+        this.candidateProjectEntities = projects as UXProjectPortfolioEntity[]
+      })
+
   }
 
   async deleteEducation(entity:UXCandidateEducationEntity){
@@ -98,6 +150,48 @@ export class EditAndPreviewProfilePage implements OnInit {
       .subscribe(async (response)=>{
         entity.fadeAwaySubject.next(true);
         this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-education/${entity.id}`, {})
+          .pipe(
+            catchError((error)=>{return throwError(error)}),
+            finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+          .subscribe(async (response)=>{
+            this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
+          })
+      })
+  }
+
+  async deleteCertificate(entity:UXCandidateCertificateEntity){
+    createDeletePrompt(entity, this.alertController, this.t, this.cs)
+      .subscribe(async (response)=>{
+        entity.fadeAwaySubject.next(true);
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-certificate/${entity.id}`, {})
+          .pipe(
+            catchError((error)=>{return throwError(error)}),
+            finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+          .subscribe(async (response)=>{
+            this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
+          })
+      })
+  }
+
+  async deleteWorkExperience(entity:UXWorkExperienceEntity){
+    createDeletePrompt(entity, this.alertController, this.t, this.cs)
+      .subscribe(async (response)=>{
+        entity.fadeAwaySubject.next(true);
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-work-experience/${entity.id}`, {})
+          .pipe(
+            catchError((error)=>{return throwError(error)}),
+            finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+          .subscribe(async (response)=>{
+            this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
+          })
+      })
+  }
+
+  async deleteProject(entity:UXProjectPortfolioEntity){
+    createDeletePrompt(entity, this.alertController, this.t, this.cs)
+      .subscribe(async (response)=>{
+        entity.fadeAwaySubject.next(true);
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-project-portfolio/${entity.id}`, {})
           .pipe(
             catchError((error)=>{return throwError(error)}),
             finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))

@@ -17,6 +17,7 @@ import { Candidate, WorkExperienceEntity } from 'src/app/models/Candidate';
 import { catch400Error } from 'src/app/utils/catch400Error';
 import {AlertController} from "@ionic/angular";
 import { createDeletePrompt } from 'src/app/utils/delete-prompt';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-work-experience-form',
@@ -72,7 +73,8 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
     cdr: ChangeDetectorRef,
     cs: ContentService,
     router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private location: Location
   ) {
     super(
       route, translate, cdr, cs, router
@@ -108,7 +110,9 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
         candidate.workExperienceEntities = candidate.workExperienceEntities.concat(response);
         await this.cs.candidateData.set(candidate);
         this.cs.candidateDataSubject.next(candidate); // Patch the candidate data
-        this.router.navigate(["/work-experience"], {replaceUrl: true})
+
+        this.location.back()
+        // this.router.navigate(["/work-experience"], {replaceUrl: true})
       })
     } else if (this.formMode == 'edit'){
       let data = this.extractFormData(this.form.value)
@@ -124,7 +128,9 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
         candidate.workExperienceEntities[index] = response;
         await this.cs.candidateData.set(candidate);
         this.cs.candidateDataSubject.next(candidate); // Patch the candidate data
-        this.router.navigate(["/work-experience"], {replaceUrl: true})
+
+        this.location.back();
+        // this.router.navigate(["/work-experience"], {replaceUrl: true})
       })
     }
   }
@@ -142,7 +148,9 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
             candidate.workExperienceEntities = candidate.workExperienceEntities.filter((v)=>v.id != this.entityId);
             await this.cs.candidateData.set(candidate);
             this.cs.candidateDataSubject.next(candidate);
-            this.router.navigate(["/work-experience"], {replaceUrl: true})
+
+            this.location.back()
+            // this.router.navigate(["/work-experience"], {replaceUrl: true})
           })
       })
   }

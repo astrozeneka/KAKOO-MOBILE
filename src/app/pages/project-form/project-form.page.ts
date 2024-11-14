@@ -18,6 +18,7 @@ import { catch400Error } from 'src/app/utils/catch400Error';
 import { UrlValidator } from 'src/app/submodules/url-validator/url-validator';
 import {AlertController} from "@ionic/angular";
 import { createDeletePrompt } from 'src/app/utils/delete-prompt';
+import{ Location } from '@angular/common';
 
 interface EditableProjectPortfolioEntity extends ProjectPortfolioEntity{
   skills: string[]
@@ -79,7 +80,8 @@ export class ProjectFormPage extends EditAddForm<ProjectPortfolioEntity> impleme
     cdr: ChangeDetectorRef,
     cs: ContentService,
     router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private location: Location
   ) { 
     super (route, translate, cdr, cs, router)
   }
@@ -112,7 +114,9 @@ export class ProjectFormPage extends EditAddForm<ProjectPortfolioEntity> impleme
         )
         .subscribe(async (response:{code: any, type: any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
-          this.router.navigate(["/projects"], {replaceUrl: true})
+
+          this.location.back()
+          // this.router.navigate(["/projects"], {replaceUrl: true})
         })
     } else if (this.formMode == 'edit'){
       let data = this.extractFormData(this.form.value)
@@ -123,7 +127,8 @@ export class ProjectFormPage extends EditAddForm<ProjectPortfolioEntity> impleme
         )
         .subscribe(async (response:{code: any, type: any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
-          this.router.navigate(["/projects"], {replaceUrl: true})
+          this.location.back()
+          // this.router.navigate(["/projects"], {replaceUrl: true})
         })
           
 
@@ -140,7 +145,8 @@ export class ProjectFormPage extends EditAddForm<ProjectPortfolioEntity> impleme
           )
           .subscribe(async (response:any)=>{
             this.cs.requestCandidateDataRefresh()
-            this.router.navigate(["/projects"], {replaceUrl: true})
+            this.location.back()
+            //this.router.navigate(["/projects"], {replaceUrl: true})
           })
       })
   }

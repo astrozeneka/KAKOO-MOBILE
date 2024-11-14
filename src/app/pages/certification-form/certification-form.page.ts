@@ -17,6 +17,7 @@ import { catch400Error } from 'src/app/utils/catch400Error';
 import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 import {AlertController} from "@ionic/angular";
 import { YearValidator } from 'src/app/utils/validators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-certification-form',
@@ -78,7 +79,8 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
     cs: ContentService,
     router: Router,
     private alertController: AlertController,
-    private t: TranslateService // Injected twice
+    private t: TranslateService, // Injected twice
+    private location: Location
   ) { 
     super (route, translate, cdr, cs, router)
   }
@@ -107,7 +109,9 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
           finalize(()=>{this.formIsLoading = false;}))
         .subscribe(async (response:{code:any, type:any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
-          this.router.navigate(["/education-and-certification"], {replaceUrl: true})
+
+          this.location.back()
+          // this.router.navigate(["/education-and-certification"], {replaceUrl: true})
         })
     } else if (this.formMode == 'edit'){
       let data = this.form.value
@@ -118,7 +122,9 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
         )
         .subscribe(async (response:{code:any, type:any, message:string}|any)=>{
           this.cs.requestCandidateDataRefresh()
-          this.router.navigate(["/education-and-certification"], {replaceUrl: true}) // to uncomment later
+
+          this.location.back()
+          // this.router.navigate(["/education-and-certification"], {replaceUrl: true}) // to uncomment later
         })
 
     }
@@ -134,7 +140,9 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
           )
           .subscribe(async (response:any)=>{
             this.cs.requestCandidateDataRefresh()
-            this.router.navigate(["/education-and-certification"], {replaceUrl: true})
+
+            this.location.back()
+            // this.router.navigate(["/education-and-certification"], {replaceUrl: true})
           })
       })
   }
