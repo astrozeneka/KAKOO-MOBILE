@@ -9,6 +9,9 @@ import { EmployerQuestionsPage } from "../employer-questions/employer-questions.
 import { JobDetailsEmployerQuestionsComponent } from "../../components/job-details-employer-questions/job-details-employer-questions.component";
 import { HorizontalScrollableTabsComponent } from "../../components/horizontal-scrollable-tabs/horizontal-scrollable-tabs.component";
 import { JobDetailsHeaderComponent } from 'src/app/components/job-details-header/job-details-header.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ContentService } from 'src/app/services/content.service';
+import { JobEntity } from 'src/app/models/Candidate';
 
 @Component({
   selector: 'app-job-detail',
@@ -21,14 +24,29 @@ import { JobDetailsHeaderComponent } from 'src/app/components/job-details-header
 })
 export class JobDetailPage implements OnInit {
 
+  jobId:number
+  jobEntity:JobEntity|null = null
+  
   // 1. The element related to the dynamical scroll
   @ViewChild('description') description!: ElementRef;
   @ViewChild('jobRequirements') jobRequirements!: ElementRef;
   @ViewChild('responsibilities') responsibilities!: ElementRef;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private cs: ContentService
+  ) {
+    this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
+  }
 
   ngOnInit() {
+    this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
+    this.cs.get_exp(`/api/v1/job/job-id/${this.jobId}`, {})
+      .subscribe((job:JobEntity)=>{
+        this.jobEntity = job
+        console.log(this.jobEntity)
+      })
   }
 
   goToSection(section:string|Event){

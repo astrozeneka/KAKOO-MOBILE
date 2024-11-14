@@ -16,6 +16,17 @@
 
 <ion-content>
   <div class="ion-padding-horizontal form-wrapper">
+    @if (jobEntity) {
+      @for (question of jobEntity.jobCustomQuestionEntities; track question.jobCustomQuestionId) {
+      <h2 class="display-5">{{ question.name }}</h2>
+      <ion-textarea
+        fill="outline"
+        placeholder="Type answer"
+      ></ion-textarea>
+      }
+    }
+
+    <!--
     <h2 class="display-5">How comfortable are you with Java frameworks like Spring or Hibernate?</h2>
     <ion-textarea
       fill="outline"
@@ -56,5 +67,6 @@
         </ion-button>
       </div>
     </div>
+    -->
   </div>
 </ion-content>

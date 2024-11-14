@@ -236,7 +236,7 @@ export interface Candidate {
     jobQualificationEntities: any
     jobAdditionalSkillsEntities: any
     jobKeyResponsibilityEntities: any[]
-    jobCustomQuestionEntities: any[]
+    jobCustomQuestionEntities: JobCustomQuestionEntity[]
     jobQualificationHTML: any
     jobDescriptionHTML: any
     otherSkills: any[]
@@ -288,7 +288,7 @@ export interface Candidate {
     currency: string
   }
 
-  export default interface MeetingEntity {
+  export interface MeetingEntity {
     id: number
     jobId: number
     candidateId: number
@@ -304,5 +304,11 @@ export interface Candidate {
     fromTime: string
     toTime: string
     jobEntity: JobEntity
+  }
+  
+  export interface JobCustomQuestionEntity {
+    jobCustomQuestionId: number
+    name: string
+    isMandatory: boolean
   }
   

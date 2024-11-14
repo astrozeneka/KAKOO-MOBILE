@@ -2,7 +2,7 @@ import { JsonPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { IonButton, IonIcon } from "@ionic/angular/standalone";
 import { Browser } from '@capacitor/browser';
-import MeetingEntity from 'src/app/models/Candidate';
+import { MeetingEntity } from 'src/app/models/Candidate';
 
 @Component({
   selector: 'app-meeting-card',

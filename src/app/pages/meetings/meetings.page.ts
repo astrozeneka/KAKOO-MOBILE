@@ -8,7 +8,7 @@ import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-n
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
 import { Router } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
-import MeetingEntity, { JobEntity } from 'src/app/models/Candidate';
+import { JobEntity, MeetingEntity } from 'src/app/models/Candidate';
 import { BehaviorSubject, catchError, filter, forkJoin, map, merge, Observable, switchMap, tap, throwError } from 'rxjs';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 

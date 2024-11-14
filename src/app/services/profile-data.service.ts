@@ -1,5 +1,5 @@
 import { Injectable, output } from '@angular/core';
-import MeetingEntity, { JobEntity, JobInvitationEntity, PaginedJobInvitationArray } from '../models/Candidate';
+import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity } from '../models/Candidate';
 import StoredData from '../submodules/stored-data/StoredData';
 import { BehaviorSubject, catchError, filter, forkJoin, merge, Observable, tap, throwError } from 'rxjs';
 import { ContentService } from './content.service';

@@ -91,11 +91,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/jobboard/jobboard.page').then( m => m.JobboardPage)
   },
   {
-    path: 'job-detail',
+    path: 'job-detail/:jobId',
     loadComponent: () => import('./pages/job-detail/job-detail.page').then( m => m.JobDetailPage)
   },
   {
-    path: 'employer-questions',
+    path: 'employer-questions/:jobId',
     loadComponent: () => import('./pages/employer-questions/employer-questions.page').then( m => m.EmployerQuestionsPage)
   },
   {
