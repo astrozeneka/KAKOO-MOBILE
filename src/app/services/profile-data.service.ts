@@ -1,9 +1,11 @@
 import { Injectable, output } from '@angular/core';
-import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity } from '../models/Candidate';
+import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity, CandidateEducationEntity } from '../models/Candidate';
 import StoredData from '../submodules/stored-data/StoredData';
 import { BehaviorSubject, catchError, filter, forkJoin, merge, Observable, tap, throwError } from 'rxjs';
 import { ContentService } from './content.service';
 import { Storage } from '@ionic/storage-angular';
+import { DeletableEntity } from '../utils/delete-prompt';
+
 
 /**
  * This component will be used to manage cache data for data related to the user (e.g. meeting, assessment, job-invitations)
@@ -20,6 +22,8 @@ export class ProfileDataService {
   meetingsData: StoredData<MeetingEntity[]>
   meetingsSubject = new BehaviorSubject<MeetingEntity[]|null>([])
   meetings$ = this.meetingsSubject.asObservable()
+
+  // Candidate Education (no data stored since data update is fired from other fucntions (e.g. ...))
 
   constructor(
     private cs: ContentService,

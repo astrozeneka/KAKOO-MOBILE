@@ -11,9 +11,15 @@ import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { SectionHeadingComponent } from 'src/app/components/section-heading/section-heading.component';
 import { ChipInputComponent } from "../../components/chip-input/chip-input.component";
-import { Candidate } from 'src/app/models/Candidate';
+import { Candidate, CandidateEducationEntity } from 'src/app/models/Candidate';
 import { ContentService } from 'src/app/services/content.service';
 import { Router } from '@angular/router';
+import { createDeletePrompt, DeletableEntity } from 'src/app/utils/delete-prompt';
+import { BehaviorSubject, catchError, finalize, map, throwError } from 'rxjs';
+import {AlertController} from "@ionic/angular";
+import { TranslateService } from '@ngx-translate/core';
+
+interface UXCandidateEducationEntity extends CandidateEducationEntity, DeletableEntity {}
 
 @Component({
   selector: 'app-edit-and-preview-profile',
@@ -36,18 +42,69 @@ export class EditAndPreviewProfilePage implements OnInit {
 
   candidate: Candidate = {} as any;
 
+  // Candidate Education
+  candidateEducationCertificateEntities: UXCandidateEducationEntity[] = []
+  candidateEducationCertificateSubject = new BehaviorSubject<CandidateEducationEntity[]>([])
+  candidateEducationCertificate$ = this.candidateEducationCertificateSubject.asObservable()
+  processCandidateEducationCertificateEntities = (educationEntities:CandidateEducationEntity[]):UXCandidateEducationEntity[] =>{
+    // same job as postLoadProcessing
+    return educationEntities.map((educationEntity)=>{
+      const existingEntity = this.candidateEducationCertificateEntities.find((entity)=>entity.id === educationEntity.id)
+      const deleteIsLoadingSubject = existingEntity?.deleteIsLoadingSubject || new BehaviorSubject<boolean>(false)
+      const fadeAwaySubject = existingEntity?.fadeAwaySubject || new BehaviorSubject<boolean>(false)
+      return {
+        ...educationEntity,
+        deleteIsLoadingSubject,
+        deleteIsLoading$: deleteIsLoadingSubject.asObservable(),
+        fadeAwaySubject,
+        fadeAway$: fadeAwaySubject.asObservable()
+      }
+    })
+  }
+
   constructor(
     private cs:ContentService,
-    private router:Router
+    public router:Router,
+    public alertController:AlertController,
+    public t: TranslateService,
   ) { }
 
   ngOnInit() {
+    // Synchronizing data from candidate (from both the server and the cache)
     this.cs.registerCandidateDataObserverV3().subscribe((candidate)=>{
+      console.log("HERRE")
       this.candidate = candidate!;
+
+      // The Skills
       this.form.patchValue({
         skills: candidate?.skillListEntities.map((skill)=>skill.name) || []
       });
+
+      // Education
+      this.candidateEducationCertificateSubject.next(candidate?.candidateEducationEntities || [])
+
     })
+
+    // Managing data: Education
+    this.candidateEducationCertificate$
+      .pipe(map(this.processCandidateEducationCertificateEntities))
+      .subscribe((educationEntities:UXCandidateEducationEntity[])=>{
+        this.candidateEducationCertificateEntities = educationEntities
+      })
+  }
+
+  async deleteEducation(entity:UXCandidateEducationEntity){
+    createDeletePrompt(entity, this.alertController, this.t, this.cs)
+      .subscribe(async (response)=>{
+        entity.fadeAwaySubject.next(true);
+        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-education/${entity.id}`, {})
+          .pipe(
+            catchError((error)=>{return throwError(error)}),
+            finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))
+          .subscribe(async (response)=>{
+            this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
+          })
+      })
   }
 
 }
