@@ -287,3 +287,22 @@ export interface Candidate {
     to_amount: number
     currency: string
   }
+
+  export default interface MeetingEntity {
+    id: number
+    jobId: number
+    candidateId: number
+    candidateEmailId: string
+    thirdPartyEmail: string
+    description: string
+    title: any
+    schedulerEmailId: string
+    interviewerEmailId: string
+    timeZone: any
+    interviewStatus: string
+    meetingLink: string
+    fromTime: string
+    toTime: string
+    jobEntity: JobEntity
+  }
+  

@@ -47,7 +47,10 @@
         display: flex;
         gap: 12px;
 
+        background: #F9FAFB;
         & .description{
+
+            flex-grow: 1;
             font-size: 13px;
             font-weight: 500;
             line-height: 18.2px;
