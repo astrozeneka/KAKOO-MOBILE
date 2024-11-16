@@ -1,3 +1,5 @@
+@import 'src/theme/mixins';
+
 .profile-social-media-links-card{
     padding: 14px;
     border: 1px solid #E7E7E9;
@@ -17,7 +19,6 @@
             width: 30%;
         }
         & .value{
-
         }
 
         & ion-button{
@@ -34,5 +35,11 @@
                 gap: 6px;
             }
         }
+    }
+
+    @include loading-placeholder;
+    // Correction to allow to display correctly with the inside ion-icons and ion-buttons
+    .loading-placeholder{
+        z-index: 999;
     }
 }

@@ -16,6 +16,8 @@ export class SocialChipComponent  implements OnInit {
     'instagram': '/assets/svg/social-icons/icon-instagram.svg',
     'linkedin': '/assets/svg/social-icons/icon-linkedin.svg',
     'x': '/assets/svg/social-icons/icon-x.svg',
+    'glassdoor': '/assets/svg/social-icons/icon-glassdoor-16x16.svg',
+    'github': '/assets/svg/social-icons/icon-github-16x16.svg'
   }
   @Input() media:string|null = null // youtube, facebook, instagram, linkedin, x (in lower case)
   iconSrc = null

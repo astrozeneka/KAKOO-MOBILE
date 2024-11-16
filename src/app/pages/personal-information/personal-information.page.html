@@ -1,29 +1,40 @@
 
-<ion-header [translucent]="false">
-  <app-topbar [progress]="0.2">
-    <app-back-button slot="start" variant="topbar"></app-back-button>
-    <div>Setup your profile</div>
-    <div slot="end">
-      <ion-button
-        color="primary"
-        fill="clear"
-        (click)="skip()"
-      >
-        Skip
-      </ion-button>
-    </div>
-  </app-topbar>
+<ion-header>
+  @if (formMode == 'default'){
+    <app-topbar [progress]="0.2">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>Setup your profile</div>
+      <div slot="end">
+        <ion-button
+          color="primary"
+          fill="clear"
+          (click)="skip()"
+        >
+          Skip
+        </ion-button>
+      </div>
+    </app-topbar>
+  } @else if (formMode == 'edit') {
+    <app-topbar variant="light">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>Edit Profile</div>
+    </app-topbar>
+  }
 </ion-header>
 
 <ion-content>
 
   <div class="ion-padding-horizontal form-wrapper">
-    <div class="form-header">
-      <h2 class="display-2">Add skills</h2>
-      <div class="helper">
-        Let us know you a bit lorem ipsum is a dummy text for the printing.
+    @if (formMode == 'default'){
+      <div class="form-header">
+        <h2 class="display-2">Add skills</h2>
+        <div class="helper">
+          Let us know you a bit lorem ipsum is a dummy text for the printing.
+        </div>
       </div>
-    </div>
+    } @else {
+      <br/>
+    }
     <form [formGroup]="form" (submit)="submit()">
       <div class="input-wrapper row">
         <div class="col-6">
@@ -143,8 +154,8 @@
         <app-outline-input
           placeholder="Office assistant course"
           label="Job title"
-          formControlName="jobTitle"
-          [errorText]="displayedError['jobTitle']"
+          formControlName="profile"
+          [errorText]="displayedError['profile']"
         ></app-outline-input>
         <!--<ion-input
           type="text"

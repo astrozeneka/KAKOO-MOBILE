@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
@@ -18,14 +18,15 @@ import { catch400Error } from 'src/app/utils/catch400Error';
 import {AlertController} from "@ionic/angular";
 import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 import { Location } from '@angular/common';
+import { OutlineInputComponent } from 'src/app/components/outline-input/outline-input.component';
 
 @Component({
   selector: 'app-work-experience-form',
   templateUrl: './work-experience-form.page.html',
   styleUrls: ['./work-experience-form.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, ReactiveFormsModule, BackButtonComponent,
-    IonButton, IonInput, UxButtonComponent, ChipInputComponent, I18nPipeShortened
+  imports: [IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, ReactiveFormsModule, BackButtonComponent,
+    IonButton, IonInput, UxButtonComponent, ChipInputComponent, I18nPipeShortened, OutlineInputComponent
   ]
 })
 export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> implements OnInit {

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
@@ -19,6 +19,7 @@ import { UrlValidator } from 'src/app/submodules/url-validator/url-validator';
 import {AlertController} from "@ionic/angular";
 import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 import{ Location } from '@angular/common';
+import { OutlineInputComponent } from 'src/app/components/outline-input/outline-input.component';
 
 interface EditableProjectPortfolioEntity extends ProjectPortfolioEntity{
   skills: string[]
@@ -29,8 +30,8 @@ interface EditableProjectPortfolioEntity extends ProjectPortfolioEntity{
   templateUrl: './project-form.page.html',
   styleUrls: ['./project-form.page.scss'],
   standalone: true,
-  imports: [IonInput, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, IonButton, IonInput, UxButtonComponent,
-    ReactiveFormsModule, BackButtonComponent, ChipInputComponent, I18nPipeShortened
+  imports: [IonIcon, IonInput, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, IonButton, IonInput, UxButtonComponent,
+    ReactiveFormsModule, BackButtonComponent, ChipInputComponent, I18nPipeShortened, OutlineInputComponent
   ]
 })
 export class ProjectFormPage extends EditAddForm<ProjectPortfolioEntity> implements OnInit {

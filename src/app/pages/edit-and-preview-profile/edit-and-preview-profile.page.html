@@ -14,6 +14,7 @@
         color="primary"
         fill="clear"
         slot="end"
+        (click)="router.navigateByUrl('/personal-information?mode=edit')"
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
@@ -21,7 +22,7 @@
         </div>
       </ion-button>
     </app-section-heading>
-    <app-profile-basic-details-card></app-profile-basic-details-card>
+    <app-profile-basic-details-card [candidate]="candidate"></app-profile-basic-details-card>
   </div>
 
   <div class="ion-padding-horizontal">
@@ -222,6 +223,7 @@
         color="primary"
         fill="clear"
         slot="end"
+        (click)="router.navigateByUrl('/job-preferences?mode=edit')"
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
@@ -229,8 +231,7 @@
         </div>
       </ion-button>
     </app-section-heading>
-    <!-- For later, every data should be well-organized using Typescript -->
-    <app-profile-job-preferences-card></app-profile-job-preferences-card>
+    <app-profile-job-preferences-card [candidate]="candidate"></app-profile-job-preferences-card>
   </div>
 
   <div class="ion-padding-horizontal">
@@ -240,6 +241,7 @@
         color="primary"
         fill="clear"
         slot="end"
+        (click)="router.navigateByUrl('/social-accounts?mode=edit')"
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
@@ -248,7 +250,7 @@
       </ion-button>
     </app-section-heading>
     <!-- For later, every data should be well-organized using Typescript -->
-    <app-profile-social-media-links-card></app-profile-social-media-links-card>
+    <app-profile-social-media-links-card [candidate]="candidate"></app-profile-social-media-links-card>
   </div>
 
   <br/>

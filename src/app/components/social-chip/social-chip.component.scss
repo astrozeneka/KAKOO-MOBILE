@@ -23,6 +23,11 @@
             font-weight: 500;
             line-height: 10px;
             color: #1A1C1E;
+            max-width:150px;
+            white-space: nowrap;
+            // Add ellipsis
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }

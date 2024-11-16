@@ -45,7 +45,7 @@ export class EditAndPreviewProfilePage implements OnInit {
     'skills': undefined
   }
 
-  candidate: Candidate = {} as any;
+  candidate: Candidate = null as any;
 
   // Manage the fadeAway subject and the deleteIsloading (equivalent to the postLoadProcessing)
   processDeletableEntities = (entities:Identifiable[], existingDeletables:DeletableEntity[]):DeletableEntity[]=>{

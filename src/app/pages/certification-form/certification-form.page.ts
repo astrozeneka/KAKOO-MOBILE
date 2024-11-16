@@ -18,6 +18,7 @@ import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 import {AlertController} from "@ionic/angular";
 import { YearValidator } from 'src/app/utils/validators';
 import { Location } from '@angular/common';
+import { OutlineInputComponent } from 'src/app/components/outline-input/outline-input.component';
 
 @Component({
   selector: 'app-certification-form',
@@ -25,7 +26,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./certification-form.page.scss'],
   standalone: true,
   imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ReactiveFormsModule,
-    UxButtonComponent, I18nPipeShortened, IonInput
+    UxButtonComponent, I18nPipeShortened, IonInput, OutlineInputComponent
   ]
 })
 export class CertificationFormPage extends EditAddForm<CandidateCertificateEntity> implements OnInit {

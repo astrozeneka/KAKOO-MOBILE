@@ -8,13 +8,15 @@ import { SocialAccountInputComponent } from 'src/app/components/social-account-i
 import { catchError, filter, finalize, forkJoin, Observable, throwError } from 'rxjs';
 import { Candidate } from 'src/app/models/Candidate';
 import { ContentService } from 'src/app/services/content.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { key } from 'ionicons/icons';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 import { catch400Error } from 'src/app/utils/catch400Error';
 import { AtLeastOneFieldRequiredValidator, UrlValidator } from 'src/app/utils/validators';
+import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-social-accounts',
@@ -34,6 +36,7 @@ export class SocialAccountsPage implements OnInit {
     "linkedin": new FormControl('', [Validators.pattern('https?://.+')]),
     "instagram": new FormControl('', [Validators.pattern('https?://.+')]),
     "youtube": new FormControl('', [Validators.pattern('https?://.+')]),
+    "glassdoor": new FormControl('', [Validators.pattern('https?://.+')]),
     "github": new FormControl('', [Validators.pattern('https?://.+')])
   
   }, {validators: AtLeastOneFieldRequiredValidator}) // Experimental validator
@@ -44,6 +47,7 @@ export class SocialAccountsPage implements OnInit {
     linkedin: undefined,
     instagram: undefined,
     youtube: undefined,
+    glassdoor: undefined,
     github: undefined,
     ".": undefined
   }
@@ -61,22 +65,29 @@ export class SocialAccountsPage implements OnInit {
         this.candidateSocialAccounts[mediaType] = socialAccount.profileUrl
       }
     })
-    console.log(this.candidateSocialAccounts)
   }
 
   /*testFormControl = new FormControl('', [Validators.required, Validators.pattern('https?://.+')])
   displayedErrorTest:string|undefined = undefined*/
+    
+  // Default: During the subscription process
+  // Edit: Accessed from the edit-and-preview-profile
+  formMode: 'default'|'edit' = 'default';
 
   constructor(
     protected cs: ContentService,
     private router: Router,
     private translate: TranslateService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private location: Location
   ) { 
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }
 
   ngOnInit() {
+    this.formMode = this.route.snapshot.queryParamMap.get("mode") as any || 'default';
+
     // Step 1. Load candidate data
     this.cs.registerCandidateDataObserverV2()
       .subscribe((candidate)=>{
@@ -152,8 +163,12 @@ export class SocialAccountsPage implements OnInit {
     forkJoin(observables)
       .pipe(finalize(()=>{this.formIsLoading = false}))
       .subscribe(results => {
-        console.log(results)
-        this.router.navigate(["/terms-and-conditions"])
+        if (this.formMode == 'default'){
+          this.router.navigate(["/terms-and-conditions"])
+        }else{
+          this.cs.requestCandidateDataRefresh() // Not optimized, but more stable
+          this.location.back()
+        }
       })
 
     

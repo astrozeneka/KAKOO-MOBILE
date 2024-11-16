@@ -30,39 +30,33 @@
     <form [formGroup]="form" (submit)="submit()">
       
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           placeholder="{{ 'SSSS College of commerce and Allied Studies' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'School/College/University/Institution Name*' |_ }}"
           formControlName="college"
           [errorText]="displayedError['college']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           placeholder="{{ 'Bachelor of Commerce' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Degree*' |_ }}"
           formControlName="degreeName"
           [errorText]="displayedError['degreeName']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
         <!-- For later, use an appropriate form control -->
-        <ion-input
+        <app-outline-input
           type="text"
           placeholder="{{ '2022' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Year of Graduation*' |_ }}"
           formControlName="year"
           [errorText]="displayedError['year']"
           inputMode="digits"
-        ></ion-input>
+        ></app-outline-input>
       </div>
 
       <div class="bottom-controls">

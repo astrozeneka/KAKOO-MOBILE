@@ -1,3 +1,4 @@
+@import 'src/theme/mixins.scss';
 
 .profile-basic-details-card{
     padding: 14px;
@@ -58,4 +59,7 @@
             flex-grow: 1;
         }
     }
+
+    // Enhanced UX
+    @include loading-placeholder;
 }

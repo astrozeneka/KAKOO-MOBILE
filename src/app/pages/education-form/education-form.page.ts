@@ -18,6 +18,7 @@ import { Location } from '@angular/common';
 import { YearValidator } from 'src/app/utils/validators';
 import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 import {AlertController} from "@ionic/angular";
+import { OutlineInputComponent } from 'src/app/components/outline-input/outline-input.component';
 
 @Component({
   selector: 'app-education-form',
@@ -25,7 +26,8 @@ import {AlertController} from "@ionic/angular";
   styleUrls: ['./education-form.page.scss'],
   standalone: true,
   imports: [IonInput, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
-    TopbarComponent, BackButtonComponent, I18nPipeShortened, UxButtonComponent, ReactiveFormsModule
+    TopbarComponent, BackButtonComponent, I18nPipeShortened, UxButtonComponent, ReactiveFormsModule,
+    OutlineInputComponent
   ]
 })
 export class EducationFormPage extends EditAddForm<CandidateCertificateEntity> implements OnInit { // Once work-experience-form done, make this extend EditAddForm

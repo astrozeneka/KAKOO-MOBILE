@@ -1,40 +1,71 @@
 <div class="profile-social-media-links-card">
-  <div class="item">
+  @if (!candidate){
+    <div class="loading-placeholder">
+      <ion-spinner></ion-spinner>
+    </div>
+  }
+  <!--<div class="item">
     <div class="label">YouTube</div>
     <div class="value">
-      <app-social-chip media="youtube">&commat;udhaaran</app-social-chip>
+      <app-social-chip media="youtube">
+        {{ processYoutubeEntity(candidateSocialAccounts?.['youtube']) }}
+      </app-social-chip>
     </div>
-  </div>
+  </div>-->
   <div class="item">
     <div class="label">Facebook</div>
     <div class="value">
-      <app-social-chip media="facebook">Photowalabhaiya</app-social-chip>
+      <app-social-chip media="facebook">
+        {{ processFacebookEntity(candidateSocialAccounts?.['facebook'])}}
+      </app-social-chip>
     </div>
   </div>
   <div class="item">
-    <div class="label">Instagram</div>
+    <div class="label">X</div>
     <div class="value">
-      <app-social-chip media="instagram">&commat;photowalabhaiyaa</app-social-chip>
+      <app-social-chip media="x">
+        {{ processXEntity(candidateSocialAccounts?.['x']) }}
+      </app-social-chip>
     </div>
   </div>
   <div class="item">
     <div class="label">LinkedIn</div>
     <div class="value">
-      <app-social-chip media="linkedin">/mohitsharma212</app-social-chip>
+      <app-social-chip media="linkedin">
+        {{ processLinkedInEntity(candidateSocialAccounts?.['linkedin']) }}
+      </app-social-chip>
+    </div>
+  </div>
+  <div class="item">
+    <div class="label">Instagram</div>
+    <div class="value">
+      <app-social-chip media="instagram">
+        {{ processInstagramEntity(candidateSocialAccounts?.['instagram']) }}
+      </app-social-chip>
+    </div>
+  </div>
+  <div class="item">
+    <div class="label">Youtube</div>
+    <div class="value">
+      <app-social-chip media="youtube">
+        {{ processYoutubeEntity(candidateSocialAccounts?.['youtube']) }}
+      </app-social-chip>
     </div>
   </div>
   <div class="item">
     <div class="label">Glassdoor</div>
     <div class="value">
-      <ion-button
-        color="primary"
-        fill="clear"
-      >
-        <div class="inner">
-          <ion-icon src="/assets/svg/icon-add.svg"></ion-icon>
-          Add Link
-        </div>
-      </ion-button>
+      <app-social-chip media="glassdoor">
+        {{ processYoutubeEntity(candidateSocialAccounts?.['youtube']) }}
+      </app-social-chip>
+    </div>
+  </div>
+  <div class="item">
+    <div class="label">Github</div>
+    <div class="value">
+      <app-social-chip media="github">
+        {{ processGithubEntity(candidateSocialAccounts?.['github']) }}
+      </app-social-chip>
     </div>
   </div>
 </div>

@@ -29,59 +29,53 @@
   <div class="ion-padding-horizontal form-wrapper">
     <form [formGroup]="form" (submit)="submit()">
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           formControlName="projectTitle"
           placeholder="{{ 'Project Title' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Project Title*' |_ }}"
           [errorText]="displayedError['projectTitle']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           formControlName="projectDescription"
           placeholder="{{ 'Project Description' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Project Description*' |_ }}"
           [errorText]="displayedError['projectDescription']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="url"
           formControlName="projectURL"
           placeholder="{{ 'Project URL' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Project URL*' |_ }}"
           [errorText]="displayedError['projectURL']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="date"
           formControlName="startDate"
           placeholder="{{ 'Start Date' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Start Date*' |_ }}"
           [errorText]="displayedError['startDate']"
-        ></ion-input>
+        >
+          <ion-icon src="/assets/svg/icon-calendar.svg" slot="icon"></ion-icon>
+        </app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="date"
           formControlName="endDate"
           placeholder="{{ 'End Date' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'End Date*' |_ }}"
           [errorText]="displayedError['endDate']"
-        ></ion-input>
+        >
+          <ion-icon src="/assets/svg/icon-calendar.svg" slot="icon"></ion-icon>
+        </app-outline-input>
       </div>
       <div>
         <!-- The component below is not handled to reach the project deadline -->

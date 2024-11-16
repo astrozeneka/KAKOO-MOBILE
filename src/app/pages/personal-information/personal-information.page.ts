@@ -10,7 +10,7 @@ import { Candidate, CityEntity, CountryEntity, LanguageEntity, StateEntity } fro
 import { ContentService } from 'src/app/services/content.service';
 import { catchError, filter, finalize, Observable, throwError } from 'rxjs';
 import { UxButtonComponent } from "../../submodules/angular-ux-button/standalone/ux-button.component";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
 import { DevDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/dev-debug-button/dev-debug-button.component';
 import { environment } from 'src/environments/environment';
@@ -18,6 +18,7 @@ import { catch400Error } from 'src/app/utils/catch400Error';
 import { OutlineInputComponent } from "../../components/outline-input/outline-input.component";
 import { TranslateService } from '@ngx-translate/core';
 import { displayErrors } from 'src/app/utils/display-errors';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-personal-information',
@@ -40,7 +41,8 @@ export class PersonalInformationPage implements OnInit {
 
     'phonefull': new FormControl("", [phoneFullValidator]),
     
-    'jobTitle': new FormControl("", []), // Disabled actually
+    'jobTitle': new FormControl("", []), // replaced by 'profile'
+    'profile': new FormControl("", [Validators.required]), // Replace 'jobTitle'
     'totalExperience': new FormControl("", [Validators.required]), //
     'dailyRate': new FormControl("", [Validators.required]), //
     'languageEntities': new FormControl([], [Validators.required, Validators.minLength(1)]),
@@ -57,7 +59,8 @@ export class PersonalInformationPage implements OnInit {
     'birthDay': undefined, // Disabled actually
     'email': undefined,
     'phonefull': undefined,
-    'jobTitle': undefined, // Disabled actually
+    'jobTitle': undefined, // Replaced by 'profile'
+    'profile': undefined, // Replace 'jobTitle'
     'totalExperience': undefined,
     'dailyRate': undefined,
     'languageEntities': undefined,
@@ -105,16 +108,24 @@ export class PersonalInformationPage implements OnInit {
   
   candidate: Candidate|null = null
 
+  // Default: During the subscription process
+  // Edit: Accessed from the edit-and-preview-profile
+  formMode: 'default'|'edit' = 'default';
+
   constructor(
     private cdr:ChangeDetectorRef,
     private cs:ContentService,
     private router:Router,
     private translate: TranslateService,
+    private route: ActivatedRoute,
+    private location: Location
   ) {
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
    }
 
   async ngOnInit() {
+    this.formMode = this.route.snapshot.queryParamMap.get("mode") as any || 'default';
+
 
     // TODO, personal-information should use the registerV2 subscription
     // Waiting for it to have a thorough test first, then begin to implement in this page
@@ -233,7 +244,7 @@ export class PersonalInformationPage implements OnInit {
   
     // 4. Skip birthday and job title for now (might be updated later)
     //this.form.get('birthDay')?.disable()
-    this.form.get('jobTitle')?.disable()
+    //this.form.get('jobTitle')?.disable()
 
   }
 
@@ -294,7 +305,12 @@ export class PersonalInformationPage implements OnInit {
       .subscribe(async (response)=>{
         let candidate: Candidate = response as Candidate
         await this.cs.candidateData.set(candidate)
-        this.router.navigate(['/add-skills'])
+        if (this.formMode == 'default'){
+          this.router.navigate(['/add-skills'])
+        } else {
+          this.cs.requestCandidateDataRefresh()
+          this.location.back()
+        }
       })
   }
 }

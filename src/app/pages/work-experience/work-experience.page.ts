@@ -16,6 +16,7 @@ import { Candidate, WorkExperienceEntity } from 'src/app/models/Candidate';
 import { BehaviorSubject, catchError, filter, finalize, Observable, throwError } from 'rxjs';
 import { catch400Error } from 'src/app/utils/catch400Error';
 import { createDeletePrompt } from 'src/app/utils/delete-prompt';
+import { OutlineInputComponent } from 'src/app/components/outline-input/outline-input.component';
 
 interface UXWorkExperienceEntity extends WorkExperienceEntity {
   deleteIsLoadingSubject: BehaviorSubject<boolean>;
@@ -30,7 +31,7 @@ interface UXWorkExperienceEntity extends WorkExperienceEntity {
   styleUrls: ['./work-experience.page.scss'],
   standalone: true,
   imports: [IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, IonButton, ExperienceCardComponent,
-    SectionHeadingComponent, I18nPipeShortened
+    SectionHeadingComponent, I18nPipeShortened, OutlineInputComponent
   ]
 })
 export class WorkExperiencePage extends CandidateForm implements OnInit { // I don't know the use of CandidateForm (might be deleted in future sprint)

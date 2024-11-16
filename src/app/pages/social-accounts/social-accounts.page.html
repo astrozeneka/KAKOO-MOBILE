@@ -1,28 +1,39 @@
 
 <ion-header>
-  <app-topbar [progress]="0.7">
-    <app-back-button slot="start" variant="topbar"></app-back-button>
-    <div>Setup your profile</div>
-    <div slot="end">
-      <ion-button
-        color="primary"
-        fill="clear"
-        (click)="skip()"
-      >
-        Skip
-      </ion-button>
-    </div>
-  </app-topbar>
+  @if (formMode == 'default'){
+    <app-topbar [progress]="0.7">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>Setup your profile</div>
+      <div slot="end">
+        <ion-button
+          color="primary"
+          fill="clear"
+          (click)="skip()"
+        >
+          Skip
+        </ion-button>
+      </div>
+    </app-topbar>
+  } @else if (formMode == 'edit'){
+    <app-topbar variant="light">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>Edit Social Accounts</div>
+    </app-topbar>
+  }
 </ion-header>
 <ion-content>
 
   <div class="ion-padding-horizontal form-wrapper">
-    <div class="heading">
-      <h2 class="display-2">Social Accounts</h2>
-      <div class="helper">
-        Let us know you a bit lorem ipsum is a dummy text for the printing.
+    @if (formMode == 'default'){
+      <div class="heading">
+        <h2 class="display-2">Social Accounts</h2>
+        <div class="helper">
+          Let us know you a bit lorem ipsum is a dummy text for the printing.
+        </div>
       </div>
-    </div>
+    } @else {
+      <br/>
+    }
     
     <form [formGroup]="form" (submit)="submit()"><!-- can consider to delete this div -->
       <div class="">
@@ -84,6 +95,15 @@
       </div>
       <div class="input-wrapper">
         <app-social-account-input
+          label="Glassdoor"
+          placeholder="https://www.glassdoor.com/"
+          icon="/assets/svg/social-icons/icon-glassdoor.svg"
+          formControlName="glassdoor"
+          [errorText]="displayedError['glassdoor']"
+        ></app-social-account-input>
+      </div>
+      <div class="input-wrapper">
+        <app-social-account-input
           label="Github"
           placeholder="https://www.github.com/"
           icon="/assets/svg/social-icons/icon-github.svg"
@@ -110,7 +130,11 @@
             type="submit"
             [loading]="formIsLoading"
           >
-            Save &amp; continue
+            @if (formMode == 'default'){
+              Save &amp; continue
+            } @else if (formMode == 'edit') {
+              Save
+            }
           </app-ux-button>
         </div>
       </div>

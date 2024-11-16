@@ -9,7 +9,7 @@ import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalo
 import { Candidate, MobilityEntity } from 'src/app/models/Candidate';
 import { ContentService } from 'src/app/services/content.service';
 import { catchError, combineLatest, finalize, Observable, throwError } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmploymentType } from 'src/app/models/EmploymentType';
 import { TranslateService } from '@ngx-translate/core';
 import { HiringStatus } from 'src/app/models/HiringStatus';
@@ -19,6 +19,7 @@ import { SalaryExpectation } from 'src/app/models/SalaryExpectation';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { catch400Error } from 'src/app/utils/catch400Error';
 import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-job-preferences',
@@ -104,18 +105,24 @@ export class JobPreferencesPage implements OnInit {
   mobilityKeyAccessor: (e:MobilityEntity) => string = (option: MobilityEntity) =>
     (this.lang=="fr" ? option.name : option.nameFr) // !!! CAUTION, the language is reversed from the back-end
   
+  // Default: During the subscription process
+  // Edit: Accessed from the edit-and-preview-profile
+  formMode: 'default'|'edit' = 'default';
 
   constructor(
     protected cs: ContentService,
     private router: Router,
     private translate: TranslateService,
     private cdr: ChangeDetectorRef,
-    private profileUtils: ProfileUtilsService
+    private profileUtils: ProfileUtilsService,
+    private route: ActivatedRoute,
+    private location: Location
   ) { 
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }
 
   ngOnInit() {
+    this.formMode = this.route.snapshot.queryParamMap.get("mode") as any || 'default';
 
     // Step 1. Load candidate data
     let candidate$ = this.cs.registerCandidateDataObserverV2(true, true)
@@ -234,7 +241,12 @@ export class JobPreferencesPage implements OnInit {
         finalize(()=>{this.formIsLoading = false;})
       )
       .subscribe((result: Candidate|any)=>{
-        this.router.navigate(["/social-accounts"])
+        if (this.formMode == 'default'){
+          this.router.navigate(["/social-accounts"])
+        } else {
+          this.cs.requestCandidateDataRefresh() // Not optimized, but more stable
+          this.location.back()
+        }
       })
     
   }

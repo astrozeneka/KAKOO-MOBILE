@@ -29,7 +29,7 @@
   <div class="ion-padding-horizontal form-wrapper">
     <form [formGroup]="form" (submit)="submit()">
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           placeholder="{{ 'Amazon' |_ }}"
           fill="outline"
@@ -37,29 +37,25 @@
           label="{{ 'Institution Name*' |_ }}"
           formControlName="institution"
           [errorText]="displayedError['institution']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           placeholder="{{ 'Certificate in Digital Marketing' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Certificate Name*' |_ }}"
           formControlName="name"
           [errorText]="displayedError['name']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           formControlName="year"
           type="text"
           placeholder="{{ '2022' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Year*' |_ }}"
           [errorText]="displayedError['year']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <!-- THE V1
       <div>

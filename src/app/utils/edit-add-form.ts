@@ -1,20 +1,21 @@
 import { ChangeDetectorRef } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { ContentService } from "../services/content.service";
 import { Candidate } from "../models/Candidate";
+import { filter } from "rxjs";
 
 
 export abstract class EditAddForm<T>{
-    // Injected dependencies
     constructor(
         protected route: ActivatedRoute,
         public translate: TranslateService,
         protected cdr: ChangeDetectorRef,
         protected cs: ContentService,
         public router: Router
-    ) { }
+    ) {
+    }
 
     // I -- Properties
     public formMode: 'add'|'edit' = 'add';

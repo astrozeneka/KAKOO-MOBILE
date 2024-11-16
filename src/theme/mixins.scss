@@ -163,3 +163,19 @@
     margin-top: 24px;
     margin-bottom: 24px;
 }
+
+// Loading placeholder
+@mixin loading-placeholder{
+    position: relative;
+    & .loading-placeholder{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(3px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

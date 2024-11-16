@@ -20,9 +20,10 @@ export class SvgProfileComponent  implements OnInit {
     if (!this.candidate) {
       throw new Error('Candidate input is required');
     }
+    console.log(this.candidate)
 
     // The initials of the person
-    this.svgText = this.candidate.firstName[0] + this.candidate.lastName[0];
+    this.svgText = this.candidate.firstName?.[0] + this.candidate.lastName?.[0];
   }
 
 }

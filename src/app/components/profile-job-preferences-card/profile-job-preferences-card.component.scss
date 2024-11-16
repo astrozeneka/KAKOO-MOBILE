@@ -1,3 +1,5 @@
+@import 'src/theme/mixins.scss';
+
 .profile-job-preferences-card{
     padding: 14px;
     border: 1px solid #E7E7E9;
@@ -8,18 +10,22 @@
 
     & .item{
         display: flex;
+        gap: 5px;
         & .left{
-            width: 35%;
+            min-width: 37%;
             font-size: 13px;
             font-weight: 500;
             line-height: 18.2px;
             color: #7A7D84;
         }
         & .right{
+            flex-grow: 1;
             font-size: 13px;
             font-weight: 500;
             line-height: 18.2px;
             color: #1A1C1E;
         }
     }
+
+    @include loading-placeholder
 }

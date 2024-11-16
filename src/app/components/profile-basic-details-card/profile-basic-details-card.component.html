@@ -1,11 +1,20 @@
 <div class="profile-basic-details-card">
+  @if (!candidate) {
+    <div class="loading-placeholder">
+      <ion-spinner></ion-spinner>
+    </div>
+  }
   <div class="header">
     <div class="left">
-      <img src="/assets/svg/icon-profile-example-ms.svg" alt="Profile Picture" width="41px"/>
+      <!-- Depending on the project deadline -->
+      <!-- This SVG might just be a fallback, the uploaded data can be used on behalf -->
+      @if (candidate != undefined) {
+        <app-svg-profile [candidate]="candidate" size="41"></app-svg-profile>
+      }
     </div>
     <div class="right">
-      <div class="title">Mohit Sharma</div>
-      <div class="subtitle">Senior UI/UX Designer</div>
+      <div class="title">{{ candidate?.firstName }} {{ candidate?.middleName }} {{ candidate?.lastName }}</div>
+      <div class="subtitle">{{ candidate?.profile }}</div>
     </div>
   </div>
 
@@ -13,35 +22,35 @@
     <div class="left">
       <div class="item">
         <div class="label">Email</div>
-        <div class="value">jhinganmohit79&commat;gmail.com</div>
+        <div class="value">{{ candidate?.email }}</div>
       </div>
       <div class="item">
         <div class="label">Date of birth</div>
-        <div class="value">1 July, 1999</div>
+        <div class="value">UNAVAILABLE</div>
       </div>
       <div class="item">
         <div class="label">Total experience</div>
-        <div class="value">3 years</div>
+        <div class="value">{{ candidate?.totalExperience }} years</div>
       </div>
     </div>
     <div class="right">
       <div class="item">
         <div class="label">Phone Number</div>
-        <div class="value">+91 97796 13784</div>
+        <div class="value">{{ candidate?.phoneCode }} {{ candidate?.phoneNumber }}</div>
       </div>
       <div class="item">
         <div class="label">Location</div>
-        <div class="value">Amristsar Punjab, India</div>
+        <div class="value">{{ cityKeyAccessor(candidate?.cityEntity) }}, {{ countryKeyAccessor(candidate?.countryEntity) }}</div>
       </div>
       <div class="item">
         <div class="label">Daily rate (€)</div>
-        <div class="value">40</div>
+        <div class="value">{{ candidate?.dailyRate }}</div>
       </div>
     </div>
   </div>
   <div class="item">
     <div class="label">Languages</div>
-    <div class="value">English, French, Hindi, Punjabi, Bengali</div>
+    <div class="value">{{ candidate?.languageEntities?.map(languageOptionsKeyAccessor)?.join(", ") }}</div>
   </div>
 
 

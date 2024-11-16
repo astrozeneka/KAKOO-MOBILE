@@ -1,10 +1,19 @@
 <div class="profile-job-preferences-card">
+  @if (!candidate) {
+    <div class="loading-placeholder">
+      <ion-spinner></ion-spinner>
+    </div>
+  }
   <div class="item">
     <div class="left">
       Type of Employment
     </div>
     <div clas="right">
-      Permanent
+      @if (candidate?.employmentTypeEntity) {
+        {{ pus.employmentTypeKeyAccessor(candidate?.employmentTypeEntity) }}
+      } @else {
+        -
+      }
     </div>
   </div>
   <div class="item">
@@ -12,7 +21,11 @@
       Salary Expectations
     </div>
     <div class="right">
-      $50,000 - $60,000
+      @if (candidate?.salaryExpectationEntity) {
+        {{ pus.salaryExpectationKeyAccessor(candidate?.salaryExpectationEntity) }}
+      } @else {
+        -
+      }
     </div> 
   </div>
   <div class="item">
@@ -20,7 +33,11 @@
       Mobility
     </div>
     <div class="right">
-      N/A
+      @if (candidate?.salaryExpectationEntity) {
+        {{ candidate?.selfCandidateMobilityEntities?.map(pus.mobilityKeyAccessor)?.join(", ") }}
+      } @else {
+        -
+      }
     </div>
   </div>
   <div class="item">
@@ -28,7 +45,11 @@
       Notice Period
     </div>
     <div class="right">
-      1 Month
+      @if (candidate?.noticePeriodEntity) {
+        {{ pus.noticePeriodKeyAccessor(candidate?.noticePeriodEntity) }}
+      } @else {
+        -
+      }
     </div>
   </div>
   <div class="item">
@@ -36,7 +57,11 @@
       Hiring Status
     </div>
     <div class="right">
-      Open To Hire / Ready To Interview
+      @if (candidate?.hiringStatusEntity) {
+        {{ pus.hiringStatusKeyAccessor(candidate?.hiringStatusEntity) }}
+      } @else {
+        -
+      }
     </div>
   </div>
 </div>
