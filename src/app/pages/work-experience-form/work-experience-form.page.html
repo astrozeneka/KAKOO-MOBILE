@@ -65,6 +65,16 @@
           [errorText]="displayedError['employmentType']"
           mode="single"
         ></app-chip-input>
+        <!-- Using the PUS fails, if deadline will allow, PUS will be used  -->
+        <!--<app-chip-input
+          label="{{ 'Type of employment' |_ }}"
+          placeholder="{{ 'Select Type of Employment' |_ }}"
+          [options]="pus.employmentTypeOptions"
+          [keyAccessor]="pus.employmentTypeKeyAccessor"
+          formControlName="employmentType"
+          [errorText]="displayedError['employmentType']"
+          mode="single"
+        ></app-chip-input>-->
       </div>
       <div>
         <app-chip-input

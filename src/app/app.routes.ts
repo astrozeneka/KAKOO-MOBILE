@@ -83,6 +83,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/terms-and-conditions/terms-and-conditions.page').then( m => m.TermsAndConditionsPage)
   },
   {
+    path: 'terms-and-conditions-en',
+    loadComponent: () => import('./pages/terms-and-conditions/terms-and-conditions.page').then( m => m.TermsAndConditionsPageEn)
+  },
+  {
+    path: 'terms-and-conditions-fr',
+    loadComponent: () => import('./pages/terms-and-conditions/terms-and-conditions.page').then( m => m.TermsAndConditionsPageFr)
+  },
+  {
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
   },

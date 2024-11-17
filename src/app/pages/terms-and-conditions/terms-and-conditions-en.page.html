@@ -1,0 +1,126 @@
+
+<ion-header [translucent]="false">
+  <app-topbar [progress]="8/9">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>{{ 'Setup your profile' |_ }}</div>
+    <div slot="end">
+      <ion-button
+        color="primary"
+        fill="clear"
+        (click)="skip()"
+      >
+        {{ 'Skip' |_ }}
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="form-header ion-padding-horizontal">
+    <h2 class="display-2">Kakoo Software Platform: Terms and Conditions for Candidate</h2>
+  </div>  
+  <div class="ion-padding-horizontal">
+    <h3 class="display-4">1. Introduction</h3>
+    <p>
+      Welcome to Kakoo Software! These Terms and Conditions ("Terms") govern your access to and use of the Kakoo Software platform ("Platform") as a candidate. By signing up for the Platform, you agree to comply with and be bound by these Terms, as well as our Privacy Policy, which is incorporated herein by reference.
+    </p>
+    <h3 class="display-4">2. Eligibility</h3>
+    <p>
+      To sign up and use the Platform, you must:
+    </p>
+    <ul>
+      <li>Be at least 16 years old.</li>
+      <li>Provide accurate and complete information during the registration process.</li>
+      <li>Have the legal capacity to enter into binding contracts.</li>
+    </ul>
+    <h3 class="display-4">3. Account Registration and Security</h3>
+    <ul>
+      <li>You are responsible for maintaining the confidentiality of your account login credentials and for any activities that occur under your account.</li>
+      <li>You agree to notify us immediately of any unauthorized use of your account or any other security breach.</li>
+    </ul>
+    <h3 class="display-4">4. Use of the Platform</h3>
+    <ul>
+      <li>The Platform is provided for your personal use in seeking employment opportunities or other related services.</li>
+      <li>You agree not to use the Platform for any illegal or unauthorized purpose, including but not limited to violating any local, national, or international laws.</li>
+      <li>You must not post or share any false, misleading, or defamatory content on the Platform.</li>
+    </ul>
+    <h3 class="display-4">5. Data Collection and Processing</h3>
+    <ul>
+      <li>By registering on the Platform, you consent to the collection, use, and processing of your personal data in accordance with our Privacy Policy and applicable data protection laws, including the General Data Protection Regulation (GDPR) and French data protection laws.</li>
+      <li>We may collect personal information such as your name, contact details, professional experience, education, and any other information you provide during the signup process.</li>
+      <li>Your data will be used for the purposes of matching you with job opportunities, facilitating communication with potential employers, and providing you with relevant services and updates from the Platform.</li>
+    </ul>
+    <h3 class="display-4">6. GDPR Compliance</h3>
+    <ul>
+      <li><b>Right to Access:</b> You have the right to request access to the personal data we hold about you. You can do this by contacting us at privacy&commat;kakoo-software.com.</li>
+      <li><b>Right to Rectification:</b> You have the right to request correction of any inaccurate or incomplete personal data.</li>
+      <li><b>Right to Erasure:</b> You may request the deletion of your personal data, subject to certain legal or contractual obligations that may require us to retain some data.</li>
+      <li><b>Right to Restrict Processing:</b> You may request that we limit the processing of your personal data under certain conditions.</li>
+      <li><b>Right to Data Portability:</b> You may request to receive your personal data in a structured, commonly used, and machine-readable format and have the right to transmit that data to another controller.</li>
+      <li><b>Right to Object:</b> You have the right to object to the processing of your personal data for direct marketing purposes at any time.</li>
+      <li><b>Right to Withdraw Consent:</b> You may withdraw your consent to the processing of your personal data at any time by contacting us. Withdrawal of consent does not affect the lawfulness of processing based on consent before its withdrawal.</li>
+    </ul>
+    <h3 class="display-4">7. Data Sharing</h3>
+    <ul>
+      <li>Your personal data may be shared with potential employers, recruiters, and other third parties as necessary to provide the services offered by the Platform.</li>
+      <li>We may also share your data with service providers who assist us in operating the Platform, provided they comply with strict data protection requirements.</li>
+      <li>We will not sell or rent your personal data to third parties for marketing purposes without your explicit consent.</li>
+    </ul>
+    <h3 class="display-4">8. Data Security</h3>
+    <ul>
+      <li>We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, loss, alteration, or destruction.</li>
+      <li>Despite our efforts, no method of transmission over the internet or method of electronic storage is completely secure, and we cannot guarantee absolute security.</li>
+    </ul>
+    <h3 class="display-4">9. Retention of Personal Data</h3>
+    <ul>
+      <li>We will retain your personal data for as long as necessary to fulfill the purposes for which it was collected, including for the purposes of satisfying any legal, accounting, or reporting requirements.</li>
+      <li>If you request the deletion of your account, your data will be removed from the Platform, except for any information we are required to retain by law.</li>
+    </ul>
+    <h3 class="display-4">10. Cookies and Tracking Technologies</h3>
+    <ul>
+      <li>The Platform uses cookies and similar tracking technologies to enhance your user experience, analyze site usage, and assist in our marketing efforts. You can manage your cookie preferences through your browser settings.</li>
+      <li>For more information on our use of cookies, please refer to our Cookie Policy.</li>
+    </ul>
+    <h3 class="display-4">11. Modifications to Terms and Services</h3>
+    <ul>
+      <li>We reserve the right to modify these Terms at any time. Any changes will be effective immediately upon posting on the Platform. It is your responsibility to review these Terms regularly.</li>
+      <li>Continued use of the Platform after any changes to the Terms constitutes your acceptance of the modified Terms.</li>
+    </ul>
+    <h3 class="display-4">12. Governing Law and Dispute Resolution</h3>
+    <ul>
+      <li>These Terms are governed by and construed in accordance with the laws of France, without regard to its conflict of law principles.</li>
+      <li>Any disputes arising from or related to these Terms or your use of the Platform shall be subject to the exclusive jurisdiction of the courts of France.</li>
+    </ul>
+    <h3 class="display-4">13. Contact Information</h3>
+    <ul>
+      <li>If you have any questions or concerns about these Terms or our data protection practices, please contact us at:</li>
+    </ul>
+    <h3 class="display-4">Kakoo Software</h3>
+    <p>privacy&commat;kakoo-software.com</p>
+  </div>
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="checkbox-container ion-padding-horizontal">
+      <!-- Still cannot find how to align it exactly as the figma template -->
+      <ion-checkbox 
+        id="checkbox"
+        labelPlacement="end"
+        formControlName="accepted"
+      >
+        <div>I agree to the terms & conditions and privacy policy</div>
+      </ion-checkbox>
+    </div>
+    <div class="bottom ion-padding-horizontal">
+      <app-ux-button 
+        expand="block" 
+        fill="solid" 
+        color="primary"
+        [disabled]="!form.valid"
+        [loading]="formIsLoading"
+        type="submit"
+      >
+        {{ 'Submit' |_ }}
+      </app-ux-button>
+    </div>
+  </form>
+</ion-content>

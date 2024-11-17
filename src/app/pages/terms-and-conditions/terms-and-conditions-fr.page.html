@@ -1,0 +1,125 @@
+
+<ion-header [translucent]="false">
+  <app-topbar [progress]="8/9">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>{{ 'Setup your profile' |_ }}</div>
+    <div slot="end">
+      <ion-button
+        color="primary"
+        fill="clear"
+        (click)="skip()"
+      >
+        {{ 'Skip' |_ }}
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="form-header ion-padding-horizontal">
+    <h2 class="display-2">Plateforme Logicielle Kakoo : Conditions Générales pour les Candidats</h2>
+  </div>  
+  <div class="ion-padding-horizontal">
+    <h3 class="display-4">1. Introduction</h3>
+    <p>
+      Bienvenue sur Kakoo Software ! Ces Conditions Générales ("Conditions") régissent votre accès et votre utilisation de la plateforme Kakoo Software ("Plateforme") en tant que candidat. En vous inscrivant sur la Plateforme, vous acceptez de respecter ces Conditions ainsi que notre Politique de Confidentialité, intégrée par référence aux présentes.
+    </p>
+    <h3 class="display-4">2. Éligibilité</h3>
+    <p>
+      Pour vous inscrire et utiliser la Plateforme, vous devez :
+    </p>
+    <ul>
+      <li>Être âgé d’au moins 16 ans.</li>
+      <li>Fournir des informations exactes et complètes lors de l’inscription.</li>
+      <li>Avoir la capacité légale de conclure des contrats contraignants.</li>
+    </ul>
+    <h3 class="display-4">3. Enregistrement et Sécurité du Compte</h3>
+    <ul>
+      <li>Vous êtes responsable de la confidentialité de vos identifiants de connexion et de toutes les activités réalisées sur votre compte.</li>
+      <li>Vous acceptez de nous informer immédiatement en cas d'utilisation non autorisée de votre compte ou de toute autre violation de sécurité.</li>
+    </ul>
+    <h3 class="display-4">4. Utilisation de la Plateforme</h3>
+    <ul>
+      <li>La Plateforme est destinée à un usage personnel pour rechercher des opportunités d’emploi ou des services connexes.</li>
+      <li>Vous acceptez de ne pas utiliser la Plateforme à des fins illégales ou non autorisées, y compris, mais sans s'y limiter, la violation de lois locales, nationales ou internationales.</li>
+      <li>Vous ne devez pas publier ou partager des contenus faux, trompeurs ou diffamatoires sur la Plateforme.</li>
+    </ul>
+    <h3 class="display-4">5. Collecte et Traitement des Données</h3>
+    <ul>
+      <li>En vous inscrivant sur la Plateforme, vous consentez à la collecte, l’utilisation et le traitement de vos données personnelles conformément à notre Politique de Confidentialité et aux lois applicables, y compris le Règlement Général sur la Protection des Données (RGPD) et les lois françaises sur la protection des données.</li>
+      <li>Nous pouvons collecter des informations personnelles telles que votre nom, vos coordonnées, votre expérience professionnelle, votre formation et toutes autres informations fournies lors de l’inscription.</li>
+      <li>Vos données seront utilisées pour vous proposer des opportunités d’emploi, faciliter la communication avec les employeurs potentiels et vous fournir des services ou mises à jour pertinents.</li>
+    </ul>
+    <h3 class="display-4">6. Conformité RGPD</h3>
+    <ul>
+      <li><b>Droit d’Accès :</b> Vous avez le droit de demander l’accès aux données personnelles que nous détenons sur vous. Contactez-nous à privacy&commat;kakoo-software.com.</li>
+      <li><b>Droit de Rectification :</b> Vous pouvez demander la correction de données personnelles inexactes ou incomplètes.</li>
+      <li><b>Droit à l’Effacement :</b> Vous pouvez demander la suppression de vos données personnelles, sous réserve de certaines obligations légales ou contractuelles.</li>
+      <li><b>Droit de Limitation du Traitement :</b> Vous pouvez demander que nous limitions le traitement de vos données personnelles dans certaines conditions.</li>
+      <li><b>Droit à la Portabilité des Données :</b> Vous pouvez demander à recevoir vos données dans un format structuré, couramment utilisé et lisible par machine.</li>
+      <li><b>Droit d’Opposition :</b> Vous pouvez vous opposer au traitement de vos données personnelles à des fins de marketing direct.</li>
+      <li><b>Droit de Retrait du Consentement :</b> Vous pouvez retirer votre consentement à tout moment en nous contactant.</li>
+    </ul>
+    <h3 class="display-4">7. Partage des Données</h3>
+    <ul>
+      <li>Vos données personnelles peuvent être partagées avec des employeurs potentiels, recruteurs ou tiers nécessaires pour fournir les services de la Plateforme.</li>
+      <li>Nous partageons également vos données avec des prestataires respectant des normes strictes de protection des données.</li>
+      <li>Nous ne vendrons ni ne louerons vos données personnelles à des tiers sans votre consentement explicite.</li>
+    </ul>
+    <h3 class="display-4">8. Sécurité des Données</h3>
+    <ul>
+      <li>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles.</li>
+      <li>Bien que nous prenions des précautions, aucune méthode de transmission sur Internet n’est totalement sécurisée.</li>
+    </ul>
+    <h3 class="display-4">9. Conservation des Données</h3>
+    <ul>
+      <li>Nous conservons vos données personnelles aussi longtemps que nécessaire pour atteindre les objectifs pour lesquels elles ont été collectées.</li>
+      <li>En cas de suppression de votre compte, vos données seront retirées de la Plateforme, sauf obligations légales.</li>
+    </ul>
+    <h3 class="display-4">10. Cookies et Technologies de Suivi</h3>
+    <ul>
+      <li>La Plateforme utilise des cookies pour améliorer l’expérience utilisateur, analyser l’utilisation du site et soutenir nos efforts marketing.</li>
+      <li>Pour plus d'informations, consultez notre Politique sur les Cookies.</li>
+    </ul>
+    <h3 class="display-4">11. Modifications des Conditions et Services</h3>
+    <ul>
+      <li>Nous nous réservons le droit de modifier ces Conditions à tout moment. Les modifications prennent effet dès leur publication.</li>
+      <li>L’utilisation continue de la Plateforme vaut acceptation des modifications.</li>
+    </ul>
+    <h3 class="display-4">12. Loi Applicable et Résolution des Litiges</h3>
+    <ul>
+      <li>Ces Conditions sont régies par les lois françaises.</li>
+      <li>Tout litige sera soumis à la juridiction exclusive des tribunaux français.</li>
+    </ul>
+    <h3 class="display-4">13. Coordonnées de Contact</h3>
+    <ul>
+      <li>Pour toute question, contactez-nous à :</li>
+    </ul>
+    <h3 class="display-4">Kakoo Software</h3>
+    <p>privacy&commat;kakoo-software.com</p>
+  </div>
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="checkbox-container ion-padding-horizontal">
+      <ion-checkbox 
+        id="checkbox"
+        labelPlacement="end"
+        formControlName="accepted"
+      >
+        <div>J'accepte les conditions générales et la politique de confidentialité</div>
+      </ion-checkbox>
+    </div>
+    <div class="bottom ion-padding-horizontal">
+      <app-ux-button 
+        expand="block" 
+        fill="solid" 
+        color="primary"
+        [disabled]="!form.valid"
+        [loading]="formIsLoading"
+        type="submit"
+      >
+        {{ 'Submit' |_ }}
+      </app-ux-button>
+    </div>
+  </form>
+</ion-content>

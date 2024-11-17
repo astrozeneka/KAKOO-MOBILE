@@ -27,7 +27,7 @@ export class ProfileUtilsService {
   // Still need to call get_current() from inside each accessor to get the currenly used language
   employmentTypeOptions: EmploymentType[] = []
   employmentTypeKeyAccessor: (e:EmploymentType) => string = (option: EmploymentType) => 
-    (this.lang=="en" ? option.name : option.name_fr)
+    (this.lang=="en" ? option?.name : option?.name_fr)
   workTypeOptions: WorkType[] = []
   workTypeKeyAccessor: (e:WorkType) => string = (option: WorkType) => 
     (this.lang=="en" ? option.name : option.name_fr)

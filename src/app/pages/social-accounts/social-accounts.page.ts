@@ -165,7 +165,11 @@ export class SocialAccountsPage implements OnInit {
       .pipe(finalize(()=>{this.formIsLoading = false}))
       .subscribe(results => {
         if (this.formMode == 'default'){
-          this.router.navigate(["/terms-and-conditions"])
+          if (this.lang == 'en'){
+            this.router.navigate(["/terms-and-conditions-en"])
+          } else if (this.lang == 'fr'){
+            this.router.navigate(["/terms-and-conditions-fr"])
+          }
         }else{
           this.cs.requestCandidateDataRefresh() // Not optimized, but more stable
           this.location.back()

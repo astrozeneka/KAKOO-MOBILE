@@ -19,6 +19,7 @@ import {AlertController} from "@ionic/angular";
 import { createDeletePrompt } from 'src/app/utils/delete-prompt';
 import { Location } from '@angular/common';
 import { OutlineInputComponent } from 'src/app/components/outline-input/outline-input.component';
+import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
 
 @Component({
   selector: 'app-work-experience-form',
@@ -75,7 +76,8 @@ export class WorkExperienceFormPage extends EditAddForm<WorkExperienceEntity> im
     cs: ContentService,
     router: Router,
     private alertController: AlertController,
-    private location: Location
+    private location: Location,
+    public pus: ProfileUtilsService
   ) {
     super(
       route, translate, cdr, cs, router
