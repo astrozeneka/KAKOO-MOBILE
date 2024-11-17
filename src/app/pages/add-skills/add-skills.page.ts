@@ -13,6 +13,7 @@ import { UxButtonComponent } from "../../submodules/angular-ux-button/standalone
 import { catch400Error } from 'src/app/utils/catch400Error';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { TranslateService } from '@ngx-translate/core';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-add-skills',
@@ -20,7 +21,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./add-skills.page.scss'],
   standalone: true,
   imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule,
-    ChipInputComponent, TopbarComponent, BackButtonComponent, UxButtonComponent, UxButtonComponent]
+    ChipInputComponent, TopbarComponent, BackButtonComponent, UxButtonComponent, UxButtonComponent, I18nPipeShortened]
 })
 export class AddSkillsPage implements OnInit {
   candidate: Candidate = {} as any;

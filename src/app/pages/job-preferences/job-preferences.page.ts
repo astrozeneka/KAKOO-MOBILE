@@ -20,6 +20,7 @@ import { displayErrors } from 'src/app/utils/display-errors';
 import { catch400Error } from 'src/app/utils/catch400Error';
 import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
 import { Location } from '@angular/common';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-job-preferences',
@@ -27,7 +28,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./job-preferences.page.scss'],
   standalone: true,
   imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ChipInputComponent, ReactiveFormsModule,
-    UxButtonComponent
+    UxButtonComponent, I18nPipeShortened
   ]
 })
 export class JobPreferencesPage implements OnInit {

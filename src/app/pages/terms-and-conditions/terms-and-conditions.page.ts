@@ -7,6 +7,9 @@ import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 import { Router } from '@angular/router';
 
+/**
+ * Use variable to display two languages and create two different components
+ */
 @Component({
   selector: 'app-terms-and-conditions',
   templateUrl: './terms-and-conditions.page.html',

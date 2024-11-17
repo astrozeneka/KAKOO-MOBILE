@@ -17,6 +17,7 @@ import { catch400Error } from 'src/app/utils/catch400Error';
 import { AtLeastOneFieldRequiredValidator, UrlValidator } from 'src/app/utils/validators';
 import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
 import { Location } from '@angular/common';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-social-accounts',
@@ -24,7 +25,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./social-accounts.page.scss'],
   standalone: true,
   imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, SocialAccountInputComponent, ReactiveFormsModule,
-    UxButtonComponent
+    UxButtonComponent, I18nPipeShortened
   ]
 })
 export class SocialAccountsPage implements OnInit {

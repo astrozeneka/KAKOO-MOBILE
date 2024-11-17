@@ -1,23 +1,23 @@
 
 <ion-header [translucent]="false">
   @if (formMode == 'default'){
-    <app-topbar [progress]="0.2">
+    <app-topbar [progress]="6/9">
       <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Setup your profile</div>
+      <div>{{ "Setup your profile" |_ }}</div>
       <div slot="end">
         <ion-button
           color="primary"
           fill="clear"
           (click)="skip()"
         >
-          Skip
+          {{ "Skip" |_ }}
         </ion-button>
       </div>
     </app-topbar>
   } @else if (formMode == 'edit'){
     <app-topbar variant="light">
       <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Edit Job Preferences</div>
+      <div>{{ "Edit Job Preference" |_ }}s</div>
     </app-topbar>
   }
 </ion-header>
@@ -27,7 +27,7 @@
       <div class="heading">
         <h2 class="display-2">Job preferences</h2>
         <div class="helper">
-          Let us know you a bit lorem ipsum is a dummy text for the printing.
+          {{ "Let us know you a bit more about you" |_ }}
         </div>
       </div>
     } @else {
@@ -36,8 +36,8 @@
     <form [formGroup]="form" (submit)="submit()"><!-- Can consider to delete this div -->
       <div class="input-wrapper">
         <app-chip-input
-          label="Type of employment"
-          placeholder="Select Type of Employment"
+          label="{{'Type of employment' |_ }}*"
+          placeholder="{{'Select Type of Employment' |_ }}"
           formControlName="employmentTypeEntity"
           [options]="employmentTypeOptions"
           [errorText]="displayedError['employmentTypeEntity']"
@@ -48,8 +48,8 @@
       </div>
       <div class="input-wrapper">
         <app-chip-input
-          label="Work Type"
-          placeholder="Select Work Type"
+          label="{{ 'Work Type' |_ }}"
+          placeholder="{{ 'Select Work Type' |_ }}"
           [options]="workTypeOptions"
           formControlName="workTypeEntity"
           [errorText]="displayedError['workTypeEntity']"
@@ -58,8 +58,8 @@
       </div>
       <div class="input-wrapper">
         <app-chip-input
-          label="Salary Expectations"
-          placeholder="Select Salary Expectations"
+          label="{{ 'Salary Expectations' |_ }}"
+          placeholder="{{ 'Select Salary Expectations' |_ }}"
           [options]="salaryExpectationOptions"
           [keyAccessor]="salaryExpectationKeyAccessor"
           [errorText]="displayedError['salaryExpectationEntity']"
@@ -72,8 +72,8 @@
         <!-- the form below is in the user, not candidate, to study later-->
         <!-- Form value should be loaded from server -->
         <app-chip-input
-          label="Notice Period for Full-time"
-          placeholder="Select Notice Period for Full-time"
+          label="{{ 'Notice Period for Full-time' |_ }}"
+          placeholder="{{ 'Select Notice Period for Full-time' |_ }}"
           [options]="noticePeriodOptions"
           formControlName="noticePeriodEntity"
           [errorText]="displayedError['noticePeriodEntity']"
@@ -85,8 +85,8 @@
         <!-- the form below is in the user, not candidate, to study later-->
         <!-- Form value should be loaded from server -->
         <app-chip-input
-          label="Hiring Status"
-          placeholder="Select Hiring Status"
+          label="{{ 'Hiring Status' |_ }}"
+          placeholder="{{ 'Select Hiring Status' |_ }}"
           [options]="hiringStatusOptions"
           formControlName="hiringStatusEntity"
           [errorText]="displayedError['hiringStatusEntity']"
@@ -97,8 +97,8 @@
       </div>
       <div class="input-wrapper">
         <app-chip-input
-          label="Mobility"
-          placeholder="Add Mobility and press Enter/Return key"
+          label="{{ 'Mobility' |_ }}"
+          placeholder="{{ 'Add Mobility and press Enter/Return key' |_ }}"
           [options]="mobilityOptions"
           [keyAccessor]="mobilityKeyAccessor"
           formControlName="selfCandidateMobilityEntities"
@@ -126,9 +126,9 @@
             [loading]="formIsLoading"
           >
             @if (formMode == 'default'){
-              Save &amp; continue
+              {{ "Save & continue" |_ }}
             } @else if (formMode == 'edit') {
-              Save
+              {{ "Save" |_ }}
             }
           </app-ux-button>
         </div>

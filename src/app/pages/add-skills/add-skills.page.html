@@ -2,16 +2,16 @@
 <!-- Here, the header is ouside the ion-content -->
 <!-- This architecture is the better way to implement -->
 <ion-header [translucent]="false">
-  <app-topbar [progress]="0.2">
+  <app-topbar [progress]="2/9">
     <app-back-button slot="start" variant="topbar"></app-back-button>
-    <div>Setup your profile</div>
+    <div>{{ "Setup your profile" |_ }}</div>
     <div slot="end">
       <ion-button
         color="primary"
         fill="clear"
         (click)="skip()"
       >
-        Skip
+        {{ "Skip" |_ }}
       </ion-button>
     </div>
   </app-topbar>
@@ -23,9 +23,9 @@
   <!-- the code used to stick the Save&Continue button should be reused -->
   <div class="ion-padding-horizontal form-wrapper">
     <div class="form-header">
-      <h2 class="display-2">Add skills</h2>
+      <h2 class="display-2">{{ "Add skills" |_ }}</h2>
       <div class="helper">
-        Let us know you a bit lorem ipsum is a dummy text for the printing.
+        {{ "Let us know you a bit more about you" |_ }}
       </div>
     </div>
 
@@ -43,8 +43,8 @@
         (blur)="testSkillsControlBlur()"
       ></app-chip-input>-->
       <app-chip-input
-        label="Skills *"
-        placeholder="Skill (ex: Full Stack Developer)"
+        label="{{ 'Skills' |_ }} *"
+        placeholder="{{'Skill'|_}} (ex: Full Stack Developer)"
         [options]="skillOptions"
         [keyAccessor]="skillOptionsKeyAccessor"
         formControlName="skills"
@@ -61,7 +61,7 @@
             type="submit"
             [loading]="formIsLoading"
           >
-            Save &amp; continue
+            {{ "Save & continue" |_ }}
           </app-ux-button>
         </div>
       </div>

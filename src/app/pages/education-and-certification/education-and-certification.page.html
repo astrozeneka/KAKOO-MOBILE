@@ -1,14 +1,14 @@
 <ion-header>
-  <app-topbar [progress]="0.4">
+  <app-topbar [progress]="3/9">
     <app-back-button slot="start" variant="topbar"></app-back-button>
-    <div>Setup your profile</div>
+    <div>{{ "Setup your profile" |_ }}</div>
     <div slot="end">
       <ion-button
         color="primary"
         fill="clear"
         (click)="skip()"
       >
-        Skip
+        {{ "Skip" |_ }}
       </ion-button>
     </div>
   </app-topbar>
@@ -18,15 +18,15 @@
   <div class="ion-padding-horizontal form-wrapper">
 
     <div class="form-header">
-      <h2 class="display-2">Education and Certification</h2>
+      <h2 class="display-2">{{ "Education and Certification" |_ }}</h2>
       <div class="helper">
-        Let us know you a bit lorem ipsum is a dummy text for the printing.
+        {{ "Let us know you a bit more about you" |_ }}
       </div>
     </div>
 
     <!-- Education -->
     <app-section-heading class="education-heading">
-      Education
+      {{ "Education" |_ }}
       @if (candidateEducationEntities.length > 0){
         <ion-button
           color="primary"
@@ -48,7 +48,7 @@
           (click)="router.navigateByUrl('/education-form?mode=add')"
         >
           <div class="inner">
-            Add education
+            {{ "Add education" |_ }}
           </div>
         </ion-button>
       }
@@ -80,7 +80,7 @@
 
     <!-- Certification -->
     <app-section-heading class="certification-heading">
-      Certification
+      {{ "Certification" |_ }}
       @if (candidateCertificateEntities.length > 0){
         <ion-button
           color="primary"

@@ -1,23 +1,23 @@
 
 <ion-header>
   @if (formMode == 'default'){
-    <app-topbar [progress]="0.2">
+    <app-topbar [progress]="1/9">
       <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Setup your profile</div>
+      <div>{{ "Setup your profile" |_ }}</div>
       <div slot="end">
         <ion-button
           color="primary"
           fill="clear"
           (click)="skip()"
         >
-          Skip
+          {{ "Skip" |_ }}
         </ion-button>
       </div>
     </app-topbar>
   } @else if (formMode == 'edit') {
     <app-topbar variant="light">
       <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Edit Profile</div>
+      <div>{{ "Edit Profile" |_ }}</div>
     </app-topbar>
   }
 </ion-header>
@@ -27,9 +27,9 @@
   <div class="ion-padding-horizontal form-wrapper">
     @if (formMode == 'default'){
       <div class="form-header">
-        <h2 class="display-2">Add skills</h2>
+        <h2 class="display-2">{{ "Add Personal Information" |_ }}</h2>
         <div class="helper">
-          Let us know you a bit lorem ipsum is a dummy text for the printing.
+          {{ "Let us know you a bit more about you" |_ }}
         </div>
       </div>
     } @else {
@@ -40,7 +40,7 @@
         <div class="col-6">
           <app-outline-input
             placeholder="Mohit"
-            label="First name*"
+            label="{{ 'First name' |_ }}*"
             formControlName="firstName"
             [errorText]="displayedError['firstName']"
           ></app-outline-input>
@@ -57,7 +57,7 @@
         <div class="col-6">
           <app-outline-input
             placeholder="Sharma"
-            label="Middle name"
+            label="{{'Middle name' |_ }}"
             formControlName="middleName"
             [errorText]="displayedError['middleName']"
           ></app-outline-input>
@@ -76,7 +76,7 @@
         <!-- The below component will replace the other controls for later -->
         <app-outline-input
           placeholder="Sharma"
-          label="Last name*"
+          label="{{ 'Last name' |_ }}*"
           formControlName="lastName"
           [errorText]="displayedError['lastName']"
         ></app-outline-input>
@@ -94,7 +94,7 @@
       <div class="input-wrapper">
         <app-outline-input
           placeholder="01/07/1999"
-          label="Date of birth*"
+          label="{{ 'Date of birth' |_ }}*"
           formControlName="birthDay"
           [errorText]="displayedError['birthDay']"
           type="date"
@@ -117,7 +117,7 @@
       <div class="input-wrapper">
         <app-outline-input
           placeholder="jhinganmohit79@gmail.com"
-          label="Email*"
+          label="{{ 'Email' |_ }}*"
           formControlName="email"
           [errorText]="displayedError['email']"
         ></app-outline-input>
@@ -142,7 +142,7 @@
         ></ion-input> -->
         <app-phone-selector
           placeholder="Enter your phone"
-          label="Phone number"
+          label="{{ 'Phone number' |_ }}"
           variant="outline"
           formControlName="phonefull"
           [split]="true"
@@ -153,7 +153,7 @@
         <!--- Kesako ?? -->
         <app-outline-input
           placeholder="Office assistant course"
-          label="Job title"
+          label="{{ 'Job title' |_ }}"
           formControlName="profile"
           [errorText]="displayedError['profile']"
         ></app-outline-input>
@@ -171,7 +171,7 @@
         <div class="col-6">
           <app-outline-input
             placeholder="5"
-            label="Total experience"
+            label="{{ 'Total experience' |_ }}"
             formControlName="totalExperience"
             [errorText]="displayedError['totalExperience']"
           ></app-outline-input>
@@ -186,7 +186,7 @@
         <div class="col-6">
           <app-outline-input
             placeholder="€ 0"
-            label="Daily rate (Euro)"
+            label="{{ 'Daily rate (Euro)' |_ }}"
             formControlName="dailyRate"
             [errorText]="displayedError['dailyRate']"
             inputMode="digits"
@@ -208,8 +208,8 @@
         <!-- ERROR TypeError: Cannot read properties of null (reading 'toLowerCase') -->
         <!-- Need futher evaluation before declaring as a prioritary or not -->
         <app-chip-input
-          label="Language"
-          placeholder="Enter your languages"
+          label="{{ 'Language' |_ }}"
+          placeholder="{{ 'Enter your languages' |_ }}"
           [options]="languageOptions"
           [keyAccessor]="languageOptionsKeyAccessor"
           formControlName="languageEntities"
@@ -218,8 +218,8 @@
       </div>
       <div class="input-wrapper">
         <app-chip-input
-          label="Country"
-          placeholder="Enter your country"
+          label="{{ 'Country' |_ }}"
+          placeholder="{{ 'Enter your country' |_ }}"
           [options]="countryOptions"
           [keyAccessor]="countryKeyAccessor"
           formControlName="countryEntity"
@@ -242,8 +242,8 @@
       </div>
       <div class="input-wrapper">
         <app-chip-input
-          label="State"
-          placeholder="Enter your state"
+          label="{{ 'State' |_ }}"
+          placeholder="{{ 'Enter your state' |_ }}"
           [options]="stateOptions"
           [keyAccessor]="stateKeyAccessor"
           formControlName="stateEntity"
@@ -253,8 +253,8 @@
       </div>
       <div class="input-wrapper">
         <app-chip-input
-          label="City"
-          placeholder="Enter your city"
+          label="{{ 'City' |_ }}"
+          placeholder="{{ 'Enter your city' |_ }}"
           [options]="cityOptions"
           [keyAccessor]="cityKeyAccessor"
           formControlName="cityEntity"
@@ -264,8 +264,8 @@
       </div>
       <div class="input-wrapper">
         <ion-input
-          label="Address"
-          placeholder="Enter your address"
+          label="{{ 'Address' |_ }}"
+          placeholder="{{ 'Enter your address' |_ }}"
           fill="outline"
           label-placement="stacked"
           formControlName="address"
@@ -289,7 +289,7 @@
             expand="block"
             [loading]="formIsLoading"
           >
-            Save &amp; continue
+            {{ "Save & continue" |_ }}
           </app-ux-button>
         </div>
       </div>

@@ -19,6 +19,7 @@ import { OutlineInputComponent } from "../../components/outline-input/outline-in
 import { TranslateService } from '@ngx-translate/core';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { Location } from '@angular/common';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-personal-information',
@@ -26,7 +27,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./personal-information.page.scss'],
   standalone: true,
   imports: [IonIcon, IonLabel, IonItem, IonInput, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ChipInputComponent, ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent,
-    ...(environment.production ? [ProdDebugButtonComponent] : [DevDebugButtonComponent]), OutlineInputComponent],
+    ...(environment.production ? [ProdDebugButtonComponent] : [DevDebugButtonComponent]), OutlineInputComponent, I18nPipeShortened],
   providers: [
   ]
 })

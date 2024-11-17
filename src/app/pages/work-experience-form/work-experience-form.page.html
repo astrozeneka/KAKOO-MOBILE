@@ -1,7 +1,13 @@
 <ion-header>
   <app-topbar variant="light">
     <app-back-button slot="start" variant="topbar"></app-back-button>
-    <div>{{ "Edit Work Experience" |_ }}</div>
+    <div>
+      @if (formMode == 'edit'){
+        {{ "Edit Work Experience" |_ }}
+      } @else {
+        {{ "Add Work Experience" |_ }}
+      }
+    </div>
     <div slot="end">
       @if (formMode == 'edit') {
         <app-ux-button
@@ -25,7 +31,7 @@
       <div>
         <app-outline-input
           type="text"
-          placeholder="{{ 'Company Name' |_ }}"
+          placeholder="{{ 'Google, Inc' |_ }}"
           label="{{ 'Company Name*' |_ }}"
           formControlName="companyName"
           [errorText]="displayedError['companyName']"
@@ -43,13 +49,14 @@
       <div>
         <app-outline-input
           type="text"
-          placeholder="{{ 'Design and develop marketplace (App Store/Play Store) quality level mobile application for customers' |_ }}"
+          placeholder="{{ 'Design and develop marketplace (App Store/Play Store) quality level mobile application for customers.' |_ }}"
           label="{{ 'Job Description*' |_ }}"
           formControlName="description"
           [errorText]="displayedError['description']"
         ></app-outline-input>
       </div>
       <div>
+        <!-- Should edit the form below to use profile utils details and key accessor -->
         <app-chip-input
           label="Type of employment"
           placeholder="Select Type of Employment"
@@ -61,8 +68,8 @@
       </div>
       <div>
         <app-chip-input
-          label="Work Type"
-          placeholder="Select Work Type"
+          label="{{ 'Work Type' |_ }}"
+          placeholder="{{ 'Select Work Type' |_ }}"
           [options]="['Remote', 'On-site', 'Hybrid']"
           formControlName="workType"
           [errorText]="displayedError['workType']"
@@ -96,7 +103,7 @@
         <app-outline-input
           type="text"
           label="{{ 'Responsibilities and Achievements' |_ }}"
-          placeholder="{{ 'Design and develop marketplace (App Store/Play Store) quality level mobile application for customers' |_ }}"
+          placeholder="{{ 'Design and develop marketplace (App Store/Play Store) quality level mobile application for customers.' |_ }}"
           formControlName="responsibilitiesAndAchievements"
           [errorText]="displayedError['responsibilitiesAndAchievements']"
         ></app-outline-input>
@@ -119,7 +126,7 @@
             expand="block"
             [loading]="formIsLoading"
           >
-            {{ "Save &amp; continue" | _ }}
+            {{ "Save & continue" | _ }}
           </app-ux-button>
         </div>
       </div>

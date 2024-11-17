@@ -41,7 +41,7 @@ export class ProfileSocialMediaLinksCardComponent  implements OnInit, OnChanges 
   processLinkedInEntity(entity?:SocialAccountEntity):string{
     if (entity) {
       if(entity.profileUrl.includes("linkedin.com/in/")){
-        return entity.profileUrl.slice(entity.profileUrl.indexOf('.com/') + 5).replace('/', '')
+        return entity.profileUrl.slice(entity.profileUrl.indexOf('.com/in/') + 8).replace('/', '')
       } else {
         return entity.profileUrl
       }
