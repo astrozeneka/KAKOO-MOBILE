@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { SvgProfileComponent } from "../../svg-profile/svg-profile.component";
 import { ContentService } from 'src/app/services/content.service';
 import { Candidate } from 'src/app/models/Candidate';
+import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profile-cta/clickable-profile-cta.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,7 @@ import { Candidate } from 'src/app/models/Candidate';
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, DashboardCardComponent, DashboardRecommendedJobCardComponent, DashboardRecommendedAssessmentCardComponent, DashboardInterviewCtaComponent,
-    BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent, SvgProfileComponent]
+    BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent, SvgProfileComponent, ClickableProfileCtaComponent]
 })
 export class DashboardPage extends BottomNavbarTarget implements OnInit {
 

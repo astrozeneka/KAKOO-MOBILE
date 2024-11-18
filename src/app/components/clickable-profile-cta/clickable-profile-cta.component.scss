@@ -1,0 +1,45 @@
+
+.clickable-profile-cta {
+    //
+    margin-top: var(--margin-top, 8px);
+    margin-bottom: var(--margin-bottom, 8px);
+    // The clickable property
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --border-color: #E7E7E9;
+    --border-width: 1px;
+    --border-style: solid;
+    height: auto;
+    & .inner{
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & .left{
+            text-align: left;
+            flex-grow: 1;
+            & .title{
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 21.48px;            
+                margin-bottom: 4px;
+            }
+            & .subtitle{
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 21px;
+            }
+        }
+        
+        & .right{
+            min-width: 43px;
+            & img{
+                width: 43px!important;
+                height: 43px;
+            }
+        }
+    }
+}
