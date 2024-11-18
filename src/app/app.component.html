@@ -1,3 +1,8 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+  @if (bnus.bottomNavbarAvailable) {
+    <div class="floating-bottom">
+      <app-bottom-navbar [fixedMode]="true"></app-bottom-navbar>
+    </div>
+  }
 </ion-app>

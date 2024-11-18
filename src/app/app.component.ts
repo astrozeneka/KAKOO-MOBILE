@@ -5,21 +5,26 @@ import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@an
 import { TranslateService } from '@ngx-translate/core';
 import { AppLanguageService } from './services/app-language.service';
 import { IntentPlugin } from './capacitor-plugins/intent.plugin'; // Should be loaded in the main app component
+import { BottomNavbarUtilsService } from './services/bottom-navbar-utils.service';
+import { BottomNavbarComponent } from './components/bottom-navbar/bottom-navbar.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
   standalone: true,
   imports: [
     IonApp, 
-    IonRouterOutlet
+    IonRouterOutlet,
+    BottomNavbarComponent
   ],
 })
 export class AppComponent implements OnInit {
   prefDark = window.matchMedia('(prefers-color-scheme: dark)');
   constructor(
     private translate: TranslateService,
-    private appLanguageService: AppLanguageService
+    private appLanguageService: AppLanguageService,
+    public bnus: BottomNavbarUtilsService,
   ) {
     Preferences.set({
       key: 'mode',

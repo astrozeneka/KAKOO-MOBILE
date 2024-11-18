@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { NavController } from '@ionic/angular';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-bottom-navbar',
@@ -14,13 +15,23 @@ import { NavController } from '@ionic/angular';
 export class BottomNavbarComponent  implements OnInit {
   @Input() tabName: string|null = null
   tabSequences = ['dashboard', 'meetings', 'jobboard', 'referrals', 'more-29']
+  @Input() fixedMode: boolean = false
 
   constructor(
     public router: Router,
     public navController: NavController
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.fixedMode){
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationEnd))
+        .pipe(filter((e) => this.tabSequences.map(e => '/' + e === this.router.url).includes(true)))
+        .subscribe((e)=>{
+          this.tabName = this.router.url.replace('/', '')
+        })
+    }
+  }
 
   goToTab(target:string) { // Experimental (to be updated later)
     console.log(target, this.tabName)
