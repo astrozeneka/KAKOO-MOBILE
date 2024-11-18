@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <ion-button
+    fill="clear"
+    expand="block"
+    color="dark"
+    [class]="'clickable-job-card ' + variant"
+    [routerLink]="routerLink"
+  >
+    <div class="inner">
+      <div class="head">
+        <div class="date">
+          <ng-content select="[slot='date']"></ng-content>
+        </div>
+        <div class="controls">
+          <ion-button
+            fill="clear"
+            shape="round"
+            color="dark"
+          >
+            <ion-icon src="/assets/svg/icon-bookmark.svg"></ion-icon>
+            <!-- In case of job invitation, we don't need to save, need to be updated later -->
+            <!--<span>Save</span>-->
+          </ion-button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="image-container">
+          <!-- Company picture is not available from the API -->
+          <ion-icon src="/assets/svg/icon-briefcase.svg" style="font-size: 22px"></ion-icon>
+          <!--<ng-content select="[slot='image']"></ng-content>-->
+        </div>
+        <div>
+          <div class="title">
+            <ng-content select="[slot='title']"></ng-content>
+          </div>
+          <div class="subtitle">
+            <ng-content select="[slot='subtitle']"></ng-content>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="chips">
+          <ng-content select="[slot='footer']"></ng-content>
+        </div>
+        <div [class]="'status ' + status">
+          @if (status == 'applied') {
+            <ion-icon src="/assets/svg/icon-applied.svg"></ion-icon>
+            <span>Applied</span>
+          } @else if (status == 'REJECTED') {
+            <ion-icon src="/assets/svg/icon-rejected.svg"></ion-icon>
+            <span style="color:#D71313">Rejected</span>
+          } @else if (status == "Non") {
+            <span>-</span>
+          } @else {
+            <span>{{ status }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  </ion-button>
+</div>

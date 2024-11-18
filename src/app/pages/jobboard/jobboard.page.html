@@ -8,7 +8,7 @@
     </ion-header>
     <div>
       <div class="text">
-        You have <em>6 Jobs</em> invitations received
+        You have <em>{{ invitationEntities.length }} Job invitation{{ invitationEntities.length > 1 ? 's' : '' }}</em> received
       </div>
     </div>
   </div>
@@ -27,8 +27,9 @@
   <br/>
   <div class="ion-padding-horizontal">
     @for (invitation of displayedInvitationEntities; track invitation.id) {
-      <app-job-card
+      <app-clickable-job-card
         [status]="invitation.inviteStatus"
+        [routerLink]="'/job-detail/' + invitation.jobEntity.jobId"
       >
         <div slot="date">
           <!-- Todo, the language -->
@@ -46,7 +47,7 @@
           <div class="chip">{{ invitation.jobEntity.employmentTypeEntity.name }}</div>
           <div class="chip">{{ invitation.jobEntity.workTypeEntity.name }}</div>
         </div>
-      </app-job-card>
+      </app-clickable-job-card>
     }
     <br/>
     <app-job-card

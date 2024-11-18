@@ -13,13 +13,14 @@ import { ContentService } from 'src/app/services/content.service';
 import { JobInvitationEntity, PaginedJobInvitationArray } from 'src/app/models/Candidate';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
+import { ClickableJobCardComponent } from 'src/app/components/clickable-job-card/clickable-job-card.component';
 @Component({
   selector: 'app-jobboard',
   templateUrl: './jobboard.page.html',
   styleUrls: ['./jobboard.page.scss'],
   standalone: true,
   imports: [IonSearchbar, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, JobCardComponent, TopbarDashboardComponent,
-    BottomNavbarComponent, FilterChipsComponent, ReactiveFormsModule
+    BottomNavbarComponent, FilterChipsComponent, ReactiveFormsModule, ClickableJobCardComponent
   ]
 })
 export class JobboardPage extends BottomNavbarTarget implements OnInit {
