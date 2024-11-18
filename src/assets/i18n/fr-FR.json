@@ -64,7 +64,7 @@
     "Date of birth": "Date de naissance",
     "Job title": "Intitulé du poste",
     "Total experience": "Expérience totale",
-    "Daily rate (Euro)": "Taux journalier (Euro)",
+    "Daily rate (€)": "Taux journalier (€)",
     "Language": "Langue",
     "Enter your languages": "Entrez vos langues",
     "Enter your country": "Entrez votre pays",
@@ -85,6 +85,7 @@
     "Education": "Éducation",
     "Certification": "Certificats",
     "Add": "Ajouter",
+    "Edit": "Modifier",
     "Add education": "Ajouter un diplôme",
     "Edit Education": "Modifier un diplôme",
 
@@ -120,7 +121,7 @@
     "End Date*": "Date de fin*",
     "Responsibilities and Achievements": "Responsabilités et réalisations",
     "Location*": "Emplacement*",
-
+    "Location": "Emplacement",
     "Projects": "Projets",
     "Project Portfolio": "Portfolio de projets",
     "Add project": "Ajouter un projet",
@@ -145,6 +146,35 @@
     "Edit Social Accounts": "Modifier les comptes de réseaux sociaux",
     "Social Accounts": "Comptes de réseaux sociaux",
 
-    "Submit": "Soumettre"
+    "Submit": "Soumettre",
 
+    "Good Morning": "Bonjour",
+    "You got new notifications": "Vous avez de nouvelles notifications",
+    "You got invitation for Jobs": "Vous avez reçu de(s) invitation(s) à postuler",
+    " Here are some informations": "Voici quelques informations",
+    "Interview": "Entretien",
+    "Job Invitation": "Invitation à postuler",
+    "Assessment": "Évaluation",
+    "Video Assessment": "Évaluation vidéo",
+    "Recommended Jobs": "Emplois recommandés",
+    "Recommended Assessments": "Évaluations recommandées",
+
+    "Yaay! You have completed all steps": "Yaay! Vous avez terminé toutes les étapes",
+    "Edit your information any time you want.": "Modifiez vos informations à tout moment.",
+    "Are you ready to interview?": "Êtes-vous prêt à passer un entretien ?",
+    "Upload video": "Télécharger une vidéo",
+
+    "Home": "Accueil",
+    "Meetings": "Réunions",
+    "Jobs": "Emplois",
+    "Referrals": "Parrainages",
+    "More": "Plus",
+
+    "Basic Details": "Information personnelles",
+    "Job preferences": "Préférences d'emploi",
+    "Social Media Links": "Liens des réseaux sociaux",
+    "UNAVAILABLE": "INDISPONIBLE",
+    "Daily rate": "Taux journalier",
+    "Languages": "Langues",
+    "Duration": "Durée"
 }

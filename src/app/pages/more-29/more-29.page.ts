@@ -9,7 +9,7 @@ import { FileCardComponent } from "../../components/file-card/file-card.componen
 import { SectionHeadingComponent } from 'src/app/components/section-heading/section-heading.component';
 import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-navbar.component';
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
 import { Candidate, CityEntity, CountryEntity } from 'src/app/models/Candidate';
 import { UploadedFile } from 'src/app/models/File';
@@ -29,7 +29,7 @@ import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profi
   imports: [IonInput, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule,
     TopbarComponent, ButtonGroupItemComponent, ProfileCtaComponent, FileCardComponent, FileCardComponent,
     SectionHeadingComponent, BottomNavbarComponent, FormsModule, ReactiveFormsModule, ClickableFileCardComponent,
-    UxButtonComponent, SvgProfileComponent, ClickableProfileCtaComponent
+    UxButtonComponent, SvgProfileComponent, ClickableProfileCtaComponent, RouterModule
   ]
 })
 export class More29Page extends BottomNavbarTarget implements OnInit { // The class name is subjected to change in the future

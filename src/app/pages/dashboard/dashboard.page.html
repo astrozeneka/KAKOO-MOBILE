@@ -18,7 +18,7 @@
 
   <div class="ion-padding-horizontal welcome">
     <div class="title">
-      Good Morning 👋
+      {{ "Good Morning" |_ }} 👋
     </div>
     <div class="subtitle">
       {{ candidate?.firstName }} {{ candidate?.lastName }}
@@ -33,14 +33,14 @@
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      You got new notifications
+      {{ "You got new notifications" |_ }}
     </app-section-heading>
     <div class="button-group">
       <app-button-group-item [chip]="2">
         You got invitation for Jobs
       </app-button-group-item>
       <app-button-group-item [chip]="1">
-        You got Assessment Request "Java"
+        You got Assessment Request "Java" <!-- Notification endpoint -->
       </app-button-group-item>
       <app-button-group-item [chip]="1">
         You got Video Assessment Request
@@ -56,13 +56,13 @@
 
   <div class="ion-padding-horizontal">
     <div class="section-heading-2">
-      Here are some informations....
+      {{ "Here are some informations" |_ }}....
     </div>
     <div class="half-half">
       <app-clickable-dashboard-card
         slug="interview"
         color="#007E4817"
-        title="Interview"
+        title="{{ 'Interview' |_ }}"
         subtitle="07"
         style="flex: 1"
         routerLink="/meetings"
@@ -70,7 +70,7 @@
       <app-clickable-dashboard-card
         slug="job-invitation"
         color="#9C282917"
-        title="Job Invitation"
+        title="{{ 'Job Invitation' |_ }}"
         subtitle="10"
         style="flex: 1"
         routerLink="/jobboard"
@@ -80,14 +80,14 @@
       <app-clickable-dashboard-card
         slug="assessment"
         color="#FBBC0517"
-        title="Assessment"
+        title="{{ 'Assessment' |_ }}"
         subtitle="07"
         style="flex: 1"
       ></app-clickable-dashboard-card>
       <app-clickable-dashboard-card
         slug="video-assessment"
         color="#375DFB17"
-        title="Video Assessment"
+        title="{{ 'Video Assessment' |_ }}"
         subtitle="24"
         style="flex: 1"
       ></app-clickable-dashboard-card>
@@ -95,7 +95,7 @@
   </div>
 
   <div class="bg-primary recommended-jobs">
-    <div class="title ion-padding-horizontal">Recommended Jobs</div>
+    <div class="title ion-padding-horizontal">{{ "Recommended Jobs" |_ }}</div>
     <div class="">
       <div class="horizontal-scroll ion-padding-horizontal">
         <app-dashboard-recommended-job-card></app-dashboard-recommended-job-card>
@@ -109,7 +109,7 @@
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Recommended Assessments
+      {{ "Recommended Assessments" |_ }}
     </app-section-heading>
 
     <app-dashboard-recommended-assessment-card> </app-dashboard-recommended-assessment-card>

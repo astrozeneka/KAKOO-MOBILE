@@ -18,6 +18,7 @@ import { createDeletePrompt, DeletableEntity } from 'src/app/utils/delete-prompt
 import { BehaviorSubject, catchError, finalize, map, throwError } from 'rxjs';
 import {AlertController} from "@ionic/angular";
 import { TranslateService } from '@ngx-translate/core';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 interface UXCandidateEducationEntity extends CandidateEducationEntity, DeletableEntity {}
 interface UXCandidateCertificateEntity extends CandidateCertificateEntity, DeletableEntity {}
@@ -34,7 +35,7 @@ type Identifiable = CandidateEducationEntity & CandidateCertificateEntity & Work
   imports: [IonButton, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ExperienceCardComponent,
     ProfileBasicDetailsCardComponent, ProfileJobPreferencesCardComponent, ProfileSkillChipsCardComponent,
     ProfileSocialMediaLinksCardComponent, TopbarComponent, BackButtonComponent, SectionHeadingComponent, ChipInputComponent,
-    ChipInputComponent, ReactiveFormsModule
+    ChipInputComponent, ReactiveFormsModule, I18nPipeShortened
   ]
 })
 export class EditAndPreviewProfilePage implements OnInit {

@@ -7,7 +7,7 @@
     >
       <div class="inner">
         <ion-icon src="/assets/svg/navbar/home.svg" class="dashboard-icon"></ion-icon>
-        <div class="label">Home</div>
+        <div class="label">{{ "Home" |_ }}</div>
       </div>
     </ion-button>
     <ion-button
@@ -17,7 +17,7 @@
     >
       <div class="inner">
         <ion-icon src="/assets/svg/navbar/meetings.svg" class="meetings-icon"></ion-icon>
-        <div class="label">Meetings</div>
+        <div class="label">{{ "Meetings" |_ }}</div>
       </div>
     </ion-button>
     <ion-button 
@@ -27,7 +27,7 @@
     >
       <div class="inner">
         <ion-icon src="/assets/svg/navbar/jobs.svg" class="jobs-icon"></ion-icon>
-        <div class="label">Jobs</div>
+        <div class="label">{{ "Jobs" |_ }}</div>
       </div>
     </ion-button>
     <ion-button
@@ -37,7 +37,7 @@
     >
       <div class="inner">
         <ion-icon [src]="'/assets/svg/navbar/referral' + (tabName==='referrals'?'-active':'')+'.svg'" class="referrals-icon"></ion-icon>
-        <div class="label">Referral</div>
+        <div class="label">{{ "Referrals" |_ }}</div>
       </div>
     </ion-button>
     <ion-button
@@ -47,7 +47,7 @@
     >
       <div class="inner">
         <ion-icon src="/assets/svg/navbar/more.svg" class="more-icon"></ion-icon>
-        <div class="label">More</div>
+        <div class="label">{{ "More" |_ }}</div>
       </div>
     </ion-button>
   </div>

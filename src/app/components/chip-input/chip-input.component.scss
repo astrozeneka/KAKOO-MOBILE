@@ -82,6 +82,7 @@
     height: auto;
     background: white;
     margin-top: 2px;
+    z-index: 9999!important;
     & ion-button{
         --border-width: 0px;
         --background: cyan;

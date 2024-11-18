@@ -186,7 +186,7 @@
         <div class="col-6">
           <app-outline-input
             placeholder="€ 0"
-            label="{{ 'Daily rate (Euro)' |_ }}"
+            label="{{ 'Daily rate (€)' |_ }}"
             formControlName="dailyRate"
             [errorText]="displayedError['dailyRate']"
             inputMode="digits"
@@ -289,7 +289,11 @@
             expand="block"
             [loading]="formIsLoading"
           >
-            {{ "Save & continue" |_ }}
+            @if (formMode == 'default'){
+              {{ "Save & continue" |_ }}
+            } @else if (formMode == 'edit') {
+              {{ "Save" |_ }}
+            }
           </app-ux-button>
         </div>
       </div>

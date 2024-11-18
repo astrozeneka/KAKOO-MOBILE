@@ -58,6 +58,9 @@
         & .right{
             flex-grow: 1;
         }
+        &+.item{
+            margin-top: 0px;
+        }
     }
 
     // Enhanced UX

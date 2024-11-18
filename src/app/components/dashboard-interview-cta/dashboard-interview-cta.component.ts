@@ -6,13 +6,14 @@ import IFile from 'src/app/models/File';
 import { ContentService } from 'src/app/services/content.service';
 import { Candidate } from 'src/app/models/Candidate';
 import { BehaviorSubject, catchError, finalize, Subject } from 'rxjs';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-dashboard-interview-cta',
   templateUrl: './dashboard-interview-cta.component.html',
   styleUrls: ['./dashboard-interview-cta.component.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, UploadVideoComponent, ReactiveFormsModule]
+  imports: [IonIcon, IonButton, UploadVideoComponent, ReactiveFormsModule, I18nPipeShortened]
 })
 export class DashboardInterviewCtaComponent  implements OnInit {
   form:FormGroup = new FormGroup({

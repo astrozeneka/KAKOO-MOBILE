@@ -21,35 +21,35 @@
   <div class="content">
     <div class="left">
       <div class="item">
-        <div class="label">Email</div>
+        <div class="label">{{ "Email" |_ }}</div>
         <div class="value">{{ candidate?.email }}</div>
       </div>
       <div class="item">
-        <div class="label">Date of birth</div>
-        <div class="value">UNAVAILABLE</div>
+        <div class="label">{{ "Date of birth" |_ }}</div>
+        <div class="value">{{ "UNAVAILABLE" |_ }}</div>
       </div>
       <div class="item">
-        <div class="label">Total experience</div>
+        <div class="label">{{ "Total experience" |_ }}</div>
         <div class="value">{{ candidate?.totalExperience }} years</div>
       </div>
     </div>
     <div class="right">
       <div class="item">
-        <div class="label">Phone Number</div>
+        <div class="label">{{ "Phone Number" |_ }}</div>
         <div class="value">{{ candidate?.phoneCode }} {{ candidate?.phoneNumber }}</div>
       </div>
       <div class="item">
-        <div class="label">Location</div>
+        <div class="label">{{ "Location" |_ }}</div>
         <div class="value">{{ cityKeyAccessor(candidate?.cityEntity) }}, {{ countryKeyAccessor(candidate?.countryEntity) }}</div>
       </div>
       <div class="item">
-        <div class="label">Daily rate (€)</div>
+        <div class="label">{{ "Daily rate" |_ }} (€)</div>
         <div class="value">{{ candidate?.dailyRate }}</div>
       </div>
     </div>
   </div>
   <div class="item">
-    <div class="label">Languages</div>
+    <div class="label">{{ "Languages" |_ }}</div>
     <div class="value">{{ candidate?.languageEntities?.map(languageOptionsKeyAccessor)?.join(", ") }}</div>
   </div>
 

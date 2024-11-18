@@ -8,6 +8,7 @@ import { Platform } from '@ionic/angular';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import IFile from 'src/app/models/File';
 import { Subject } from 'rxjs';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-upload-video',
@@ -21,7 +22,7 @@ import { Subject } from 'rxjs';
       multi: true,
     },
   ],
-  imports: [UxButtonComponent, IonIcon, IonButton ],
+  imports: [UxButtonComponent, IonIcon, IonButton, I18nPipeShortened ],
 })
 export class UploadVideoComponent implements ControlValueAccessor, OnInit {
 

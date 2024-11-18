@@ -3,13 +3,13 @@
   <ion-header>
     <app-topbar variant="light">
       <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Edit Profile</div>
+      <div>{{ "Edit Profile" |_ }}</div>
     </app-topbar>
   </ion-header>
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Basic Details
+      {{ "Basic Details" |_ }}
       <ion-button
         color="primary"
         fill="clear"
@@ -18,7 +18,7 @@
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          Edit
+          {{ "Edit" |_ }}
         </div>
       </ion-button>
     </app-section-heading>
@@ -27,7 +27,7 @@
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Skills
+      {{ "Skills" |_ }}
       <ion-button
         color="primary"
         fill="clear"
@@ -35,7 +35,7 @@
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          Edit
+          {{ "Edit" |_ }}
         </div>
       </ion-button>
     </app-section-heading>
@@ -57,7 +57,7 @@
   
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Education
+      {{ "Education" |_ }}
       <ion-button
         color="primary"
         fill="clear"
@@ -66,7 +66,7 @@
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          Add
+          {{ "Add" |_ }}
         </div>
       </ion-button>
     </app-section-heading>
@@ -98,7 +98,7 @@
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Certification
+      {{ "Certification" |_ }}
       <ion-button
         color="primary"
         fill="clear"
@@ -107,7 +107,7 @@
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          Add
+          {{ "Add" |_ }}
         </div>
       </ion-button>
     </app-section-heading>
@@ -140,7 +140,7 @@
   <div class="ion-padding-horizontal">
 
     <app-section-heading>
-      Experience
+      {{ "Experience" |_ }}
       <ion-button
         color="primary"
         fill="clear"
@@ -149,7 +149,7 @@
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          Add
+          {{ "Add" |_ }}
         </div>
       </ion-button>
     </app-section-heading>
@@ -178,7 +178,7 @@
   <!-- Project portfolios -->
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Project Portfolios
+      {{ "Project Portfolio" |_ }}
       <ion-button
         color="primary"
         fill="clear"
@@ -187,7 +187,7 @@
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          Add
+          {{ "Add" |_ }}
         </div>  
       </ion-button>
     </app-section-heading>
@@ -210,7 +210,7 @@
           {{ entity.projectDescription }}
         </div>
         <div slot="footer">
-          Duration: <b>{{ entity.startDate | date: 'MMM yyyy'}} – {{ entity.endDate | date: 'MMM yyyy' }}</b>
+          {{ "Duration" |_ }}: <b>{{ entity.startDate | date: 'MMM yyyy'}} – {{ entity.endDate | date: 'MMM yyyy' }}</b>
         </div>
       </app-experience-card>
     }
@@ -218,7 +218,7 @@
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Job preferences
+      {{ "Job preferences" |_ }}
       <ion-button
         color="primary"
         fill="clear"
@@ -227,7 +227,7 @@
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          Edit
+          {{ "Edit" |_ }}
         </div>
       </ion-button>
     </app-section-heading>
@@ -236,7 +236,7 @@
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Social Media Links
+      {{ "Social Media Links" |_ }}
       <ion-button
         color="primary"
         fill="clear"
@@ -245,7 +245,7 @@
       >
         <div class="inner">
           <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          Edit
+          {{ "Edit" |_ }}
         </div>
       </ion-button>
     </app-section-heading>
