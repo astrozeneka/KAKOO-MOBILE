@@ -1,3 +1,5 @@
+@import 'src/theme/mixins.scss';
+
 .job-details-header{
     display: flex;
     flex-direction: column;
@@ -30,4 +32,7 @@
             line-height: 19.09px;
         }
     }
+    
+    // Enhanced UX
+    @include loading-placeholder;
 }

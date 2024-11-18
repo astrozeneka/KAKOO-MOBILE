@@ -1,9 +1,14 @@
 <div class="job-details-header">
+  @if (!jobEntity) {
+    <div class="loading-placeholder">
+      <ion-spinner></ion-spinner>
+    </div>
+  }
   <div class="image-container">
     <img src="/assets/png/sample-image-2.png" alt=""/>
   </div>
   <div class="labels">
-    <div class="title">Senior Java Developer</div>
-    <div class="subtitle">Moneycore</div>
+    <div class="title">{{ jobEntity?.positionTitle ?? 'Developer' }}</div>
+    <div class="subtitle">{{ jobEntity?.companyName ?? 'Moneycore' }}</div>
   </div>
 </div>
