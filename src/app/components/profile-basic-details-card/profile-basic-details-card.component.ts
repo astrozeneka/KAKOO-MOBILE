@@ -19,7 +19,7 @@ export class ProfileBasicDetailsCardComponent  implements OnInit {
   // Location
   cityKeyAccessor = (city: CityEntity|undefined) => city?.name;
   countryKeyAccessor = (country: CountryEntity|undefined) => country?.name;
-  // Spoken Languages
+  // Spoken Languages (Is actually available from the PUS)
   languageOptionsKeyAccessor = (language: LanguageEntity):string =>
     this.lang == "en" ? language.name : (language.nameFr||language.name) as string
   

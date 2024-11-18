@@ -4,7 +4,7 @@
       Experience
     </div>
     <div class="value">
-      5 Years
+      {{ jobEntity?.totalExperience ?? '-' }} Year{{ jobEntity?.totalExperience! > 1 ? 's' : '' }}
     </div>
   </div>
   <div class="item">
@@ -12,15 +12,7 @@
       Employment Type
     </div>
     <div class="value">
-      Permanent
-    </div>
-  </div>
-  <div class="item">
-    <div class="label">
-      Employment Type
-    </div>
-    <div class="value">
-      Permanent
+      {{ pus.employmentTypeKeyAccessor(jobEntity?.employmentTypeEntity!) ?? '' }}
     </div>
   </div>
   <div class="item">
@@ -28,7 +20,7 @@
       Work Type
     </div>
     <div class="value">
-      On-site
+      {{ pus.workTypeKeyAccessor(jobEntity?.workTypeEntity!) ?? '-' }}
     </div>
   </div>
   <div class="item">
@@ -36,15 +28,15 @@
       Language
     </div>
     <div class="value">
-      English
+      {{ jobEntity?.spokenLanguageEntities?.map(pus.languageOptionsKeyAccessor)?.join(', ') ?? '-' }}
     </div>
   </div>
   <div class="item">
     <div class="label">
-      Location
+      Location{{ jobEntity?.regionList?.length! > 1 ? 's' : '' }}
     </div>
     <div class="value">
-      Albania, Armenia, India, Indonesia, Iran, France
+      {{ jobEntity?.regionList?.map(pus.countryKeyAccessor)?.join(', ') ?? '-' }}
     </div>
   </div>
 </div>

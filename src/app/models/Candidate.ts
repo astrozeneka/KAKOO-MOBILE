@@ -50,6 +50,10 @@ export interface Candidate {
     countryId: number
     name: any
   }
+
+  export interface RegionEntity extends CountryEntity{
+    iso2: string
+  }
   
   export interface StateEntity {
     stateId: number
@@ -205,7 +209,7 @@ export interface Candidate {
     postalCode: any
     certificationsLicensesIsRequired: boolean
     skillListEntities: SkillEntity[]
-    regionList: any[]
+    regionList: RegionEntity[] // Similar to Country (but not the same)
     stateEntities: any[]
     cityEntities: CityEntity[]
     jobAdditionalDetails: JobAdditionalDetail[]

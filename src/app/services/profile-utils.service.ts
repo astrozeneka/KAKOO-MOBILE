@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MobilityEntity } from '../models/Candidate';
+import { LanguageEntity, MobilityEntity } from '../models/Candidate';
 import { ContentService } from './content.service';
 import { BehaviorSubject, catchError, filter, merge, Observable, throwError } from 'rxjs';
 import StoredData from '../submodules/stored-data/StoredData';
@@ -30,7 +30,7 @@ export class ProfileUtilsService {
     (this.lang=="en" ? option?.name : option?.name_fr)
   workTypeOptions: WorkType[] = []
   workTypeKeyAccessor: (e:WorkType) => string = (option: WorkType) => 
-    (this.lang=="en" ? option.name : option.name_fr)
+    (this.lang=="en" ? option?.name : option?.name_fr)
   salaryExpectationOptions: SalaryExpectation[] = []
   salaryExpectationKeyAccessor: (e:SalaryExpectation) => string = (option: SalaryExpectation) => 
     (this.lang=="en" ? `From ${option.from_amount} ${option.currency} to ${option.to_amount} ${option.currency}` 
@@ -43,7 +43,9 @@ export class ProfileUtilsService {
     (this.lang=="en" ? option.name : option.name_fr)
   mobilityKeyAccessor: (e:MobilityEntity) => string = (option: MobilityEntity) =>
     (this.lang=="fr" ? option.name : option.nameFr) // !!! CAUTION, the language is reversed from the back-end
-  
+  languageOptionsKeyAccessor = (language: LanguageEntity):string =>
+    this.lang == "en" ? language.name : (language.nameFr||language.name) as string
+  countryKeyAccessor = (country: any) => country?.name
 
   constructor(
     private cs: ContentService,

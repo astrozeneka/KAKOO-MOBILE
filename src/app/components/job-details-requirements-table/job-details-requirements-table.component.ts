@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { JobEntity } from 'src/app/models/Candidate';
+import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
 
 @Component({
   selector: 'app-job-details-requirements-table',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./job-details-requirements-table.component.scss'],
   standalone: true
 })
-export class JobDetailsRequirementsTableComponent  implements OnInit {
+export class JobDetailsRequirementsTableComponent  implements OnInit, OnChanges {
+  @Input() jobEntity: JobEntity|null = null as any
 
-  constructor() { }
+  constructor(
+    public pus: ProfileUtilsService,
+    public cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {}
 
+  ngOnChanges() {
+    this.cdr.detectChanges()
+    console.log(this.jobEntity?.totalExperience)
+  }
 }
