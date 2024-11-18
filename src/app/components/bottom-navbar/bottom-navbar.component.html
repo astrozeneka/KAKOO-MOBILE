@@ -2,7 +2,7 @@
   <div class="nav">
     <ion-button
       fill="clear"
-      (click)="router.navigate(['/dashboard'])"
+      (click)="goToTab('dashboard')"
       [class]="tabName === 'dashboard' ? 'active' : ''"
     >
       <div class="inner">
@@ -12,7 +12,7 @@
     </ion-button>
     <ion-button
       fill="clear"
-      (click)="router.navigate(['/meetings'])"
+      (click)="goToTab('meetings')"
       [class]="tabName === 'meetings' ? 'active' : ''"
     >
       <div class="inner">
@@ -22,7 +22,7 @@
     </ion-button>
     <ion-button 
       fill="clear"
-      (click)="router.navigate(['/jobboard'])"
+      (click)="goToTab('jobboard')"
       [class]="tabName === 'jobboard' ? 'active' : ''"
     >
       <div class="inner">
@@ -32,7 +32,7 @@
     </ion-button>
     <ion-button
       fill="clear"
-      (click)="router.navigate(['/referrals'])"
+      (click)="goToTab('referrals')"
       [class]="tabName === 'referrals' ? 'active' : ''"
     >
       <div class="inner">
@@ -42,8 +42,8 @@
     </ion-button>
     <ion-button
       fill="clear"
-      (click)="router.navigate(['/more-29'])"
-      [class]="tabName === 'more' ? 'active' : ''"
+      (click)="goToTab('more-29')"
+      [class]="tabName === 'more-29' ? 'active' : ''"
     >
       <div class="inner">
         <ion-icon src="/assets/svg/navbar/more.svg" class="more-icon"></ion-icon>
