@@ -17,6 +17,7 @@ import { SvgProfileComponent } from "../../svg-profile/svg-profile.component";
 import { ContentService } from 'src/app/services/content.service';
 import { Candidate } from 'src/app/models/Candidate';
 import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profile-cta/clickable-profile-cta.component';
+import { ClickableDashboardCardComponent } from 'src/app/components/clickable-dashboard-card/clickable-dashboard-card.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,7 @@ import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profi
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, DashboardCardComponent, DashboardRecommendedJobCardComponent, DashboardRecommendedAssessmentCardComponent, DashboardInterviewCtaComponent,
-    BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent, SvgProfileComponent, ClickableProfileCtaComponent]
+    BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent, SvgProfileComponent, ClickableProfileCtaComponent, ClickableDashboardCardComponent]
 })
 export class DashboardPage extends BottomNavbarTarget implements OnInit {
 

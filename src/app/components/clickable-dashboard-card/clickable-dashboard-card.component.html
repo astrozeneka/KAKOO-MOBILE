@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <ion-button
+    fill="clear"
+    expand="block"
+    color="dark"
+    [class]="'clickable-dashboard-card '+variant"
+    [routerLink]="routerLink"
+  >
+    <div class="inner">
+      <div class="left">
+        <div class="title">
+          {{ title }}
+        </div>
+        <div class="subtitle">
+          {{ subtitle }}
+        </div>
+      </div>
+      <div class="right" [style]="'background: ' + color">
+        <img [src]="'/assets/svg/dashboard/' + slug + '.svg'">
+      </div>
+    </div>
+  </ion-button>
+</div>

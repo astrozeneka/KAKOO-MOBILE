@@ -1,0 +1,46 @@
+.clickable-dashboard-card{
+    // Clickable property
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --border-color: #E7E7E9;
+    --border-width: 1px;
+    --border-style: solid;
+    height: auto;
+    text-align: inherit;
+
+    & .inner{
+        padding: 12px;
+        width: 100%;
+        display: flex;
+        align-items: top;
+        justify-content: space-between;
+
+        & .left {
+            & .title{
+                font-weight: 500;
+                color: #6C7278;
+                line-height: 19.6px;
+                font-size: 14px;
+            }
+    
+            & .subtitle{
+                margin-top: 6px;
+                font-weight: 700;
+                color: black;
+                font-size: 24px;
+                line-height: 33.6px;
+            }
+        }
+    
+        & .right{
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

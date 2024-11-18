@@ -11,7 +11,7 @@ import { IonButton, IonIcon } from '@ionic/angular/standalone';
 })
 export class ClickableProfileCtaComponent  implements OnInit {
   @Input() variant: string = "default"
-  @Input() routerLink: string = "/edit-and-preview-profile" // To be changed
+  @Input() routerLink: string|null = null // To be changed
   
   constructor() { }
 

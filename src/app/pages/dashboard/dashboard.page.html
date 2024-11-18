@@ -28,7 +28,7 @@
   <div class="ion-padding-horizontal">
     <!-- the Below component also have variants, TODO later -->
     <!--<app-profile-cta></app-profile-cta>-->
-    <app-clickable-profile-cta variant="default"></app-clickable-profile-cta>
+    <app-clickable-profile-cta variant="default" routerLink="/edit-and-preview-profile"></app-clickable-profile-cta>
   </div>
 
   <div class="ion-padding-horizontal">
@@ -59,36 +59,38 @@
       Here are some informations....
     </div>
     <div class="half-half">
-      <app-dashboard-card
+      <app-clickable-dashboard-card
         slug="interview"
         color="#007E4817"
         title="Interview"
         subtitle="07"
         style="flex: 1"
-      ></app-dashboard-card>
-      <app-dashboard-card
+        routerLink="/meetings"
+      ></app-clickable-dashboard-card>
+      <app-clickable-dashboard-card
         slug="job-invitation"
         color="#9C282917"
         title="Job Invitation"
         subtitle="10"
         style="flex: 1"
-      ></app-dashboard-card>
+        routerLink="/jobboard"
+      ></app-clickable-dashboard-card>
     </div>
     <div class="half-half">
-      <app-dashboard-card
+      <app-clickable-dashboard-card
         slug="assessment"
         color="#FBBC0517"
         title="Assessment"
         subtitle="07"
         style="flex: 1"
-      ></app-dashboard-card>
-      <app-dashboard-card
+      ></app-clickable-dashboard-card>
+      <app-clickable-dashboard-card
         slug="video-assessment"
         color="#375DFB17"
         title="Video Assessment"
         subtitle="24"
         style="flex: 1"
-      ></app-dashboard-card>
+      ></app-clickable-dashboard-card>
     </div>
   </div>
 
