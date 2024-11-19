@@ -224,8 +224,12 @@ export class ContentService {
     // 2. Fire from the server
     if (getFromServer) {
       this.get_exp(`/api/v1/self-candidate`, {})
-        .pipe(catchError((error)=>{
-          console.log("Unable to fetch the candidate, probably first time") // Unused, can be deleted
+        .pipe(catchError((error:{header:any, status:any, statusText:any, url:any, ok:any})=>{
+          if (error.status === 400 && this.router.url !== '/welcome'){
+            this.router.navigateByUrl('/login?error=session-expired')
+          }else{
+            console.log("Unable to fetch the candidate, probably first time") // Unused, can be deleted
+          }
           return throwError(error)
         }))
         .subscribe((data: Candidate)=>{

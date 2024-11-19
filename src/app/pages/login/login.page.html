@@ -19,15 +19,6 @@
   </div>-->
 
   <div class="ion-padding-horizontal">
-    <!--<div class="left-right">
-      <div>
-        <img src="/assets/kakoo-logo.png" width="91px">
-      </div>
-      <div>
-        <app-language-button></app-language-button>
-      </div>
-    </div>-->
-
     <div>
       <h2>{{ "Hello Kakooster! 👋" |_ }}</h2>
       <div class="helper">{{ "to access Kakoo Software Solutions" |_ }}</div>
@@ -37,6 +28,12 @@
         <div class="alert-error">
           <ion-icon [src]="alertCircleOutline"></ion-icon>
           <span>{{ "Invalid email or password" |_ }}</span>
+        </div>
+      }
+      @if (error == 'session-expired') {
+        <div class="alert-error">
+          <ion-icon [src]="alertCircleOutline"></ion-icon>
+          <span>{{ "Session expired, please login again" |_ }}</span>
         </div>
       }
       <form (submit)="requestLogin()" [formGroup]="form">
@@ -50,19 +47,6 @@
             formControlName="email"
             [errorText]="displayedError['email']"  
           ></app-outline-input>
-          
-          <!--<ion-input
-            type="email"
-            placeholder="user@mail.com"
-            fill="outline"
-            label-placement="stacked"
-            label="{{ 'Email' |_ }}"
-            formControlName="email"
-          ></ion-input>
-          <div class="input-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors">
-            <span *ngIf="form.get('email')?.getError('required')">{{ "Email address required" |_ }}<br/></span>
-            <span *ngIf="form.get('email')?.getError('email')">{{ "Email address is invalid" |_ }}</span>
-          </div>-->
         </div>
 
         <div class="input-wrapper">
@@ -73,17 +57,6 @@
             formControlName="password"
             [errorText]="displayedError['password']"
           ></app-outline-input>
-          <!--<ion-input
-            type="password"
-            placeholder="{{ 'password' |_ }}"
-            fill="outline"
-            label-placement="stacked"
-            label="{{ 'Password' |_ }}"
-            formControlName="password"
-          ></ion-input>-->
-          <!--<div class="input-error" *ngIf="form.get('password')?.touched && form.get('password')?.errors">
-            <span *ngIf="form.get('password')?.getError('required')">{{ "Password required" |_ }}</span>
-          </div>-->
         </div>
 
         <div class="ion-text-right">
@@ -146,7 +119,6 @@
         'clearCache', 
         'quick-navigate:/check-your-email',
         'quick-navigate:/edit-and-preview-profile'
-      
       ]"
     ></app-debug-button>
 

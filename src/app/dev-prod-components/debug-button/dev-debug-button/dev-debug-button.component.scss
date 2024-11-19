@@ -18,6 +18,6 @@
         }
     }
     position: fixed;
-    right: 10px;
-    bottom: 10px;
+    right: var(--right, 10px);
+    bottom: var(--bottom, 10px);
 }
