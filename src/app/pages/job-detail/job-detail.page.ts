@@ -11,7 +11,13 @@ import { HorizontalScrollableTabsComponent } from "../../components/horizontal-s
 import { JobDetailsHeaderComponent } from 'src/app/components/job-details-header/job-details-header.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
-import { JobEntity } from 'src/app/models/Candidate';
+import { CompanyEntity, JobEntity } from 'src/app/models/Candidate';
+import { map, mergeMap, Observable } from 'rxjs';
+
+// Experimental (might be moved to Candidate.ts in a near future)
+export interface EJobEntity extends JobEntity {
+  companyEntity: CompanyEntity
+}
 
 @Component({
   selector: 'app-job-detail',
@@ -25,7 +31,7 @@ import { JobEntity } from 'src/app/models/Candidate';
 export class JobDetailPage implements OnInit {
 
   jobId:number
-  jobEntity:JobEntity|null = null
+  jobEntity:EJobEntity|null = null
   
   // 1. The element related to the dynamical scroll
   @ViewChild('description') description!: ElementRef;
@@ -42,11 +48,20 @@ export class JobDetailPage implements OnInit {
 
   ngOnInit() {
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
-    this.cs.get_exp(`/api/v1/job/job-id/${this.jobId}`, {})
-      .subscribe((job:JobEntity)=>{
+    this._loadJob(this.jobId)
+      .subscribe((job:EJobEntity) => {
         this.jobEntity = job
-        console.log(this.jobEntity)
       })
+  }
+
+  private _loadJob(jobId:number):Observable<EJobEntity>{
+    return this.cs.get_exp(`/api/v1/job/job-id/${jobId}`, {})
+      .pipe(mergeMap((job:JobEntity) => 
+        this.cs.get_exp(`/api/v1/candidate/get-company/${job.companyId}`, {})
+          .pipe(map((companyEntity: any) => {
+            return {...job, companyEntity} as EJobEntity
+          }))
+      ))
   }
 
   goToSection(section:string|Event){

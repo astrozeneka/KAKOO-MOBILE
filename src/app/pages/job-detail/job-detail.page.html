@@ -15,7 +15,6 @@
       </div>
     </app-topbar>
   </ion-header>
-
   <div class="ion-padding-horizontal">
     <app-job-details-header [jobEntity]="jobEntity"></app-job-details-header>
   </div>
@@ -33,9 +32,23 @@
   ></app-horizontal-scrollable-tabs>
   <div class="ion-padding-horizontal">
     <div class="detail-content">
+      <h3 id="description" #description>Job Description</h3>
       <p>
         {{ jobEntity?.description }}
       </p>
+
+      <h3 id="responsibilities" #responsibilities>Job Key Responsibilities</h3>
+      <ul>
+        @for (responsibility of jobEntity?.jobKeyResponsibilityEntities; track responsibility.id){
+          <li>{{ responsibility.name }}</li>
+        }
+      </ul>
+      <h3 id="job-requirements" #jobRequirements>Job Requirements</h3>
+      <ul>
+        @for (requirement of jobEntity?.jobRequirementEntities; track requirement.id){
+          <li>{{ requirement.name }}</li>
+        }
+      </ul>
     </div>
     <!--
     <div class="detail-content">

@@ -28,8 +28,8 @@
   <div class="ion-padding-horizontal">
     @for (invitation of displayedInvitationEntities; track invitation.id) {
       <app-clickable-job-card
+        [jobEntity]="invitation.jobEntity"
         [status]="invitation.inviteStatus"
-        [routerLink]="'/job-detail/' + invitation.jobEntity.jobId"
       >
         <div slot="date">
           <!-- Todo, the language -->
@@ -49,6 +49,8 @@
         </div>
       </app-clickable-job-card>
     }
+
+    <!--
     <br/>
     <app-job-card
       status="applied"
@@ -98,6 +100,7 @@
         <div class="chip">On-site</div>
       </div>
     </app-job-card>
+    -->
   </div>
 
   <div class="floating-bottom">

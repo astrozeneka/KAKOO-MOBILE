@@ -26,7 +26,8 @@
       <div class="content">
         <div class="image-container">
           <!-- Company picture is not available from the API -->
-          <ion-icon src="/assets/svg/icon-briefcase.svg" style="font-size: 22px"></ion-icon>
+          <img [src]="'https://web.kakoo-software.com/kakoo-back-end/company/' + jobEntity?.companyId + '/downloadPhoto'" alt=""/>
+          <!--<ion-icon src="/assets/svg/icon-briefcase.svg" style="font-size: 22px"></ion-icon>-->
           <!--<ng-content select="[slot='image']"></ng-content>-->
         </div>
         <div>
@@ -43,12 +44,18 @@
           <ng-content select="[slot='footer']"></ng-content>
         </div>
         <div [class]="'status ' + status">
-          @if (status == 'applied') {
+          @if (status == 'applied') { <!-- Not used, we use 'Pending' isntead-->
             <ion-icon src="/assets/svg/icon-applied.svg"></ion-icon>
             <span>Applied</span>
           } @else if (status == 'REJECTED') {
             <ion-icon src="/assets/svg/icon-rejected.svg"></ion-icon>
             <span style="color:#D71313">Rejected</span>
+          } @else if (status == 'PENDING') {
+            <ion-icon class="color-pending" [src]="ellipsisHorizontalCircleOutline"></ion-icon>
+            <span class="color-pending">Pending</span>
+          } @else if (status == 'ACCEPTED') {
+            <ion-icon src="/assets/svg/icon-applied.svg"></ion-icon>
+            <span class="color-accepted">Accepted</span>
           } @else if (status == "Non") {
             <span>-</span>
           } @else {

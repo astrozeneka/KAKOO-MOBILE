@@ -5,10 +5,10 @@
     </div>
   }
   <div class="image-container">
-    <img src="/assets/png/sample-image-2.png" alt=""/>
+    <img [src]="'https://web.kakoo-software.com/kakoo-back-end/company/' + jobEntity?.companyEntity?.id + '/downloadPhoto'" alt=""/>
   </div>
   <div class="labels">
     <div class="title">{{ jobEntity?.positionTitle ?? 'Developer' }}</div>
-    <div class="subtitle">{{ jobEntity?.companyName ?? 'Moneycore' }}</div>
+    <div class="subtitle">{{ jobEntity?.companyEntity?.name ?? 'Moneycore' }}</div>
   </div>
 </div>
