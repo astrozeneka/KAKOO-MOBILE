@@ -37,4 +37,24 @@ export interface Role {
     role: string
     description: string
 }
-  
+
+export interface ReferralEntity {
+    id: number
+    candidateId: number
+    candidateName: string
+    candidateType: string
+    profile: any
+    profilePicture: any
+    gender: any
+    email: string
+    mobilePhone: any
+    phoneCode: any
+    forCompanyId: any
+    forCompanyName: any
+    forJobTypeId: any
+    forJobTypeName: any
+    currentStatus: string
+    createdAt: string
+    updatedAt: string
+    jobIdAndCandidateStatusDtoList: any[]
+}
