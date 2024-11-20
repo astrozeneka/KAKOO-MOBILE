@@ -9,7 +9,7 @@ import { EmployerQuestionsPage } from "../employer-questions/employer-questions.
 import { JobDetailsEmployerQuestionsComponent } from "../../components/job-details-employer-questions/job-details-employer-questions.component";
 import { HorizontalScrollableTabsComponent } from "../../components/horizontal-scrollable-tabs/horizontal-scrollable-tabs.component";
 import { JobDetailsHeaderComponent } from 'src/app/components/job-details-header/job-details-header.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
 import { CompanyEntity, JobEntity, JobInvitationEntity } from 'src/app/models/Candidate';
 import { filter, finalize, map, mergeMap, Observable, switchMap, tap } from 'rxjs';
@@ -73,9 +73,37 @@ export class JobDetailPage implements OnInit {
       })*/
     
     // The new way to load the invitation data (unoptimized since the array doesn't have hash key)
+    this.router.events
+      .pipe(
+        filter(e=>e instanceof NavigationEnd),
+        switchMap(
+          ()=>this.pds.onJobInvitationsData(true, true)
+            .pipe(
+              map((data:JobInvitationEntity[]) => {
+                return data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
+              }),
+              filter((jobInvitationEntity:JobInvitationEntity|undefined) => jobInvitationEntity != undefined),
+              switchMap((jobInvitationEntity:JobInvitationEntity|undefined) =>
+                this.cs.get_exp(`/api/v1/candidate/get-company/${jobInvitationEntity!.jobEntity.companyId}`, {})
+                  .pipe(map((e:CompanyEntity) => {
+                    return {
+                      ...jobInvitationEntity?.jobEntity,
+                      jobInvitationEntity: {...jobInvitationEntity, companyEntity: null/*, jobEntity: null as any*/},
+                      companyEntity: e
+                    } as EJobEntity
+                  }))
+              )
+            )
+        ),
+      )
+      .subscribe((jobEntity:EJobEntity)=>{
+        console.log(jobEntity)
+        this.jobEntity = jobEntity
+      })
+
+    /* 
     this.pds.onJobInvitationsData(true, true)
       .pipe(
-        tap((data:JobInvitationEntity[]) => {console.log(data)}),
         map((data:JobInvitationEntity[]) => {
           return data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
         }),
@@ -94,6 +122,7 @@ export class JobDetailPage implements OnInit {
       .subscribe((jobEntity:EJobEntity)=>{
         this.jobEntity = jobEntity
       })
+    */
   }
 
   /**

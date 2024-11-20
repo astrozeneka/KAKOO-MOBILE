@@ -12,7 +12,7 @@ import { EJobEntity } from '../job-detail/job-detail.page';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
-import { catchError, finalize, map, mergeMap, Observable } from 'rxjs';
+import { catchError, filter, finalize, map, mergeMap, Observable } from 'rxjs';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { Location } from '@angular/common';
 import { displayErrors } from 'src/app/utils/display-errors';
@@ -62,7 +62,7 @@ export class EmployerQuestionsPage implements OnInit {
   ngOnInit() {
     // Load job data (together with the related JobInvitationEntity)
     // exactly the same as in JobInvitationEntity
-    this._loadJob(this.jobId)
+    /*this._loadJob(this.jobId)
     .subscribe((job:EJobEntity) => {
       this.jobEntity = job
       // Load the corresponding inviteStataus
@@ -77,7 +77,30 @@ export class EmployerQuestionsPage implements OnInit {
           this.displayedError[`customQuestion_${jq.jobCustomQuestionId}`] = undefined
         })
       })
-    })
+    })*/
+
+    this.pds.onJobInvitationsData(true, true)
+     .pipe(
+        map((data:JobInvitationEntity[]) => {
+          return data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
+        }),
+        filter((jobInvitationEntity:JobInvitationEntity|undefined) => jobInvitationEntity != undefined),
+        map((jobInvitationEntity:JobInvitationEntity|undefined) => {
+          return {
+            ...jobInvitationEntity?.jobEntity,
+            jobInvitationEntity: {...jobInvitationEntity, companyEntity: null/*, jobEntity: null as any*/},
+            companyEntity: null as any // Don' need the company here
+          } as EJobEntity
+        })
+      )
+      .subscribe((jobEntity:EJobEntity)=>{
+        this.jobEntity = jobEntity
+        // Set the customQuentities form controls
+        this.jobEntity?.jobCustomQuestionEntities?.forEach((jq) => {
+          this.form.addControl(`customQuestion_${jq.jobCustomQuestionId}`, new FormControl<string|null>("", [Validators.required]))
+          this.displayedError[`customQuestion_${jq.jobCustomQuestionId}`] = undefined
+        })
+      })
   }
 
   /**

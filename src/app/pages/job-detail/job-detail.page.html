@@ -120,12 +120,18 @@
       </div>
     </div>
   } @else {
-    <!--<div class="floating-controls">
+    <div class="floating-controls">
       <div class="inner">
-        <div class="ion-padding-horizontal">
-          <p>This job offer is not open for application anymore</p>
+        <div class="ion-padding-horizontal bottom-message">
+          @if (jobEntity?.jobInvitationEntity?.inviteStatus === "REJECTED"){ <!-- The candidate rejected the job -->
+            <p style="color: #D71313">The candidate rejected the job</p>
+          } @if (jobEntity?.jobInvitationEntity?.inviteStatus === "ACCEPTED"){ <!-- The candidate accepted the job -->
+            <p style="color: #2E7D32">The candidate accepted the job</p>
+          } @else {
+            <p>This job offer is not open for application anymore</p>
+          }
         </div>
       </div>
-    </div>-->
+    </div>
   }
 </ion-content>
