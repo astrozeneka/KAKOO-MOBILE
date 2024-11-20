@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonBackButton, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AbstractPage } from 'src/app/abstract-page';
 import { UXForm } from 'src/app/utils/ux-form';
 import { ContentService } from 'src/app/services/content.service';
@@ -14,7 +14,7 @@ import { DevDebugButtonComponent } from "../../dev-prod-components/debug-button/
 import { environment } from 'src/environments/environment';
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { catchError, finalize, map, throwError } from 'rxjs';
+import { catchError, filter, finalize, map, throwError } from 'rxjs';
 // Icon icon alert-circle-outline from ionicons
 import { alertCircleOutline } from 'ionicons/icons';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
@@ -58,12 +58,16 @@ export class LoginPage extends AbstractPage implements OnInit {
   // 4. To display if the credential failed or not
   credentialFailed: boolean = false
 
+  // 5. The error
+  error: string = null as any
+
   constructor(
     private router:Router,
     private cs: ContentService,
     public translate: TranslateService,
     private httpClient: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {
     super(
       router
@@ -90,6 +94,19 @@ export class LoginPage extends AbstractPage implements OnInit {
         this.cdr.detectChanges()
       }
     })
+
+    // Handle the get 'error' parameter
+    // .pipe(filter((e:NavigationEnd)=>this.router.url.includes('/login')))
+
+    this.router.events
+      .pipe(filter((e)=>e instanceof NavigationEnd))
+      .subscribe((e)=>{
+        // Normally, 'pipe' can be used but it is not working (idk why ?)
+        if (this.router.url.includes('/login')) {
+          this.error = this.route.snapshot.queryParamMap.get('error') as any
+        }
+      })
+
 
   }
 

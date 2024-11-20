@@ -1,21 +1,20 @@
+<ion-header>
+  <app-topbar color="primary" id="header">
+    <app-back-button slot="start" variant="topbar" color="light"></app-back-button>
+    <div class="ion-text-center title">Job details</div>
+    <div slot="end">
+      <ion-button
+        color="light"
+        fill="clear"
+        class="iconed-button-1"
+      > <!-- should verify if this group of element is not repeated in other part of the project -->
+        <ion-icon src="/assets/svg/icon-save.svg"></ion-icon>
+        <span>Save</span>
+      </ion-button>
+    </div>
+  </app-topbar>
+</ion-header>
 <ion-content>
-  <ion-header>
-    <app-topbar color="primary">
-      <app-back-button slot="start" variant="topbar" color="light"></app-back-button>
-      <div class="ion-text-center title">Job details</div>
-      <div slot="end">
-        <ion-button
-          color="light"
-          fill="clear"
-          class="iconed-button-1"
-        > <!-- should verify if this group of element is not repeated in other part of the project -->
-          <ion-icon src="/assets/svg/icon-save.svg"></ion-icon>
-          <span>Save</span>
-        </ion-button>
-      </div>
-    </app-topbar>
-  </ion-header>
-
   <div class="ion-padding-horizontal">
     <app-job-details-header [jobEntity]="jobEntity"></app-job-details-header>
   </div>
@@ -33,9 +32,23 @@
   ></app-horizontal-scrollable-tabs>
   <div class="ion-padding-horizontal">
     <div class="detail-content">
+      <h3 id="description" #description>Job Description</h3>
       <p>
         {{ jobEntity?.description }}
       </p>
+
+      <h3 id="responsibilities" #responsibilities>Job Key Responsibilities</h3>
+      <ul>
+        @for (responsibility of jobEntity?.jobKeyResponsibilityEntities; track responsibility.id){
+          <li>{{ responsibility.name }}</li>
+        }
+      </ul>
+      <h3 id="job-requirements" #jobRequirements>Job Requirements</h3>
+      <ul>
+        @for (requirement of jobEntity?.jobRequirementEntities; track requirement.id){
+          <li>{{ requirement.name }}</li>
+        }
+      </ul>
     </div>
     <!--
     <div class="detail-content">
@@ -79,20 +92,32 @@
     <app-job-details-employer-questions [jobCustomQuestionEntities]="jobEntity?.jobCustomQuestionEntities!"></app-job-details-employer-questions>
   </div>
 
-  <div class="floating-controls">
-    <div class="inner">
-      <div class="ion-padding-horizontal">
-        <ion-button
-          class="danger"
-        >
-          Reject
-        </ion-button>
-        <ion-button
-          color="primary"
-        >
-          Apply for job
-        </ion-button>
+  @if (jobEntity?.jobInvitationEntity?.inviteStatus === "PENDING"){ <!-- Waiting for the candidate to confirm -->
+    <div class="floating-controls">
+      <div class="inner">
+        <div class="ion-padding-horizontal">
+          <ion-button
+            class="danger"
+            [routerLink]="'/reject-job-form/' + jobEntity?.jobId"
+          >
+            Reject
+          </ion-button>
+          <ion-button
+            color="primary"
+            [routerLink]="'/employer-questions/' + jobEntity?.jobId"
+          >
+            Apply for job
+          </ion-button>
+        </div>
       </div>
     </div>
-  </div>
+  } @else {
+    <!--<div class="floating-controls">
+      <div class="inner">
+        <div class="ion-padding-horizontal">
+          <p>This job offer is not open for application anymore</p>
+        </div>
+      </div>
+    </div>-->
+  }
 </ion-content>

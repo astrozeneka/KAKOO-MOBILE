@@ -236,10 +236,10 @@ export interface Candidate {
     updatedAt: string
     cultureFitQuestionEntities: any[]
     prescreeningQuestionEntities: any[]
-    jobRequirementEntities: any[]
+    jobRequirementEntities: JobRequirementEntity[]
     jobQualificationEntities: any
     jobAdditionalSkillsEntities: any
-    jobKeyResponsibilityEntities: any[]
+    jobKeyResponsibilityEntities: JobKeyResponsibilityEntity[]
     jobCustomQuestionEntities: JobCustomQuestionEntity[]
     jobQualificationHTML: any
     jobDescriptionHTML: any
@@ -316,3 +316,92 @@ export interface Candidate {
     isMandatory: boolean
   }
   
+  export interface JobKeyResponsibilityEntity {
+    id: number,
+    name: string
+  }
+
+  export interface JobRequirementEntity {
+    id: number,
+    name: string
+  }
+
+  export interface CompanyEntity {
+  id: number
+  tagline: any
+  yearOfFounded: any
+  introduction: string
+  financialInformation: string
+  linkedInUrl: any
+  twitterUrl: any
+  facebookUrl: any
+  instagramUrl: string
+  status: string
+  reject: any
+  phoneCode: string
+  profilePictureAttachmentEntity: ProfilePictureAttachmentEntity
+  companyKeyAchievementsEntities: any[]
+  companyProductServiceEntities: any[]
+  companyAddressEntities: any[]
+  photo: string
+  subscription: Subscription
+  countryEntity: any
+  salesPersonEntity: SalesPersonEntity
+  type: string
+  name: string
+  address: string
+  email: any
+  phone: string
+  currency: string
+  employeeMinSalary: number
+  modificationDate: string
+  creationDate: string
+  userAreajobType: any
+  userAreaDuration: any
+  industryCode: any
+  userAreapartTimeDuration: any
+  userAreadisplayedPay: any
+  userAreaStatusJob: any
+  basePayAmountMin: any
+  basePayAmountMax: any
+  travelArea: any
+}
+
+export interface ProfilePictureAttachmentEntity {
+  attachmentId: number
+  name: string
+  fullPath: any
+  fileUUTD: string
+  createdBy: number
+  fileType: string
+  createdAt: string
+  storageCloudType: string
+}
+
+export interface Subscription {
+  id: number
+  paid: boolean
+  rhnumber: number
+  startSubscription: string
+  expitationPeriod: number
+  amount: number
+  psp: Psp[]
+  planId: number
+  transactionType: string
+  chargeId: string
+  freeTrailAvailed: boolean
+}
+
+export interface Psp {
+  id: number
+  type: string
+  amount: string
+  currency: string
+  customerId: string
+}
+
+export interface SalesPersonEntity {
+  selesPersonId: number
+  name: string
+  description: any
+}

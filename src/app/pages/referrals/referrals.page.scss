@@ -24,3 +24,11 @@ ion-header{
 .floating-bottom{
     @include floating-bottom;
 }
+
+
+.placeholder{
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

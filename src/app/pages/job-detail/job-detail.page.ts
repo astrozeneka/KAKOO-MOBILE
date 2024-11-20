@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/angular/standalone';
@@ -9,9 +9,17 @@ import { EmployerQuestionsPage } from "../employer-questions/employer-questions.
 import { JobDetailsEmployerQuestionsComponent } from "../../components/job-details-employer-questions/job-details-employer-questions.component";
 import { HorizontalScrollableTabsComponent } from "../../components/horizontal-scrollable-tabs/horizontal-scrollable-tabs.component";
 import { JobDetailsHeaderComponent } from 'src/app/components/job-details-header/job-details-header.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
-import { JobEntity } from 'src/app/models/Candidate';
+import { CompanyEntity, JobEntity, JobInvitationEntity } from 'src/app/models/Candidate';
+import { map, mergeMap, Observable } from 'rxjs';
+import { ProfileDataService } from 'src/app/services/profile-data.service';
+
+// Experimental (might be moved to Candidate.ts in a near future)
+export interface EJobEntity extends JobEntity {
+  companyEntity: CompanyEntity
+  jobInvitationEntity?: JobInvitationEntity
+}
 
 @Component({
   selector: 'app-job-detail',
@@ -19,13 +27,13 @@ import { JobEntity } from 'src/app/models/Candidate';
   styleUrls: ['./job-detail.page.scss'],
   standalone: true,
   imports: [IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, JobDetailsRequirementsTableComponent, EmployerQuestionsPage, JobDetailsEmployerQuestionsComponent, HorizontalScrollableTabsComponent,
-    JobDetailsHeaderComponent
+    JobDetailsHeaderComponent, RouterModule
   ]
 })
 export class JobDetailPage implements OnInit {
 
   jobId:number
-  jobEntity:JobEntity|null = null
+  jobEntity:EJobEntity|null = null
   
   // 1. The element related to the dynamical scroll
   @ViewChild('description') description!: ElementRef;
@@ -35,18 +43,44 @@ export class JobDetailPage implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private cs: ContentService
+    private cs: ContentService,
+    private pds: ProfileDataService,
+    private cdr: ChangeDetectorRef
   ) {
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
   }
 
   ngOnInit() {
+    /**
+     * is to load the jobinvitation entity together
+     */
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
-    this.cs.get_exp(`/api/v1/job/job-id/${this.jobId}`, {})
-      .subscribe((job:JobEntity)=>{
+    this._loadJob(this.jobId)
+      .subscribe((job:EJobEntity) => {
         this.jobEntity = job
-        console.log(this.jobEntity)
       })
+    
+    // Load the corresponding inviteStataus
+    this.pds.onJobInvitationsData(true, true)
+      .subscribe((data:JobInvitationEntity[])=>{
+        let jobInvitationEntity = data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
+        if (this.jobEntity)
+          this.jobEntity.jobInvitationEntity = jobInvitationEntity
+        this.cdr.detectChanges()
+      })
+  }
+
+  /**
+   * The below cde should use the advanced-caching system (for performance and user experience)
+   */
+  private _loadJob(jobId:number):Observable<EJobEntity>{
+    return this.cs.get_exp(`/api/v1/job/job-id/${jobId}`, {})
+      .pipe(mergeMap((job:JobEntity) => 
+        this.cs.get_exp(`/api/v1/candidate/get-company/${job.companyId}`, {})
+          .pipe(map((companyEntity: any) => {
+            return {...job, companyEntity} as EJobEntity
+          }))
+      ))
   }
 
   goToSection(section:string|Event){

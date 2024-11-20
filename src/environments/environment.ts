@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   // apiEndpoint: 'https://f666bfa7-b6c4-4059-bd09-2823b447609e.mock.pstmn.io',
   apiEndpoint: 'https://web.kakoo-software.com/kakoo-back-end',
-
+  serverHost: 'staging.kakoo-software.com',
   cachePrefix: 'kakoodev-',
 
   mFormMode: 'email', // Only 'email' is available

@@ -6,6 +6,7 @@
       fill="clear"
       color=dark
       shape="round"
+      (click)="location.back()"
     >
       <ion-icon src="/assets/svg/icon-close-2.svg"></ion-icon>
     </ion-button>
@@ -16,15 +17,38 @@
 
 <ion-content>
   <div class="ion-padding-horizontal form-wrapper">
-    @if (jobEntity) {
-      @for (question of jobEntity.jobCustomQuestionEntities; track question.jobCustomQuestionId) {
-      <h2 class="display-5">{{ question.name }}</h2>
+    <br/>
+    <form [formGroup]="form" (submit)="submit()">
+      <h2 class="display-5">Your cover letter</h2>
       <ion-textarea
         fill="outline"
-        placeholder="Type answer"
+        placeholder="type answer"
+        formControlName="coverLater"
       ></ion-textarea>
+      @if (jobEntity) {
+        @for (question of jobEntity.jobCustomQuestionEntities; track question.jobCustomQuestionId) {
+        <h2 class="display-5">{{ question.name }}</h2>
+        <ion-textarea
+          fill="outline"
+          placeholder="Type answer"
+          [formControlName]="'customQuestion_' + question.jobCustomQuestionId"
+        ></ion-textarea>
+        }
       }
-    }
+
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            type="submit"
+            color="primary"
+            expand="block"
+            [loading]="formIsLoading"
+          >
+            {{ "Save" | _ }}
+          </app-ux-button>
+        </div>
+      </div>
+    </form>
 
     <!--
     <h2 class="display-5">How comfortable are you with Java frameworks like Spring or Hibernate?</h2>

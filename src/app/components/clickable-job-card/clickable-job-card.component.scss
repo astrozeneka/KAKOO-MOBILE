@@ -105,6 +105,13 @@
                 &.rejected{
                     color: #D71313;
                 }
+
+                & .color-accepted{
+                    color: #00C370;
+                }
+                & .color-pending{
+                    color: #d98600;
+                }
             }
         }
     }

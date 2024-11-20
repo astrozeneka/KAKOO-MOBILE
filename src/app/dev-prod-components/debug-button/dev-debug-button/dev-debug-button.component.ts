@@ -7,6 +7,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { ContentService } from 'src/app/services/content.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class DevDebugButtonComponent extends ProdDebugButtonComponent implements
   constructor(
     private actionSheetController: ActionSheetController,
     private storage: Storage,
-    private router: Router
+    private router: Router,
+    private cs: ContentService
   ) { 
     super();
   }
@@ -40,7 +42,10 @@ export class DevDebugButtonComponent extends ProdDebugButtonComponent implements
       this.storage.remove(key)
     })
     console.log("Cache cleared: " + keys)
+  }
 
+  async unvalidateToken(){
+    this.cs.token.set(null as any)
   }
 
   async presentActionSheet(){
@@ -63,9 +68,14 @@ export class DevDebugButtonComponent extends ProdDebugButtonComponent implements
       'buttons': [
         ...(this.tools.includes('clearCache') ? [{
           'text': 'Clear Cache',
-          'icon': 'trash',
           'handler': () => {
             this.clearCache()
+          }
+        }]: []),
+        ...(this.tools.includes('unvalidate-token') ? [{
+          'text': 'Unvalidate Token',
+          'handler': () => {
+            this.unvalidateToken()
           }
         }]: []),
         ...quickNavButtons

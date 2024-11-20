@@ -95,3 +95,7 @@ app-section-heading{
 .floating-bottom{
     @include floating-bottom;
 }
+
+app-debug-button{
+    --bottom: 70px;
+}

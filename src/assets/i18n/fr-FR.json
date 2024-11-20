@@ -176,5 +176,7 @@
     "UNAVAILABLE": "INDISPONIBLE",
     "Daily rate": "Taux journalier",
     "Languages": "Langues",
-    "Duration": "Durée"
+    "Duration": "Durée",
+
+    "Session expired, please login again": "Session expirée, veuillez vous reconnecter"
 }

@@ -1,10 +1,15 @@
 <div class="referral-card">
   <div class="head">
     <div class="left">
-      @if (status == 'registered'){
+      @if (status == 'registered' || status == 'Registered Successfully'){
         <div class="chip registered">
           <ion-icon src="/assets/svg/icon-registered.svg"/>
           <span>Registered</span>
+        </div>
+      } @else {
+        <div class="chip">
+          <ion-icon src="/assets/svg/icon-registered.svg"/>
+          <span>{{ status }}</span>
         </div>
       }
       <!-- TODO NEXT, the other value of status -->

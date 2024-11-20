@@ -145,6 +145,19 @@ export class ContentService {
     }))
   }
 
+  post_exp_fullurl(fullurl: string, data:any ,headers: {[key: string]:any}): Observable<any>{
+    return from(new Promise(async(resolve)=>{
+      let token = await this.token.get()
+      let hdrs ={
+        ...headers,
+        ...(token?{Authorization: token}:{})
+      }
+      resolve(firstValueFrom((this.http.post(fullurl, data, {
+        headers: hdrs
+      }))))
+    }))
+  }
+
   requestLogin(data:{username:string, password:string}){
     return this.http.post(
       // Language proof
@@ -224,8 +237,12 @@ export class ContentService {
     // 2. Fire from the server
     if (getFromServer) {
       this.get_exp(`/api/v1/self-candidate`, {})
-        .pipe(catchError((error)=>{
-          console.log("Unable to fetch the candidate, probably first time") // Unused, can be deleted
+        .pipe(catchError((error:{header:any, status:any, statusText:any, url:any, ok:any})=>{
+          if (error.status === 400 && this.router.url !== '/welcome'){
+            this.router.navigateByUrl('/login?error=session-expired')
+          }else{
+            console.log("Unable to fetch the candidate, probably first time") // Unused, can be deleted
+          }
           return throwError(error)
         }))
         .subscribe((data: Candidate)=>{

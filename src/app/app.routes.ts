@@ -158,4 +158,12 @@ export const routes: Routes = [
     path: 'project-form',
     loadComponent: () => import('./pages/project-form/project-form.page').then( m => m.ProjectFormPage)
   },
+  {
+    path: 'apply-job-form/:jobId',
+    loadComponent: () => import('./components/apply-job-form/apply-job-form.page').then( m => m.ApplyJobFormPage)
+  },
+  {
+    path: 'reject-job-form/:jobId',
+    loadComponent: () => import('./pages/reject-job-form/reject-job-form.page').then( m => m.RejectJobFormPage)
+  },
 ];

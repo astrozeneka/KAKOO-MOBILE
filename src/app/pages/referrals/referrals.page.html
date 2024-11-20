@@ -15,7 +15,7 @@
   <div class="ion-padding-horizontal">
     <div class="display-3">Your Referral Link</div>
     <app-referal-input
-      [value]="'https://app.kakoo-software.com/candidate/direct/apply/5ffkkjisdfoi'"
+      [value]="referralLink"
     ></app-referal-input>
 
     <ion-button
@@ -32,6 +32,24 @@
   <div class="ion-padding-horizontal">
     <div class="display-3">Referrals</div>
 
+    @if (dataIsLoading) {
+      <div class="placeholder">
+        <ion-spinner></ion-spinner>
+      </div>
+    }
+    @for (referral of referrals; track referral.id) {
+      <!-- 
+        date="26 sept. 2024, 12:29:22" -->
+      <app-referral-card
+        [status]="referral.currentStatus"
+        date="{{ referral.createdAt | date: 'dd MMM yyyy, HH:mm:ss' }}"
+        [title]="referral.candidateName"
+        [subtitle]="referral.email"
+        image="/assets/png/sample-image-2.png"
+      ></app-referral-card>
+    }
+
+    <!--
     <app-referral-card
       status="registered"
       date="26 sept. 2024, 12:29:22"
@@ -47,15 +65,7 @@
       subtitle="waddugaupexei-4923@yopmail.com"
       image="/assets/png/sample-image-2.png"
     ></app-referral-card>
-
-    <app-referral-card
-      status="registered"
-      date="26 sept. 2024, 12:29:22"
-      title="Mohit Sharma"
-      subtitle="waddugaupexei-4923@yopmail.com"
-      image="/assets/png/sample-image-2.png"
-    ></app-referral-card>
-
+    -->
   </div>
 
   <div class="floating-bottom">

@@ -32,7 +32,7 @@ import { I18nPipeShortened } from 'src/app/i18n.pipe';
   ]
 })
 export class JobPreferencesPage implements OnInit {
-  candidate: Candidate = {} as any;
+  candidate: Candidate = {} as any; // null as any may be better
   form:FormGroup = new FormGroup({
     /*desiredWorkType: new FormControl<EmploymentType|null>(null, [Validators.required]),
     desiredSalaryUSD: new FormControl('', [Validators.required]),
@@ -78,10 +78,9 @@ export class JobPreferencesPage implements OnInit {
   }
   formIsLoading: boolean = false
   
-  testFormControl:FormControl = new FormControl(null, [Validators.required])
-  displayedErrorTest:string|undefined = undefined
-
-  testMobilityControl: FormControl = new FormControl([], [Validators.required]);
+  // testFormControl:FormControl = new FormControl(null, [Validators.required])
+  // displayedErrorTest:string|undefined = undefined
+  // testMobilityControl: FormControl = new FormControl([], [Validators.required]);
 
   lang: "en"|"fr" = "en"
   // The options to be displayed on the form
@@ -202,10 +201,9 @@ export class JobPreferencesPage implements OnInit {
     })) as Observable<SalaryExpectation[]>
   }
 
-  testControlBlur(){
+  /*testControlBlur(){
     this.displayedErrorTest = (this.testFormControl.errors as any)?.required ? "This field is required" : "";
-
-  }
+  }*/
 
   skip(){
     this.router.navigate(["/social-accounts"])  

@@ -38,7 +38,7 @@ export class MeetingsPage extends BottomNavbarTarget implements OnInit {
 
   ngOnInit() {
     this.dataIsLoading = true
-    this.pds.onMeetingData(true, true, true)
+    this.pds.onMeetingData(true, true, false)
       .pipe(
         filter(d=>d.length > 0),
         map(data => data.filter((value, index, self) =>
