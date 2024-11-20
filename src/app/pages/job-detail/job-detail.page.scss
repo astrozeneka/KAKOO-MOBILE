@@ -81,3 +81,35 @@ app-job-details-requirements-table, app-job-details-employer-questions{
     --margin-top: 20px;
     --margin-bottom: 20px;
 }
+
+// Include in a mixin later
+ion-content{
+    &.is-loading{
+        & .page-loading-placeholder{
+            display: block;
+            opacity: 1;
+            background: #2424246e;
+            backdrop-filter: blur(3px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99;
+        }
+        & ion-spinner{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            color: white;
+        }
+    }
+    &{
+        .page-loading-placeholder{
+            opacity: 0;
+            display: none;
+        };
+    }
+}

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
 import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { JobDetailsRequirementsTableComponent } from "../../components/job-details-requirements-table/job-details-requirements-table.component";
@@ -12,7 +12,7 @@ import { JobDetailsHeaderComponent } from 'src/app/components/job-details-header
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
 import { CompanyEntity, JobEntity, JobInvitationEntity } from 'src/app/models/Candidate';
-import { map, mergeMap, Observable } from 'rxjs';
+import { finalize, map, mergeMap, Observable } from 'rxjs';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 
 // Experimental (might be moved to Candidate.ts in a near future)
@@ -26,7 +26,7 @@ export interface EJobEntity extends JobEntity {
   templateUrl: './job-detail.page.html',
   styleUrls: ['./job-detail.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, JobDetailsRequirementsTableComponent, EmployerQuestionsPage, JobDetailsEmployerQuestionsComponent, HorizontalScrollableTabsComponent,
+  imports: [IonSpinner, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, JobDetailsRequirementsTableComponent, EmployerQuestionsPage, JobDetailsEmployerQuestionsComponent, HorizontalScrollableTabsComponent,
     JobDetailsHeaderComponent, RouterModule
   ]
 })
@@ -34,6 +34,7 @@ export class JobDetailPage implements OnInit {
 
   jobId:number
   jobEntity:EJobEntity|null = null
+  isPageLoading: boolean = false // For an improved ui
   
   // 1. The element related to the dynamical scroll
   @ViewChild('description') description!: ElementRef;
@@ -54,6 +55,8 @@ export class JobDetailPage implements OnInit {
     /**
      * is to load the jobinvitation entity together
      */
+
+    this.isPageLoading = true;
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
     this._loadJob(this.jobId)
       .subscribe((job:EJobEntity) => {

@@ -14,7 +14,15 @@
     </div>
   </app-topbar>
 </ion-header>
-<ion-content>
+<!-- The loading is an experimental-->
+<!--<ion-content>-->
+<ion-content [class]="!jobEntity ? 'is-loading' : ''">
+  
+    <div class="page-loading-placeholder">
+      <ion-spinner></ion-spinner>
+    </div>
+  
+
   <div class="ion-padding-horizontal">
     <app-job-details-header [jobEntity]="jobEntity"></app-job-details-header>
   </div>
