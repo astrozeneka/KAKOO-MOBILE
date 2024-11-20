@@ -1,3 +1,4 @@
+import { BehaviorSubject, Observable } from "rxjs"
 import { User } from "./User"
 
 export interface Candidate {
@@ -456,4 +457,12 @@ export interface CreatedByUserDetail {
   firstName: string
   lastName: string
   companyName: string
+}
+
+/**
+ * Experimental feature used to keep track of components
+ * */
+export interface Displayable { // Unused for now
+  subject?: BehaviorSubject<JobInvitationEntity>
+  $?: Observable<JobInvitationEntity>
 }

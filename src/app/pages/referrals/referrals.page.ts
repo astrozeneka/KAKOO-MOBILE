@@ -12,7 +12,11 @@ import { ReferralEntity, User } from 'src/app/models/User';
 import { ContentService } from 'src/app/services/content.service';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
-import { finalize } from 'rxjs';
+import { BehaviorSubject, finalize } from 'rxjs';
+import { ProfileDataService } from 'src/app/services/profile-data.service';
+import { Displayable } from 'src/app/models/Candidate';
+
+export type DisplayableRefferalEntity = ReferralEntity & Displayable
 
 @Component({
   selector: 'app-referrals',
@@ -31,11 +35,24 @@ export class ReferralsPage extends BottomNavbarTarget implements OnInit {
   lang: "en"|"fr" = "en"
   dataIsLoading: boolean = false
 
+  // Experimental features (an alternative to the StoredArray) [SHOULD USE Displayable[] in the future]
+  processDisplayable = (entities:DisplayableRefferalEntity[], existingDisplayables:DisplayableRefferalEntity[])=>{
+    return entities.map((referral:DisplayableRefferalEntity)=>{
+      const existingDisplayable = existingDisplayables.find((displayable)=>displayable.id === referral.id)
+      const subject = existingDisplayable?.subject || new BehaviorSubject<ReferralEntity>(referral)
+      return {
+        ...referral,
+        subject,
+        $: subject.asObservable()
+      }
+    })
+  }
   
   constructor(
     public translate: TranslateService,
     router: Router,
-    private cs: ContentService
+    private cs: ContentService,
+    private pds: ProfileDataService
   ) { 
     super(router)
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
@@ -47,6 +64,18 @@ export class ReferralsPage extends BottomNavbarTarget implements OnInit {
     // For later, we should use 'caching' to make it load quicker (experimental-advanced-caching)
     this.dataIsLoading = true
     this.cs.registerUserDataObserver(true, true)
+      .subscribe(user => {
+        this.user = user        
+        this.referralLink = `https://${environment.serverHost}/candidate/signup?ref=${user?.myReferralCode}&lang=${this.lang}`
+      })
+    this.pds.onReferralsData(true, true)
+      .subscribe(referrals => {
+        this.referrals = this.processDisplayable(referrals, this.referrals)
+        this.dataIsLoading = false
+      })
+    
+    
+    /*this.cs.registerUserDataObserver(true, true)
       .subscribe(user => {
         this.user = user
         let oldReferralLink = this.referralLink
@@ -61,6 +90,7 @@ export class ReferralsPage extends BottomNavbarTarget implements OnInit {
             })
         }
       })
+    */
     
   }
 

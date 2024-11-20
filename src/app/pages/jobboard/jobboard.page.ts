@@ -10,16 +10,11 @@ import { FilterChipsComponent } from 'src/app/components/filter-chips/filter-chi
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
 import { ContentService } from 'src/app/services/content.service';
-import { JobInvitationEntity, PaginedJobInvitationArray } from 'src/app/models/Candidate';
+import { Displayable, JobInvitationEntity, PaginedJobInvitationArray } from 'src/app/models/Candidate';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { ClickableJobCardComponent } from 'src/app/components/clickable-job-card/clickable-job-card.component';
 import { BehaviorSubject, filter, Observable, switchMap } from 'rxjs';
-
-interface Displayable { // Unused for now
-  subject?: BehaviorSubject<JobInvitationEntity>
-  $?: Observable<JobInvitationEntity>
-}
 
 export type DisplayableJobInvitationEntity = JobInvitationEntity & Displayable
 

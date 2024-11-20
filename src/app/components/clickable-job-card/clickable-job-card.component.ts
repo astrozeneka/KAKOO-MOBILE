@@ -27,8 +27,7 @@ export class ClickableJobCardComponent  implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.routerLink = '/job-detail/' + this.jobEntity?.jobId
-    this.displayableInvitationEntity?.$?.subscribe((entity)=>{
-      console.log("UPDATE ENTITY", entity)
+    this.displayableInvitationEntity?.$?.subscribe((entity)=>{ // Unused (but can have some potential)
     })
   }
 

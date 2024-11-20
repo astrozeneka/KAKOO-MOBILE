@@ -6,7 +6,7 @@ import { ContentService } from './content.service';
 import { Storage } from '@ionic/storage-angular';
 import { DeletableEntity } from '../utils/delete-prompt';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/User';
+import { ReferralEntity, User } from '../models/User';
 
 
 /**
@@ -29,6 +29,10 @@ export class ProfileDataService {
   meetingsSubject = new BehaviorSubject<MeetingEntity[]|null>([])
   meetings$ = this.meetingsSubject.asObservable()
 
+  referralsData: StoredData<ReferralEntity[]> | undefined
+  referralsSubject = new BehaviorSubject<ReferralEntity[]|null>([])
+  referrals$ = this.referralsSubject.asObservable()
+
   // Candidate Education (no data stored since data update is fired from other fucntions (e.g. ...))
 
   constructor(
@@ -38,6 +42,7 @@ export class ProfileDataService {
     this.jobInvitationsData = new StoredData<JobInvitationEntity[]>('jobInvitations', this.storage)
     this.assessmentData = new StoredData<CandidateAssessmentEntity[]>('assessments', this.storage)
     this.meetingsData = new StoredData<MeetingEntity[]>('meetings', this.storage)
+    this.referralsData = new StoredData<ReferralEntity[]>('referrals', this.storage)
   }
 
   onJobInvitationsData(fromCache=true, fromServer=true):Observable<JobInvitationEntity[]>{
@@ -174,5 +179,36 @@ export class ProfileDataService {
 
       
     return output$ as Observable<MeetingEntity[]>
+  }
+
+  onReferralsData(fromCache=true, fromServer=true):Observable<ReferralEntity[]>{
+    let additionalEventsSubject = new BehaviorSubject<ReferralEntity[]|null>(null)
+    let additionalEvents$ = additionalEventsSubject.asObservable()
+
+    // 1. Fire the cached data
+    if (fromCache) {
+      this.referralsData!.get().then((data:ReferralEntity[]|null)=>{
+          additionalEventsSubject.next(data)
+      })
+    }
+
+    // 2. Fire from the server
+    if (fromServer) {
+      this.cs.userData.get().then((user:User|null)=>{
+        if (!user) console.error('User is not logged in') // Should disconnect in that case
+        this.cs.get_exp(`/api/v1/referral-sys/all/referred-list/${user!.myReferralCode}`, {})
+          .pipe(catchError((error)=>{
+            return throwError(error)
+          }))
+          .subscribe((referrals: {data: ReferralEntity[]})=>{
+            additionalEventsSubject.next(referrals.data)
+            this.referralsData!.set(referrals.data)
+          })
+      })
+    }
+
+    let output$ = merge(this.referrals$, additionalEvents$)
+    output$ = output$.pipe(filter((data)=>data!=null))
+    return output$ as Observable<ReferralEntity[]>
   }
 }
