@@ -1,24 +1,35 @@
 
-<ion-header [translucent]="false">
-  <app-topbar [progress]="8/9">
-    <app-back-button slot="start" variant="topbar"></app-back-button>
-    <div>{{ 'Setup your profile' |_ }}</div>
-    <div slot="end">
-      <ion-button
-        color="primary"
-        fill="clear"
-        (click)="skip()"
-      >
-        {{ 'Skip' |_ }}
-      </ion-button>
-    </div>
-  </app-topbar>
+<ion-header>
+  @if (mode == 'form') {
+    <app-topbar [progress]="8/9">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>{{ 'Setup your profile' |_ }}</div>
+      <div slot="end">
+        <ion-button
+          color="primary"
+          fill="clear"
+          (click)="skip()"
+        >
+          {{ 'Skip' |_ }}
+        </ion-button>
+      </div>
+    </app-topbar>
+  } @else if (mode == 'view'){
+    <app-topbar variant="light">
+      <app-back-button slot="start" variant="topbar"></app-back-button>
+      <div>Terms and Conditions for Candidate</div>
+    </app-topbar>
+  }
 </ion-header>
 
 <ion-content>
 
   <div class="form-header ion-padding-horizontal">
-    <h2 class="display-2">Kakoo Software Platform: Terms and Conditions for Candidate</h2>
+    @if (mode == 'form'){
+      <h2 class="display-2">Kakoo Software Platform: Terms and Conditions for Candidate</h2>
+    } @else if (mode == 'view'){
+      <h2 class="display-2">Kakoo Software Platform</h2>
+    }
   </div>  
   <div class="ion-padding-horizontal">
     <h3 class="display-4">1. Introduction</h3>
@@ -99,28 +110,32 @@
     <h3 class="display-4">Kakoo Software</h3>
     <p>privacy&commat;kakoo-software.com</p>
   </div>
-  <form [formGroup]="form" (submit)="submit()">
-    <div class="checkbox-container ion-padding-horizontal">
-      <!-- Still cannot find how to align it exactly as the figma template -->
-      <ion-checkbox 
-        id="checkbox"
-        labelPlacement="end"
-        formControlName="accepted"
-      >
-        <div>I agree to the terms & conditions and privacy policy</div>
-      </ion-checkbox>
-    </div>
-    <div class="bottom ion-padding-horizontal">
-      <app-ux-button 
-        expand="block" 
-        fill="solid" 
-        color="primary"
-        [disabled]="!form.valid"
-        [loading]="formIsLoading"
-        type="submit"
-      >
-        {{ 'Submit' |_ }}
-      </app-ux-button>
-    </div>
-  </form>
+  @if (mode == 'form'){
+    <form [formGroup]="form" (submit)="submit()">
+      <div class="checkbox-container ion-padding-horizontal">
+        <!-- Still cannot find how to align it exactly as the figma template -->
+        <ion-checkbox 
+          id="checkbox"
+          labelPlacement="end"
+          formControlName="accepted"
+        >
+          <div>I agree to the terms & conditions and privacy policy</div>
+        </ion-checkbox>
+      </div>
+      <div class="bottom ion-padding-horizontal">
+        <app-ux-button 
+          expand="block" 
+          fill="solid" 
+          color="primary"
+          [disabled]="!form.valid"
+          [loading]="formIsLoading"
+          type="submit"
+        >
+          {{ 'Submit' |_ }}
+        </app-ux-button>
+      </div>
+    </form>
+  } @else {
+    <br/><br/>
+  }
 </ion-content>

@@ -1,5 +1,6 @@
 
-<ion-header [translucent]="false">
+<ion-header>
+  @if (mode == 'form') {
   <app-topbar [progress]="8/9">
     <app-back-button slot="start" variant="topbar"></app-back-button>
     <div>{{ 'Setup your profile' |_ }}</div>
@@ -13,12 +14,21 @@
       </ion-button>
     </div>
   </app-topbar>
+} @else if (mode == 'view'){
+  <app-topbar variant="light">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>Conditions Générales pour les Candidats</div>
+  </app-topbar>
+}
 </ion-header>
-
 <ion-content>
 
   <div class="form-header ion-padding-horizontal">
-    <h2 class="display-2">Plateforme Logicielle Kakoo : Conditions Générales pour les Candidats</h2>
+    @if (mode == 'form'){
+      <h2 class="display-2">Plateforme Logicielle Kakoo : Conditions Générales pour les Candidats</h2>
+    } @else if (mode == 'view'){
+      <h2 class="display-2">Plateforme Logicielle Kakoo</h2>
+    }
   </div>  
   <div class="ion-padding-horizontal">
     <h3 class="display-4">1. Introduction</h3>
@@ -99,27 +109,32 @@
     <h3 class="display-4">Kakoo Software</h3>
     <p>privacy&commat;kakoo-software.com</p>
   </div>
-  <form [formGroup]="form" (submit)="submit()">
-    <div class="checkbox-container ion-padding-horizontal">
-      <ion-checkbox 
-        id="checkbox"
-        labelPlacement="end"
-        formControlName="accepted"
-      >
-        <div>J'accepte les conditions générales et la politique de confidentialité</div>
-      </ion-checkbox>
-    </div>
-    <div class="bottom ion-padding-horizontal">
-      <app-ux-button 
-        expand="block" 
-        fill="solid" 
-        color="primary"
-        [disabled]="!form.valid"
-        [loading]="formIsLoading"
-        type="submit"
-      >
-        {{ 'Submit' |_ }}
-      </app-ux-button>
-    </div>
-  </form>
+
+  @if (mode == 'form'){
+    <form [formGroup]="form" (submit)="submit()">
+      <div class="checkbox-container ion-padding-horizontal">
+        <ion-checkbox 
+          id="checkbox"
+          labelPlacement="end"
+          formControlName="accepted"
+        >
+          <div>J'accepte les conditions générales et la politique de confidentialité</div>
+        </ion-checkbox>
+      </div>
+      <div class="bottom ion-padding-horizontal">
+        <app-ux-button 
+          expand="block" 
+          fill="solid" 
+          color="primary"
+          [disabled]="!form.valid"
+          [loading]="formIsLoading"
+          type="submit"
+        >
+          {{ 'Submit' |_ }}
+        </app-ux-button>
+      </div>
+    </form>
+  } @else {
+    <br/><br/>
+  }
 </ion-content>

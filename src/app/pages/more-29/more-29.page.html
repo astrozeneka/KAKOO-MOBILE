@@ -103,25 +103,33 @@
       >
         Refer a Friend
       </app-button-group-item>
-      <app-button-group-item>
+      <app-button-group-item
+        [disabled]="true"
+      >
         <!-- Not present in the page, might be deleted later -->
         Newsletter
       </app-button-group-item>
-      <app-button-group-item>
-        <!-- Not present in the page, might be deleted later -->
+      <app-button-group-item
+        [routerLink]="'/tips-' + lang"
+      >
         Tips
       </app-button-group-item>
     </div>
     <div class="button-group">
-      <app-button-group-item>
-        <!-- Not present in the page, might be deleted later -->
+      <app-button-group-item
+        [routerLink]="'/about-' + lang"
+      >
         About Kakoo
       </app-button-group-item>
-      <app-button-group-item>
-        <!-- Not present in the page, might be deleted later -->
+      <app-button-group-item
+        [routerLink]="'/privacy-policy-' + lang"
+      >
         Privacy &amp; Policy
       </app-button-group-item>
-      <app-button-group-item>
+      <app-button-group-item
+        [routerLink]="'/terms-and-conditions-' + lang"
+        [queryParams]="{ mode: 'view' }"
+      >
         <!-- The terms and conditions should be created in a new page terms-and-conditions-component, terms-and-condition-page, and accept-terms-and-condition -->
         Terms &amp; Conditions
       </app-button-group-item>

@@ -90,6 +90,7 @@ export const routes: Routes = [
     path: 'terms-and-conditions-fr',
     loadComponent: () => import('./pages/terms-and-conditions/terms-and-conditions.page').then( m => m.TermsAndConditionsPageFr)
   },
+  
   {
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
@@ -165,5 +166,29 @@ export const routes: Routes = [
   {
     path: 'reject-job-form/:jobId',
     loadComponent: () => import('./pages/reject-job-form/reject-job-form.page').then( m => m.RejectJobFormPage)
+  },
+  {
+    path: 'tips-en',
+    loadComponent: () => import('./pages/tips/tips.page').then( m => m.TipsPageEn)
+  },
+  {
+    path: 'tips-fr',
+    loadComponent: () => import('./pages/tips/tips.page').then( m => m.TipsPageFr)
+  },
+  {
+    path: 'privacy-policy-en',
+    loadComponent: () => import('./pages/privacy-policy/privacy-policy.page').then( m => m.PrivacyPolicyPageEn)
+  },
+  {
+    path: 'privacy-policy-fr',
+    loadComponent: () => import('./pages/privacy-policy/privacy-policy.page').then( m => m.PrivacyPolicyPageFr)
+  },
+  {
+    path: 'about-fr',
+    loadComponent: () => import('./about/about.page').then( m => m.AboutPageEn)
+  },
+  {
+    path: 'about-en',
+    loadComponent: () => import('./about/about.page').then( m => m.AboutPageFr)
   },
 ];

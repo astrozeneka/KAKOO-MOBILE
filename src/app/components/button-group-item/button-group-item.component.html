@@ -3,6 +3,8 @@
   expand="block"
   [color]="color"
   [routerLink]="routerLink"
+  [queryParams]="queryParams"
+  [disabled]="disabled"
 >
   <div class="inner">
     <div class="left">
@@ -19,7 +21,9 @@
       } @else if (chip >= 10) {
         <div class="chip">9+</div>
       }
-      <ion-icon [src]="'/assets/svg/icon-carret-right-button-group/icon-carret-right-button-group-' + color + '.svg'"/>
+      @if (routerLink){
+        <ion-icon [src]="'/assets/svg/icon-carret-right-button-group/icon-carret-right-button-group-' + color + '.svg'"/>
+      }
     </div>
   </div>
 </ion-button>
