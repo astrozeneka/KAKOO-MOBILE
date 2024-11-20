@@ -1,10 +1,12 @@
 import { Injectable, output } from '@angular/core';
-import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity, CandidateEducationEntity } from '../models/Candidate';
+import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity, CandidateEducationEntity, CandidateAssessmentEntity, PaginedEntities } from '../models/Candidate';
 import StoredData from '../submodules/stored-data/StoredData';
 import { BehaviorSubject, catchError, filter, forkJoin, merge, Observable, tap, throwError } from 'rxjs';
 import { ContentService } from './content.service';
 import { Storage } from '@ionic/storage-angular';
 import { DeletableEntity } from '../utils/delete-prompt';
+import { environment } from 'src/environments/environment';
+import { User } from '../models/User';
 
 
 /**
@@ -15,9 +17,13 @@ import { DeletableEntity } from '../utils/delete-prompt';
 })
 export class ProfileDataService {
 
-  jobInvitationsData: StoredData<JobInvitationEntity[]>
+  jobInvitationsData: StoredData<JobInvitationEntity[]> // Should experiment the StoredArray instead of StoredData
   jobInvitationsSubject = new BehaviorSubject<JobInvitationEntity[]|null>([])
   jobInvitations$ = this.jobInvitationsSubject.asObservable()
+
+  assessmentData: StoredData<CandidateAssessmentEntity[]> // Should experiment the StoredArray instead of StoredData
+  assessmentSubject = new BehaviorSubject<CandidateAssessmentEntity[]|null>([])
+  assessment$ = this.assessmentSubject.asObservable()
 
   meetingsData: StoredData<MeetingEntity[]>
   meetingsSubject = new BehaviorSubject<MeetingEntity[]|null>([])
@@ -30,6 +36,7 @@ export class ProfileDataService {
     private storage: Storage
   ) {
     this.jobInvitationsData = new StoredData<JobInvitationEntity[]>('jobInvitations', this.storage)
+    this.assessmentData = new StoredData<CandidateAssessmentEntity[]>('assessments', this.storage)
     this.meetingsData = new StoredData<MeetingEntity[]>('meetings', this.storage)
   }
 
@@ -63,6 +70,50 @@ export class ProfileDataService {
   }
   requestJobInvitationsDataUpdate(){
     // TODO later if needed
+  }
+
+  onAssessmentData(fromCache=true, fromServer=true):Observable<CandidateAssessmentEntity[]>{
+    let additionalEventsSubject = new BehaviorSubject<CandidateAssessmentEntity[]|null>(null)
+    let additionalEvents$ = additionalEventsSubject.asObservable()
+
+    // 1. Fire data from cache
+    if (fromCache) {
+      this.assessmentData.get().then((data:CandidateAssessmentEntity[]|null)=>{
+          additionalEventsSubject.next(data)
+      })
+    }
+
+    // 2. Fire from the server
+    if (fromServer) {
+      this.cs.userData.get().then((user:User|null)=>{
+        if (!user) console.error('User is not logged in') // Should disconnect in that case
+        this.cs.get_exp_fullurl(`${environment.apiEndpoint}/api/v1/candidate-assessment/get-candidate-assessment-by-user-id/${user!.id}?pageNumber=0&pageSize=10&sortBy=createdAt`, {})
+          .pipe(catchError((error)=>{
+            return throwError(error)
+          }))
+          .subscribe(async (data:PaginedEntities<CandidateAssessmentEntity>)=>{
+            let existingData = await this.assessmentData.get() // An array
+            // Merge and sort
+            if (existingData){
+              data.content.forEach((item)=>{
+                let index = existingData!.findIndex((existingItem)=>existingItem.assessmentId==item.assessmentId)
+                if (index==-1)
+                  existingData!.push(item) // Append
+                else 
+                  existingData![index] = item // Replace
+              })
+            }else{
+              existingData = data.content
+            }
+            existingData.sort((a, b)=>a.assessmentId - b.assessmentId)
+            additionalEventsSubject.next(existingData)
+            this.assessmentData.set(existingData)
+          })
+      })
+    }
+    let output$ = merge(this.jobInvitations$, additionalEvents$)
+    output$ = output$.pipe(filter((data)=>data!=null))
+    return output$ as Observable<CandidateAssessmentEntity[]>
   }
 
   /**

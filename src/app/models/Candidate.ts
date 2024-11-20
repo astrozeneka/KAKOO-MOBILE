@@ -168,6 +168,18 @@ export interface Candidate {
     storageCloudType: string
   }
 
+  export interface PaginedEntities<T> {
+    content: T[]
+    pageNumber: number
+    pageSize: number
+    totalElement: number
+    totalPages: number
+    lastPage: boolean
+  }
+
+  /**
+   * @deprecated Use PaginedEntities<JobInvitationEntity> instead
+   */
   export interface PaginedJobInvitationArray {
     content: JobInvitationEntity[]
     pageNumber: number
@@ -404,4 +416,44 @@ export interface SalesPersonEntity {
   selesPersonId: number
   name: string
   description: any
+}
+
+export interface CandidateAssessmentEntity {
+  candidateAssessmentId: number
+  title: string
+  totalQuestion: number
+  attendQuestion: number
+  passedQuestion: number
+  assessmentId: number
+  companyId: number
+  candidateId: number
+  createdBy: number
+  updatedBy: number
+  createdAt: string
+  updatedAt: string
+  assessmentStatus: string
+  expirationTime: string
+  candidateAssessmentAnswerEntities: CandidateAssessmentAnswerEntity[]
+  createdByUserDetail: CreatedByUserDetail
+  auserId: any
+}
+
+export interface CandidateAssessmentAnswerEntity {
+  candidateAssessmentAnswerId: number
+  assessmentQuestionId: number
+  question: string
+  correctAnswer: string
+  candidateAnswer?: string
+  isPassed: boolean
+  isSkip: boolean
+  candidateAssessmentId: number
+  userCode: any
+  codeCompiledOutput: any
+}
+
+export interface CreatedByUserDetail {
+  id: number
+  firstName: string
+  lastName: string
+  companyName: string
 }

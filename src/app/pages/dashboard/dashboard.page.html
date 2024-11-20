@@ -105,16 +105,16 @@
     </div>
   </div>
 
-
-
   <div class="ion-padding-horizontal">
     <app-section-heading>
       {{ "Recommended Assessments" |_ }}
     </app-section-heading>
+    @for (assessment of candidateAssessmentEntities; track assessment.assessmentId){
+      <app-dashboard-recommended-assessment-card
+        [assessmentEntity]="assessment"
+      ></app-dashboard-recommended-assessment-card>
+    }
 
-    <app-dashboard-recommended-assessment-card> </app-dashboard-recommended-assessment-card>
-    <app-dashboard-recommended-assessment-card> </app-dashboard-recommended-assessment-card>
-  
   </div>
 
   <div style="background: #FFF9E8;" class="ion-padding-horizontal">
