@@ -1,0 +1,35 @@
+<ion-header>
+  <app-topbar variant="light">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>{{ "Reject Job" |_ }}s</div>
+  </app-topbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding-horizontal form-wrapper">
+    <form [formGroup]="form" (submit)="submit()">
+      <div class="input-wrapper">
+        <app-outline-input
+          type="text"
+          placeholder="{{ 'Enter reason for rejection' |_ }}"
+          label="{{ 'Reason for rejection*' |_ }}"
+          formControlName="candidate_note"
+          [errorText]="displayedError['candidate_note']"
+        ></app-outline-input>
+      </div>
+
+      <div class="bottom-controls">
+        <div class="inner">
+          <app-ux-button
+            type="submit"
+            color="primary"
+            expand="block"
+            [loading]="formIsLoading"
+          >
+            {{ "Save" | _ }}
+          </app-ux-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>
