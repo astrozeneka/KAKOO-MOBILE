@@ -26,6 +26,7 @@ export class HorizontalScrollableTabsComponent  implements OnInit {
 
   triggerNavigation(slug:string){
     console.log("Emitting " + slug)
+    this.activeIndex = this.itemKeys.indexOf(slug)
     this.action.emit(slug)
   }
 }
