@@ -14,7 +14,8 @@ public class IntentPlugin: CAPPlugin, CAPBridgedPlugin, MFMailComposeViewControl
   public let identifier = "IntentPlugin"
   public let jsName = "Intent"
   public let pluginMethods: [CAPPluginMethod] = [
-    CAPPluginMethod(name:"openMailApp", returnType: CAPPluginReturnPromise)
+    CAPPluginMethod(name:"openMailApp", returnType: CAPPluginReturnPromise),
+    CAPPluginMethod(name:"displayShareSheet", returnType: CAPPluginReturnPromise)
   ]
   
   override public func load() {
@@ -48,6 +49,17 @@ public class IntentPlugin: CAPPlugin, CAPBridgedPlugin, MFMailComposeViewControl
       } else {
         call.resolve(["error": "Mail app not available"])
       }
+    }
+  }
+  
+  @objc func displayShareSheet(_ call: CAPPluginCall){
+    DispatchQueue.main.async {
+      let textToShare = call.getString("message") ?? ""
+      let activityVC = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+      if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+        rootVC.present(activityVC, animated: true, completion: nil)
+      }
+      call.resolve(["message": "Share sheet displayed successfully from native"])
     }
   }
 }

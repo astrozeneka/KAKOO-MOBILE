@@ -46,7 +46,11 @@ export class FeedbackService {
     await this.feedbackData.set(feedback)
   }
 
-  async displayFeedback(feedback:Feedback) {
+  async registerNow(feedback:Feedback) {
+    this.displayFeedback(feedback)
+  }
+
+  private async displayFeedback(feedback:Feedback) {
     if(feedback.type == 'toast'){
       let toast = await this.toastController.create({
         message: feedback.message,

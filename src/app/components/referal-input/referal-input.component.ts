@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonInput, IonIcon, IonButton } from "@ionic/angular/standalone";
 
 @Component({
@@ -11,6 +11,7 @@ import { IonInput, IonIcon, IonButton } from "@ionic/angular/standalone";
 export class ReferalInputComponent  implements OnInit {
 
   @Input() value:string|null = null
+  @Output() clipboardCopy = new EventEmitter<void>()
 
   constructor() { }
 
