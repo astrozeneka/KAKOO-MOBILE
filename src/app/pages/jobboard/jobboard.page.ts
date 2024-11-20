@@ -7,13 +7,22 @@ import { JobCardComponent } from 'src/app/components/job-card/job-card.component
 import { TopbarDashboardComponent } from 'src/app/topbar-dashboard/topbar-dashboard.component';
 import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-navbar.component';
 import { FilterChipsComponent } from 'src/app/components/filter-chips/filter-chips.component';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
 import { ContentService } from 'src/app/services/content.service';
 import { JobInvitationEntity, PaginedJobInvitationArray } from 'src/app/models/Candidate';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { ClickableJobCardComponent } from 'src/app/components/clickable-job-card/clickable-job-card.component';
+import { BehaviorSubject, filter, Observable, switchMap } from 'rxjs';
+
+interface Displayable { // Unused for now
+  subject?: BehaviorSubject<JobInvitationEntity>
+  $?: Observable<JobInvitationEntity>
+}
+
+export type DisplayableJobInvitationEntity = JobInvitationEntity & Displayable
+
 @Component({
   selector: 'app-jobboard',
   templateUrl: './jobboard.page.html',
@@ -30,6 +39,19 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
 
   // the language
   lang: "en"|"fr" = "en"
+
+  // Experimental features (an alternative to the StoredArray) [SHOULD USE Displayable[] in the future]
+  processDisplayable = (entities:DisplayableJobInvitationEntity[], existingDisplayables:DisplayableJobInvitationEntity[])=>{
+    return entities.map((entity:DisplayableJobInvitationEntity)=>{
+      const existingDisplayable = existingDisplayables.find((displayable)=>displayable.id === entity.id)
+      const subject = existingDisplayable?.subject || new BehaviorSubject<JobInvitationEntity>(entity)
+      return {
+        ...entity,
+        subject,
+        $: subject.asObservable()
+      }
+    })
+  }
   
   constructor(
     public translate: TranslateService,
@@ -48,26 +70,24 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
     }, 1000)
 
     // CAUTION, the pagined data should be managed carefully
-    this.pds.onJobInvitationsData(true, true)
+    /*this.pds.onJobInvitationsData(true, true)
       .subscribe((data:JobInvitationEntity[])=>{
-        console.log("Invitation data", data)
-        this.invitationEntities = data
+        // Patched the data
+        this.invitationEntities = this.processDisplayable(data, this.invitationEntities)
+        this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
+        console.log(this.invitationEntities)
+      })*/
+      
+    this.router.events
+      .pipe(
+        filter(e=>e instanceof NavigationEnd),
+        switchMap(()=>this.pds.onJobInvitationsData(true, true))
+      )
+      .subscribe((data:JobInvitationEntity[])=>{
+        // Patched the data
+        this.invitationEntities = this.processDisplayable(data, this.invitationEntities)
         this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
       })
-
-    // Testing, will be deleted
-    /*this.cs.get_exp(`/api/v1/job/get-all`, {})
-      .subscribe((data:any)=>{
-        console.log(data)
-      })*/
-
-    // Testing 2, job by users
-    /*this.cs.get_exp(`/api/v1/job/invited-job-list-by-user`, {})
-      .subscribe((data:PaginedJobInvitationArray)=>{
-        this.invitationEntities = data.content
-        console.log(this.invitationEntities)
-        this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
-      })*/
   }
 
   private _filterDisplayed(invitationEntities:JobInvitationEntity[]):JobInvitationEntity[]{
@@ -76,3 +96,7 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
   }
 
 }
+function switchmMap(arg0: () => Observable<JobInvitationEntity[]>): import("rxjs").OperatorFunction<NavigationEnd, unknown> {
+  throw new Error('Function not implemented.');
+}
+

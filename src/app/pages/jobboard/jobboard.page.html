@@ -28,6 +28,7 @@
   <div class="ion-padding-horizontal">
     @for (invitation of displayedInvitationEntities; track invitation.id) {
       <app-clickable-job-card
+        [displayableInvitationEntity]="invitation"
         [jobEntity]="invitation.jobEntity"
         [status]="invitation.inviteStatus"
       >

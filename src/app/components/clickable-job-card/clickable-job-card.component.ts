@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { IonButton, IonIcon } from "@ionic/angular/standalone";
 import { JobEntity } from 'src/app/models/Candidate';
 import { ellipsisHorizontalCircleOutline } from 'ionicons/icons';
+import { DisplayableJobInvitationEntity } from 'src/app/pages/jobboard/jobboard.page';
 
 @Component({
   selector: 'app-clickable-job-card',
@@ -17,12 +18,18 @@ export class ClickableJobCardComponent  implements OnInit, OnChanges {
   @Input() routerLink:string = '';
   @Input() jobEntity:JobEntity|null = null as any;
 
+  // Experimental feature for the StoredArray function
+  @Input() displayableInvitationEntity:DisplayableJobInvitationEntity|null = null
+
   constructor() { }
 
   ngOnInit() {}
 
   ngOnChanges() {
     this.routerLink = '/job-detail/' + this.jobEntity?.jobId
+    this.displayableInvitationEntity?.$?.subscribe((entity)=>{
+      console.log("UPDATE ENTITY", entity)
+    })
   }
 
   // Icons

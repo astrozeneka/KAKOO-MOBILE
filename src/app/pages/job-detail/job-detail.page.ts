@@ -12,12 +12,12 @@ import { JobDetailsHeaderComponent } from 'src/app/components/job-details-header
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
 import { CompanyEntity, JobEntity, JobInvitationEntity } from 'src/app/models/Candidate';
-import { finalize, map, mergeMap, Observable } from 'rxjs';
+import { filter, finalize, map, mergeMap, Observable, switchMap, tap } from 'rxjs';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 
 // Experimental (might be moved to Candidate.ts in a near future)
 export interface EJobEntity extends JobEntity {
-  companyEntity: CompanyEntity
+  companyEntity: CompanyEntity // We need for the profile picture
   jobInvitationEntity?: JobInvitationEntity
 }
 
@@ -55,8 +55,8 @@ export class JobDetailPage implements OnInit {
     /**
      * is to load the jobinvitation entity together
      */
-
-    this.isPageLoading = true;
+    // The old way to load the data
+    /*this.isPageLoading = true;
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
     this._loadJob(this.jobId)
       .subscribe((job:EJobEntity) => {
@@ -70,6 +70,29 @@ export class JobDetailPage implements OnInit {
         if (this.jobEntity)
           this.jobEntity.jobInvitationEntity = jobInvitationEntity
         this.cdr.detectChanges()
+      })*/
+    
+    // The new way to load the invitation data (unoptimized since the array doesn't have hash key)
+    this.pds.onJobInvitationsData(true, true)
+      .pipe(
+        tap((data:JobInvitationEntity[]) => {console.log(data)}),
+        map((data:JobInvitationEntity[]) => {
+          return data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
+        }),
+        filter((jobInvitationEntity:JobInvitationEntity|undefined) => jobInvitationEntity != undefined),
+        switchMap((jobInvitationEntity:JobInvitationEntity|undefined) =>
+          this.cs.get_exp(`/api/v1/candidate/get-company/${jobInvitationEntity!.jobEntity.companyId}`, {})
+            .pipe(map((e:CompanyEntity) => {
+              return {
+                ...jobInvitationEntity?.jobEntity,
+                jobInvitationEntity: {...jobInvitationEntity, companyEntity: null},
+                companyEntity: e
+              } as EJobEntity
+            }))
+        )
+      )
+      .subscribe((jobEntity:EJobEntity)=>{
+        this.jobEntity = jobEntity
       })
   }
 
