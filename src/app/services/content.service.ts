@@ -115,7 +115,10 @@ export class ContentService {
           }))
         )
         resolve(response)
-      }catch(error){
+      }catch(error:any){
+        if (error.status === 500){
+          this.router.navigateByUrl('/login?error=session-expired')
+        }
         reject(error)
       }
     }));

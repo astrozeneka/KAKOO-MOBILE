@@ -1,0 +1,21 @@
+<div [class]="'outline-textarea ' + variant">
+  <div [class]="
+    'wrapper ' +
+    ((formControl?.invalid && formControl?.touched) ? 'has-error ' : ' ') +
+    (hasFocus ? 'has-focus ' : ' ')
+  ">
+  <!-- No label is present -->
+    <ion-textarea
+      #innerInput
+      fill="outline"
+      [placeholder]="placeholder"
+      [formControl]="formControl!"
+    ></ion-textarea>
+  </div>
+  
+  @if (formControl?.invalid && formControl?.touched) {
+    <div class="input-error">
+      {{ errorText }}
+    </div>
+  }
+</div>

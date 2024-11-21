@@ -1,0 +1,54 @@
+.outline-textarea{
+    margin-top: var(--margin-top, 24px);
+    margin-bottom: var(--margin-bottom, 24px);
+
+    .wrapper{
+        position: relative;
+        height: var(--height, 95px); // Height is configurable
+        //display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & ion-textarea{
+            height: var(--height, 95px);
+            --border-width: 0;
+            --padding-start: 16px; // Experimental, should test on ios
+            --padding-end: 16px;
+        }
+
+
+        // The outline border
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--border-color, #E7E7E9);
+        border-radius: var(--border-radius, 8px);
+    }
+
+    /**
+     * The code below is exactly the same as in outline-input
+     */
+    & .wrapper.has-focus {
+        // Shared among other controls
+        border-color: #007E48!important;
+        border-width: 1.5px;
+        & label{
+            color: #007E48!important;
+        }
+    }
+    & .wrapper.has-error {
+        // Shared among other controls
+        border-color: #B3261E;
+        border-width: 1.5px;
+        & label{
+            color: #B3261E;
+        }
+    }
+    & .input-error{
+        // Actually, we cannot insert a mixin directly
+        // This is for a low-coupling architecture
+        font-size: 14px;
+        line-height: 21px;
+        margin-top: 6px;
+        color: #B3261E;
+    }
+}

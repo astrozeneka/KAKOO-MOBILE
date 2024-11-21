@@ -19,20 +19,32 @@
   <div class="ion-padding-horizontal form-wrapper">
     <br/>
     <form [formGroup]="form" (submit)="submit()">
-      <h2 class="display-5">Your cover letter</h2>
-      <ion-textarea
+      <h2 class="display-5">Your cover letter (optional)</h2>
+      <!--<ion-textarea
         fill="outline"
         placeholder="type answer"
         formControlName="coverLater"
-      ></ion-textarea>
+      ></ion-textarea>-->
+      <app-outline-textarea
+        placeholder="Type answer"
+        formControlName="coverLater"
+        [errorText]="displayedError['coverLater']"
+      ></app-outline-textarea>
       @if (jobEntity) {
         @for (question of jobEntity.jobCustomQuestionEntities; track question.jobCustomQuestionId) {
         <h2 class="display-5">{{ question.name }}</h2>
+        <app-outline-textarea
+          placeholder="Type answer"
+          [formControlName]="'customQuestion_' + question.jobCustomQuestionId"
+          [errorText]="displayedError['customQuestion_' + question.jobCustomQuestionId]"
+        ></app-outline-textarea>
+        <!--
         <ion-textarea
           fill="outline"
           placeholder="Type answer"
           [formControlName]="'customQuestion_' + question.jobCustomQuestionId"
         ></ion-textarea>
+        -->
         }
       }
 

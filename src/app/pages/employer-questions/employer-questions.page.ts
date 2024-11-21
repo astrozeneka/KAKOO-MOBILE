@@ -17,6 +17,7 @@ import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { Location } from '@angular/common';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { environment } from 'src/environments/environment';
+import { OutlineTextareaComponent } from "../../components/outline-textarea/outline-textarea.component";
 
 @Component({
   selector: 'app-employer-questions',
@@ -24,8 +25,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./employer-questions.page.scss'],
   standalone: true,
   imports: [IonIcon, IonButton, IonTextarea, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, FileCardComponent, TopbarComponent,
-    ReactiveFormsModule, UxButtonComponent, I18nPipeShortened
-  ]
+    ReactiveFormsModule, UxButtonComponent, I18nPipeShortened, OutlineTextareaComponent]
 })
 export class EmployerQuestionsPage implements OnInit {
   // Variables (same as in reject-job)
@@ -79,7 +79,7 @@ export class EmployerQuestionsPage implements OnInit {
       })
     })*/
 
-    this.pds.onJobInvitationsData(true, true)
+    this.pds.onJobInvitationsData(true, false) // Use from cache only
      .pipe(
         map((data:JobInvitationEntity[]) => {
           return data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
@@ -122,6 +122,7 @@ export class EmployerQuestionsPage implements OnInit {
     this.form.markAllAsTouched()
     if (this.form.invalid){
       displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+      console.log(this.displayedError)
       this.cdr.detectChanges()
       return;
     }

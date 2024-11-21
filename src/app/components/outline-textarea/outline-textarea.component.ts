@@ -1,39 +1,39 @@
-import { AfterViewInit, ChangeDetectorRef, Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlContainer, ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { IonInput, IonButton, IonTextarea } from '@ionic/angular/standalone';
+import { ChangeDetectorRef, Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ControlContainer, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { IonTextarea } from '@ionic/angular/standalone';
 
+
+/**
+ * The code is quite similar (but not the same) with outline-input.component.ts
+ */
 @Component({
-  selector: 'app-outline-input',
-  templateUrl: './outline-input.component.html',
-  styleUrls: ['./outline-input.component.scss'],
+  selector: 'app-outline-textarea',
+  templateUrl: './outline-textarea.component.html',
+  styleUrls: ['./outline-textarea.component.scss'],
   standalone: true,
-  imports: [IonTextarea, IonButton, IonInput, FormsModule, ReactiveFormsModule],
+  imports: [IonTextarea, ReactiveFormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => OutlineInputComponent),
+      useExisting: forwardRef(() => OutlineTextareaComponent),
       multi: true
     }
   ]
 })
-export class OutlineInputComponent  implements ControlValueAccessor, OnInit, AfterViewInit {
+export class OutlineTextareaComponent  implements OnInit {
   @Input() formControl: FormControl<string> | undefined;
   @Input() formControlName: string|undefined;
-  @Input() label: string = ""
   @Input() placeholder: string = ""
-  @Input() type: string = "text"
   @Input() errorText: string | undefined = undefined
-  @Input() inputMode: string = "text"
   @Input() variant: string = "default"
 
-  @ViewChild('innerInput') innerInput: IonInput | undefined;
+  @ViewChild('innerInput') innerInput: IonTextarea | undefined;
   hasFocus: boolean = false
 
   constructor(
     private controlContainer: ControlContainer,
     private cdr: ChangeDetectorRef // NO need
-  ) { 
-  }
+  ) { }
 
   ngOnInit() {
     this.formControl = this.formControl || this.controlContainer.control?.get(this.formControlName!) as FormControl<string>;
