@@ -1,5 +1,5 @@
 import { Injectable, output } from '@angular/core';
-import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity, CandidateEducationEntity, CandidateAssessmentEntity, PaginedEntities } from '../models/Candidate';
+import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity, CandidateEducationEntity, CandidateAssessmentEntity, PaginedEntities, DashboardMetrics } from '../models/Candidate';
 import StoredData from '../submodules/stored-data/StoredData';
 import { BehaviorSubject, catchError, filter, forkJoin, merge, Observable, tap, throwError } from 'rxjs';
 import { ContentService } from './content.service';
@@ -29,9 +29,13 @@ export class ProfileDataService {
   meetingsSubject = new BehaviorSubject<MeetingEntity[]|null>([])
   meetings$ = this.meetingsSubject.asObservable()
 
-  referralsData: StoredData<ReferralEntity[]> | undefined
+  referralsData: StoredData<ReferralEntity[]>
   referralsSubject = new BehaviorSubject<ReferralEntity[]|null>([])
   referrals$ = this.referralsSubject.asObservable()
+
+  metricsData: StoredData<DashboardMetrics>
+  metricsSubject = new BehaviorSubject<DashboardMetrics|null>(null)
+  metrics$ = this.metricsSubject.asObservable()
 
   // Candidate Education (no data stored since data update is fired from other fucntions (e.g. ...))
 
@@ -43,6 +47,7 @@ export class ProfileDataService {
     this.assessmentData = new StoredData<CandidateAssessmentEntity[]>('assessments', this.storage)
     this.meetingsData = new StoredData<MeetingEntity[]>('meetings', this.storage)
     this.referralsData = new StoredData<ReferralEntity[]>('referrals', this.storage)
+    this.metricsData = new StoredData<DashboardMetrics>('metrics', this.storage)
   }
 
   onJobInvitationsData(fromCache=true, fromServer=true):Observable<JobInvitationEntity[]>{
@@ -210,5 +215,33 @@ export class ProfileDataService {
     let output$ = merge(this.referrals$, additionalEvents$)
     output$ = output$.pipe(filter((data)=>data!=null))
     return output$ as Observable<ReferralEntity[]>
+  }
+
+  onMetricsData(fromCache=true, fromServer=true):Observable<DashboardMetrics>{
+    let additionalEventsSubject = new BehaviorSubject<DashboardMetrics|null>(null)
+    let additionalEvents$ = additionalEventsSubject.asObservable()
+
+    // 1. Fire the cached data
+    if (fromCache) {
+      this.metricsData!.get().then((data:DashboardMetrics|null)=>{
+          additionalEventsSubject.next(data)
+      })
+    }
+
+    // 2. Fire from the server
+    if (fromServer) {
+      this.cs.get_exp_fullurl(`${environment.apiEndpoint}/api/v1/dashboard/candidate/get-all-count`, {})
+        .pipe(catchError((error)=>{
+          return throwError(error)
+        }))
+        .subscribe((data:DashboardMetrics)=>{
+          additionalEventsSubject.next(data)
+          this.metricsData!.set(data)
+        })
+    }
+
+    let output$ = merge(this.metrics$, additionalEvents$)
+    output$ = output$.pipe(filter((data)=>data!=null))
+    return output$ as Observable<DashboardMetrics>
   }
 }

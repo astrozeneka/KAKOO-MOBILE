@@ -466,3 +466,18 @@ export interface Displayable { // Unused for now
   subject?: BehaviorSubject<JobInvitationEntity>
   $?: Observable<JobInvitationEntity>
 }
+
+export interface DashboardMetrics {
+  noOfInterview: number
+  noOfCompletedInterview: number
+  noOfPendingInterview: number
+  noOfAssessment: number
+  noOfCompletedAssessment: number
+  noOfPendingAssessment: number
+  noOfVideoAssessment: number
+  noOfCompletedVideoAssessment: number
+  noOfJobInvitation: number
+  noOfJobApplied: number
+  noOfJobRejected: number
+  noOfPendingNotification: number
+}

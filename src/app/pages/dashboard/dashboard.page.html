@@ -63,7 +63,7 @@
         slug="interview"
         color="#007E4817"
         title="{{ 'Interview' |_ }}"
-        subtitle="07"
+        subtitle="{{ dashboardMetrics?.noOfInterview | zfill }}"
         style="flex: 1"
         routerLink="/meetings"
       ></app-clickable-dashboard-card>
@@ -71,7 +71,7 @@
         slug="job-invitation"
         color="#9C282917"
         title="{{ 'Job Invitation' |_ }}"
-        subtitle="10"
+        subtitle="{{ dashboardMetrics?.noOfJobInvitation | zfill }}"
         style="flex: 1"
         routerLink="/jobboard"
       ></app-clickable-dashboard-card>
@@ -81,14 +81,14 @@
         slug="assessment"
         color="#FBBC0517"
         title="{{ 'Assessment' |_ }}"
-        subtitle="07"
+        subtitle="{{ dashboardMetrics?.noOfAssessment | zfill }}"
         style="flex: 1"
       ></app-clickable-dashboard-card>
       <app-clickable-dashboard-card
         slug="video-assessment"
         color="#375DFB17"
         title="{{ 'Video Assessment' |_ }}"
-        subtitle="24"
+        subtitle="{{ dashboardMetrics?.noOfVideoAssessment | zfill }}"
         style="flex: 1"
       ></app-clickable-dashboard-card>
     </div>

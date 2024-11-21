@@ -12,10 +12,10 @@ import { ProfileCtaComponent } from 'src/app/components/profile-cta/profile-cta.
 import { SectionHeadingComponent } from 'src/app/components/section-heading/section-heading.component';
 import { ButtonGroupItemComponent } from 'src/app/components/button-group-item/button-group-item.component';
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { SvgProfileComponent } from "../../svg-profile/svg-profile.component";
 import { ContentService } from 'src/app/services/content.service';
-import { Candidate, CandidateAssessmentEntity } from 'src/app/models/Candidate';
+import { Candidate, CandidateAssessmentEntity, DashboardMetrics } from 'src/app/models/Candidate';
 import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profile-cta/clickable-profile-cta.component';
 import { ClickableDashboardCardComponent } from 'src/app/components/clickable-dashboard-card/clickable-dashboard-card.component';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
@@ -23,6 +23,8 @@ import { DevDebugButtonComponent } from "../../dev-prod-components/debug-button/
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
 import { environment } from 'src/environments/environment';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
+import { catchError, filter, switchMap } from 'rxjs';
+import { ZfillPipe } from 'src/app/utils/zfill.pipe';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,6 +34,7 @@ import { ProfileDataService } from 'src/app/services/profile-data.service';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, DashboardCardComponent, DashboardRecommendedJobCardComponent, DashboardRecommendedAssessmentCardComponent, DashboardInterviewCtaComponent,
     BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent, SvgProfileComponent, ClickableProfileCtaComponent, ClickableDashboardCardComponent, I18nPipeShortened,
     ...[(environment.production ? ProdDebugButtonComponent : DevDebugButtonComponent)],
+    ZfillPipe
   ]
 })
 export class DashboardPage extends BottomNavbarTarget implements OnInit {
@@ -39,6 +42,7 @@ export class DashboardPage extends BottomNavbarTarget implements OnInit {
   // The candidate data
   candidate:Candidate|null = null
   candidateAssessmentEntities: CandidateAssessmentEntity[] = []
+  dashboardMetrics: DashboardMetrics|null = null
 
   constructor(
     router: Router,
@@ -49,15 +53,29 @@ export class DashboardPage extends BottomNavbarTarget implements OnInit {
   }
 
   ngOnInit() {
+    // Dashboard metrics
+
+    // Candidate data
     this.cs.registerCandidateDataObserverV3(true, true)
       .subscribe((data)=>{
         this.candidate = data
       })
-
+    
+    // The recommended assessments
     this.pds.onAssessmentData(true, true).subscribe((data)=>{
       console.log('Assessment data:', data)
       this.candidateAssessmentEntities = data // Only set
     })
+
+    // The dashboard metrics
+    this.router.events
+      .pipe(
+        filter((event)=>event instanceof NavigationEnd),
+        switchMap(_=>this.pds.onMetricsData(true, true))
+      )
+      .subscribe((data:DashboardMetrics)=>{
+        this.dashboardMetrics = data
+      })
   }
 
 }
