@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
@@ -40,6 +40,7 @@ export class JobDetailPage implements OnInit {
   @ViewChild('description') description!: ElementRef;
   @ViewChild('jobRequirements') jobRequirements!: ElementRef;
   @ViewChild('responsibilities') responsibilities!: ElementRef;
+  @ViewChild('jobQualification') jobQualification!: ElementRef;
 
   constructor(
     private router: Router,
@@ -142,7 +143,8 @@ export class JobDetailPage implements OnInit {
     let element = {
       'description': this.description,
       'jobRequirements': this.jobRequirements,
-      'responsibilities': this.responsibilities
+      'responsibilities': this.responsibilities,
+      'jobQualification': this.jobQualification
     }[section as string]?.nativeElement
     const offset = 20;
     const elementPosition = element?.getBoundingClientRect().top + window.scrollY;

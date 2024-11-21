@@ -49,6 +49,11 @@ export class DashboardPage extends BottomNavbarTarget implements OnInit {
   }
 
   ngOnInit() {
+    this.cs.registerCandidateDataObserverV3(true, true)
+      .subscribe((data)=>{
+        this.candidate = data
+      })
+
     this.pds.onAssessmentData(true, true).subscribe((data)=>{
       console.log('Assessment data:', data)
       this.candidateAssessmentEntities = data // Only set
