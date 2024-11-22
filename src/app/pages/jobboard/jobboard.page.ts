@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar } from '@ionic/angular/standalone';
@@ -27,8 +27,8 @@ export type DisplayableJobInvitationEntity = JobInvitationEntity & Displayable
     BottomNavbarComponent, FilterChipsComponent, ReactiveFormsModule, ClickableJobCardComponent
   ]
 })
-export class JobboardPage extends BottomNavbarTarget implements OnInit {
-  chipControl = new FormControl<string|null>(null)
+export class JobboardPage extends BottomNavbarTarget implements OnInit, AfterViewInit {
+  chipControl = new FormControl<'saved'|'applied'|'all'|'rejected'|'pending'|null>(null) // Saved is now unused
   invitationEntities:JobInvitationEntity[] = []
   displayedInvitationEntities:JobInvitationEntity[] = [] // Since we have a filter option
 
@@ -60,19 +60,7 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(()=>{
-      this.chipControl.patchValue("all")
-    }, 1000)
-
-    // CAUTION, the pagined data should be managed carefully
-    /*this.pds.onJobInvitationsData(true, true)
-      .subscribe((data:JobInvitationEntity[])=>{
-        // Patched the data
-        this.invitationEntities = this.processDisplayable(data, this.invitationEntities)
-        this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
-        console.log(this.invitationEntities)
-      })*/
-      
+    // Load job data from controller
     this.router.events
       .pipe(
         filter(e=>e instanceof NavigationEnd),
@@ -83,10 +71,25 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit {
         this.invitationEntities = this.processDisplayable(data, this.invitationEntities)
         this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
       })
+    
+    // Handle the chip value change
+    this.chipControl.valueChanges.subscribe((val)=>{
+      this.displayedInvitationEntities = this._filterDisplayed(this.invitationEntities)
+    })
+  }
+
+  ngAfterViewInit(): void {
+    this.chipControl.patchValue("all")
   }
 
   private _filterDisplayed(invitationEntities:JobInvitationEntity[]):JobInvitationEntity[]{
-    // filters will be applied here
+    let filterValue = this.chipControl.value
+    // filter the list using the criteria
+    if (filterValue === "all") return invitationEntities
+    if (filterValue === "applied") return invitationEntities.filter((entity)=>entity.inviteStatus === "ACCEPTED")
+    if (filterValue === "rejected") return invitationEntities.filter((entity)=>entity.inviteStatus === "REJECTED")
+    if (filterValue === "pending") return invitationEntities.filter((entity)=>entity.inviteStatus === "PENDING")
+
     return invitationEntities
   }
 
