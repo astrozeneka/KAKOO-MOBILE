@@ -8,6 +8,7 @@ export const environment = {
   apiEndpoint: 'https://web.kakoo-software.com/kakoo-back-end',
   serverHost: 'staging.kakoo-software.com',
   cachePrefix: 'kakoodev-',
+  defaultLanguageSelection: 'prompt', // system, prompt
 
   mFormMode: 'email', // Only 'email' is available
   mFormOptions: [

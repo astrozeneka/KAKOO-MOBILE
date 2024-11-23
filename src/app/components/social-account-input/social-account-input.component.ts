@@ -31,7 +31,6 @@ export class SocialAccountInputComponent  implements ControlValueAccessor, OnIni
   ) { }
 
   ngOnInit() {
-    console.log(this.formControlName)
     this.formControl = this.formControl || this.controlContainer.control?.get(this.formControlName!) as FormControl<string|null>;
   }
 

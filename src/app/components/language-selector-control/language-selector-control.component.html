@@ -1,0 +1,27 @@
+
+<div class="flag-container ion-padding-horizontal">
+  <ion-button
+    [class]="formControl?.value === 'en' ? 'active' : ''"
+    (click)="formControl?.setValue('en')"
+    fill="clear"
+  >
+    <div class="circle"></div>
+    <div>
+      <img src="/assets/svg/flag-uk.svg"/>
+      <div class="sub-title-1">English</div>
+      <div class="sub-title-2">(United Kingdom)</div>
+    </div>
+  </ion-button>
+  <ion-button
+    [class]="formControl?.value === 'fr' ? 'active' : ''"
+    (click)="formControl?.setValue('fr')"
+    fill="clear"
+  >
+    <div class="circle"></div>
+    <div>
+      <img src="/assets/svg/flag-fr.svg"/>
+      <div class="sub-title-1">French</div>
+      <div class="sub-title-2">(France)</div>
+    </div>
+  </ion-button>
+</div>

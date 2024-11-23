@@ -84,6 +84,8 @@ export class LoginPage extends AbstractPage implements OnInit {
   }
 
   ngOnInit() {
+    // Check active language
+    
 
     // 1.0 - Handle passwordless login
     
