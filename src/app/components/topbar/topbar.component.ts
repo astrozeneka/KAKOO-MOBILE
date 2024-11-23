@@ -14,6 +14,7 @@ export class TopbarComponent  implements OnInit {
 
   // experimental
   @Input() variant: string = 'default'
+  @Input() progressBar: boolean = true
 
   constructor() { }
 

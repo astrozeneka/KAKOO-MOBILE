@@ -1,22 +1,14 @@
-<ion-header [translucent]="true">
+<ion-header>
+  <app-topbar color="transparent" id="header" [progressBar]="false">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div class="ion-text-center title"></div>
+    <div slot="end"></div>
+  </app-topbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-  </ion-header>
-  <div style="height: 10px;"></div><!-- another placeholder -->
+<ion-content>
+  <!--<div style="height: 10px;"></div>--><!-- another placeholder -->
   <div class="ion-padding-horizontal">
-    <div><!-- Should consider to update later -->
-      <!-- TODO, make this button match the Design -->
-      <ion-button
-        class="back-button"
-        fill="clear"
-        color="clear"
-        (click)="goTo('/home')"
-      >
-        <ion-icon src="/assets/svg/arrow-left.svg"></ion-icon>
-      </ion-button>
-    </div>
 
     <h1 class="display-bold-1">{{ "Check your email" |_ }}</h1>
     <div class="helper">
