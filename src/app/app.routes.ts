@@ -191,4 +191,12 @@ export const routes: Routes = [
     path: 'about-en',
     loadComponent: () => import('./about/about.page').then( m => m.AboutPageFr)
   },
+  {
+    path: 'assessments',
+    loadComponent: () => import('./pages/assessments/assessments.page').then( m => m.AssessmentsPage)
+  },
+  {
+    path: 'video-assessments',
+    loadComponent: () => import('./pages/video-assessments/video-assessments.page').then( m => m.VideoAssessmentsPage)
+  },
 ];

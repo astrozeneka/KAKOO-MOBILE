@@ -36,21 +36,37 @@
       {{ "You got new notifications" |_ }}
     </app-section-heading>
     <div class="button-group">
-      <app-button-group-item [chip]="2">
-        You got invitation for Jobs
-      </app-button-group-item>
-      <app-button-group-item [chip]="1">
-        You got Assessment Request "Java" <!-- Notification endpoint -->
-      </app-button-group-item>
-      <app-button-group-item [chip]="1">
-        You got Video Assessment Request
-      </app-button-group-item>
-      <app-button-group-item [chip]="1">
-        You got IQ Test Request
-      </app-button-group-item>
-      <app-button-group-item [chip]="1">
-        You have Interviews Scheduled
-      </app-button-group-item>
+      @if (dashboardMetrics?.noOfJobInvitation ?? 0 > 0) {
+        <app-button-group-item 
+          [chip]="dashboardMetrics?.noOfJobInvitation ?? 0"
+          routerLink="/jobboard"
+        >
+          You got invitation for Jobs
+        </app-button-group-item>
+      }
+      @if (dashboardMetrics?.noOfAssessment ?? 0 > 0) {
+        <app-button-group-item
+          [chip]="dashboardMetrics?.noOfAssessment ?? 0"
+          routerLink="/assessments"
+        >
+          You got Assessment Request
+        </app-button-group-item>
+      }
+      @if (dashboardMetrics?.noOfVideoAssessment ?? 0 > 0) {
+        <app-button-group-item [chip]="dashboardMetrics?.noOfVideoAssessment ?? 0"
+          routerLink="/video-assessments"
+        >
+          You got Video Assessment Request
+        </app-button-group-item>
+      }
+      @if (dashboardMetrics?.noOfMeeting ?? 0 > 0) {
+        <app-button-group-item 
+          routerLink="/meetings"
+          [chip]="dashboardMetrics?.noOfMeeting ?? 0"
+        >
+          You have Meeting Scheduled
+        </app-button-group-item>
+      }
     </div>
   </div>
 
@@ -94,6 +110,7 @@
     </div>
   </div>
 
+  <!--
   <div class="bg-primary recommended-jobs">
     <div class="title ion-padding-horizontal">{{ "Recommended Jobs" |_ }}</div>
     <div class="">
@@ -104,10 +121,11 @@
       </div>
     </div>
   </div>
+  -->
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      {{ "Recommended Assessments" |_ }}
+      {{ "Assessment Invitation" |_ }}
     </app-section-heading>
     @for (assessment of candidateAssessmentEntities; track assessment.assessmentId){
       <app-dashboard-recommended-assessment-card

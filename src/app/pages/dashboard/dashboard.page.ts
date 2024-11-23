@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -23,8 +23,12 @@ import { DevDebugButtonComponent } from "../../dev-prod-components/debug-button/
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
 import { environment } from 'src/environments/environment';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
-import { catchError, filter, switchMap } from 'rxjs';
+import { catchError, filter, map, switchMap } from 'rxjs';
 import { ZfillPipe } from 'src/app/utils/zfill.pipe';
+
+interface ExtendedDashboardMetrics extends DashboardMetrics {
+  noOfMeeting?: number
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -42,18 +46,18 @@ export class DashboardPage extends BottomNavbarTarget implements OnInit {
   // The candidate data
   candidate:Candidate|null = null
   candidateAssessmentEntities: CandidateAssessmentEntity[] = []
-  dashboardMetrics: DashboardMetrics|null = null
+  dashboardMetrics: ExtendedDashboardMetrics = {} as any
 
   constructor(
     router: Router,
     private cs: ContentService,
-    private pds: ProfileDataService
+    private pds: ProfileDataService,
+    private cdr: ChangeDetectorRef
   ) { 
     super(router)
   }
 
   ngOnInit() {
-    // Dashboard metrics
 
     // Candidate data
     this.cs.registerCandidateDataObserverV3(true, true)
@@ -74,8 +78,28 @@ export class DashboardPage extends BottomNavbarTarget implements OnInit {
         switchMap(_=>this.pds.onMetricsData(true, true))
       )
       .subscribe((data:DashboardMetrics)=>{
-        this.dashboardMetrics = data
+        this.dashboardMetrics = {
+          ...this.dashboardMetrics,
+          ...data
+        }
       })
+
+    // Notification extra data (not loaded from the server)
+    this.pds.onMeetingData(true, true, false)
+      .pipe(
+        filter(d=>d.length > 0),
+        map(data => data.filter((value, index, self) =>
+          index === self.findIndex(t => t.id === value.id) // Assuming each item has a unique 'id' property
+        ))
+      )
+      .subscribe((data)=>{
+        this.dashboardMetrics = {
+          ...this.dashboardMetrics,
+          noOfMeeting: data.length
+        }
+        this.cdr.detectChanges()
+      })
+    
   }
 
 }
