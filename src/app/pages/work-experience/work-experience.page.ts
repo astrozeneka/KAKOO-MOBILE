@@ -56,6 +56,9 @@ export class WorkExperiencePage extends CandidateForm implements OnInit { // I d
     this.cdr.detectChanges()
   }
 
+  // Submit button status
+  buttonDisabled: boolean = true
+
   constructor(
     private cs:ContentService,
     public router:Router,
@@ -73,6 +76,9 @@ export class WorkExperiencePage extends CandidateForm implements OnInit { // I d
         console.log(candidate)
         this.candidate = candidate!
         this.postLoadProcessing()
+
+        // Set the button to disabled if no work experience has been added
+        this.buttonDisabled = this.candidateWorkExperienceEntities.length === 0
       })
     /*let extractedData: Candidate|null = await this.cs.candidateData.get();
     this.candidate = extractedData as any;

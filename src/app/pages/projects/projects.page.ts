@@ -57,6 +57,9 @@ export class ProjectsPage extends CandidateForm implements OnInit { // Candidate
     this.cdr.detectChanges()
   }
 
+  // Submit button status
+  buttonDisabled: boolean = true
+
   constructor(
     private cs:ContentService,
     public router:Router,
@@ -73,6 +76,9 @@ export class ProjectsPage extends CandidateForm implements OnInit { // Candidate
       .subscribe(async (candidate: Candidate|null) => {
         this.candidate = candidate!
         this.postLoadProcessing()
+
+        // set the button to disabled if no projects have been added
+        this.buttonDisabled = this.candidate.projectPortfolioEntities.length === 0
       })
   }
 

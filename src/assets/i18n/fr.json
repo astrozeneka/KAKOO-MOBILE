@@ -183,5 +183,8 @@
     "Share via": "Partager via",
     "Referral link": "Lien de parrainage",
 
-    "Select your language": "Sélectionnez votre langue"
+    "Select your language": "Sélectionnez votre langue",
+    "At least one education and one certification is required to complete your profile.": "Au moins une éducation et une certification sont nécessaires pour compléter votre profil.",
+    "At least one work experience should be added to complete your profile.": "Au moins une expérience professionnelle doit être ajoutée pour compléter votre profil.",
+    "At least one project should be added to complete your profile.": "Au moins un projet doit être ajouté pour compléter votre profil."
 }
