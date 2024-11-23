@@ -60,6 +60,7 @@
             expand="block"
             type="submit"
             [loading]="formIsLoading"
+            [disabled]="!form.valid"
           >
             {{ "Save & continue" |_ }}
           </app-ux-button>

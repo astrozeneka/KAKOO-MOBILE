@@ -136,9 +136,15 @@
           color="primary"
           expand="block"
           (click)="submit()"
+          [disabled]="buttonDisabled"
         >
         {{ "Save &amp; continue" | _ }}
         </ion-button>
+        @if (buttonDisabled){
+          <div class="ion-text-center in-text disable-helper">
+            {{ "At least one education and one certification is required to complete your profile." |_ }}
+          </div>
+        }
       </div>
     </div>
   </div>

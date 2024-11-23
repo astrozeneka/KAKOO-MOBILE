@@ -49,6 +49,9 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
   candidateEducationEntities: UXCandidateEducationEntity[] = [];
   candidateCertificateEntities: UXCandidateCertificateEntity[] = []; // TODO Later
 
+  // Submit button status
+  buttonDisabled: boolean = true
+
   postLoadProcessing(){
     this.candidateEducationEntities = this.candidate.candidateEducationEntities?.map((education: CandidateEducationEntity) => {
       const existingEntity = this.candidateEducationEntities?.find((entity) => entity.id === education.id)
@@ -104,7 +107,10 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
       .subscribe(async (candidate: Candidate|null) => {
         console.log("Load candidate from the service")
         this.candidate = candidate!
-        this.postLoadProcessing()  
+        this.postLoadProcessing()
+
+        // Set the button to be disabled if the candidate has no education or no certificate
+        this.buttonDisabled = this.candidate.candidateEducationEntities.length == 0 || this.candidate.candidateCertificateEntities.length == 0
       })
       
 
