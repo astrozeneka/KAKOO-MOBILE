@@ -65,7 +65,7 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
         fadeAway$: fadeAwaySubject.asObservable()
       }
     })
-    this.candidateCertificateEntities = this.candidate.candidateCertificateEntities?.map((certificate: CandidateCertificateEntity) => {
+    this.candidateCertificateEntities = this.candidate.licenceCertificateEntities?.map((certificate: CandidateCertificateEntity) => {
       const existingEntity = this.candidateCertificateEntities?.find((entity) => entity.id === certificate.id)
       const deleteIsLoadingSubject = existingEntity?.deleteIsLoadingSubject || new BehaviorSubject<boolean>(false);
       const fadeAwaySubject = existingEntity?.fadeAwaySubject || new BehaviorSubject<boolean>(false);
@@ -110,7 +110,7 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
         this.postLoadProcessing()
 
         // Set the button to be disabled if the candidate has no education or no certificate
-        this.buttonDisabled = this.candidate.candidateEducationEntities.length == 0 || this.candidate.candidateCertificateEntities.length == 0
+        this.buttonDisabled = this.candidate.candidateEducationEntities.length == 0 || this.candidate.licenceCertificateEntities.length == 0
       })
       
 
@@ -209,7 +209,8 @@ export class EducationAndCertificationPage extends CandidateForm implements OnIn
     createDeletePrompt(entity, this.alertController, this.t, this.cs)
       .subscribe(async (response)=>{
         entity.fadeAwaySubject.next(true);
-        this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-certificate/${entity.id}`, {})
+        //this.cs.delete_exp(`/api/v2/self-candidate/${this.candidate.candidateId}/delete-certificate/${entity.id}`, {})
+        this.cs.delete_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/delete-licence-certificate/${entity.id}`, {})
           .pipe(
             catch400Error(this.cs), // Experimental feature
             finalize(()=>{entity.deleteIsLoadingSubject.next(false)}))

@@ -120,6 +120,28 @@
             <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
           </div>
         </div>
+        <div slot="title">{{ entity.title }}</div>
+        <div slot="content">
+          {{ entity.issuingOrganization }}
+        </div>
+        <div slot="footer">
+          <div class="chip">{{ entity.issueDate | date: "MMMM YYYY" }}</div>
+        </div>
+      </app-experience-card>
+      <!--
+      <app-experience-card
+        [editButton]="true"
+        [deleteButton]="true"
+        (edit)="router.navigateByUrl('/certification-form?mode=edit&id=' + entity.id)"
+        (delete)="deleteCertificate(entity)"
+        [fadeAway$]="entity.fadeAway$"
+        [deleteButtonIsLoading$]="entity.deleteIsLoading$"
+      >
+        <div slot="image">
+          <div class="rounded-container">
+            <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
+          </div>
+        </div>
         <div slot="title">{{ entity.name }}</div>
         <div slot="content">
           {{ entity.institution }}
@@ -128,6 +150,7 @@
           <div class="chip">{{ entity.year }}</div>
         </div>
       </app-experience-card>
+      -->
     }
 
     <div class="bottom-controls">
