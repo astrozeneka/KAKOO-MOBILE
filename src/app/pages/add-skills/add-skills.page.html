@@ -64,6 +64,11 @@
           >
             {{ "Save & continue" |_ }}
           </app-ux-button>
+          @if (!form.valid) {
+            <div class="ion-text-center in-text disable-helper">
+              {{ "At least one language must be added in order to complete your profile." |_ }}
+            </div>
+          }
         </div>
       </div>
     </form>

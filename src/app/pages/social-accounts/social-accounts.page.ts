@@ -33,12 +33,12 @@ export class SocialAccountsPage implements OnInit {
   candidateSocialAccounts:{[key:string]:string} = {}
   form:FormGroup = new FormGroup({
     "facebook": new FormControl('', [UrlValidator]),
-    "x": new FormControl('', [Validators.pattern('https?://.+')]),
-    "linkedin": new FormControl('', [Validators.pattern('https?://.+')]),
-    "instagram": new FormControl('', [Validators.pattern('https?://.+')]),
-    "youtube": new FormControl('', [Validators.pattern('https?://.+')]),
-    "glassdoor": new FormControl('', [Validators.pattern('https?://.+')]),
-    "github": new FormControl('', [Validators.pattern('https?://.+')])
+    "x": new FormControl('', [UrlValidator]),
+    "linkedin": new FormControl('', [UrlValidator]),
+    "instagram": new FormControl('', [UrlValidator]),
+    "youtube": new FormControl('', [UrlValidator]),
+    "glassdoor": new FormControl('', [UrlValidator]),
+    "github": new FormControl('', [UrlValidator])
   
   }, {validators: AtLeastOneFieldRequiredValidator}) // Experimental validator
 

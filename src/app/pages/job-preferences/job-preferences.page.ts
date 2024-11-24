@@ -86,24 +86,28 @@ export class JobPreferencesPage implements OnInit {
   // The options to be displayed on the form
   employmentTypeOptions: EmploymentType[] = []
   employmentTypeKeyAccessor: (e:EmploymentType) => string = (option: EmploymentType) => 
-    (this.lang=="en" ? option.name : option.name_fr)
+    (this.lang=="en" ? option?.name : option?.name_fr)
   workTypeOptions: WorkType[] = []
   workTypeKeyAccessor: (e:WorkType) => string = (option: WorkType) => 
-    (this.lang=="en" ? option.name : option.name_fr)
+    (this.lang=="en" ? option?.name : option?.name_fr)
   salaryExpectationOptions: SalaryExpectation[] = []
-  salaryExpectationKeyAccessor: (e:SalaryExpectation) => string = (option: SalaryExpectation) => 
-    (this.lang=="en" ? `From ${option.from_amount} ${option.currency} to ${option.to_amount} ${option.currency}` 
-      : `De ${option.from_amount} ${option.currency} à ${option.to_amount} ${option.currency}`)
+  salaryExpectationKeyAccessor: (e:SalaryExpectation) => string = (option: SalaryExpectation) => {
+    if (!option){
+      return ""
+    }
+    return (this.lang=="en" ? `From ${option?.from_amount} ${option?.currency} to ${option?.to_amount} ${option?.currency}` 
+      : `De ${option?.from_amount} ${option?.currency} à ${option?.to_amount} ${option?.currency}`)
+  }
   hiringStatusOptions: HiringStatus[] = []
   hiringStatusKeyAccessor: (e:HiringStatus) => string = (option: HiringStatus) => 
-    (this.lang=="en" ? option.name : option.name_fr)
+    (this.lang=="en" ? option?.name : option?.name_fr)
   noticePeriodOptions: NoticePeriod[] = []
   noticePeriodKeyAccessor: (e:NoticePeriod) => string = (option: NoticePeriod) => 
-    (this.lang=="en" ? option.name : option.name_fr)
+    (this.lang=="en" ? option?.name : option?.name_fr)
 
   mobilityOptions: MobilityEntity[] = []
   mobilityKeyAccessor: (e:MobilityEntity) => string = (option: MobilityEntity) =>
-    (this.lang=="fr" ? option.name : option.nameFr) // !!! CAUTION, the language is reversed from the back-end
+    (this.lang=="fr" ? option?.name : option?.nameFr) // !!! CAUTION, the language is reversed from the back-end
   
   // Default: During the subscription process
   // Edit: Accessed from the edit-and-preview-profile

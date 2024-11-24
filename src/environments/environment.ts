@@ -26,6 +26,11 @@ export const environment = {
       label: 'Supermank',
       email: 'supermank@yopmail.com',
       password: '123456'
+    },
+    {
+      label: 'Ryan +22',
+      email: 'ryanrasoarahona3+22@gmail.com',
+      password: '123456'
     }
     /*{
       label: 'Ryan +3',

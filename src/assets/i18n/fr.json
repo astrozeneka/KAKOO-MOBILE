@@ -186,5 +186,9 @@
     "Select your language": "Sélectionnez votre langue",
     "At least one education and one certification is required to complete your profile.": "Au moins une éducation et une certification sont nécessaires pour compléter votre profil.",
     "At least one work experience should be added to complete your profile.": "Au moins une expérience professionnelle doit être ajoutée pour compléter votre profil.",
-    "At least one project should be added to complete your profile.": "Au moins un projet doit être ajouté pour compléter votre profil."
+    "At least one project should be added to complete your profile.": "Au moins un projet doit être ajouté pour compléter votre profil.",
+    "All fields must be completed in order to complete your profile." : "Tous les champs doivent être remplis pour compléter votre profil.",
+    "At least one language must be added in order to complete your profile." : "Au moins une langue doit être ajoutée pour compléter votre profil.",
+    "Please fill at least one social account in order to complete your profile.": "Veuillez remplir au moins un compte de réseau social pour compléter votre profil."
+    
 }

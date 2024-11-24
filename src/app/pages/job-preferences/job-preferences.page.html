@@ -124,6 +124,7 @@
             expand="block"
             type="submit"
             [loading]="formIsLoading"
+            [disabled]="!form.valid"
           >
             @if (formMode == 'default'){
               {{ "Save & continue" |_ }}
@@ -131,6 +132,11 @@
               {{ "Save" |_ }}
             }
           </app-ux-button>
+          @if (formMode == 'default' && !form.valid) {
+            <div class="ion-text-center in-text disable-helper">
+              {{ "All fields must be completed in order to complete your profile." |_ }}
+            </div>
+          }
         </div>
       </div>
     </form>

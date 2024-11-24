@@ -40,6 +40,9 @@ export class WelcomePage implements OnInit {
   // The user information (since the candidate might be null)
   user: User|null = null
 
+  // CV file is loading
+  resumeIsLoading: boolean = false
+
   postLoadProcessing(){
     if (this.candidate?.resumeAttachmentEntity){
       console.log(this.candidate.resumeAttachmentEntity)
@@ -66,7 +69,7 @@ export class WelcomePage implements OnInit {
 
   async ngOnInit() {
     let token = await this.cs.token.get()
-    console.log(token)
+    this.resumeIsLoading = true
 
     // KNOWN BUG 1. Priority: Low
     // The user log in with a use with CV uploaded account, then disconnect
@@ -77,8 +80,8 @@ export class WelcomePage implements OnInit {
         // If the user has just been connected, this will not be triggered
         // The userData will be used instead
         this.candidate = candidate!
-        console.log(candidate)
         this.postLoadProcessing()
+        this.resumeIsLoading = false
       })
     
     // For performance, only from server is loaded ONCE (not from cache)
