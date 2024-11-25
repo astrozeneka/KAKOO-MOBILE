@@ -189,6 +189,12 @@
     "At least one project should be added to complete your profile.": "Au moins un projet doit être ajouté pour compléter votre profil.",
     "All fields must be completed in order to complete your profile." : "Tous les champs doivent être remplis pour compléter votre profil.",
     "At least one language must be added in order to complete your profile." : "Au moins une langue doit être ajoutée pour compléter votre profil.",
-    "Please fill at least one social account in order to complete your profile.": "Veuillez remplir au moins un compte de réseau social pour compléter votre profil."
-    
+    "Please fill at least one social account in order to complete your profile.": "Veuillez remplir au moins un compte de réseau social pour compléter votre profil.",
+    "Other required skills": "Autres compétences requises",
+    "Employer Questions": "Questions de l'employeur",
+    "Here are some questions for the position:": "Voici quelques questions pour le poste :",
+
+    "Open browser": "Ouvrir le navigateur",
+    "Reset your password": "Réinitialiser votre mot de passe",
+    "We kindly invite you to get access to the web portal for resetting the password.": "Nous vous invitons cordialement à accéder au portail web pour réinitialiser le mot de passe."
 }

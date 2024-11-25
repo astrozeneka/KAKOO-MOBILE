@@ -1,9 +1,9 @@
-@import 'src/theme/mixins.scss';
 
-// Exactly the same as in job-details-other-skills
-.job-details-employer-questions{
+// Exactly the same as for employer-question-card
+.job-details-other-skills{
     margin-top: var(--margin-top, 20px);
     margin-bottom: var(--margin-bottom, 20px);
+
     & h3{
         margin: 0;
         font-size: 16px;
@@ -30,6 +30,4 @@
         }
     }
 
-    // Enhanced UX
-    @include loading-placeholder;
 }

@@ -256,7 +256,7 @@ export interface Candidate {
     jobCustomQuestionEntities: JobCustomQuestionEntity[]
     jobQualificationHTML: any
     jobDescriptionHTML: any
-    otherSkills: any[]
+    otherSkills: OtherSkillEntity[]
     spokenLanguageEntities: any[]
     qualifiedCount: any
     interviewedCount: any
@@ -480,4 +480,9 @@ export interface DashboardMetrics {
   noOfJobApplied: number
   noOfJobRejected: number
   noOfPendingNotification: number
+}
+
+export interface OtherSkillEntity {
+  id: number,
+  name: string
 }

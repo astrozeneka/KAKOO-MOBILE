@@ -14,6 +14,7 @@ import { ContentService } from 'src/app/services/content.service';
 import { CompanyEntity, JobEntity, JobInvitationEntity } from 'src/app/models/Candidate';
 import { filter, finalize, map, mergeMap, Observable, switchMap, tap } from 'rxjs';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
+import { JobDetailsOtherSkillsComponent } from 'src/app/components/job-details-other-skills/job-details-other-skills.component';
 
 // Experimental (might be moved to Candidate.ts in a near future)
 export interface EJobEntity extends JobEntity {
@@ -27,7 +28,7 @@ export interface EJobEntity extends JobEntity {
   styleUrls: ['./job-detail.page.scss'],
   standalone: true,
   imports: [IonSpinner, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, JobDetailsRequirementsTableComponent, EmployerQuestionsPage, JobDetailsEmployerQuestionsComponent, HorizontalScrollableTabsComponent,
-    JobDetailsHeaderComponent, RouterModule
+    JobDetailsHeaderComponent, RouterModule, JobDetailsOtherSkillsComponent
   ]
 })
 export class JobDetailPage implements OnInit {

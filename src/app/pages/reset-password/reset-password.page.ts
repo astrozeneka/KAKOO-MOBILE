@@ -5,6 +5,9 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonInp
 import { AbstractPage } from 'src/app/abstract-page';
 import { Router } from '@angular/router';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
+import { Browser } from '@capacitor/browser';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reset-password',
@@ -16,7 +19,7 @@ import { BackButtonComponent } from 'src/app/back-button/back-button.component';
   standalone: true,
   imports: [
     IonInput, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
-    BackButtonComponent
+    BackButtonComponent, I18nPipeShortened
   ]
 })
 export class ResetPasswordPage extends AbstractPage implements OnInit {
@@ -28,6 +31,10 @@ export class ResetPasswordPage extends AbstractPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  openBrowser() {
+    Browser.open({url: `https://${environment.serverHost}/candidate/login`})
   }
 
 }

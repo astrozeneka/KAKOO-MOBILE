@@ -106,6 +106,10 @@
     <app-job-details-employer-questions [jobCustomQuestionEntities]="jobEntity?.jobCustomQuestionEntities!"></app-job-details-employer-questions>
   </div>
 
+  <div class="ion-padding-horizontal">
+    <app-job-details-other-skills [otherSkills]="jobEntity?.otherSkills!"></app-job-details-other-skills>
+  </div>
+
   @if (jobEntity?.jobInvitationEntity?.inviteStatus === "PENDING"){ <!-- Waiting for the candidate to confirm -->
     <div class="floating-controls">
       <div class="inner">
