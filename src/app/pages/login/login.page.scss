@@ -13,15 +13,6 @@ div.helper{
     margin-bottom: 27px;
 }
 
-a{
-    text-decoration: inherit; // TODO, delete this row, remove this row
-    color: #1A1C1E;
-
-    &[color=primary]{
-        color: var(--ion-color-primary);
-    }
-}
-
 // TODO for later, move the code below to the global
 .alert-error{
     background: #b3261e39;

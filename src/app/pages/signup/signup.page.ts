@@ -59,6 +59,9 @@ export class SignupPage extends AbstractPage implements OnInit{
   googleIsLoading: boolean = false;
   linkedinIsLoading: boolean = false;
 
+  // 6. The language
+  lang: "en"|"fr" = "en"
+
   constructor(
     private router:Router,
     private httpClient: HttpClient, // Will be moved to contentService later
@@ -69,6 +72,7 @@ export class SignupPage extends AbstractPage implements OnInit{
     super(
       router
     );
+    this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }
 
   ngOnInit() {

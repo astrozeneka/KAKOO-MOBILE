@@ -61,6 +61,7 @@ export class LoginPage extends AbstractPage implements OnInit {
   // 5. The error
   error: string = null as any
 
+  // 6. The language
   lang: "en"|"fr" = "en"
 
   constructor(
