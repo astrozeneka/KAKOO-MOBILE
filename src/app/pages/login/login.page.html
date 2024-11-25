@@ -86,23 +86,27 @@
         <div class="line"></div>
       </div>
 
-      <!-- TODO, should create a more suitable button class -->
+      <!--
+        (click)="loginUsingProvider('google')"
+      -->
       <ion-button
         expand="block"
         fill="outline"
         class="login-provider"
-        (click)="loginUsingProvider('google')"
+        routerLink="/connect-google"
       >
         <img src="/assets/svg/google-logo.svg" width="18px"/>
         {{ "Continue with Google" |_ }}
       </ion-button>
 
-      <!-- TODO, should create a more suitable button class -->
+      <!--
+        (click)="loginUsingProvider('linkedin')
+      -->
       <ion-button
         expand="block"
         fill="outline"
         class="login-provider"
-        (click)="loginUsingProvider('linkedin')"
+        routerLink="/connect-linkedin"
       >
       <img src="/assets/svg/linkedin-logo.svg" width="18px"/>
         {{ "Continue with LinkedIn" |_ }}
@@ -111,7 +115,19 @@
 
     <!-- TODO, should allow the element below stick at the bottom (possible) -->
     <p class="footer-text ion-text-center">
-      {{ "By tapping on Login, you are agreeing to" |_ }} <a href="/terms">{{ "Terms of Service" |_ }}</a> {{ "and" |_ }} <a href="/privacy">{{ "Privacy Policy" |_ }}</a>
+      {{ "By tapping on Login, you are agreeing to" |_ }} 
+      <a
+        [routerLink]="'/terms-and-conditions-' + lang"
+        [queryParams]="{ mode: 'view' }"
+      >
+        {{ "Terms of Service" |_ }}
+      </a> 
+      {{ "and" |_ }} 
+      <a
+        [routerLink]="'/privacy-policy-' + lang"
+      >
+        {{ "Privacy Policy" |_ }}
+      </a>
     </p>
 
     <app-debug-button

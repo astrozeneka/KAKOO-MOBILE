@@ -123,7 +123,7 @@
       </form>
 
       <div class="ion-text-center ion-margin-vertical in-text">
-        {{ "Already have an account?" |_ }} <a href="/login" color="primary">{{ "Login" |_ }}</a>
+        {{ "Already have an account?" |_ }} <a routerLink="/login" color="primary">{{ "Login" |_ }}</a>
       </div>
 
       <div class="ion-text-center ion-margin-vertical separate-or" style="font-size: 12px">
@@ -132,13 +132,15 @@
         <div class="line"></div>
       </div>
       
-      <!-- TODO, should create a more suitable button class -->
+      <!-- 
+        (click)="signupWithGoogle()"
+      -->
       <app-ux-button
         expand="block"
         class="login-provider"
-        (click)="signupWithGoogle()"
         [loading]="googleIsLoading"
         variant="kakoo"
+        routerLink="/connect-google"
       >
         <div class="inner">
           <img src="/assets/svg/google-logo.svg" width="18px"/>
@@ -146,13 +148,15 @@
         </div>
       </app-ux-button>
       
-      <!-- TODO, should create a more suitable button class -->
+      <!-- 
+        (click)="signupWithLinkedin()"
+      -->
       <app-ux-button
         expand="block"
         fill="outline"
         class="login-provider"
-        (click)="signupWithLinkedin()"
         variant="kakoo"
+        routerLink="/connect-linkedin"
       >
         <img src="/assets/svg/linkedin-logo.svg" width="18px"/>
           {{ "Continue with LinkedIn" |_ }}

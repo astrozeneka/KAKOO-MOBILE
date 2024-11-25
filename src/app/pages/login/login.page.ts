@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonBackButton, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon } from '@ionic/angular/standalone';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AbstractPage } from 'src/app/abstract-page';
 import { UXForm } from 'src/app/utils/ux-form';
 import { ContentService } from 'src/app/services/content.service';
@@ -38,7 +38,7 @@ import { ProdFastSigninComponent } from 'src/app/submodules/fast-signin/standalo
     TranslateModule, I18nPipe, I18nPipeShortened, LanguageButtonComponent, UxButtonComponent, TopbarComponent,
     ...[(environment.production ? ProdDebugButtonComponent : DevDebugButtonComponent)],
     ...[(environment.production ? ProdFastSigninComponent : DevFastSigninComponent)],
-    OutlineInputComponent
+    OutlineInputComponent, RouterModule
 ]
 })
 export class LoginPage extends AbstractPage implements OnInit {
@@ -61,6 +61,8 @@ export class LoginPage extends AbstractPage implements OnInit {
   // 5. The error
   error: string = null as any
 
+  lang: "en"|"fr" = "en"
+
   constructor(
     private router:Router,
     private cs: ContentService,
@@ -72,15 +74,7 @@ export class LoginPage extends AbstractPage implements OnInit {
     super(
       router
     );
-    this.translate.setDefaultLang('en');
-    // Example, set the language to french
-    // this.translate.use('fr');
-    /*this.translate.get('HELLO').subscribe((res) => {
-      console.log(res)
-    })*/
-
-
-    console.log(translate.getLangs())
+    this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }
 
   ngOnInit() {

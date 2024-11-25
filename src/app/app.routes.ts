@@ -199,4 +199,12 @@ export const routes: Routes = [
     path: 'video-assessments',
     loadComponent: () => import('./pages/video-assessments/video-assessments.page').then( m => m.VideoAssessmentsPage)
   },
+  {
+    path: 'connect-google',
+    loadComponent: () => import('./pages/connect-google/connect-google.page').then( m => m.ConnectGooglePage)
+  },
+  {
+    path: 'connect-linkedin',
+    loadComponent: () => import('./pages/connect-linkedin/connect-linkedin.page').then( m => m.ConnectLinkedinPage)
+  },
 ];
