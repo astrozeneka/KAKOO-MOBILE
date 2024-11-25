@@ -197,5 +197,67 @@
     "Open browser": "Ouvrir le navigateur",
     "Reset your password": "Réinitialiser votre mot de passe",
     "We kindly invite you to get access to the web portal for resetting the password.": "Nous vous invitons cordialement à accéder au portail web pour réinitialiser le mot de passe.",
-    "We kindly invite you to continue via our web platform": "Nous vous invitons cordialement à continuer via notre plateforme web"
+    "We kindly invite you to continue via our web platform": "Nous vous invitons cordialement à continuer via notre plateforme web",
+
+    "Your Career Journey Starts Here": "Votre parcours professionnel commence ici",
+    "Discover opportunities, connect with employers, and land your dream job effortlessly.": "Découvrez des opportunités, connectez-vous avec des employeurs et décrochez votre emploi de rêve sans effort.",
+    "Log In": "Se connecter",
+    "Sign Up": "S'inscrire",
+    
+    "License ID*": "ID de licence*",
+    "Issuing Organization*": "Organisation émettrice*",
+    "Issue Date*": "Date d'émission*",
+    "Expire Date*": "Date d'expiration*",
+    "License URL*": "URL de la licence*",
+
+    "Welcome": "Bienvenue",
+    "Here are some informations": "Voici quelques informations",
+    "show more": "afficher plus",
+    "show less": "afficher moins",
+    "Join": "Rejoindre",
+
+    "All jobs": "Tous les emplois",
+    "Pending": "En attente",
+    "Applied": "Postulé",
+    "Rejected": "Rejeté",
+
+    "Invite Your Friend to Kakoo.fr": "Invitez votre ami à Kakoo.fr",
+    "Your Referral Link": "Votre lien de parrainage",
+    "Share Link": "Partager le lien",
+
+    "Registered": "Enregistré",
+    "Others": "Autres",
+    "Refer a Friend": "Parrainer un ami",
+    "Newsletter": "Newsletter",
+    "Tips": "Astuces",
+    "About Kakoo": "À propos de Kakoo",
+    "Privacy & Policy": "Politique de confidentialité",
+    "Terms & Conditions": "Conditions générales d'utilisation",
+    "Support": "Support",
+    "Contact us": "Contactez-nous",
+    "App Version": "Version de l'application",
+    "Logout": "Déconnexion",
+    "Type of Employment": "Type d'emploi",
+    "Notice Period": "Préavis",
+
+    "You can get in touch with us through below platforms. Our Team will reach out to you as soon as it would be possible": "Vous pouvez nous contacter via les plateformes ci-dessous. Notre équipe vous contactera dès que possible",
+    "Refer Your Friend": "Parrainez votre ami",
+    "Link copied to clipboard": "Lien copié dans le presse-papiers",
+
+    "Contact support": "Contacter le support",
+    "Email Address": "Adresse e-mail",
+    "Get in touch!": "Contactez-nous !",
+    "Name": "Nom",
+    "Feedback/Complaint/Suggestion": "Commentaires/Plaintes/Suggestions",
+    "Job Description": "Description du poste",
+    "Responsibilities": "Responsabilités",
+    "Job requirements": "Exigences du poste",
+    "Job qualification": "Qualification du poste",
+    "Employment Type" : "Type d'emploi",
+    "Reject": "Rejeter",
+    "Apply for job": "Postuler à l'emploi",
+    "Job detail": "Détail de l'emploi",
+
+    "":""
+
 }

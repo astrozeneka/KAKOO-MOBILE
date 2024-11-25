@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IonIcon } from "@ionic/angular/standalone";
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-referral-card',
   templateUrl: './referral-card.component.html',
   styleUrls: ['./referral-card.component.scss'],
   standalone: true,
-  imports: [IonIcon]
+  imports: [IonIcon, I18nPipeShortened]
 })
 export class ReferralCardComponent  implements OnInit {
 

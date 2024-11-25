@@ -185,11 +185,11 @@ export const routes: Routes = [
   },
   {
     path: 'about-fr',
-    loadComponent: () => import('./about/about.page').then( m => m.AboutPageEn)
+    loadComponent: () => import('./about/about.page').then( m => m.AboutPageFr)
   },
   {
     path: 'about-en',
-    loadComponent: () => import('./about/about.page').then( m => m.AboutPageFr)
+    loadComponent: () => import('./about/about.page').then( m => m.AboutPageEn)
   },
   {
     path: 'assessments',

@@ -27,6 +27,8 @@ export class OutlineTextareaComponent  implements OnInit {
   @Input() errorText: string | undefined = undefined
   @Input() variant: string = "default"
 
+  @Input() label: string|null = null
+
   @ViewChild('innerInput') innerInput: IonTextarea | undefined;
   hasFocus: boolean = false
 

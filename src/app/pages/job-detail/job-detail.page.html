@@ -1,19 +1,19 @@
 <ion-header>
   <app-topbar color="primary" id="header">
     <app-back-button slot="start" variant="topbar" color="light"></app-back-button>
-    <div class="ion-text-center title">Job details</div>
+    <div class="ion-text-center title">{{ "Job detail" |_ }}</div>
     <div slot="end">
       <!-- Ask Rakesh about the save button -->
-      <!--
+      
       <ion-button
         color="light"
         fill="clear"
         class="iconed-button-1"
       >
-        <ion-icon src="/assets/svg/icon-save.svg"></ion-icon>
-        <span>Save</span>
+        <!--<ion-icon src="/assets/svg/icon-save.svg"></ion-icon>
+        <span>Save</span>-->
       </ion-button>
-      -->
+      
     </div>
   </app-topbar>
 </ion-header>
@@ -34,34 +34,34 @@
   <!-- the below item should be sticky -->
   <app-horizontal-scrollable-tabs [items]="
     {
-      'description': 'Job Description',
-      'responsibilities': 'Responsibilities',
-      'jobRequirements': 'Job requirements',
-      'jobQualification': 'Job qualification'
+      'description': translate.instant('Job Description'),
+      'responsibilities': translate.instant('Responsibilities'),
+      'jobRequirements': translate.instant('Job requirements'),
+      'jobQualification': translate.instant('Job qualification')
     }
   "
     (action)="goToSection($event)"
   ></app-horizontal-scrollable-tabs>
   <div class="ion-padding-horizontal">
     <div class="detail-content">
-      <h3 id="description" class="anchored"><span #description></span>Job Description</h3>
+      <h3 id="description" class="anchored"><span #description></span>{{ "Job Description" |_ }}</h3>
       <p>
         {{ jobEntity?.description }}
       </p>
 
-      <h3 id="responsibilities" class="anchored"><span #responsibilities></span>Job Key Responsibilities</h3>
+      <h3 id="responsibilities" class="anchored"><span #responsibilities></span>{{ "Responsibilities" |_ }}</h3>
       <ul>
         @for (responsibility of jobEntity?.jobKeyResponsibilityEntities; track responsibility.id){
           <li>{{ responsibility.name }}</li>
         }
       </ul>
-      <h3 id="job-requirements" class="anchored"><span #jobRequirements></span>Job Requirements</h3>
+      <h3 id="job-requirements" class="anchored"><span #jobRequirements></span>{{ "Job requirements" |_ }}</h3>
       <ul>
         @for (requirement of jobEntity?.jobRequirementEntities; track requirement.id){
           <li>{{ requirement.name }}</li>
         }
       </ul>
-      <h3 id="job-qualification" class="anchored"><span #jobQualification></span>Job qualification</h3>
+      <h3 id="job-qualification" class="anchored"><span #jobQualification></span>{{ "Job qualification" |_ }}</h3>
       <div [innerHTML]="jobEntity?.jobQualificationHTML" class="html-text-job-detail-1"></div>
     </div>
     <!--
@@ -118,13 +118,13 @@
             class="danger"
             [routerLink]="'/reject-job-form/' + jobEntity?.jobId"
           >
-            Reject
+            {{ "Reject" |_ }}
           </ion-button>
           <ion-button
             color="primary"
             [routerLink]="'/employer-questions/' + jobEntity?.jobId"
           >
-            Apply for job
+            {{ "Apply for job" |_ }}
           </ion-button>
         </div>
       </div>

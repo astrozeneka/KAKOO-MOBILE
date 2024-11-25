@@ -1,15 +1,17 @@
-import { JsonPipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { IonButton, IonIcon } from "@ionic/angular/standalone";
 import { Browser } from '@capacitor/browser';
 import { MeetingEntity } from 'src/app/models/Candidate';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-meeting-card',
   templateUrl: './meeting-card.component.html',
   styleUrls: ['./meeting-card.component.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, JsonPipe]
+  imports: [IonIcon, IonButton, JsonPipe, I18nPipeShortened, DatePipe]
 })
 export class MeetingCardComponent  implements OnInit {
   @Input() meeting: MeetingEntity = {} as any
@@ -19,7 +21,14 @@ export class MeetingCardComponent  implements OnInit {
   duration: string = ""
   durationUnit: string = ""
 
-  constructor() { }
+  // the language
+  lang: "en"|"fr" = "en"
+
+  constructor(
+    private translate: TranslateService
+  ) { 
+    this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
+  }
 
   ngOnInit() {
     let fromTime = new Date(this.meeting.fromTime)

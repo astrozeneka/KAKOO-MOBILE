@@ -1,7 +1,7 @@
 <ion-header>
   <app-topbar variant="light">
     <app-back-button slot="start" variant="topbar"></app-back-button>
-    <div>Refer a Friend</div>
+    <div>{{ "Refer a Friend" |_ }}</div>
   </app-topbar>
 </ion-header>
 <ion-content>
@@ -12,9 +12,9 @@
 
 
     <div class="ion-text-center ion-padding-horizontal">
-      <h1 class="display-1 ion-text-primary" color="primary">Refer Your Friend</h1>
+      <h1 class="display-1 ion-text-primary" color="primary">{{ "Refer Your Friend" |_ }}</h1>
       <p class="helper">
-        You can get in touch with us through below platforms. Our Team will reach out to you as soon as it would be possible
+        {{ "You can get in touch with us through below platforms. Our Team will reach out to you as soon as it would be possible" |_ }}
       </p>
     </div>
 
@@ -33,7 +33,7 @@
         (click)="shareLink()"
       >
         <ion-icon src="/assets/svg/share-fill.svg" aria-hidden="true"></ion-icon>
-        Share Link
+        {{ "Share Link" |_ }}
       </ion-button>
       <br/>
     </div>

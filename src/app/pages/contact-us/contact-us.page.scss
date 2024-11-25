@@ -1,3 +1,7 @@
+ion-header{
+    position: absolute;
+    box-shadow: none;
+}
 
 .top-banner{
     background-color: #007E48;
@@ -51,7 +55,7 @@ ion-content.light .bg-white{
     color: #1A1C1E;
 }
 
-ion-input, ion-textarea{
+ion-input, ion-textarea, app-outline-input, app-outline-textarea{
     --border-color: #E7E7E9!important;
 }
 

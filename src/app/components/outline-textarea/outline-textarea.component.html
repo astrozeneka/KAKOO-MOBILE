@@ -4,7 +4,9 @@
     ((formControl?.invalid && formControl?.touched) ? 'has-error ' : ' ') +
     (hasFocus ? 'has-focus ' : ' ')
   ">
-  <!-- No label is present -->
+    @if (label) {
+      <label>{{ label }}</label>
+    }
     <ion-textarea
       #innerInput
       fill="outline"

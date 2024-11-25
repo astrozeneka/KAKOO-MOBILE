@@ -19,10 +19,10 @@
       >
         <div>
           @if (!expanded){
-            <span>show more</span>
+            <span>{{ "show more" |_ }}</span>
             <ion-icon src="/assets/svg/icon-carret-down.svg"/>
           } @else {
-            <span>show less</span>
+            <span>{{ "show less" |_ }}</span>
             <ion-icon src="/assets/svg/icon-carret-up.svg"/>
           }
         </div>
@@ -35,8 +35,14 @@
   </div>
   <div class="footer">
     <div class="time">
-      <ion-icon src="/assets/svg/icon-clock.svg"></ion-icon>
-      <span>06:30PM - 07-10 PM</span>
+      @if (meeting.fromTime && meeting.toTime){
+          <ion-icon src="/assets/svg/icon-clock.svg"></ion-icon>
+          @if (lang == 'en'){
+            <span>{{ meeting.fromTime | date: 'hh:mm a' }} - {{ meeting.toTime | date: 'hh:mm a' }}</span>
+          }@else if (lang == 'fr'){
+            <span>{{ meeting.fromTime | date: 'HH:mm' }} - {{ meeting.toTime | date: 'HH:mm' }}</span>
+          }
+      }
     </div>
     <div class="controls">
       <ion-button
@@ -44,7 +50,7 @@
         (click)="joinMeeting()"
       >
         <ion-icon src="/assets/svg/icon-google-meet.svg"></ion-icon>
-        <span>Join</span>
+        <span>{{ "Join" |_ }}</span>
       </ion-button>
     </div>
   </div>

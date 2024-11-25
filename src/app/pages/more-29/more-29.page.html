@@ -54,7 +54,7 @@
   <div class="ion-padding-horizontal">
     <form [formGroup]="resumeForm" (submit)="resumeSubmit()">
       <app-section-heading>
-        Resume
+        {{ "Resume" |_ }}
         <!-- Experimental UI Features, maybe subjected to changes-->
         @if (resumeFormChanged) {
           <app-ux-button
@@ -68,7 +68,7 @@
           >
             <div class="inner">
               <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-              Save
+              {{ "Save" |_ }}
             </div>
           </app-ux-button>
         }
@@ -84,7 +84,7 @@
 
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      Others
+      {{ "Others" |_ }}
       <!--<ion-button
         color="primary"
         fill="clear"
@@ -101,53 +101,53 @@
       <app-button-group-item
         routerLink="/refer-a-friend"
       >
-        Refer a Friend
+        {{ "Refer a Friend" |_ }}
       </app-button-group-item>
       <app-button-group-item
         [disabled]="true"
       >
         <!-- Not present in the page, might be deleted later -->
-        Newsletter
+        {{ "Newsletter" |_ }}
       </app-button-group-item>
       <app-button-group-item
         [routerLink]="'/tips-' + lang"
       >
-        Tips
+        {{ "Tips" |_ }}
       </app-button-group-item>
     </div>
     <div class="button-group">
       <app-button-group-item
         [routerLink]="'/about-' + lang"
       >
-        About Kakoo
+        {{ "About Kakoo" |_ }}
       </app-button-group-item>
       <app-button-group-item
         [routerLink]="'/privacy-policy-' + lang"
       >
-        Privacy &amp; Policy
+        {{ "Privacy & Policy" |_ }}
       </app-button-group-item>
       <app-button-group-item
         [routerLink]="'/terms-and-conditions-' + lang"
         [queryParams]="{ mode: 'view' }"
       >
         <!-- The terms and conditions should be created in a new page terms-and-conditions-component, terms-and-condition-page, and accept-terms-and-condition -->
-        Terms &amp; Conditions
+        {{ "Terms & Conditions" |_ }}
       </app-button-group-item>
     </div>
     <div class="button-group">
       <app-button-group-item
         routerLink="/support"
       >
-        Support
+        {{ "Support" |_ }}
       </app-button-group-item>
       <app-button-group-item
         routerLink="/contact-us"
       >
-        Contact us
+        {{ "Contact us" |_ }}
       </app-button-group-item>
       <app-button-group-item>
-        App Version
-        <div slot="subtitle">1.1 (104)</div>
+        {{ "App Version" |_ }}
+        <div slot="subtitle">1.1 (104)</div><!-- need to make it connect to capacitor -->
       </app-button-group-item>
     </div>
     <div class="button-group">
@@ -155,7 +155,7 @@
         color="danger"
         (click)="cs.logout()"
       >
-        Logout
+        {{ "Logout" |_ }}
       </app-button-group-item>
     </div>
   </div>

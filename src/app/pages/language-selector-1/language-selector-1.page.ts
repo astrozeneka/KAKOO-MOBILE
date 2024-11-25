@@ -58,8 +58,7 @@ export class LanguageSelector1Page implements OnInit {
   }
 
   submit(){
-    console.log("Submit")
-    this.router.navigate(['/login'])
+    this.router.navigate(['/splash-2'])
   }
 
 }

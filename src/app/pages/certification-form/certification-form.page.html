@@ -91,7 +91,9 @@
           placeholder="{{ '2022-01-01' |_ }}"
           label="{{ 'Issue Date*' |_ }}"
           [errorText]="displayedError['issueDate']"
-        ></app-outline-input>
+        >
+          <ion-icon src="/assets/svg/icon-calendar.svg" slot="icon"></ion-icon>
+        </app-outline-input>
       </div>
       <div>
         <app-outline-input
@@ -100,7 +102,9 @@
           placeholder="{{ '2022-01-01' |_ }}"
           label="{{ 'Expire Date*' |_ }}"
           [errorText]="displayedError['expireDate']"
-        ></app-outline-input>
+        >
+          <ion-icon src="/assets/svg/icon-calendar.svg" slot="icon"></ion-icon>
+        </app-outline-input>
       </div>
       <div>
         <app-outline-input

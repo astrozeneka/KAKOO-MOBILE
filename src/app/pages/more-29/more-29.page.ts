@@ -21,6 +21,7 @@ import prepareFileFormData from 'src/app/utils/prepare-file-form-data';
 import { catchError, finalize, firstValueFrom, throwError } from 'rxjs';
 import { SvgProfileComponent } from 'src/app/svg-profile/svg-profile.component';
 import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profile-cta/clickable-profile-cta.component';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 @Component({
   selector: 'app-more-29',
   templateUrl: './more-29.page.html',
@@ -29,7 +30,7 @@ import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profi
   imports: [IonInput, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule,
     TopbarComponent, ButtonGroupItemComponent, ProfileCtaComponent, FileCardComponent, FileCardComponent,
     SectionHeadingComponent, BottomNavbarComponent, FormsModule, ReactiveFormsModule, ClickableFileCardComponent,
-    UxButtonComponent, SvgProfileComponent, ClickableProfileCtaComponent, RouterModule
+    UxButtonComponent, SvgProfileComponent, ClickableProfileCtaComponent, RouterModule, I18nPipeShortened
   ]
 })
 export class More29Page extends BottomNavbarTarget implements OnInit { // The class name is subjected to change in the future

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonIcon } from '@ionic/angular/standalone';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
@@ -26,7 +26,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './certification-form.page.html',
   styleUrls: ['./certification-form.page.scss'],
   standalone: true,
-  imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ReactiveFormsModule,
+  imports: [IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, ReactiveFormsModule,
     UxButtonComponent, I18nPipeShortened, IonInput, OutlineInputComponent
   ]
 })

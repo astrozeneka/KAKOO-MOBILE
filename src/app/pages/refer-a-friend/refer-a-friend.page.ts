@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import {Clipboard} from "@capacitor/clipboard";
 import { FeedbackService } from 'src/app/services/feedback.service';
 import Intent from 'src/app/capacitor-plugins/intent.plugin';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 @Component({
   selector: 'app-refer-a-friend',
@@ -20,7 +21,7 @@ import Intent from 'src/app/capacitor-plugins/intent.plugin';
   styleUrls: ['./refer-a-friend.page.scss'],
   standalone: true,
   imports: [IonIcon, IonItem, IonButton, IonInput, IonText, IonButtons, IonBackButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
-    ReferalInputComponent, TopbarComponent, BackButtonComponent
+    ReferalInputComponent, TopbarComponent, BackButtonComponent, I18nPipeShortened
   ]
 })
 export class ReferAFriendPage implements OnInit {
@@ -55,7 +56,7 @@ export class ReferAFriendPage implements OnInit {
     })
     console.log("Copied to clipboard")
     this.fs.registerNow({
-      message: this.translate.instant("Link copied to clipboard"),
+      message: this.translate.instant(this.translate.instant("Link copied to clipboard")),
       color: 'dark',
       type: 'toast',
       position: 'bottom'

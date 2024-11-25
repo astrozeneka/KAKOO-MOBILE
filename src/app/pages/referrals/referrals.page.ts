@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, finalize } from 'rxjs';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { Displayable } from 'src/app/models/Candidate';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 export type DisplayableRefferalEntity = ReferralEntity & Displayable
 
@@ -24,7 +25,8 @@ export type DisplayableRefferalEntity = ReferralEntity & Displayable
   styleUrls: ['./referrals.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReferralCardComponent,
-    ReferalInputComponent, IonButton, IonIcon, TopbarDashboardComponent, BottomNavbarComponent, IonSpinner
+    ReferalInputComponent, IonButton, IonIcon, TopbarDashboardComponent, BottomNavbarComponent, IonSpinner,
+    I18nPipeShortened
   ]
 })
 export class ReferralsPage extends BottomNavbarTarget implements OnInit {

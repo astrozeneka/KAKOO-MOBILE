@@ -15,6 +15,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { ClickableJobCardComponent } from 'src/app/components/clickable-job-card/clickable-job-card.component';
 import { BehaviorSubject, filter, Observable, switchMap } from 'rxjs';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
 
 export type DisplayableJobInvitationEntity = JobInvitationEntity & Displayable
 
@@ -24,7 +26,7 @@ export type DisplayableJobInvitationEntity = JobInvitationEntity & Displayable
   styleUrls: ['./jobboard.page.scss'],
   standalone: true,
   imports: [IonSearchbar, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, JobCardComponent, TopbarDashboardComponent,
-    BottomNavbarComponent, FilterChipsComponent, ReactiveFormsModule, ClickableJobCardComponent
+    BottomNavbarComponent, FilterChipsComponent, ReactiveFormsModule, ClickableJobCardComponent, I18nPipeShortened
   ]
 })
 export class JobboardPage extends BottomNavbarTarget implements OnInit, AfterViewInit {
@@ -53,7 +55,8 @@ export class JobboardPage extends BottomNavbarTarget implements OnInit, AfterVie
     router: Router,
     private cs: ContentService,
     private cdr: ChangeDetectorRef,
-    private pds: ProfileDataService
+    private pds: ProfileDataService,
+    public pus: ProfileUtilsService
   ) { 
     super(router)
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"

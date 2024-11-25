@@ -8,7 +8,11 @@
     </ion-header>
     <div>
       <div class="text">
-        You have <em>{{ invitationEntities.length }} Job invitation{{ invitationEntities.length > 1 ? 's' : '' }}</em> received
+        @if (lang == 'en'){
+          You have <em>{{ invitationEntities.length }} Job invitation{{ invitationEntities.length > 1 ? 's' : '' }}</em> received
+        } @else if (lang == 'fr') {
+          Vous avez reçu <em>{{ invitationEntities.length }} invitation{{ invitationEntities.length > 1 ? 's' : '' }}</em> d'emploi
+        }
       </div>
     </div>
   </div>
@@ -16,10 +20,10 @@
   <div>
     <app-filter-chips
       [items]="{
-        'all': 'All Jobs',
-        'pending': 'Pending',
-        'applied': 'Applied',
-        'rejected': 'Rejected'
+        'all': translate.instant('All Jobs'),
+        'pending': translate.instant('Pending'),
+        'applied': translate.instant('Applied'),
+        'rejected': translate.instant('Rejected')
       }"
       [formControl]="chipControl"
     ></app-filter-chips>
@@ -33,8 +37,11 @@
         [status]="invitation.inviteStatus"
       >
         <div slot="date">
-          <!-- Todo, the language -->
-          {{ invitation.createdAt | date: 'MMM d, y, h:mm a' }}
+          @if (lang == 'en'){
+            {{ invitation.createdAt | date: 'MMM d, y, h:mm a' }}
+          } @else if (lang == 'fr') {
+            {{ invitation.createdAt | date: 'd MMM y, hh:mm' }}
+          }
         </div>
         <div slot="title">
           {{ invitation.jobEntity.title }}
@@ -45,8 +52,8 @@
         </div>
         <div slot="footer">
           <!-- TODO, translation -->
-          <div class="chip">{{ invitation.jobEntity.employmentTypeEntity.name }}</div>
-          <div class="chip">{{ invitation.jobEntity.workTypeEntity.name }}</div>
+          <div class="chip">{{ pus.employmentTypeKeyAccessor(invitation.jobEntity.employmentTypeEntity) }}</div>
+          <div class="chip">{{ pus.workTypeKeyAccessor(invitation.jobEntity.workTypeEntity) }}</div>
         </div>
       </app-clickable-job-card>
     }

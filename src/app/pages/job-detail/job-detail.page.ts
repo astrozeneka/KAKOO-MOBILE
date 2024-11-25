@@ -15,6 +15,8 @@ import { CompanyEntity, JobEntity, JobInvitationEntity } from 'src/app/models/Ca
 import { filter, finalize, map, mergeMap, Observable, switchMap, tap } from 'rxjs';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { JobDetailsOtherSkillsComponent } from 'src/app/components/job-details-other-skills/job-details-other-skills.component';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { TranslateService } from '@ngx-translate/core';
 
 // Experimental (might be moved to Candidate.ts in a near future)
 export interface EJobEntity extends JobEntity {
@@ -28,7 +30,7 @@ export interface EJobEntity extends JobEntity {
   styleUrls: ['./job-detail.page.scss'],
   standalone: true,
   imports: [IonSpinner, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, JobDetailsRequirementsTableComponent, EmployerQuestionsPage, JobDetailsEmployerQuestionsComponent, HorizontalScrollableTabsComponent,
-    JobDetailsHeaderComponent, RouterModule, JobDetailsOtherSkillsComponent
+    JobDetailsHeaderComponent, RouterModule, JobDetailsOtherSkillsComponent, I18nPipeShortened
   ]
 })
 export class JobDetailPage implements OnInit {
@@ -48,7 +50,8 @@ export class JobDetailPage implements OnInit {
     private route: ActivatedRoute,
     private cs: ContentService,
     private pds: ProfileDataService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public translate: TranslateService
   ) {
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
   }
