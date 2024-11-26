@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { ExperienceCardComponent } from 'src/app/components/experience-card/experience-card.component';
 import { ProfileBasicDetailsCardComponent } from 'src/app/components/profile-basic-details-card/profile-basic-details-card.component';
@@ -11,7 +11,7 @@ import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { SectionHeadingComponent } from 'src/app/components/section-heading/section-heading.component';
 import { ChipInputComponent } from "../../components/chip-input/chip-input.component";
-import { Candidate, CandidateCertificateEntity, CandidateEducationEntity, ProjectPortfolioEntity, WorkExperienceEntity } from 'src/app/models/Candidate';
+import { Candidate, CandidateCertificateEntity, CandidateEducationEntity, ProjectPortfolioEntity, SkillEntity, WorkExperienceEntity } from 'src/app/models/Candidate';
 import { ContentService } from 'src/app/services/content.service';
 import { Router } from '@angular/router';
 import { createDeletePrompt, DeletableEntity } from 'src/app/utils/delete-prompt';
@@ -19,6 +19,10 @@ import { BehaviorSubject, catchError, finalize, map, throwError } from 'rxjs';
 import {AlertController} from "@ionic/angular";
 import { TranslateService } from '@ngx-translate/core';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
+import { displayErrors } from 'src/app/utils/display-errors';
+import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 interface UXCandidateEducationEntity extends CandidateEducationEntity, DeletableEntity {}
 interface UXCandidateCertificateEntity extends CandidateCertificateEntity, DeletableEntity {}
@@ -35,17 +39,17 @@ type Identifiable = CandidateEducationEntity & CandidateCertificateEntity & Work
   imports: [IonButton, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ExperienceCardComponent,
     ProfileBasicDetailsCardComponent, ProfileJobPreferencesCardComponent, ProfileSkillChipsCardComponent,
     ProfileSocialMediaLinksCardComponent, TopbarComponent, BackButtonComponent, SectionHeadingComponent, ChipInputComponent,
-    ChipInputComponent, ReactiveFormsModule, I18nPipeShortened
+    ChipInputComponent, ReactiveFormsModule, I18nPipeShortened, UxButtonComponent
   ]
 })
 export class EditAndPreviewProfilePage implements OnInit {
   form:FormGroup = new FormGroup({
-    'skills': new FormControl([], [])
+    'skills': new FormControl([], [Validators.required])
   })
   displayedError:{[key:string]:string|undefined} = {
     'skills': undefined
   }
-
+  skillsFormIsLoading: boolean = false;
   candidate: Candidate = null as any;
 
   // Manage the fadeAway subject and the deleteIsloading (equivalent to the postLoadProcessing)
@@ -84,12 +88,17 @@ export class EditAndPreviewProfilePage implements OnInit {
   candidateProjectSubject = new BehaviorSubject<ProjectPortfolioEntity[]>([])
   candidateProject$ = this.candidateProjectSubject.asObservable()
 
+  // Skill Options
+  skillOptions:SkillEntity[] = []
 
   constructor(
     private cs:ContentService,
     public router:Router,
     public alertController:AlertController,
     public t: TranslateService,
+    public pus: ProfileUtilsService,
+    private translate: TranslateService,
+    private fs: FeedbackService
   ) { }
 
   ngOnInit() {
@@ -100,8 +109,13 @@ export class EditAndPreviewProfilePage implements OnInit {
 
       // The Skills
       this.form.patchValue({
-        skills: candidate?.skillListEntities.map((skill)=>skill.name) || []
+        //skills: candidate?.skillListEntities.map((skill)=>skill.name) || []
+        skills: candidate?.skillListEntities || []
       });
+      // Skill options
+      this.pus.onSkillOptions(true).subscribe((skills:SkillEntity[])=>{
+        this.skillOptions = skills
+      })
 
       // Education
       this.candidateEducationCertificateSubject.next(candidate?.candidateEducationEntities || [])
@@ -200,6 +214,48 @@ export class EditAndPreviewProfilePage implements OnInit {
             this.cs.requestCandidateDataRefresh() // This will fire data to the ngOnInit code
           })
       })
+  }
+
+  /**
+   * Submit skills
+   */
+  submitSkills(){
+
+    this.form.markAllAsTouched()
+    if (this.form.invalid){
+      displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+      return;
+    }
+
+    let data = (this.form.value.skills as string[]).map((skill)=>({
+        candidateSkillId: null,
+        id: null,
+        name:(skill as any).name,
+        description: "",
+        evaluation: "-",
+        nExperience: 0,
+        type: "",
+        // skillTypeEntity:null
+      }));
+      this.skillsFormIsLoading = true
+      this.cs.post_exp(`/api/v1/self-candidate/${this.candidate.candidateId}/technical-skills`, data, {})
+        .pipe(
+          catchError((error)=>{
+            return throwError(error)
+          }),
+          finalize(()=>{this.skillsFormIsLoading = false;})
+        )
+        .subscribe((response)=>{
+          this.fs.registerNow({
+            message: this.translate.instant(this.translate.instant("Skills updated")),
+            color: 'dark',
+            type: 'toast',
+            position: 'bottom'
+          })
+          // Mark form as untouched
+          this.form.markAsUntouched()
+          this.cs.requestCandidateDataRefresh()
+        })
   }
 
 }

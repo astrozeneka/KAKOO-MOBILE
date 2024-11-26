@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { LanguageEntity, MobilityEntity } from '../models/Candidate';
+import { LanguageEntity, MobilityEntity, SkillEntity, SkillTypeEntity } from '../models/Candidate';
 import { ContentService } from './content.service';
-import { BehaviorSubject, catchError, filter, merge, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, filter, forkJoin, merge, Observable, switchMap, tap, throwError } from 'rxjs';
 import StoredData from '../submodules/stored-data/StoredData';
 import { Storage } from '@ionic/storage-angular';
 import { EmploymentType } from '../models/EmploymentType';
@@ -47,6 +47,8 @@ export class ProfileUtilsService {
     this.lang == "en" ? language.name : (language.nameFr||language.name) as string
   countryKeyAccessor = (country: any) => country?.name
 
+  skillOptionsKeyAccessor = (skill:SkillEntity)=>skill.name;
+
   constructor(
     private cs: ContentService,
     private storage: Storage,
@@ -88,5 +90,41 @@ export class ProfileUtilsService {
       .pipe(catchError((error)=>{
         return throwError(error)
       }))
+  }
+
+  public onSkillOptions(allowPartial = false): Observable<SkillEntity[]> {
+    let outputSubject = new BehaviorSubject<SkillEntity[]>([]);
+    let output$ = outputSubject.asObservable();
+    
+    // Load all skill types
+    this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/skill/get-all-skill-type`, {}, false)
+      .pipe(
+        catchError((error) => throwError(error)),
+        switchMap((skillTypes: SkillTypeEntity[]) => {
+          let loaders$ = skillTypes.map(skillType =>
+            this.cs.get_exp_fullurl(`https://web.kakoo-software.com/kakoo-back-end/api/v1/skill/get-all-skill?skillTypeId=${skillType.id}`, {}, false)
+          );
+  
+          if (allowPartial) {
+            // Emit each response as it arrives
+            return merge(...loaders$).pipe(
+              tap((partialSkills: SkillEntity[]) => {
+                outputSubject.next([...outputSubject.getValue(), ...partialSkills]);
+              })
+            );
+          } else {
+            // Wait for all requests to complete
+            return forkJoin(loaders$).pipe(
+              tap((allSkills: SkillEntity[][]) => {
+                const combinedSkills = (allSkills as any).flat();
+                outputSubject.next(combinedSkills);
+              })
+            );
+          }
+        })
+      )
+      .subscribe();
+  
+    return output$;
   }
 }

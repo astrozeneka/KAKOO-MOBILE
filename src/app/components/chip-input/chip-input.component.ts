@@ -184,7 +184,7 @@ export class ChipInputComponent<T> implements ControlValueAccessor, OnInit, Afte
     this._filterOptions();
     this.blur.emit({})
     //this.onChange(this.formControl?.value);
-    //this.onTouch();
+    this.onTouch();
   }
 
   // 6. The newly added feature

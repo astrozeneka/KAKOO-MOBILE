@@ -26,25 +26,32 @@
   </div>
 
   <div class="ion-padding-horizontal">
-    <app-section-heading>
-      {{ "Skills" |_ }}
-      <ion-button
-        color="primary"
-        fill="clear"
-        slot="end"
-      >
-        <div class="inner">
-          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          {{ "Edit" |_ }}
-        </div>
-      </ion-button>
-    </app-section-heading>
+    <form [formGroup]="form" (submit)="submitSkills()">
+      <app-section-heading>
+        {{ "Skills" |_ }}
+        @if (form.get('skills')?.touched) {
+          <app-ux-button
+            color="primary"
+            fill="clear"
+            slot="end"
+            type="submit"
+            [fixedWidth]="true"
+            [loading]="skillsFormIsLoading"
+          >
+            <div class="inner">
+              <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+              {{ "Update" |_ }}
+            </div>
+          </app-ux-button>
+        }
+      </app-section-heading>
     
-    <form [formGroup]="form">
       <app-chip-input
         label="Skills"
         placeholder="You can add your skills here"
         formControlName="skills"
+        [options]="skillOptions"
+        [keyAccessor]="pus.skillOptionsKeyAccessor"
         mode="multiple"
         [errorText]="displayedError['skills']"
         variant="kakoo-profile"
