@@ -16,6 +16,9 @@ import { BehaviorSubject, finalize } from 'rxjs';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { Displayable } from 'src/app/models/Candidate';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import Intent from 'src/app/capacitor-plugins/intent.plugin';
+import {Clipboard} from "@capacitor/clipboard";
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 export type DisplayableRefferalEntity = ReferralEntity & Displayable
 
@@ -54,7 +57,8 @@ export class ReferralsPage extends BottomNavbarTarget implements OnInit {
     public translate: TranslateService,
     router: Router,
     private cs: ContentService,
-    private pds: ProfileDataService
+    private pds: ProfileDataService,
+    private fs: FeedbackService
   ) { 
     super(router)
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
@@ -94,6 +98,26 @@ export class ReferralsPage extends BottomNavbarTarget implements OnInit {
       })
     */
     
+  }
+
+
+
+  async copyToClipboard() {
+    await Clipboard.write({
+      string: this.referralLink
+    })
+    console.log("Copied to clipboard")
+    this.fs.registerNow({
+      message: this.translate.instant(this.translate.instant("Link copied to clipboard")),
+      color: 'dark',
+      type: 'toast',
+      position: 'bottom'
+    })
+  }
+
+  async shareLink(){
+    let res = await Intent.displayShareSheet({message: this.referralLink, intentTitle: this.translate.instant("Share via"), subject: this.translate.instant("Referral link")})
+    console.log(res)
   }
 
 }

@@ -16,6 +16,7 @@
     <div class="display-3">{{ "Your Referral Link" |_ }}</div>
     <app-referal-input
       [value]="referralLink"
+      (clipboardCopy)="copyToClipboard()"
     ></app-referal-input>
 
     <ion-button
@@ -23,6 +24,7 @@
       fill="solid"
       color="primary"
       class="share-button"
+      (click)="shareLink()"
     >
       <ion-icon src="/assets/svg/share-fill.svg" aria-hidden="true"></ion-icon>
       {{ "Share Link" |_ }}
