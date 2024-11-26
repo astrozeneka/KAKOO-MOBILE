@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonInput, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { AbstractPage } from 'src/app/abstract-page';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { BackButtonComponent } from "../../back-button/back-button.component";
 import { phoneFullValidator, PhoneSelectorComponent } from 'src/app/submodules/phone-selector/phone-selector.component';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
@@ -29,7 +29,7 @@ import { EmailValidator } from 'src/app/utils/validators';
   ],
   standalone: true,
   imports: [IonSelect, IonSelectOption, IonInput, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, BackButtonComponent,
-    ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent, I18nPipeShortened, TopbarComponent, LanguageButtonComponent, OutlineInputComponent
+    ReactiveFormsModule, PhoneSelectorComponent, UxButtonComponent, I18nPipeShortened, TopbarComponent, LanguageButtonComponent, OutlineInputComponent, RouterModule
   ]
 })
 export class SignupPage extends AbstractPage implements OnInit{
@@ -59,6 +59,9 @@ export class SignupPage extends AbstractPage implements OnInit{
   googleIsLoading: boolean = false;
   linkedinIsLoading: boolean = false;
 
+  // 6. The language
+  lang: "en"|"fr" = "en"
+
   constructor(
     private router:Router,
     private httpClient: HttpClient, // Will be moved to contentService later
@@ -69,6 +72,7 @@ export class SignupPage extends AbstractPage implements OnInit{
     super(
       router
     );
+    this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }
 
   ngOnInit() {

@@ -26,6 +26,7 @@ swiper-container{
     justify-content: start;
     align-items: center;
     padding-top: 45px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
 
     & .banner-title-1{
         margin-bottom: 14px;

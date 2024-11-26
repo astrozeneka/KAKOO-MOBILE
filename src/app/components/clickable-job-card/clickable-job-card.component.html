@@ -17,7 +17,7 @@
             shape="round"
             color="dark"
           >
-            <ion-icon src="/assets/svg/icon-bookmark.svg"></ion-icon>
+            <!--<ion-icon src="/assets/svg/icon-bookmark.svg"></ion-icon>-->
             <!-- In case of job invitation, we don't need to save, need to be updated later -->
             <!--<span>Save</span>-->
           </ion-button>
@@ -46,16 +46,16 @@
         <div [class]="'status ' + status">
           @if (status == 'applied') { <!-- Not used, we use 'Pending' isntead-->
             <ion-icon src="/assets/svg/icon-applied.svg"></ion-icon>
-            <span>Applied</span>
+            <span>{{ "Applied" |_ }}</span>
           } @else if (status == 'REJECTED') {
             <ion-icon src="/assets/svg/icon-rejected.svg"></ion-icon>
-            <span style="color:#D71313">Rejected</span>
+            <span style="color:#D71313">{{ "Rejected" |_ }}</span>
           } @else if (status == 'PENDING') {
             <ion-icon class="color-pending" [src]="ellipsisHorizontalCircleOutline"></ion-icon>
-            <span class="color-pending">Pending</span>
+            <span class="color-pending">{{ "Pending" |_ }}</span>
           } @else if (status == 'ACCEPTED') {
             <ion-icon src="/assets/svg/icon-applied.svg"></ion-icon>
-            <span class="color-accepted">Accepted</span>
+            <span class="color-accepted">{{ "Applied" |_ }}</span>
           } @else if (status == "Non") {
             <span>-</span>
           } @else {

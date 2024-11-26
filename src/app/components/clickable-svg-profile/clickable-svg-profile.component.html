@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <ion-button
+    fill="clear"
+    expand="block"
+    color="dark"
+    [class]="'clickable-svg-profile-picture ' + variant"
+    [routerLink]="routerLink"
+    [style]="'width: ' + size + 'px; height: ' + size + 'px;'"
+  >
+    @if (initials) {
+      <app-svg-profile [initials]="initials" [size]="size"></app-svg-profile>
+    }
+  </ion-button>
+</div>

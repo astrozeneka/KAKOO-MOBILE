@@ -1,13 +1,13 @@
 import { AfterViewInit, ChangeDetectorRef, Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlContainer, ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { IonInput, IonButton } from '@ionic/angular/standalone';
+import { IonInput, IonButton, IonTextarea } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-outline-input',
   templateUrl: './outline-input.component.html',
   styleUrls: ['./outline-input.component.scss'],
   standalone: true,
-  imports: [IonButton, IonInput, FormsModule, ReactiveFormsModule],
+  imports: [IonTextarea, IonButton, IonInput, FormsModule, ReactiveFormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

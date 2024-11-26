@@ -6,7 +6,7 @@
   }
   <div class="item">
     <div class="left">
-      Type of Employment
+      {{ "Type of Employment" |_ }}
     </div>
     <div clas="right">
       @if (candidate?.employmentTypeEntity) {
@@ -18,7 +18,7 @@
   </div>
   <div class="item">
     <div class="left">
-      Salary Expectations
+      {{ "Salary Expectations" |_ }}
     </div>
     <div class="right">
       @if (candidate?.salaryExpectationEntity) {
@@ -30,7 +30,7 @@
   </div>
   <div class="item">
     <div class="left">
-      Mobility
+      {{ "Mobility" |_ }}
     </div>
     <div class="right">
       @if (candidate?.salaryExpectationEntity) {
@@ -42,7 +42,7 @@
   </div>
   <div class="item">
     <div class="left">
-      Notice Period
+      {{ "Notice Period" |_ }}
     </div>
     <div class="right">
       @if (candidate?.noticePeriodEntity) {
@@ -54,7 +54,7 @@
   </div>
   <div class="item">
     <div class="left">
-      Hiring Status
+      {{ "Hiring Status" |_ }}
     </div>
     <div class="right">
       @if (candidate?.hiringStatusEntity) {

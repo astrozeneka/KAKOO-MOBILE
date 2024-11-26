@@ -1,0 +1,31 @@
+<ion-header>
+  <app-topbar color="transparent" id="header" [progressBar]="false">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div class="ion-text-center title"></div>
+    <div slot="end"></div>
+  </app-topbar>
+</ion-header>
+
+<ion-content>
+  <!--<div style="height: 10px;"></div>--><!-- another placeholder -->
+  <div class="ion-padding-horizontal">
+
+    <h1 class="display-bold-1">{{ "Will be available soon !!" |_ }}</h1>
+    <div class="helper">
+      {{ "We kindly invite you to continue the video assessment section via our web platform" |_}}
+    </div>
+    <form>
+      <div>
+        <ion-button
+          expand="block"
+          class="submit-button"
+          color="primary"
+          type="submit"
+          (click)="openBrowser()"
+        >
+          {{ "Open Browser" |_}}
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

@@ -5,7 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonChec
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 
 /**
@@ -29,12 +29,15 @@ export class TermsAndConditionsPage implements OnInit {
   }
   formIsLoading:boolean = false;
 
+  mode: 'form'|'view' = 'form' // Form: User can accept the terms and conditions, View: User can only view the terms and conditions
+
   constructor(
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    
+    this.mode = this.route.snapshot.queryParamMap.get("mode") as any || 'form';
   }
 
   skip(){

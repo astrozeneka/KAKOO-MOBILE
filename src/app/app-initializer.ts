@@ -7,14 +7,10 @@ export function appInitializerFactory(translate: TranslateService, als: AppLangu
   return () => {
     return new Promise(resolve => {
       als.languageStorage.get().then((lang) => {
-        translate.use(lang ?? 'en-US').subscribe(() => {
+        translate.use(lang ?? 'en').subscribe(() => {
           resolve(null);
         });
       })
     })
-
-    /*return firstValueFrom(translate.use(
-        als.languageStorage.get() ?? 'en-US'
-    ));*/
   };
 }

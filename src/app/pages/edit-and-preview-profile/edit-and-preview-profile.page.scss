@@ -32,3 +32,10 @@ ion-content{
         --margin-bottom: 6px; // 14-8px
     }
 }
+
+app-section-heading app-ux-button{
+    & .inner{
+        padding-left: 17.6px;
+        padding-right: 17.6px;
+    }
+}

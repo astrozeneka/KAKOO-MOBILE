@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, forwardRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
 import { TranslateService } from '@ngx-translate/core';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
@@ -145,6 +145,5 @@ export class ClickableFileCardComponent implements ControlValueAccessor, OnInit 
   
     return output[this.lang];
   }  
-  
 
 }

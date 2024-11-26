@@ -1,8 +1,27 @@
 ion-header{
     box-shadow: none;
 }
+
+.page{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
 .top-banner{
-    padding-top: 29px;
+    //padding-top: 29px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+
+    & img{
+        height: 100%;
+        max-height: 450px;
+       // height: min-content;
+    }
 }
 
 p.helper{

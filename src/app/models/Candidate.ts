@@ -1,3 +1,4 @@
+import { BehaviorSubject, Observable } from "rxjs"
 import { User } from "./User"
 
 export interface Candidate {
@@ -168,6 +169,18 @@ export interface Candidate {
     storageCloudType: string
   }
 
+  export interface PaginedEntities<T> {
+    content: T[]
+    pageNumber: number
+    pageSize: number
+    totalElement: number
+    totalPages: number
+    lastPage: boolean
+  }
+
+  /**
+   * @deprecated Use PaginedEntities<JobInvitationEntity> instead
+   */
   export interface PaginedJobInvitationArray {
     content: JobInvitationEntity[]
     pageNumber: number
@@ -243,7 +256,7 @@ export interface Candidate {
     jobCustomQuestionEntities: JobCustomQuestionEntity[]
     jobQualificationHTML: any
     jobDescriptionHTML: any
-    otherSkills: any[]
+    otherSkills: OtherSkillEntity[]
     spokenLanguageEntities: any[]
     qualifiedCount: any
     interviewedCount: any
@@ -404,4 +417,72 @@ export interface SalesPersonEntity {
   selesPersonId: number
   name: string
   description: any
+}
+
+export interface CandidateAssessmentEntity {
+  candidateAssessmentId: number
+  title: string
+  totalQuestion: number
+  attendQuestion: number
+  passedQuestion: number
+  assessmentId: number
+  companyId: number
+  candidateId: number
+  createdBy: number
+  updatedBy: number
+  createdAt: string
+  updatedAt: string
+  assessmentStatus: string
+  expirationTime: string
+  candidateAssessmentAnswerEntities: CandidateAssessmentAnswerEntity[]
+  createdByUserDetail: CreatedByUserDetail
+  auserId: any
+}
+
+export interface CandidateAssessmentAnswerEntity {
+  candidateAssessmentAnswerId: number
+  assessmentQuestionId: number
+  question: string
+  correctAnswer: string
+  candidateAnswer?: string
+  isPassed: boolean
+  isSkip: boolean
+  candidateAssessmentId: number
+  userCode: any
+  codeCompiledOutput: any
+}
+
+export interface CreatedByUserDetail {
+  id: number
+  firstName: string
+  lastName: string
+  companyName: string
+}
+
+/**
+ * Experimental feature used to keep track of components
+ * */
+export interface Displayable { // Unused for now
+  subject?: BehaviorSubject<JobInvitationEntity>
+  $?: Observable<JobInvitationEntity>
+}
+
+export interface DashboardMetrics {
+  noOfInterview: number
+  noOfCompletedInterview: number
+  noOfPendingInterview: number
+  noOfAssessment: number
+  noOfCompletedAssessment: number
+  noOfPendingAssessment: number
+  noOfVideoAssessment: number
+  noOfCompletedVideoAssessment: number
+  noOfJobInvitation: number
+  noOfJobApplied: number
+  noOfJobRejected: number
+  noOfPendingNotification: number
+}
+
+export interface OtherSkillEntity {
+  id: number,
+  name: string
 }

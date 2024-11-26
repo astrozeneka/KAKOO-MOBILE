@@ -33,12 +33,12 @@ export class SocialAccountsPage implements OnInit {
   candidateSocialAccounts:{[key:string]:string} = {}
   form:FormGroup = new FormGroup({
     "facebook": new FormControl('', [UrlValidator]),
-    "x": new FormControl('', [Validators.pattern('https?://.+')]),
-    "linkedin": new FormControl('', [Validators.pattern('https?://.+')]),
-    "instagram": new FormControl('', [Validators.pattern('https?://.+')]),
-    "youtube": new FormControl('', [Validators.pattern('https?://.+')]),
-    "glassdoor": new FormControl('', [Validators.pattern('https?://.+')]),
-    "github": new FormControl('', [Validators.pattern('https?://.+')])
+    "x": new FormControl('', [UrlValidator]),
+    "linkedin": new FormControl('', [UrlValidator]),
+    "instagram": new FormControl('', [UrlValidator]),
+    "youtube": new FormControl('', [UrlValidator]),
+    "glassdoor": new FormControl('', [UrlValidator]),
+    "github": new FormControl('', [UrlValidator])
   
   }, {validators: AtLeastOneFieldRequiredValidator}) // Experimental validator
 
@@ -118,8 +118,11 @@ export class SocialAccountsPage implements OnInit {
   }
 
   skip(){
-    // Might be subjected to future updates
-    this.router.navigate(["/terms-and-conditions"])
+    if (this.lang == 'en'){
+      this.router.navigate(["/terms-and-conditions-en"])
+    } else if (this.lang == 'fr'){
+      this.router.navigate(["/terms-and-conditions-fr"])
+    }
   }
 
   submit(){
@@ -165,11 +168,7 @@ export class SocialAccountsPage implements OnInit {
       .pipe(finalize(()=>{this.formIsLoading = false}))
       .subscribe(results => {
         if (this.formMode == 'default'){
-          if (this.lang == 'en'){
-            this.router.navigate(["/terms-and-conditions-en"])
-          } else if (this.lang == 'fr'){
-            this.router.navigate(["/terms-and-conditions-fr"])
-          }
+          this._goToNextPage()
         }else{
           this.cs.requestCandidateDataRefresh() // Not optimized, but more stable
           this.location.back()
@@ -177,6 +176,14 @@ export class SocialAccountsPage implements OnInit {
       })
 
     
+  }
+
+  private _goToNextPage(){
+    if (this.lang == 'en'){
+      this.router.navigate(["/terms-and-conditions-en"])
+    } else if (this.lang == 'fr'){
+      this.router.navigate(["/terms-and-conditions-fr"])
+    }
   }
 
 }

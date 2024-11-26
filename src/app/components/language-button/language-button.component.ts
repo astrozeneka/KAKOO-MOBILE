@@ -21,8 +21,8 @@ export class LanguageButtonComponent  implements OnInit {
   listHidden: boolean = true;
 
   // 3. The language actually used by the system
-  activeLanguage: 'en-US'|'fr-FR' = 'en-US';
-  activeLanguageDisplay: string = "en-US"
+  activeLanguage: 'en'|'fr' = 'en';
+  activeLanguageDisplay: string = "en"
   activeLanguageFlag: string = "/assets/svg/flag-uk.svg"
 
   constructor(
@@ -35,9 +35,9 @@ export class LanguageButtonComponent  implements OnInit {
 
   async ngOnInit() {
     // 3. The active language
-    this.activeLanguage = await this.als.languageStorage.get() as 'en-US'|'fr-FR';
-    this.activeLanguageDisplay = this.activeLanguage === 'en-US' ? 'en' : 'fr';
-    this.activeLanguageFlag = this.activeLanguage === 'en-US' ? "/assets/svg/flag-uk.svg" : "/assets/svg/flag-fr.svg";
+    this.activeLanguage = await this.als.languageStorage.get() as 'en'|'fr';
+    this.activeLanguageDisplay = this.activeLanguage === 'en' ? 'en' : 'fr';
+    this.activeLanguageFlag = this.activeLanguage === 'en' ? "/assets/svg/flag-uk.svg" : "/assets/svg/flag-fr.svg";
   }
 
   toggleList(event:PointerEvent|MouseEvent) {
@@ -47,7 +47,7 @@ export class LanguageButtonComponent  implements OnInit {
     this.listHidden = !this.listHidden;
   }
 
-  changeLanguage(event:any, language:'en-US'|'fr-FR') {
+  changeLanguage(event:any, language:'en'|'fr') {
     /*event.stopPropagation();
     event.preventDefault();*/
 

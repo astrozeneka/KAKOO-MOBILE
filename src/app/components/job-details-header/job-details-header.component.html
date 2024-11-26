@@ -1,11 +1,11 @@
 <div class="job-details-header">
-  @if (!jobEntity) {
+  <!--@if (!jobEntity) {
     <div class="loading-placeholder">
       <ion-spinner></ion-spinner>
     </div>
-  }
+  }-->
   <div class="image-container">
-    <img [src]="'https://web.kakoo-software.com/kakoo-back-end/company/' + jobEntity?.companyEntity?.id + '/downloadPhoto'" alt=""/>
+    <img [src]="'https://web.kakoo-software.com/kakoo-back-end/company/' + jobEntity?.companyId + '/downloadPhoto'" alt=""/>
   </div>
   <div class="labels">
     <div class="title">{{ jobEntity?.positionTitle ?? 'Developer' }}</div>

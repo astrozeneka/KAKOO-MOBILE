@@ -21,20 +21,21 @@
     <!-- The next step will be to synchronize the slider with the content below -->
     <div class="content ion-padding-horizontal">
       <div class="banner-title-1">
-        Your Career Journey Starts Here
+        {{ "Your Career Journey Starts Here" |_ }}
       </div>
       <div class="helper">
-        Discover opportunities, connect with employers, and land your dream job effortlessly.
+        {{ "Discover opportunities, connect with employers, and land your dream job effortlessly." |_ }}
       </div>
         <ion-button
           expand="block"
           fill="solid"
           color="primary"
+          routerLink="/login"
         >
-          Log In
+          {{ "Log In" |_ }}
         </ion-button>
       <div class="helper">
-        Don't have an account? <a href="/signup">Sign Up</a>
+        {{ "Don't have an account?" |_ }} <a routerLink="/signup">{{ "Sign Up" |_ }}</a>
       </div>
     </div>
   </div>

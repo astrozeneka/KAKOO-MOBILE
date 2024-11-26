@@ -19,7 +19,6 @@ export class JobDetailsHeaderComponent  implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
-    console.log(this.jobEntity)
   }
 
 }

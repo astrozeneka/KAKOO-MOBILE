@@ -12,11 +12,12 @@ import { EJobEntity } from '../job-detail/job-detail.page';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
-import { catchError, finalize, map, mergeMap, Observable } from 'rxjs';
+import { catchError, filter, finalize, map, mergeMap, Observable } from 'rxjs';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { Location } from '@angular/common';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { environment } from 'src/environments/environment';
+import { OutlineTextareaComponent } from "../../components/outline-textarea/outline-textarea.component";
 
 @Component({
   selector: 'app-employer-questions',
@@ -24,8 +25,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./employer-questions.page.scss'],
   standalone: true,
   imports: [IonIcon, IonButton, IonTextarea, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, FileCardComponent, TopbarComponent,
-    ReactiveFormsModule, UxButtonComponent, I18nPipeShortened
-  ]
+    ReactiveFormsModule, UxButtonComponent, I18nPipeShortened, OutlineTextareaComponent]
 })
 export class EmployerQuestionsPage implements OnInit {
   // Variables (same as in reject-job)
@@ -62,7 +62,7 @@ export class EmployerQuestionsPage implements OnInit {
   ngOnInit() {
     // Load job data (together with the related JobInvitationEntity)
     // exactly the same as in JobInvitationEntity
-    this._loadJob(this.jobId)
+    /*this._loadJob(this.jobId)
     .subscribe((job:EJobEntity) => {
       this.jobEntity = job
       // Load the corresponding inviteStataus
@@ -77,7 +77,30 @@ export class EmployerQuestionsPage implements OnInit {
           this.displayedError[`customQuestion_${jq.jobCustomQuestionId}`] = undefined
         })
       })
-    })
+    })*/
+
+    this.pds.onJobInvitationsData(true, false) // Use from cache only
+     .pipe(
+        map((data:JobInvitationEntity[]) => {
+          return data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
+        }),
+        filter((jobInvitationEntity:JobInvitationEntity|undefined) => jobInvitationEntity != undefined),
+        map((jobInvitationEntity:JobInvitationEntity|undefined) => {
+          return {
+            ...jobInvitationEntity?.jobEntity,
+            jobInvitationEntity: {...jobInvitationEntity, companyEntity: null/*, jobEntity: null as any*/},
+            companyEntity: null as any // Don' need the company here
+          } as EJobEntity
+        })
+      )
+      .subscribe((jobEntity:EJobEntity)=>{
+        this.jobEntity = jobEntity
+        // Set the customQuentities form controls
+        this.jobEntity?.jobCustomQuestionEntities?.forEach((jq) => {
+          this.form.addControl(`customQuestion_${jq.jobCustomQuestionId}`, new FormControl<string|null>("", [Validators.required]))
+          this.displayedError[`customQuestion_${jq.jobCustomQuestionId}`] = undefined
+        })
+      })
   }
 
   /**
@@ -99,6 +122,7 @@ export class EmployerQuestionsPage implements OnInit {
     this.form.markAllAsTouched()
     if (this.form.invalid){
       displayErrors(this.form, this.displayedError, (v)=>this.translate.instant(v))
+      console.log(this.displayedError)
       this.cdr.detectChanges()
       return;
     }

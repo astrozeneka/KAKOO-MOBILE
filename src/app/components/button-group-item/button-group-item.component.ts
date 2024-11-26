@@ -12,7 +12,10 @@ import { IonButton, IonIcon } from '@ionic/angular/standalone';
 export class ButtonGroupItemComponent  implements OnInit {
   @Input() color: string = 'dark';
   @Input() chip: number = 0;
+
   @Input() routerLink: string|undefined;
+  @Input() queryParams: any
+  @Input() disabled: boolean = false;
   
   constructor() { }
 

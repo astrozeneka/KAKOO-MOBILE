@@ -1,0 +1,12 @@
+<div class="job-details-other-skills">
+  <h3>{{ "Other required skills" |_ }}</h3>
+  <div class="card">
+    <ul>
+      @for (skill of otherSkills; track skill.id) {
+        <li>
+          {{ skill.name }}
+        </li>
+      }
+    </ul>
+  </div>
+</div>

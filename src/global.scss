@@ -250,3 +250,23 @@ ion-button{
  * 7.0 Mixins
  */
 @import 'theme/mixins.scss';
+
+/**
+ * 8.0 Custom styles
+ */
+.html-text-job-detail-1{
+    & p{
+        margin: 0;
+    }
+    & ul{
+        margin: 0;
+        padding: 0;
+        margin-left: 22px;
+    }
+    & p, & ul{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 23px;
+        color: #6C7278;
+    }
+}

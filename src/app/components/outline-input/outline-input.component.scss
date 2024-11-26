@@ -9,7 +9,8 @@
         flex-direction: row;
         align-items: center;
 
-        & label{
+        & label{ 
+            // Exactly the same code as in outline-textarea
             position: absolute;
             top: 0px;
             left: 0px;
@@ -67,6 +68,9 @@
 
     }
 
+    /**
+     * The code below is exactly the same as in textarea
+     */
     & .wrapper.has-focus {
         // Shared among other controls
         border-color: #007E48!important;

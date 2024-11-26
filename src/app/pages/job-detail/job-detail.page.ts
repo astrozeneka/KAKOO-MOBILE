@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
 import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { BackButtonComponent } from 'src/app/back-button/back-button.component';
 import { JobDetailsRequirementsTableComponent } from "../../components/job-details-requirements-table/job-details-requirements-table.component";
@@ -9,15 +9,18 @@ import { EmployerQuestionsPage } from "../employer-questions/employer-questions.
 import { JobDetailsEmployerQuestionsComponent } from "../../components/job-details-employer-questions/job-details-employer-questions.component";
 import { HorizontalScrollableTabsComponent } from "../../components/horizontal-scrollable-tabs/horizontal-scrollable-tabs.component";
 import { JobDetailsHeaderComponent } from 'src/app/components/job-details-header/job-details-header.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ContentService } from 'src/app/services/content.service';
 import { CompanyEntity, JobEntity, JobInvitationEntity } from 'src/app/models/Candidate';
-import { map, mergeMap, Observable } from 'rxjs';
+import { filter, finalize, map, mergeMap, Observable, switchMap, tap } from 'rxjs';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
+import { JobDetailsOtherSkillsComponent } from 'src/app/components/job-details-other-skills/job-details-other-skills.component';
+import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { TranslateService } from '@ngx-translate/core';
 
 // Experimental (might be moved to Candidate.ts in a near future)
 export interface EJobEntity extends JobEntity {
-  companyEntity: CompanyEntity
+  companyEntity: CompanyEntity // We need for the profile picture
   jobInvitationEntity?: JobInvitationEntity
 }
 
@@ -26,26 +29,29 @@ export interface EJobEntity extends JobEntity {
   templateUrl: './job-detail.page.html',
   styleUrls: ['./job-detail.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, JobDetailsRequirementsTableComponent, EmployerQuestionsPage, JobDetailsEmployerQuestionsComponent, HorizontalScrollableTabsComponent,
-    JobDetailsHeaderComponent, RouterModule
+  imports: [IonSpinner, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TopbarComponent, BackButtonComponent, JobDetailsRequirementsTableComponent, EmployerQuestionsPage, JobDetailsEmployerQuestionsComponent, HorizontalScrollableTabsComponent,
+    JobDetailsHeaderComponent, RouterModule, JobDetailsOtherSkillsComponent, I18nPipeShortened
   ]
 })
 export class JobDetailPage implements OnInit {
 
   jobId:number
   jobEntity:EJobEntity|null = null
+  isPageLoading: boolean = false // For an improved ui
   
   // 1. The element related to the dynamical scroll
   @ViewChild('description') description!: ElementRef;
   @ViewChild('jobRequirements') jobRequirements!: ElementRef;
   @ViewChild('responsibilities') responsibilities!: ElementRef;
+  @ViewChild('jobQualification') jobQualification!: ElementRef;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private cs: ContentService,
     private pds: ProfileDataService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public translate: TranslateService
   ) {
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
   }
@@ -54,6 +60,8 @@ export class JobDetailPage implements OnInit {
     /**
      * is to load the jobinvitation entity together
      */
+    // The old way to load the data
+    /*this.isPageLoading = true;
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
     this._loadJob(this.jobId)
       .subscribe((job:EJobEntity) => {
@@ -67,7 +75,59 @@ export class JobDetailPage implements OnInit {
         if (this.jobEntity)
           this.jobEntity.jobInvitationEntity = jobInvitationEntity
         this.cdr.detectChanges()
+      })*/
+    
+    // The new way to load the invitation data (unoptimized since the array doesn't have hash key)
+    this.router.events
+      .pipe(
+        filter(e=>e instanceof NavigationEnd),
+        switchMap(
+          ()=>this.pds.onJobInvitationsData(true, true)
+            .pipe(
+              map((data:JobInvitationEntity[]) => {
+                return data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
+              }),
+              filter((jobInvitationEntity:JobInvitationEntity|undefined) => jobInvitationEntity != undefined),
+              switchMap((jobInvitationEntity:JobInvitationEntity|undefined) =>
+                this.cs.get_exp(`/api/v1/candidate/get-company/${jobInvitationEntity!.jobEntity.companyId}`, {})
+                  .pipe(map((e:CompanyEntity) => {
+                    return {
+                      ...jobInvitationEntity?.jobEntity,
+                      jobInvitationEntity: {...jobInvitationEntity, companyEntity: null/*, jobEntity: null as any*/},
+                      companyEntity: e
+                    } as EJobEntity
+                  }))
+              )
+            )
+        ),
+      )
+      .subscribe((jobEntity:EJobEntity)=>{
+        console.log(jobEntity)
+        this.jobEntity = jobEntity
       })
+
+    /* 
+    this.pds.onJobInvitationsData(true, true)
+      .pipe(
+        map((data:JobInvitationEntity[]) => {
+          return data.find((ji:JobInvitationEntity) => ji.jobEntity.jobId === this.jobId)
+        }),
+        filter((jobInvitationEntity:JobInvitationEntity|undefined) => jobInvitationEntity != undefined),
+        switchMap((jobInvitationEntity:JobInvitationEntity|undefined) =>
+          this.cs.get_exp(`/api/v1/candidate/get-company/${jobInvitationEntity!.jobEntity.companyId}`, {})
+            .pipe(map((e:CompanyEntity) => {
+              return {
+                ...jobInvitationEntity?.jobEntity,
+                jobInvitationEntity: {...jobInvitationEntity, companyEntity: null},
+                companyEntity: e
+              } as EJobEntity
+            }))
+        )
+      )
+      .subscribe((jobEntity:EJobEntity)=>{
+        this.jobEntity = jobEntity
+      })
+    */
   }
 
   /**
@@ -87,7 +147,8 @@ export class JobDetailPage implements OnInit {
     let element = {
       'description': this.description,
       'jobRequirements': this.jobRequirements,
-      'responsibilities': this.responsibilities
+      'responsibilities': this.responsibilities,
+      'jobQualification': this.jobQualification
     }[section as string]?.nativeElement
     const offset = 20;
     const elementPosition = element?.getBoundingClientRect().top + window.scrollY;

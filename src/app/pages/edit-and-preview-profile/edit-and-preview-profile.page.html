@@ -26,25 +26,32 @@
   </div>
 
   <div class="ion-padding-horizontal">
-    <app-section-heading>
-      {{ "Skills" |_ }}
-      <ion-button
-        color="primary"
-        fill="clear"
-        slot="end"
-      >
-        <div class="inner">
-          <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
-          {{ "Edit" |_ }}
-        </div>
-      </ion-button>
-    </app-section-heading>
+    <form [formGroup]="form" (submit)="submitSkills()">
+      <app-section-heading>
+        {{ "Skills" |_ }}
+        @if (form.get('skills')?.touched) {
+          <app-ux-button
+            color="primary"
+            fill="clear"
+            slot="end"
+            type="submit"
+            [fixedWidth]="true"
+            [loading]="skillsFormIsLoading"
+          >
+            <div class="inner">
+              <ion-icon src="/assets/svg/icon-edit-primary.svg"></ion-icon>
+              {{ "Update" |_ }}
+            </div>
+          </app-ux-button>
+        }
+      </app-section-heading>
     
-    <form [formGroup]="form">
       <app-chip-input
         label="Skills"
-        placeholder="You can add your skills here"
+        placeholder="{{ 'You can add your skills here' |_ }}"
         formControlName="skills"
+        [options]="skillOptions"
+        [keyAccessor]="pus.skillOptionsKeyAccessor"
         mode="multiple"
         [errorText]="displayedError['skills']"
         variant="kakoo-profile"
@@ -125,12 +132,12 @@
             <ion-icon src="/assets/svg/icon-education.svg" style="font-size:21px"></ion-icon>
           </div>
         </div>
-        <div slot="title">{{ entity.name }}</div>
+        <div slot="title">{{ entity.title }}</div>
         <div slot="content">
-          {{ entity.institution}}
+          {{ entity.issuingOrganization}}
         </div>
         <div slot="footer">
-          <div class="chip">{{ entity.year }}</div>
+          <div class="chip">{{ entity.issueDate | date: "YYYY" }}</div>
         </div>
       </app-experience-card>
     }

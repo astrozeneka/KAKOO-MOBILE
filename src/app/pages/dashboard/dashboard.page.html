@@ -1,6 +1,6 @@
 <ion-content>
   <ion-header>
-    <app-topbar variant="kakoo">
+    <app-topbar variant="kakoo" color="none">
       <div slot="title">
         <img src="/assets/kakoo-logo.png" height="26px">
       </div>
@@ -9,7 +9,16 @@
           @if (candidate) {
             <!-- Depending on the project deadline -->
             <!-- This SVG might just be a fallback, the uploaded data can be used on behalf -->
-            <app-svg-profile [candidate]="candidate" size="41"></app-svg-profile>
+            <a routerLink="/edit-and-preview-profile">
+              <app-clickable-svg-profile
+                [candidate]="candidate"
+                size="41"
+                routerLink="/edit-and-preview-profile"
+              ></app-clickable-svg-profile>
+              <!--
+              <app-svg-profile [candidate]="candidate" size="41"></app-svg-profile>
+              -->
+            </a>
           }
         </div>
       </div>
@@ -21,14 +30,14 @@
       {{ "Good Morning" |_ }} 👋
     </div>
     <div class="subtitle">
-      {{ candidate?.firstName }} {{ candidate?.lastName }}
+      {{ "Welcome" |_ }} {{ candidate?.firstName }} {{ candidate?.lastName }}
     </div>
   </div>
 
   <div class="ion-padding-horizontal">
     <!-- the Below component also have variants, TODO later -->
     <!--<app-profile-cta></app-profile-cta>-->
-    <app-clickable-profile-cta variant="default" routerLink="/edit-and-preview-profile"></app-clickable-profile-cta>
+    <app-clickable-profile-cta routerLink="/edit-and-preview-profile"></app-clickable-profile-cta>
   </div>
 
   <div class="ion-padding-horizontal">
@@ -36,21 +45,37 @@
       {{ "You got new notifications" |_ }}
     </app-section-heading>
     <div class="button-group">
-      <app-button-group-item [chip]="2">
-        You got invitation for Jobs
-      </app-button-group-item>
-      <app-button-group-item [chip]="1">
-        You got Assessment Request "Java" <!-- Notification endpoint -->
-      </app-button-group-item>
-      <app-button-group-item [chip]="1">
-        You got Video Assessment Request
-      </app-button-group-item>
-      <app-button-group-item [chip]="1">
-        You got IQ Test Request
-      </app-button-group-item>
-      <app-button-group-item [chip]="1">
-        You have Interviews Scheduled
-      </app-button-group-item>
+      @if (dashboardMetrics?.noOfJobInvitation ?? 0 > 0) {
+        <app-button-group-item 
+          [chip]="dashboardMetrics?.noOfJobInvitation ?? 0"
+          routerLink="/jobboard"
+        >
+          {{ "You got invitation for Jobs" |_ }}
+        </app-button-group-item>
+      }
+      @if (dashboardMetrics?.noOfAssessment ?? 0 > 0) {
+        <app-button-group-item
+          [chip]="dashboardMetrics?.noOfAssessment ?? 0"
+          routerLink="/assessments"
+        >
+          {{ "You got Assessment Request" |_ }}
+        </app-button-group-item>
+      }
+      @if (dashboardMetrics?.noOfVideoAssessment ?? 0 > 0) {
+        <app-button-group-item [chip]="dashboardMetrics?.noOfVideoAssessment ?? 0"
+          routerLink="/video-assessments"
+        >
+          {{ "You got Video Assessment Request" |_ }}
+        </app-button-group-item>
+      }
+      @if (dashboardMetrics?.noOfMeeting ?? 0 > 0) {
+        <app-button-group-item 
+          routerLink="/meetings"
+          [chip]="dashboardMetrics?.noOfMeeting ?? 0"
+        >
+          {{ "You have Meeting Scheduled" |_ }}
+        </app-button-group-item>
+      }
     </div>
   </div>
 
@@ -63,7 +88,7 @@
         slug="interview"
         color="#007E4817"
         title="{{ 'Interview' |_ }}"
-        subtitle="07"
+        subtitle="{{ dashboardMetrics?.noOfInterview | zfill }}"
         style="flex: 1"
         routerLink="/meetings"
       ></app-clickable-dashboard-card>
@@ -71,7 +96,7 @@
         slug="job-invitation"
         color="#9C282917"
         title="{{ 'Job Invitation' |_ }}"
-        subtitle="10"
+        subtitle="{{ dashboardMetrics?.noOfJobInvitation | zfill }}"
         style="flex: 1"
         routerLink="/jobboard"
       ></app-clickable-dashboard-card>
@@ -81,19 +106,20 @@
         slug="assessment"
         color="#FBBC0517"
         title="{{ 'Assessment' |_ }}"
-        subtitle="07"
+        subtitle="{{ dashboardMetrics?.noOfAssessment | zfill }}"
         style="flex: 1"
       ></app-clickable-dashboard-card>
       <app-clickable-dashboard-card
         slug="video-assessment"
         color="#375DFB17"
         title="{{ 'Video Assessment' |_ }}"
-        subtitle="24"
+        subtitle="{{ dashboardMetrics?.noOfVideoAssessment | zfill }}"
         style="flex: 1"
       ></app-clickable-dashboard-card>
     </div>
   </div>
 
+  <!--
   <div class="bg-primary recommended-jobs">
     <div class="title ion-padding-horizontal">{{ "Recommended Jobs" |_ }}</div>
     <div class="">
@@ -104,18 +130,22 @@
       </div>
     </div>
   </div>
+  -->
 
-
-
+  <!-- Disabled for now -->
+  <!--
   <div class="ion-padding-horizontal">
     <app-section-heading>
-      {{ "Recommended Assessments" |_ }}
+      {{ "Assessment Invitation" |_ }}
     </app-section-heading>
+    @for (assessment of candidateAssessmentEntities; track assessment.assessmentId){
+      <app-dashboard-recommended-assessment-card
+        [assessmentEntity]="assessment"
+      ></app-dashboard-recommended-assessment-card>
+    }
 
-    <app-dashboard-recommended-assessment-card> </app-dashboard-recommended-assessment-card>
-    <app-dashboard-recommended-assessment-card> </app-dashboard-recommended-assessment-card>
-  
   </div>
+  -->
 
   <div style="background: #FFF9E8;" class="ion-padding-horizontal">
     <app-dashboard-interview-cta></app-dashboard-interview-cta>

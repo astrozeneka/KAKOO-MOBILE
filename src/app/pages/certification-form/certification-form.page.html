@@ -28,7 +28,7 @@
 <ion-content>
   <div class="ion-padding-horizontal form-wrapper">
     <form [formGroup]="form" (submit)="submit()">
-      <div>
+      <!--<div>
         <app-outline-input
           type="text"
           placeholder="{{ 'Amazon' |_ }}"
@@ -56,74 +56,65 @@
           label="{{ 'Year*' |_ }}"
           [errorText]="displayedError['year']"
         ></app-outline-input>
-      </div>
-      <!-- THE V1
+      </div>-->
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           placeholder="{{ 'Certificate in Digital Marketing' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Certificate Name*' |_ }}"
           formControlName="title"
           [errorText]="displayedError['title']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           formControlName="licenceId"
           placeholder="{{ '123456' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'License ID*' |_ }}"
           [errorText]="displayedError['licenceId']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           formControlName="issuingOrganization"
           placeholder="{{ 'Google' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Issuing Organization*' |_ }}"
           [errorText]="displayedError['issuingOrganization']"
-        ></ion-input>
+        ></app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="date"
           formControlName="issueDate"
           placeholder="{{ '2022-01-01' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Issue Date*' |_ }}"
           [errorText]="displayedError['issueDate']"
-        ></ion-input>
+        >
+          <ion-icon src="/assets/svg/icon-calendar.svg" slot="icon"></ion-icon>
+        </app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="date"
           formControlName="expireDate"
           placeholder="{{ '2022-01-01' |_ }}"
-          fill="outline"
-          label-placement="stacked"
           label="{{ 'Expire Date*' |_ }}"
           [errorText]="displayedError['expireDate']"
-        ></ion-input>
+        >
+          <ion-icon src="/assets/svg/icon-calendar.svg" slot="icon"></ion-icon>
+        </app-outline-input>
       </div>
       <div>
-        <ion-input
+        <app-outline-input
           type="text"
           formControlName="licenceURL"
           placeholder="{{ 'https://certificate.com/abcdefgh' |_ }}"
-          fill="outline"
-          label-placement="stacked"
-          label="{{ 'License URL*' |_ }}"
+          label="{{ 'License URL' |_ }}"
           [errorText]="displayedError['licenceURL']"
-        ></ion-input>
-      </div>-->
+        ></app-outline-input>
+      </div>
 
       <div class="bottom-controls">
         <div class="inner">

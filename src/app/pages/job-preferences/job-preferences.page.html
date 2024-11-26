@@ -25,7 +25,7 @@
   <div class="ion-padding-horizontal form-wrapper">
     @if (formMode == 'default'){
       <div class="heading">
-        <h2 class="display-2">Job preferences</h2>
+        <h2 class="display-2">{{ "Job preferences" |_ }}</h2>
         <div class="helper">
           {{ "Let us know you a bit more about you" |_ }}
         </div>
@@ -124,6 +124,7 @@
             expand="block"
             type="submit"
             [loading]="formIsLoading"
+            [disabled]="!form.valid"
           >
             @if (formMode == 'default'){
               {{ "Save & continue" |_ }}
@@ -131,6 +132,11 @@
               {{ "Save" |_ }}
             }
           </app-ux-button>
+          @if (formMode == 'default' && !form.valid) {
+            <div class="ion-text-center in-text disable-helper">
+              {{ "All fields must be completed in order to complete your profile." |_ }}
+            </div>
+          }
         </div>
       </div>
     </form>

@@ -36,7 +36,7 @@
         <app-clickable-file-card 
           variant="welcome"
           formControlName="file"
-          [loading]="form.get('file')?.value == null"
+          [loading]="resumeIsLoading"
         >
         </app-clickable-file-card>
         <!--<app-file-card variant="welcome" [clickable]="true">

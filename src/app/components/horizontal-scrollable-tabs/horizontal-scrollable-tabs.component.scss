@@ -60,6 +60,8 @@
         flex-wrap: nowrap;
         position: relative;
         width: fit-content;
+        min-width: 100%;
+        justify-content: center;
         & .border-bottom{
             border-bottom: 3px solid #E7E7E9;
             background: white;

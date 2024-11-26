@@ -1,21 +1,35 @@
 <div class="wrapper">
   <ion-button
-    fill="clear"
     expand="block"
-    color="dark"
+    [fill]="variant=='completed' ? 'clear' : 'solid'"
+    [color]="variant=='completed' ? 'dark' : 'primary'"
     [class]="'clickable-profile-cta ' + variant"
     [routerLink]="routerLink"
   >
-    <div class="inner">
-      <div class="left">
-        <div class="title">{{ "Yaay! You have completed all steps" |_ }}</div>
-        <div class="subtitle">
-          {{ "Edit your information any time you want." |_ }}
+    @if (completeness == 100){
+      <div class="inner">
+        <div class="left">
+          <div class="title">{{ "Yaay! You have completed all steps" |_ }}</div>
+          <div class="subtitle">
+            {{ "Edit your information any time you want." |_ }}
+          </div>
+        </div>
+        <div class="right">
+          <img src="/assets/svg/profile-cta-arrow-right-rounded.svg" alt="arrow-right-rounded">
         </div>
       </div>
-      <div class="right">
-        <img src="/assets/svg/profile-cta-arrow-right-rounded.svg" alt="arrow-right-rounded">
+    } @else {
+      <div class="inner">
+        <div class="left">
+          <div class="title">{{ "Complete your profile" |_ }} ({{ completeness }}%)</div>
+          <div class="subtitle">
+            {{ "You are just a few more steps away to complete your profile" |_ }}
+          </div>
+        </div>
+        <div class="right">
+          <img src="/assets/svg/profile-cta-arrow-right-rounded-uncompleted.svg" alt="arrow-right-rounded">
+        </div>
       </div>
-    </div>
+    }
   </ion-button>
 </div>

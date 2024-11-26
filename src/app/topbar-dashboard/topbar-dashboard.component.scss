@@ -19,3 +19,18 @@
         }
     }
 }
+
+// The clickable avatar
+.clickable-avatar{
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --border-radius: 50%;
+    height: 41px;
+    width: 41px;
+    & .inner{
+        height: 41px;
+        width: 41px;
+    }
+}

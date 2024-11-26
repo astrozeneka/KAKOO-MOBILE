@@ -124,3 +124,14 @@ ion-button[type=submit]{
         color: #B3261E;
     }
 }
+
+
+// The links
+a{
+    text-decoration: inherit; // TODO, delete this row, remove this row
+    color: #1A1C1E;
+
+    &[color=primary]{
+        color: var(--ion-color-primary);
+    }
+}

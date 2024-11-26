@@ -1,13 +1,13 @@
 <div class="job-details-employer-questions">
-  @if (!jobCustomQuestionEntities) {
+  <!--@if (!jobCustomQuestionEntities) {
     <div class="loading-placeholder">
       <ion-spinner></ion-spinner>
     </div>
-  }
-  <h3>Employer Questions</h3>
+  }-->
+  <h3>{{ "Employer Questions" |_ }}</h3>
   <div class="card">
     <p>
-      Here are some questions for the position:
+      {{ "Here are some questions for the position:" |_ }}"
     </p>
     <ul>
       @for (question of jobCustomQuestionEntities; track question.jobCustomQuestionId) {

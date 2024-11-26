@@ -7,13 +7,13 @@
     </ion-header>
     <div>
       <div class="text">
-        Invite Your Friend to Kakoo.fr
+        {{ "Invite Your Friend to Kakoo.fr" |_ }}
       </div>
     </div>
   </div>
 
   <div class="ion-padding-horizontal">
-    <div class="display-3">Your Referral Link</div>
+    <div class="display-3">{{ "Your Referral Link" |_ }}</div>
     <app-referal-input
       [value]="referralLink"
     ></app-referal-input>
@@ -25,12 +25,12 @@
       class="share-button"
     >
       <ion-icon src="/assets/svg/share-fill.svg" aria-hidden="true"></ion-icon>
-      Share Link
+      {{ "Share Link" |_ }}
     </ion-button>
   </div>
   
   <div class="ion-padding-horizontal">
-    <div class="display-3">Referrals</div>
+    <div class="display-3">{{ "Referrals" |_ }}</div>
 
     @if (dataIsLoading) {
       <div class="placeholder">
@@ -42,7 +42,7 @@
         date="26 sept. 2024, 12:29:22" -->
       <app-referral-card
         [status]="referral.currentStatus"
-        date="{{ referral.createdAt | date: 'dd MMM yyyy, HH:mm:ss' }}"
+        date="{{ referral.createdAt | date: 'dd MMM yyyy, HH:mm' }}"
         [title]="referral.candidateName"
         [subtitle]="referral.email"
         image="/assets/png/sample-image-2.png"

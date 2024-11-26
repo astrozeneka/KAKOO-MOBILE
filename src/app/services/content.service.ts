@@ -8,6 +8,7 @@ import { AppLanguageService } from './app-language.service';
 import { Candidate } from '../models/Candidate';
 import { Router } from '@angular/router';
 import { User } from '../models/User';
+import { ProfileDataService } from './profile-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class ContentService {
   constructor(
     private http: HttpClient,
     private storage: Storage,
-    private router: Router
+    private router: Router,
   ) {
     this.storage.create()
     this.token = new StoredData<string>('token', this.storage)
@@ -115,7 +116,10 @@ export class ContentService {
           }))
         )
         resolve(response)
-      }catch(error){
+      }catch(error:any){
+        if (error.status === 500){
+          this.router.navigateByUrl('/login?error=session-expired')
+        }
         reject(error)
       }
     }));
@@ -153,6 +157,19 @@ export class ContentService {
         ...(token?{Authorization: token}:{})
       }
       resolve(firstValueFrom((this.http.post(fullurl, data, {
+        headers: hdrs
+      }))))
+    }))
+  }
+
+  put_exp_fullurl(fullurl: string, data:any ,headers: {[key: string]:any}): Observable<any>{
+    return from(new Promise(async(resolve)=>{
+      let token = await this.token.get()
+      let hdrs ={
+        ...headers,
+        ...(token?{Authorization: token}:{})
+      }
+      resolve(firstValueFrom((this.http.put(fullurl, data, {
         headers: hdrs
       }))))
     }))
@@ -212,6 +229,21 @@ export class ContentService {
     return output$
   }
   async requestCandidateDataRefresh(){
+    this.get_exp(`/api/v1/self-candidate`, {})
+      .pipe(catchError((error:{header:any, status:any, statusText:any, url:any, ok:any})=>{
+        if (error.status === 400 && this.router.url !== '/welcome'){
+          this.router.navigateByUrl('/login?error=session-expired')
+        }else {
+          console.log("Unable to fetch the candidate, probably first time") // Unused, can be deleted
+        }
+        this.candidateDataSubject.next({} as any)
+        return throwError(()=>error)
+      }))
+      .subscribe((data: Candidate)=>{
+        this.candidateData.set(data)
+        this.candidateDataSubject.next(data)
+      })
+    /*
     let candidateId = (await this.candidateData.get())?.candidateId ||
       (await this.userData.get())?.candidateId
     if (candidateId){
@@ -221,6 +253,7 @@ export class ContentService {
           this.candidateDataSubject.next(data)
         })
     }
+    */
   }
 
   // Another endpoint is used here, but doesn't handle if the user has just created an account
@@ -240,9 +273,12 @@ export class ContentService {
         .pipe(catchError((error:{header:any, status:any, statusText:any, url:any, ok:any})=>{
           if (error.status === 400 && this.router.url !== '/welcome'){
             this.router.navigateByUrl('/login?error=session-expired')
+          }else if (error.status === 404){
+            console.log("Unable to fetch the candidate, probably first time") // Unused, can be deleted
           }else{
             console.log("Unable to fetch the candidate, probably first time") // Unused, can be deleted
           }
+          this.candidateDataSubject.next({} as any)
           return throwError(error)
         }))
         .subscribe((data: Candidate)=>{

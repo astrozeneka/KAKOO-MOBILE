@@ -12,3 +12,7 @@ ion-header{
 .form-wrapper{
     @include form-wrapper-with-bottom-controls;
 }
+
+.disable-helper{
+    color: #6C7278;
+}

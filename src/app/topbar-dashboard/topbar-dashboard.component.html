@@ -6,9 +6,26 @@
       </div>
     </div>
     <div class="end">
-      <div class="img-container">
-        <img src="/assets/svg/icon-profile-example-ms.svg" alt="Profile Picture"/>
-      </div>
+
+      <app-clickable-svg-profile
+        [initials]="initials"
+        size="41"
+        routerLink="/edit-and-preview-profile"
+      ></app-clickable-svg-profile>
+      <!--
+      <ion-button
+        class="clickable-avatar"
+        fill="clear"
+        expand="block"
+        color="dark"
+        shape="round"
+        [routerLink]="'/edit-and-preview-profile'"
+      >
+        <div class="img-container inner">
+          <img src="/assets/svg/icon-profile-example-ms.svg" alt="Profile Picture"/>
+        </div>
+      </ion-button>
+      -->
     </div>
   </div>
 </div>

@@ -1,37 +1,41 @@
+<ion-header>
+  <app-topbar variant="light">
+    <app-back-button slot="start" variant="topbar"></app-back-button>
+    <div>{{ "Refer a Friend" |_ }}</div>
+  </app-topbar>
+</ion-header>
 <ion-content>
-  <ion-header>
-    <app-topbar variant="light">
-      <app-back-button slot="start" variant="topbar"></app-back-button>
-      <div>Refer a Friend</div>
-    </app-topbar>
-  </ion-header>
-
-  <div class="ion-text-center top-banner">
-    <img src="/assets/svg/refer-a-friend-image.svg" alt="Refer a Friend" class="refer-a-friend-image">
-  </div>
+  <div class="page">
+    <div class="ion-text-center top-banner">
+      <img src="/assets/svg/refer-a-friend-image.svg" alt="Refer a Friend" class="refer-a-friend-image">
+    </div>
 
 
-  <div class="ion-text-center ion-padding-horizontal">
-    <h1 class="display-1 ion-text-primary" color="primary">Refer Your Friend</h1>
-    <p class="helper">
-      You can get in touch with us through below platforms. Our Team will reach out to you as soon as it would be possible
-    </p>
-  </div>
+    <div class="ion-text-center ion-padding-horizontal">
+      <h1 class="display-1 ion-text-primary" color="primary">{{ "Refer Your Friend" |_ }}</h1>
+      <p class="helper">
+        {{ "You can get in touch with us through below platforms. Our Team will reach out to you as soon as it would be possible" |_ }}
+      </p>
+    </div>
 
-  <div class="ion-padding-horizontal">
+    <div class="ion-padding-horizontal">
 
-    <app-referal-input
-      [value]="'https://app.kakoo-software.com/candidate/direct/apply/5ffkkjisdfoi'"
-    ></app-referal-input>
+      <app-referal-input
+        (clipboardCopy)="copyToClipboard()"
+        [value]="referralLink"
+      ></app-referal-input>
 
-    <ion-button
-      expand="block"
-      fill="solid"
-      color="primary"
-      class="share-button"
-    >
-      <ion-icon src="/assets/svg/share-fill.svg" aria-hidden="true"></ion-icon>
-      Share Link
-    </ion-button>
+      <ion-button
+        expand="block"
+        fill="solid"
+        color="primary"
+        class="share-button"
+        (click)="shareLink()"
+      >
+        <ion-icon src="/assets/svg/share-fill.svg" aria-hidden="true"></ion-icon>
+        {{ "Share Link" |_ }}
+      </ion-button>
+      <br/>
+    </div>
   </div>
 </ion-content>

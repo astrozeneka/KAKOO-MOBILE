@@ -8,6 +8,7 @@ export const environment = {
   apiEndpoint: 'https://web.kakoo-software.com/kakoo-back-end',
   serverHost: 'staging.kakoo-software.com',
   cachePrefix: 'kakoodev-',
+  defaultLanguageSelection: 'prompt', // system, prompt
 
   mFormMode: 'email', // Only 'email' is available
   mFormOptions: [
@@ -24,6 +25,11 @@ export const environment = {
     {
       label: 'Supermank',
       email: 'supermank@yopmail.com',
+      password: '123456'
+    },
+    {
+      label: 'Ryan +22',
+      email: 'ryanrasoarahona3+22@gmail.com',
       password: '123456'
     }
     /*{
