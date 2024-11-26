@@ -32,3 +32,7 @@ ion-header{
     justify-content: center;
     align-items: center;
 }
+
+.floating-bottom-placeholder{
+    height: calc(64px + env(safe-area-inset-bottom));
+}

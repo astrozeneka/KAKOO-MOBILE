@@ -17,3 +17,7 @@ ion-header{
 .floating-bottom{
     @include floating-bottom;
 }
+
+.floating-bottom-placeholder{
+    height: calc(64px + env(safe-area-inset-bottom));
+}
