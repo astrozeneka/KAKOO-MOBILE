@@ -316,5 +316,7 @@ export class ProfileDataService {
     this.referralsData.set(null as any)
     this.metricsData.set(null as any)
     this.completenessPercentageData.set(null as any)
+    this.cs.userData.set(null as any)
+    this.cs.candidateData.set(null as any)
   }
 }
