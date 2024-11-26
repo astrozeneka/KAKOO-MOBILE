@@ -30,6 +30,10 @@ export class ProfileDataService {
   meetingsSubject = new BehaviorSubject<MeetingEntity[]|null>([])
   meetings$ = this.meetingsSubject.asObservable()
 
+  meetingsV2Data: StoredData<MeetingEntity[]>
+  meetingsV2Subject = new BehaviorSubject<MeetingEntity[]|null>([])
+  meetingsV2$ = this.meetingsV2Subject.asObservable()
+
   referralsData: StoredData<ReferralEntity[]>
   referralsSubject = new BehaviorSubject<ReferralEntity[]|null>([])
   referrals$ = this.referralsSubject.asObservable()
@@ -50,6 +54,7 @@ export class ProfileDataService {
     this.jobInvitationsData = new StoredData<JobInvitationEntity[]>('jobInvitations', this.storage)
     this.assessmentData = new StoredData<CandidateAssessmentEntity[]>('assessments', this.storage)
     this.meetingsData = new StoredData<MeetingEntity[]>('meetings', this.storage)
+    this.meetingsV2Data = new StoredData<MeetingEntity[]>('meetingsV2', this.storage)
     this.referralsData = new StoredData<ReferralEntity[]>('referrals', this.storage)
     this.metricsData = new StoredData<DashboardMetrics>('metrics', this.storage)
     this.completenessPercentageData = new StoredData<number>('completenessPercentage', this.storage)
@@ -132,7 +137,7 @@ export class ProfileDataService {
   }
 
   /**
-   * 
+   * @deprecated Use onMeetingDataV2 instead
    * @param fromCache 
    * @param fromServer 
    * @param allowPartial (Only if fromServer=true) allow firing partial data
@@ -188,6 +193,31 @@ export class ProfileDataService {
       }
 
       
+    return output$ as Observable<MeetingEntity[]>
+  }
+
+  onMeetingDataV2(fromCache=true, fromServer=true):Observable<MeetingEntity[]>{
+    let additionalEventsSubject = new BehaviorSubject<MeetingEntity[]>([])
+    let additionalEvents$ = additionalEventsSubject.asObservable()
+
+    if (fromCache) {
+      this.meetingsV2Data.get().then((data:MeetingEntity[]|null)=>{
+        if (data!=null)
+          additionalEventsSubject.next(data)
+      })
+    }
+    if (fromServer) {
+      // Unoptimized way for loading data
+      this.cs.get_exp_fullurl(`${environment.apiEndpoint}/api/v1/financial-negotiation/get-by-candidate?pageSize=1024`, {})
+        .pipe(catchError((error)=>throwError(error)))
+        .subscribe((data:PaginedEntities<MeetingEntity>)=>{
+          additionalEventsSubject.next(data.content)
+          this.meetingsV2Data.set(data.content)
+        })
+    }
+
+    let output$ = merge(this.meetingsV2$, additionalEvents$)
+    output$ = output$.pipe(filter((data)=>data!=null))
     return output$ as Observable<MeetingEntity[]>
   }
 
@@ -321,6 +351,7 @@ export class ProfileDataService {
           }
           let overallPercentage = completed / total
           additionalEventsSubject.next(overallPercentage)
+          this.completenessPercentageData!.set(overallPercentage)
         })
     }
 

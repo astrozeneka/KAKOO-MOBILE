@@ -18,7 +18,7 @@
         <ion-spinner></ion-spinner>
       </div>
     }
-    @for (meeting of displayedMeetingEntities; track meeting.id) {
+    @for (meeting of displayedMeetingEntities; track meeting.financialNegotiationId) {
       <app-meeting-card [meeting]="meeting"></app-meeting-card>
     }
     <!-- <app-meeting-card></app-meeting-card> -->

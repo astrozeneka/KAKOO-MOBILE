@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner } from '@ionic/angular/standalone';
-import { MeetingCardComponent } from 'src/app/components/meeting-card/meeting-card.component';
+import { MeetingCardComponent, MeetingV2 } from 'src/app/components/meeting-card/meeting-card.component';
 import { TopbarDashboardComponent } from 'src/app/topbar-dashboard/topbar-dashboard.component';
 import { BottomNavbarComponent } from 'src/app/components/bottom-navbar/bottom-navbar.component';
 import { BottomNavbarTarget } from 'src/app/utils/bottom-navbar-target';
@@ -23,8 +23,8 @@ import { ProfileDataService } from 'src/app/services/profile-data.service';
 })
 export class MeetingsPage extends BottomNavbarTarget implements OnInit {
 
-  meetingEntities:MeetingEntity[] = []
-  displayedMeetingEntities:MeetingEntity[] = [] // Since we have a filter option
+  meetingEntities:MeetingV2[] = []
+  displayedMeetingEntities:MeetingV2[] = [] // Since we have a filter option
   dataIsLoading:boolean = false
 
   constructor(
@@ -38,7 +38,7 @@ export class MeetingsPage extends BottomNavbarTarget implements OnInit {
 
   ngOnInit() {
     this.dataIsLoading = true
-    this.pds.onMeetingData(true, true, false)
+    /*this.pds.onMeetingData(true, true, false)
       .pipe(
         filter(d=>d.length > 0),
         map(data => data.filter((value, index, self) =>
@@ -48,6 +48,15 @@ export class MeetingsPage extends BottomNavbarTarget implements OnInit {
       .subscribe(data=>{
         console.log(data)
         this.meetingEntities = data
+        this.displayedMeetingEntities = this.meetingEntities
+        this.dataIsLoading = false
+        this.cdr.detectChanges()
+      })*/
+    this.pds.onMeetingDataV2(true, true)
+      .pipe()
+      .subscribe(data=>{
+        console.log(data)
+        this.meetingEntities = data as any as MeetingV2[]
         this.displayedMeetingEntities = this.meetingEntities
         this.dataIsLoading = false
         this.cdr.detectChanges()
@@ -70,6 +79,11 @@ export class MeetingsPage extends BottomNavbarTarget implements OnInit {
       })*/
   }
 
+  /**
+   * 
+   * @deprecated Will be deleted later, use pds instead
+   * @returns 
+   */
   private _loadInterviewList(allowPartial=false):Observable<MeetingEntity[]> {
     /**
      * TODO, move this to the profile data service for better performance
@@ -91,7 +105,7 @@ export class MeetingsPage extends BottomNavbarTarget implements OnInit {
           let loader$ = this.cs.get_exp(`/api/v1/job/job-id/${meeting.jobId}`, {})
             .pipe(
               tap((jobdata:JobEntity)=>{
-                meeting.jobEntity = jobdata
+                //meeting.jobEntity = jobdata
                 completed.push(meeting)
               })
             )

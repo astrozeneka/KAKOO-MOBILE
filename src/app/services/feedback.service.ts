@@ -73,10 +73,8 @@ export class FeedbackService {
       await toast.present()
       // set cache data to null
       await this.feedbackData.set(null as any)
-    }else if(feedback.type == 'application-sent'){
-      // Only available for job-detail-page, so we need to delegate function
-      // Create the custom component
-      this.displayFeedbackSubject.next(feedback)
     }
+    // Custom feedback type will be managed here
+    this.displayFeedbackSubject.next(feedback)
   }
 }

@@ -26,3 +26,29 @@ div.helper{
         flex-grow: 1;
     }
 }
+
+.alert-error-v2{
+
+    background: #b3261e39;
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+    & > span{
+        flex-grow: 1;
+    }
+    overflow-x: hidden;
+    max-height: 100px;
+    box-sizing: border-box;
+    transition: max-height 0.2s ease-in-out;
+    transition: padding 0.2s ease-in-out;
+    
+
+    &.hidden{
+        max-height: 0px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}

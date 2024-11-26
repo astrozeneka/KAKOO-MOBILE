@@ -266,7 +266,12 @@
     "Complete your profile": "Complétez votre profil",
     "Update": "Mettre à jour",
 
+    "Your session has expired. Please login again": "Votre session a expiré. Veuillez vous reconnecter",
+    "Invalid credentials": "Informations d'identification incorrect",
+    "Connection failed. Please check your internet connection": "Échec de la connexion. Veuillez vérifier votre connexion Internet",
 
+    "Will be available soon !!": "Sera bientôt disponible !!",
+    
     "":""
 
 }

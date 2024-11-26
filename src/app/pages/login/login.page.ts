@@ -13,7 +13,7 @@ import { LanguageButtonComponent } from 'src/app/components/language-button/lang
 import { DevDebugButtonComponent } from "../../dev-prod-components/debug-button/dev-debug-button/dev-debug-button.component";
 import { environment } from 'src/environments/environment';
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { catchError, filter, finalize, map, throwError } from 'rxjs';
 // Icon icon alert-circle-outline from ionicons
 import { alertCircleOutline } from 'ionicons/icons';
@@ -24,6 +24,7 @@ import { TopbarComponent } from 'src/app/components/topbar/topbar.component';
 import { OutlineInputComponent } from "../../components/outline-input/outline-input.component";
 import { FastSigninComponent as DevFastSigninComponent } from 'src/app/submodules/fast-signin/standalone/fast-signin.component';
 import { ProdFastSigninComponent } from 'src/app/submodules/fast-signin/standalone/prod-fast-signin.component';
+import { Feedback, FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
   selector: 'app-login',
@@ -64,13 +65,17 @@ export class LoginPage extends AbstractPage implements OnInit {
   // 6. The language
   lang: "en"|"fr" = "en"
 
+  // 7. The feedback
+  formErrorFeedbackMessage: string|null = null
+
   constructor(
     private router:Router,
     private cs: ContentService,
     public translate: TranslateService,
     private httpClient: HttpClient,
     private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private fs: FeedbackService
   ) {
     super(
       router
@@ -101,9 +106,22 @@ export class LoginPage extends AbstractPage implements OnInit {
         // Normally, 'pipe' can be used but it is not working (idk why ?)
         if (this.router.url.includes('/login')) {
           this.error = this.route.snapshot.queryParamMap.get('error') as any
+          if (this.error == 'session-expired'){
+            this.fs.registerNow({
+              message: this.translate.instant("Your session has expired. Please login again"),
+              type: 'login-feedback' as any
+            })
+          }
         }
       })
-
+    
+    // Handle the feedback
+    this.fs.displayFeedback$
+      .pipe(filter(e => e?.type == "login-feedback" as any))
+      .subscribe((f:Feedback)=>{
+        this.formErrorFeedbackMessage = f.message
+        this.cdr.detectChanges()
+      })
 
   }
 
@@ -115,20 +133,6 @@ export class LoginPage extends AbstractPage implements OnInit {
       this.cdr.detectChanges()
       return;
     }
-    this.formIsLoading = true
-    
-    //this.form.markAllAsTouched();
-    /*if (this.form.invalid) {
-      return;
-    }*/
-    /*this.cs.post('/request-login', {...this.form.value}).subscribe((res) => {
-      console.log(res)
-      // 2.1 Here, should store the value inside the local storage using storageObservable
-
-      // 2.2 Depending on the backend, here it is possible that we need to load user data separately
-
-      // 2.3 After that, redirect the user to another page
-    });*/
 
     this.formIsLoading = true
     // Test JWT exchange
@@ -136,8 +140,19 @@ export class LoginPage extends AbstractPage implements OnInit {
       username: this.form.value.email,
       password: this.form.value.password
     })
-      .pipe(catchError((error)=>{
+      .pipe(catchError((error:HttpErrorResponse)=>{
         // Todo, manage Feedback (use the feedback service)
+        if (error.status == 0){
+          this.fs.registerNow({
+            message: this.translate.instant("Connection failed. Please check your internet connection"),
+            type: 'login-feedback' as any
+          })
+        } else if (error.status == 401){
+          this.fs.registerNow({
+            message: this.translate.instant("Invalid credentials"),
+            type: 'login-feedback' as any
+          })
+        }
         this.credentialFailed = true
         console.error("Credential failed")
         return throwError(error)

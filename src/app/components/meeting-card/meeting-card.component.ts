@@ -2,9 +2,30 @@ import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { IonButton, IonIcon } from "@ionic/angular/standalone";
 import { Browser } from '@capacitor/browser';
-import { MeetingEntity } from 'src/app/models/Candidate';
+import { EmploymentTypeEntity, MeetingEntity, WorkTypeEntity } from 'src/app/models/Candidate';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { TranslateService } from '@ngx-translate/core';
+import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
+
+export interface MeetingV2 {
+  financialNegotiationId: number
+  jobId: number
+  candidateId: number
+  toTime: any
+  fromTime: any
+  timeZone: any
+  title: any
+  description: any
+  thirdPartyEmail: any
+  jobTitle: string
+  interviewerName: string
+  financialNegotiationStatus: string
+  guestName: any
+  jobType: WorkTypeEntity
+  employmentTypeEntity: EmploymentTypeEntity
+  meetingLink: any
+  creationDate: any
+}
 
 @Component({
   selector: 'app-meeting-card',
@@ -14,7 +35,7 @@ import { TranslateService } from '@ngx-translate/core';
   imports: [IonIcon, IonButton, JsonPipe, I18nPipeShortened, DatePipe]
 })
 export class MeetingCardComponent  implements OnInit {
-  @Input() meeting: MeetingEntity = {} as any
+  @Input() meeting: MeetingV2 = {} as any
 
   expanded: boolean = false;
   
@@ -25,7 +46,8 @@ export class MeetingCardComponent  implements OnInit {
   lang: "en"|"fr" = "en"
 
   constructor(
-    private translate: TranslateService
+    private translate: TranslateService,
+    public pus: ProfileUtilsService
   ) { 
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
   }

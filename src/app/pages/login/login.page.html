@@ -24,18 +24,24 @@
       <div class="helper">{{ "to access Kakoo Software Solutions" |_ }}</div>
     </div>
     <div class="container">
+      <div [class]="'alert-error-v2 ' + (formErrorFeedbackMessage ? '' : 'hidden')">
+        <ion-icon [src]="alertCircleOutline"></ion-icon>
+        <span>{{ formErrorFeedbackMessage }}</span>
+      </div>
+      <!--
       @if (credentialFailed) {
         <div class="alert-error">
           <ion-icon [src]="alertCircleOutline"></ion-icon>
           <span>{{ "Invalid email or password" |_ }}</span>
         </div>
       }
-      @if (error == 'session-expired') {
+      -->
+      <!--@if (error == 'session-expired') {
         <div class="alert-error">
           <ion-icon [src]="alertCircleOutline"></ion-icon>
           <span>{{ "Session expired, please login again" |_ }}</span>
         </div>
-      }
+      }-->
       <form (submit)="requestLogin()" [formGroup]="form">
         
         <div class="input-wrapper">

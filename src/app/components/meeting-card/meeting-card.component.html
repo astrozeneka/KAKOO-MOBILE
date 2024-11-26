@@ -4,10 +4,11 @@
       <img src="/assets/svg/icon-space-company.svg"/><!-- normally it should be bitmap image -->
     </div>
     <div class="right">
-      <div class="title">{{ meeting.jobEntity.positionTitle }}</div>
-      <div class="subtitle">Simranjeet Kaur?? - {{ meeting.jobEntity.companyName }}</div>
+      <div class="title">{{ meeting.jobTitle }}</div>
+      <div class="subtitle">{{ meeting.interviewerName }}</div>
     </div>
   </div>
+  <!--
   <div class="body">
     <div class="description">
       <div [class]="'text ' + (expanded?'expanded':'')" [innerHTML]="meeting.description">
@@ -33,7 +34,12 @@
       <div class="bottom">{{ durationUnit }}</div>
     </div>
   </div>
+  -->
   <div class="footer">
+    <div class="chips">
+      <div class="chip">{{ pus.workTypeKeyAccessor(meeting.jobType) }}</div>
+      <div class="chip">{{ pus.employmentTypeKeyAccessor(meeting.employmentTypeEntity) }}</div>
+    </div>
     <div class="time">
       @if (meeting.fromTime && meeting.toTime){
           <ion-icon src="/assets/svg/icon-clock.svg"></ion-icon>
