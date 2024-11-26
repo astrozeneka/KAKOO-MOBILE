@@ -10,7 +10,7 @@ import { Candidate, CityEntity, CountryEntity, LanguageEntity, StateEntity } fro
 import { ContentService } from 'src/app/services/content.service';
 import { catchError, filter, finalize, Observable, throwError } from 'rxjs';
 import { UxButtonComponent } from "../../submodules/angular-ux-button/standalone/ux-button.component";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
 import { DevDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/dev-debug-button/dev-debug-button.component';
 import { environment } from 'src/environments/environment';
@@ -20,6 +20,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { displayErrors } from 'src/app/utils/display-errors';
 import { Location } from '@angular/common';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { countryData, countryENByName, countryENDict } from 'src/app/utils/country-data';
+
+interface ECountryEntity extends CountryEntity {
+  code2: string|null
+  code3: string|null
+}
 
 @Component({
   selector: 'app-personal-information',
@@ -100,8 +106,8 @@ export class PersonalInformationPage implements OnInit {
   languageOptions: LanguageEntity[] = []
   languageOptionsKeyAccessor = (language: LanguageEntity):string =>
     this.lang == "en" ? language.name : (language.nameFr||language.name) as string
-  countryOptions: CountryEntity[] = []
-  countryKeyAccessor = (country: CountryEntity) => country?.name;
+  countryOptions: ECountryEntity[] = []
+  countryKeyAccessor = (country: ECountryEntity) => country?.name;
   stateOptions: StateEntity[] = []
   stateKeyAccessor = (state: StateEntity) => state?.name;
   cityOptions: CityEntity[] = []
@@ -153,6 +159,14 @@ export class PersonalInformationPage implements OnInit {
       /*if (candidate.stateEntity) this.form.get('stateEntity')?.enable()
       if (candidate.cityEntity) this.form.get('cityEntity')?.enable()
       this.form.patchValue(candidate)*/
+
+      // Refresh page when reload
+      this.router.events
+        .pipe(filter((event)=>event instanceof NavigationEnd && event.url.includes('personal-information')))
+        .subscribe((event)=>{
+          this.ngOnInit()
+          this.cdr.detectChanges()
+        })
     
     })
 
@@ -191,7 +205,33 @@ export class PersonalInformationPage implements OnInit {
       this.languageOptions = languageOptions
     })
     this._loadCountryOptions().subscribe((countryOptions)=>{
-      this.countryOptions = countryOptions
+      console.log(countryData)
+      console.log(countryENDict)
+      this.countryOptions = countryOptions.map((country)=>{
+        let additionnal_data = countryENByName[country.name.toLowerCase()]
+        return {
+          ...country,
+          code2: additionnal_data?.code2 || "",
+          code3: additionnal_data?.code3 || ""
+        }
+      })
+      // Append the country code
+
+      // Try to map
+      /*
+      let unmapped:any[] = []
+      let countryDataByName = countryData.reduce((acc, country)=>{
+        acc[country.name.toLowerCase()] = country
+        
+        return acc
+      }, {} as {[key:string]:any})
+      console.log(countryDataByName)
+      countryOptions.forEach((country)=>{
+        if (!countryDataByName[country.name.toLowerCase()]){
+          unmapped.push(country)
+        }
+      })
+      */
     })
 
     // At first state and city will be disabled, and will be enabled only when the above entity is selected

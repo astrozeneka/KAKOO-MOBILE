@@ -221,7 +221,7 @@
           <ng-template let-option>
             <div class="country-item">
               <div class="img-container">
-                <img [src]="'/assets/png/country-flags/' + option.slug + '.png'" class="country-flag"/>
+                <img [src]="'https://flagsapi.com/' + option.code2 + '/flat/64.png'">
               </div>
               <span>
                 {{ option.name }}

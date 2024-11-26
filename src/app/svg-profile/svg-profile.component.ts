@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Candidate } from '../models/Candidate';
 
 @Component({
@@ -7,9 +7,10 @@ import { Candidate } from '../models/Candidate';
   styleUrls: ['./svg-profile.component.scss'],
   standalone: true
 })
-export class SvgProfileComponent  implements OnInit {
+export class SvgProfileComponent  implements OnInit, OnChanges {
 
-  @Input() candidate!: Candidate;
+  @Input() candidate: Candidate|null = null;
+  @Input() initials: string|null = null;
   @Input() size: string|number = 102;
 
   svgText: string = ``;
@@ -17,13 +18,21 @@ export class SvgProfileComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!this.candidate) {
-      throw new Error('Candidate input is required');
-    }
-    console.log(this.candidate)
+    this.initialize();
+  }
 
-    // The initials of the person
-    this.svgText = this.candidate.firstName?.[0] + this.candidate.lastName?.[0];
+  ngOnChanges() {
+    this.initialize();
+  }
+
+  initialize(){
+    if (this.initials) {
+      this.svgText = this.initials;
+    } else if (this.candidate?.firstName && this.candidate?.lastName) {
+      this.svgText = this.candidate?.firstName[0] + this.candidate?.lastName[0];
+    } else {
+      throw new Error('Initials input is required');
+    }
   }
 
 }

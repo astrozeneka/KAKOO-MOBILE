@@ -9,7 +9,16 @@
           @if (candidate) {
             <!-- Depending on the project deadline -->
             <!-- This SVG might just be a fallback, the uploaded data can be used on behalf -->
-            <app-svg-profile [candidate]="candidate" size="41"></app-svg-profile>
+            <a routerLink="/edit-and-preview-profile">
+              <app-clickable-svg-profile
+                [candidate]="candidate"
+                size="41"
+                routerLink="/edit-and-preview-profile"
+              ></app-clickable-svg-profile>
+              <!--
+              <app-svg-profile [candidate]="candidate" size="41"></app-svg-profile>
+              -->
+            </a>
           }
         </div>
       </div>
@@ -41,7 +50,7 @@
           [chip]="dashboardMetrics?.noOfJobInvitation ?? 0"
           routerLink="/jobboard"
         >
-          You got invitation for Jobs
+          {{ "You got invitation for Jobs" |_ }}
         </app-button-group-item>
       }
       @if (dashboardMetrics?.noOfAssessment ?? 0 > 0) {
@@ -49,14 +58,14 @@
           [chip]="dashboardMetrics?.noOfAssessment ?? 0"
           routerLink="/assessments"
         >
-          You got Assessment Request
+          {{ "You got Assessment Request" |_ }}
         </app-button-group-item>
       }
       @if (dashboardMetrics?.noOfVideoAssessment ?? 0 > 0) {
         <app-button-group-item [chip]="dashboardMetrics?.noOfVideoAssessment ?? 0"
           routerLink="/video-assessments"
         >
-          You got Video Assessment Request
+          {{ "You got Video Assessment Request" |_ }}
         </app-button-group-item>
       }
       @if (dashboardMetrics?.noOfMeeting ?? 0 > 0) {
@@ -64,7 +73,7 @@
           routerLink="/meetings"
           [chip]="dashboardMetrics?.noOfMeeting ?? 0"
         >
-          You have Meeting Scheduled
+          {{ "You have Meeting Scheduled" |_ }}
         </app-button-group-item>
       }
     </div>

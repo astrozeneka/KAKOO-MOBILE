@@ -25,6 +25,7 @@ import { environment } from 'src/environments/environment';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { catchError, filter, map, switchMap } from 'rxjs';
 import { ZfillPipe } from 'src/app/utils/zfill.pipe';
+import { ClickableSvgProfileComponent } from "../../components/clickable-svg-profile/clickable-svg-profile.component";
 
 interface ExtendedDashboardMetrics extends DashboardMetrics {
   noOfMeeting?: number
@@ -38,8 +39,7 @@ interface ExtendedDashboardMetrics extends DashboardMetrics {
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, DashboardCardComponent, DashboardRecommendedJobCardComponent, DashboardRecommendedAssessmentCardComponent, DashboardInterviewCtaComponent,
     BottomNavbarComponent, TopbarComponent, ProfileCtaComponent, SectionHeadingComponent, ButtonGroupItemComponent, SvgProfileComponent, ClickableProfileCtaComponent, ClickableDashboardCardComponent, I18nPipeShortened,
     ...[(environment.production ? ProdDebugButtonComponent : DevDebugButtonComponent)],
-    ZfillPipe
-  ]
+    ZfillPipe, ClickableSvgProfileComponent]
 })
 export class DashboardPage extends BottomNavbarTarget implements OnInit {
 
