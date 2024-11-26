@@ -1,5 +1,5 @@
-import { Injectable, output } from '@angular/core';
-import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity, CandidateEducationEntity, CandidateAssessmentEntity, PaginedEntities, DashboardMetrics } from '../models/Candidate';
+import { Injectable, OnInit, output } from '@angular/core';
+import { JobEntity, JobInvitationEntity, PaginedJobInvitationArray, MeetingEntity, CandidateEducationEntity, CandidateAssessmentEntity, PaginedEntities, DashboardMetrics, Candidate } from '../models/Candidate';
 import StoredData from '../submodules/stored-data/StoredData';
 import { BehaviorSubject, catchError, filter, forkJoin, merge, Observable, tap, throwError } from 'rxjs';
 import { ContentService } from './content.service';
@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage-angular';
 import { DeletableEntity } from '../utils/delete-prompt';
 import { environment } from 'src/environments/environment';
 import { ReferralEntity, User } from '../models/User';
+import { key } from 'ionicons/icons';
 
 
 /**
@@ -37,6 +38,9 @@ export class ProfileDataService {
   metricsSubject = new BehaviorSubject<DashboardMetrics|null>(null)
   metrics$ = this.metricsSubject.asObservable()
 
+  completenessPercentageData: StoredData<number>
+  completenessPercentageSubject = new BehaviorSubject<number|null>(null)
+  completenessPercentage$ = this.completenessPercentageSubject.asObservable()
   // Candidate Education (no data stored since data update is fired from other fucntions (e.g. ...))
 
   constructor(
@@ -48,6 +52,7 @@ export class ProfileDataService {
     this.meetingsData = new StoredData<MeetingEntity[]>('meetings', this.storage)
     this.referralsData = new StoredData<ReferralEntity[]>('referrals', this.storage)
     this.metricsData = new StoredData<DashboardMetrics>('metrics', this.storage)
+    this.completenessPercentageData = new StoredData<number>('completenessPercentage', this.storage)
   }
 
   onJobInvitationsData(fromCache=true, fromServer=true):Observable<JobInvitationEntity[]>{
@@ -243,5 +248,84 @@ export class ProfileDataService {
     let output$ = merge(this.metrics$, additionalEvents$)
     output$ = output$.pipe(filter((data)=>data!=null))
     return output$ as Observable<DashboardMetrics>
+  }
+
+  onProfileCompletenessPercentageData(fromCache=true, fromBL=true):Observable<number>{
+    let additionalEventsSubject = new BehaviorSubject<number|null>(null)
+    let additionalEvents$ = additionalEventsSubject.asObservable()
+
+    // 1. Fire the cached data
+    if (fromCache) {
+      this.completenessPercentageData!.get().then((data:number|null)=>{
+          additionalEventsSubject.next(data)
+      })
+    }
+
+    // 2. Fire from event business logic
+    if (fromBL) {
+      this.cs.registerCandidateDataObserverV3(true, true)
+        .subscribe((candidate:Candidate|null)=>{
+          // Calculate the percentage
+          let completeness = {
+            personalInformation: {
+              resume: candidate?.resumeAttachmentEntity ? true : false,
+              basicInformation: false, // To be computed below
+              education: (candidate?.candidateEducationEntities?.length ?? 0) > 0,
+              socialAccounts: (candidate?.socialAccountEntities?.length ?? 0) > 0
+            },
+            experience: {
+              skills: (candidate?.skillListEntities?.length ?? 0) > 0,
+              experiences: (candidate?.workExperienceEntities?.length ?? 0) > 0,
+              projects: (candidate?.projectPortfolioEntities?.length ?? 0) > 0,
+              certificates: (candidate?.licenceCertificateEntities?.length ?? 0) > 0
+            },
+            preferences: {
+              jobPreferences: false, // To be computed below
+              availability: false, // To be computed below
+            }
+          }
+          // Personal Information
+          if (candidate?.firstName && candidate?.lastName && candidate?.email && candidate?.phoneCode && candidate?.phoneNumber && 
+            candidate?.profile && candidate?.totalExperience && candidate?.dailyRate && candidate?.countryEntity && 
+            candidate?.stateEntity && candidate?.cityEntity && candidate?.address){
+              completeness.personalInformation.basicInformation = true
+          }
+          // Job preferences
+          if (candidate?.employmentTypeEntity && candidate?.workExperienceEntities && candidate?.salaryExpectationEntity &&
+            candidate?.selfCandidateMobilityEntities){
+              completeness.preferences.jobPreferences = true
+            }
+          // Availability
+          if (candidate?.hiringStatusEntity && candidate?.noticePeriodEntity){
+            completeness.preferences.availability = true
+          }
+
+          // Complete percentage for each subclass
+          let subclassPercentages:{[key:string]:number} = {}
+          for (let key in completeness){
+            let subcompleteness:{[key:string]:boolean} = (completeness as any)[key]
+            let total = Object.keys(subcompleteness).length
+            let completed = 0
+            for (let subkey in subcompleteness){
+              if (subcompleteness[subkey]) completed++
+            }
+            subclassPercentages[key] = completed / total
+          }
+
+          // Overall percentage
+          let total = 0
+          let completed = 0
+          for (let key in subclassPercentages){
+            completed+=subclassPercentages[key]
+            total+= 1
+          }
+          let overallPercentage = completed / total
+          additionalEventsSubject.next(overallPercentage)
+        })
+    }
+
+    let output$ = merge(this.completenessPercentage$, additionalEvents$)
+    output$ = output$.pipe(filter((data)=>data!=null))
+    return output$ as Observable<number>
   }
 }

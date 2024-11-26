@@ -208,7 +208,7 @@
     "Issuing Organization*": "Organisation émettrice*",
     "Issue Date*": "Date d'émission*",
     "Expire Date*": "Date d'expiration*",
-    "License URL*": "URL de la licence*",
+    "License URL": "URL de la licence",
 
     "Welcome": "Bienvenue",
     "Here are some informations": "Voici quelques informations",
@@ -261,7 +261,12 @@
     "You got Video Assessment Request": "Vous avez reçu une demande d'évaluation vidéo",
     "You have Meeting Scheduled": "Vous avez des réunions planifiées",
     "Skills updated": "Compétences mises à jour",
-    
+    "You can add your skills here": "Vous pouvez ajouter vos compétences ici",
+    "You are just a few more steps away to complete your profile": "Il ne vous reste que quelques étapes pour compléter votre profil",
+    "Complete your profile": "Complétez votre profil",
+    "Update": "Mettre à jour",
+
+
     "":""
 
 }

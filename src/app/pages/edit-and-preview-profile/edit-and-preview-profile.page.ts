@@ -120,7 +120,7 @@ export class EditAndPreviewProfilePage implements OnInit {
       // Education
       this.candidateEducationCertificateSubject.next(candidate?.candidateEducationEntities || [])
       // Certification
-      this.candidateCertificateSubject.next(candidate?.candidateCertificateEntities || [])
+      this.candidateCertificateSubject.next(candidate?.licenceCertificateEntities || [])
       // Work Experience
       this.candidateWorkExperienceSubject.next(candidate?.workExperienceEntities || [])
       // Projects

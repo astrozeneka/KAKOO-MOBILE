@@ -110,9 +110,8 @@ export class CertificationFormPage extends EditAddForm<CandidateCertificateEntit
         .pipe(
           catch400Error(this.cs), // Experimental feature
           finalize(()=>{this.formIsLoading = false;}))
-        .subscribe(async (response:{code:any, type:any, message:string}|any)=>{
+        .subscribe(async (response:any[])=>{
           this.cs.requestCandidateDataRefresh()
-
           this.location.back()
           // this.router.navigate(["/education-and-certification"], {replaceUrl: true})
         })
