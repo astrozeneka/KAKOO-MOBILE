@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LanguageEntity, MobilityEntity, SkillEntity, SkillTypeEntity } from '../models/Candidate';
+import { Candidate, LanguageEntity, MobilityEntity, SkillEntity, SkillTypeEntity } from '../models/Candidate';
 import { ContentService } from './content.service';
 import { BehaviorSubject, catchError, filter, forkJoin, merge, Observable, switchMap, tap, throwError } from 'rxjs';
 import StoredData from '../submodules/stored-data/StoredData';
@@ -126,5 +126,65 @@ export class ProfileUtilsService {
       .subscribe();
   
     return output$;
+  }
+
+  calculateProfileCompleteness(candidate:Candidate){
+
+    // Calculate the percentage
+    let completeness = {
+      personalInformation: {
+        resume: candidate?.resumeAttachmentEntity ? true : false,
+        basicInformation: false, // To be computed below
+        education: (candidate?.candidateEducationEntities?.length ?? 0) > 0,
+        socialAccounts: (candidate?.socialAccountEntities?.length ?? 0) > 0
+      },
+      experience: {
+        skills: (candidate?.skillListEntities?.length ?? 0) > 0,
+        experiences: (candidate?.workExperienceEntities?.length ?? 0) > 0,
+        projects: (candidate?.projectPortfolioEntities?.length ?? 0) > 0,
+        certificates: (candidate?.licenceCertificateEntities?.length ?? 0) > 0
+      },
+      preferences: {
+        jobPreferences: false, // To be computed below
+        availability: false, // To be computed below
+      }
+    }
+    // Personal Information
+    if (candidate?.firstName && candidate?.lastName && candidate?.email && candidate?.phoneCode && candidate?.phoneNumber && 
+      candidate?.profile && candidate?.totalExperience && candidate?.dailyRate && candidate?.countryEntity && 
+      candidate?.stateEntity && candidate?.cityEntity && candidate?.address){
+        completeness.personalInformation.basicInformation = true
+    }
+    // Job preferences
+    if (candidate?.employmentTypeEntity && candidate?.workExperienceEntities && candidate?.salaryExpectationEntity &&
+      candidate?.selfCandidateMobilityEntities){
+        completeness.preferences.jobPreferences = true
+      }
+    // Availability
+    if (candidate?.hiringStatusEntity && candidate?.noticePeriodEntity){
+      completeness.preferences.availability = true
+    }
+
+    // Complete percentage for each subclass
+    let subclassPercentages:{[key:string]:number} = {}
+    for (let key in completeness){
+      let subcompleteness:{[key:string]:boolean} = (completeness as any)[key]
+      let total = Object.keys(subcompleteness).length
+      let completed = 0
+      for (let subkey in subcompleteness){
+        if (subcompleteness[subkey]) completed++
+      }
+      subclassPercentages[key] = completed / total
+    }
+
+    // Overall percentage
+    let total = 0
+    let completed = 0
+    for (let key in subclassPercentages){
+      completed+=subclassPercentages[key]
+      total+= 1
+    }
+    let overallPercentage = completed / total
+    return overallPercentage
   }
 }

@@ -14,7 +14,7 @@ import { DevDebugButtonComponent } from "../../dev-prod-components/debug-button/
 import { environment } from 'src/environments/environment';
 import { ProdDebugButtonComponent } from 'src/app/dev-prod-components/debug-button/prod-debug-button/prod-debug-button.component';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { catchError, filter, finalize, map, throwError } from 'rxjs';
+import { catchError, combineLatest, debounce, debounceTime, filter, finalize, map, Observable, of, switchMap, takeUntil, tap, throwError, timer } from 'rxjs';
 // Icon icon alert-circle-outline from ionicons
 import { alertCircleOutline } from 'ionicons/icons';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
@@ -25,6 +25,55 @@ import { OutlineInputComponent } from "../../components/outline-input/outline-in
 import { FastSigninComponent as DevFastSigninComponent } from 'src/app/submodules/fast-signin/standalone/fast-signin.component';
 import { ProdFastSigninComponent } from 'src/app/submodules/fast-signin/standalone/prod-fast-signin.component';
 import { Feedback, FeedbackService } from 'src/app/services/feedback.service';
+import { Candidate } from 'src/app/models/Candidate';
+import { ProfileDataService } from 'src/app/services/profile-data.service';
+import { ProfileUtilsService } from 'src/app/services/profile-utils.service';
+
+export function fireSecondOrFirstAfterDelay<T>(delay: number) {
+  return (source: Observable<T>) =>
+    new Observable<T>((observer) => {
+      let firstData: T | null = null;
+      let secondDataReceived = false;
+
+      return source
+        .pipe(
+          tap((data) => {
+            if (firstData === null) {
+              firstData = data;
+              secondDataReceived = false;
+            } else {
+              secondDataReceived = true;
+              observer.next(data);
+              firstData = null; // Reset after second data is emitted
+            }
+          }),
+          switchMap(() =>
+            /*secondDataReceived
+              ? of(null) // Skip timer if second data already fired
+              : timer(delay).pipe(
+                  takeUntil(source),
+                  tap(() => {
+                    if (!secondDataReceived && firstData !== null) {
+                      observer.next(firstData);
+                      firstData = null;
+                    }
+                  })
+                )*/
+            secondDataReceived
+              ? of(null)
+              : timer(delay).pipe(
+                tap((d)=>{
+                  console.log("Delay !!!")
+                  if (!secondDataReceived && firstData !== null){
+                    observer.next(firstData);
+                    firstData = null;
+                  }
+                }))
+          )
+        )
+        .subscribe();
+    });
+}
 
 @Component({
   selector: 'app-login',
@@ -68,6 +117,9 @@ export class LoginPage extends AbstractPage implements OnInit {
   // 7. The feedback
   formErrorFeedbackMessage: string|null = null
 
+  // 8. Check if the user is amidst a login process
+  loggingIn: boolean = false
+
   constructor(
     private router:Router,
     private cs: ContentService,
@@ -75,7 +127,9 @@ export class LoginPage extends AbstractPage implements OnInit {
     private httpClient: HttpClient,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private fs: FeedbackService
+    private fs: FeedbackService,
+    private pds: ProfileDataService,
+    public pus: ProfileUtilsService
   ) {
     super(
       router
@@ -123,6 +177,48 @@ export class LoginPage extends AbstractPage implements OnInit {
         this.cdr.detectChanges()
       })
 
+    /*// Handle login success
+    this.cs.userData$.subscribe((user:User|null)=>{
+      console.log(user)
+    })
+    this.cs.candidateData$.subscribe((candidate:Candidate|null)=>{
+      // In case of candidate is null, it is hasn't candidateId yet
+      console.log(candidate)
+    })*/
+
+    let round = 0
+    combineLatest([this.cs.userData$, this.cs.candidateData$])
+      .pipe(fireSecondOrFirstAfterDelay(600))
+      .subscribe(([user, candidate])=>{
+        if (candidate != null && this.loggingIn){
+          let percentage = candidate ? this.pus.calculateProfileCompleteness(candidate!) : 0
+          this.loggingIn = false
+          // Case 1. No candidate CV
+          if (candidate?.resumeAttachmentEntity == null){
+            this.router.navigate(['/welcome'])
+          }
+          // Case 2. Uncompleted profile
+          else if (percentage < 1){
+            this.router.navigate(['/welcome'])
+          }
+          // Case 3. Completed profile
+          else if (percentage == 1){
+            this.router.navigate(['/dashboard'])
+          }
+          
+        }
+      })
+    /*combineLatest([this.cs.userData$, this.cs.candidateData$])
+      .subscribe(([user, candidate])=>{
+        // Case 1. Candidate is {}
+        if (candidate?.resumeAttachmentEntity){
+          console.log("Should upload CV")
+        } else {
+          
+        }
+      })*/
+
+    
   }
 
   async requestLogin() {
@@ -135,6 +231,7 @@ export class LoginPage extends AbstractPage implements OnInit {
     }
 
     this.formIsLoading = true
+    this.loggingIn = true
     // Test JWT exchange
     this.cs.requestLogin({
       username: this.form.value.email,
@@ -154,7 +251,6 @@ export class LoginPage extends AbstractPage implements OnInit {
           })
         }
         this.credentialFailed = true
-        console.error("Credential failed")
         return throwError(error)
       }), finalize(()=>{this.formIsLoading = false}))
       .subscribe((response)=>{
@@ -162,13 +258,19 @@ export class LoginPage extends AbstractPage implements OnInit {
         // Here, redirect the user to the next page
 
         // First, load the use data using api
-        this.cs.get_exp('/api/v1/self-candidate/get-user', {}) 
+        this.cs.requestUserDataRefresh().then(()=>{
+          setTimeout(()=>{
+            this.cs.requestCandidateDataRefresh()
+          }, 200)
+        })
+        /*this.cs.get_exp('/api/v1/self-candidate/get-user', {}) 
           .subscribe(async (response: User)=>{
 
             await this.cs.userData.set(response)
 
             // Another condition will be used, but not the candidateId
-              this.router.navigate(['/welcome'])
+            // this.router.navigate(['/welcome'])
+            console.log(response)
               
             // Fetch user data
             // Redirect to the next page
@@ -178,7 +280,7 @@ export class LoginPage extends AbstractPage implements OnInit {
 
             //
             // Else, redirect to the dashboard
-          })
+          })*/
 
       })    
   }

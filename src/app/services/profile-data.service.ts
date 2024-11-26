@@ -8,6 +8,7 @@ import { DeletableEntity } from '../utils/delete-prompt';
 import { environment } from 'src/environments/environment';
 import { ReferralEntity, User } from '../models/User';
 import { key } from 'ionicons/icons';
+import { ProfileUtilsService } from './profile-utils.service';
 
 
 /**
@@ -49,7 +50,8 @@ export class ProfileDataService {
 
   constructor(
     private cs: ContentService,
-    private storage: Storage
+    private storage: Storage,
+    private pus: ProfileUtilsService
   ) {
     this.jobInvitationsData = new StoredData<JobInvitationEntity[]>('jobInvitations', this.storage)
     this.assessmentData = new StoredData<CandidateAssessmentEntity[]>('assessments', this.storage)
@@ -295,61 +297,7 @@ export class ProfileDataService {
     if (fromBL) {
       this.cs.registerCandidateDataObserverV3(loadCandidateFromCache, true)
         .subscribe((candidate:Candidate|null)=>{
-          // Calculate the percentage
-          let completeness = {
-            personalInformation: {
-              resume: candidate?.resumeAttachmentEntity ? true : false,
-              basicInformation: false, // To be computed below
-              education: (candidate?.candidateEducationEntities?.length ?? 0) > 0,
-              socialAccounts: (candidate?.socialAccountEntities?.length ?? 0) > 0
-            },
-            experience: {
-              skills: (candidate?.skillListEntities?.length ?? 0) > 0,
-              experiences: (candidate?.workExperienceEntities?.length ?? 0) > 0,
-              projects: (candidate?.projectPortfolioEntities?.length ?? 0) > 0,
-              certificates: (candidate?.licenceCertificateEntities?.length ?? 0) > 0
-            },
-            preferences: {
-              jobPreferences: false, // To be computed below
-              availability: false, // To be computed below
-            }
-          }
-          // Personal Information
-          if (candidate?.firstName && candidate?.lastName && candidate?.email && candidate?.phoneCode && candidate?.phoneNumber && 
-            candidate?.profile && candidate?.totalExperience && candidate?.dailyRate && candidate?.countryEntity && 
-            candidate?.stateEntity && candidate?.cityEntity && candidate?.address){
-              completeness.personalInformation.basicInformation = true
-          }
-          // Job preferences
-          if (candidate?.employmentTypeEntity && candidate?.workExperienceEntities && candidate?.salaryExpectationEntity &&
-            candidate?.selfCandidateMobilityEntities){
-              completeness.preferences.jobPreferences = true
-            }
-          // Availability
-          if (candidate?.hiringStatusEntity && candidate?.noticePeriodEntity){
-            completeness.preferences.availability = true
-          }
-
-          // Complete percentage for each subclass
-          let subclassPercentages:{[key:string]:number} = {}
-          for (let key in completeness){
-            let subcompleteness:{[key:string]:boolean} = (completeness as any)[key]
-            let total = Object.keys(subcompleteness).length
-            let completed = 0
-            for (let subkey in subcompleteness){
-              if (subcompleteness[subkey]) completed++
-            }
-            subclassPercentages[key] = completed / total
-          }
-
-          // Overall percentage
-          let total = 0
-          let completed = 0
-          for (let key in subclassPercentages){
-            completed+=subclassPercentages[key]
-            total+= 1
-          }
-          let overallPercentage = completed / total
+          let overallPercentage = candidate ? this.pus.calculateProfileCompleteness(candidate) : 0
           additionalEventsSubject.next(overallPercentage)
           this.completenessPercentageData!.set(overallPercentage)
         })

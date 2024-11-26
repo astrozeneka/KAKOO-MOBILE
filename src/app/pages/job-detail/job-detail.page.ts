@@ -143,6 +143,8 @@ export class JobDetailPage implements OnInit {
         let sf = feedback as SuccessFeedback
         this.modalRef = this.viewContainerRef.createComponent(SuccessMessageComponent)
         this.modalRef.instance.feedback = sf
+        // Clean feedback
+        this.fs.clearFeedback()
       })
 
     // Test success-message (using feedbackService)

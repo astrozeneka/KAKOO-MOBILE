@@ -256,6 +256,15 @@ export class ContentService {
     */
   }
 
+  async requestUserDataRefresh(){
+    this.get_exp(`/api/v1/self-candidate/get-user`, {})
+      .pipe(catchError(error => throwError(error)))
+      .subscribe(async (data: User)=>{
+        await this.userData.set(data)
+        this.userDataSubject.next(data)
+      })
+  }
+
   // Another endpoint is used here, but doesn't handle if the user has just created an account
   registerCandidateDataObserverV3(getFromCache=true, getFromServer=true): Observable<Candidate|null>{
     let additionalEventsSubject = new BehaviorSubject<Candidate|null>(null)

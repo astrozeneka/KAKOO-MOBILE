@@ -77,4 +77,8 @@ export class FeedbackService {
     // Custom feedback type will be managed here
     this.displayFeedbackSubject.next(feedback)
   }
+
+  public clearFeedback() {
+    this.feedbackData.set(null as any)
+  }
 }
