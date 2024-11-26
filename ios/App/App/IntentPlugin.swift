@@ -57,9 +57,23 @@ public class IntentPlugin: CAPPlugin, CAPBridgedPlugin, MFMailComposeViewControl
     DispatchQueue.main.async {
       let textToShare = call.getString("message") ?? ""
       let activityVC = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
-      if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
-        rootVC.present(activityVC, animated: true, completion: nil)
+      if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+        let rootVC = scene.windows.first?.rootViewController {
+          // For iPad, set the sourceView and sourceRect
+          if let popoverController = activityVC.popoverPresentationController {
+            popoverController.sourceView = rootVC.view
+            popoverController.sourceRect = CGRect(x: rootVC.view.bounds.midX, y: rootVC.view.bounds.midY, width: 0, height: 0);
+            popoverController.permittedArrowDirections = []
+          }
+          rootVC.present(activityVC, animated: true) {
+          call.resolve(["messages": "Share sheet displayed successfully from native"])
+        }
+      } else {
+        call.reject("unable to find root view controller")
       }
+      /*if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+        rootVC.present(activityVC, animated: true, completion: nil)
+      }*/
       call.resolve(["message": "Share sheet displayed successfully from native"])
     }
   }
