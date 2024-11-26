@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentRef, ElementRef, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
@@ -17,6 +17,8 @@ import { ProfileDataService } from 'src/app/services/profile-data.service';
 import { JobDetailsOtherSkillsComponent } from 'src/app/components/job-details-other-skills/job-details-other-skills.component';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { TranslateService } from '@ngx-translate/core';
+import { Feedback, FeedbackService, SuccessFeedback } from 'src/app/services/feedback.service';
+import { SuccessMessageComponent } from 'src/app/components/success-message/success-message.component';
 
 // Experimental (might be moved to Candidate.ts in a near future)
 export interface EJobEntity extends JobEntity {
@@ -45,13 +47,18 @@ export class JobDetailPage implements OnInit {
   @ViewChild('responsibilities') responsibilities!: ElementRef;
   @ViewChild('jobQualification') jobQualification!: ElementRef;
 
+  // Custom container to put custom modals
+  @ViewChild('container', {read: ViewContainerRef, static: true}) viewContainerRef!: ViewContainerRef;
+  modalRef: ComponentRef<any>|null = null
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private cs: ContentService,
     private pds: ProfileDataService,
     private cdr: ChangeDetectorRef,
-    public translate: TranslateService
+    private fs: FeedbackService,
+    public translate: TranslateService,
   ) {
     this.jobId = parseInt(this.route.snapshot.paramMap.get('jobId')!);
   }
@@ -128,6 +135,24 @@ export class JobDetailPage implements OnInit {
         this.jobEntity = jobEntity
       })
     */
+
+    // Handle feedback-data
+    this.fs.displayFeedback$
+      .pipe(filter(f=>f?.type == 'application-sent'))
+      .subscribe((feedback)=>{
+        let sf = feedback as SuccessFeedback
+        this.modalRef = this.viewContainerRef.createComponent(SuccessMessageComponent)
+        this.modalRef.instance.feedback = sf
+      })
+
+    // Test success-message (using feedbackService)
+    /*this.fs.registerNow({
+      message: this.translate.instant("Job Application Sent Successfully"),
+      type: 'application-sent',
+      subtitle: "Your job application has successfully uploaded. Best of luck!",
+      buttonText: "Back to Job Board",
+      buttonLink: "/jobboard"
+    } as Feedback)*/
   }
 
   /**
@@ -160,6 +185,12 @@ export class JobDetailPage implements OnInit {
     // The above code should update the window configuration
     // https://stackoverflow.com/questions/1174863/javascript-scrollto-method-does-nothing
     element?.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+  }
+
+  dismissModal(){
+    this.modalRef?.destroy()
+    this.modalRef = null
+    this.cdr.detectChanges()
   }
 
 }

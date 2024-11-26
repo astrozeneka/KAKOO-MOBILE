@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: var(--ion-padding-left); // This can be updated later
-    padding-right: var(--ion-padding-right); // This can be updated later
-    padding-top: var(--ion-padding-top); // This can be updated later
-    padding-bottom: var(--ion-padding-bottom); // This can be updated later
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom:  40px;
 
     & .head{
         height: 144px;

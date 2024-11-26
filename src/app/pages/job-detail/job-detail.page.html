@@ -144,4 +144,12 @@
       </div>
     </div>
   }
+
+  <!-- Feedback custom modal -->
+  @if (modalRef){
+    <div class="modal-background" (click)="dismissModal()"></div>
+  }
+  <div class="modal-container">
+    <ng-container #container></ng-container>
+  </div>
 </ion-content>

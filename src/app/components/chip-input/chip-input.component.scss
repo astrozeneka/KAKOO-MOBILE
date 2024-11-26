@@ -207,6 +207,8 @@
         }
 
         & ion-input{
+            --padding-start: 13px;
+            --padding-end: 13px;
             --border-width: 1px;
             --border-style: solid;
             --border-color: red;

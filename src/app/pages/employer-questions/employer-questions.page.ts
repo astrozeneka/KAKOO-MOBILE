@@ -11,7 +11,7 @@ import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalo
 import { EJobEntity } from '../job-detail/job-detail.page';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
-import { FeedbackService } from 'src/app/services/feedback.service';
+import { Feedback, FeedbackService } from 'src/app/services/feedback.service';
 import { catchError, filter, finalize, map, mergeMap, Observable } from 'rxjs';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { Location } from '@angular/common';
@@ -163,13 +163,20 @@ export class EmployerQuestionsPage implements OnInit {
       .subscribe(async (res:any)=>{
         // The response
         console.log(res)
-        this.fs.register({
+        /*this.fs.register({
           message: this.translate.instant("The job invitation has been accepted"),
           color: "primary",
           type: "toast",
           position: "top",
           positionAnchor: 'header'
-        })
+        })*/
+        this.fs.register({
+          message: this.translate.instant("Job Application Sent Successfully"),
+          type: 'application-sent',
+          subtitle: "Your job application has successfully uploaded. Best of luck!",
+          buttonText: "Back to Job Board",
+          buttonLink: "/jobboard"
+        } as Feedback)
         this.location.back()  
       })
 
