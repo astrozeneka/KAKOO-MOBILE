@@ -8,6 +8,7 @@ import { AppLanguageService } from './app-language.service';
 import { Candidate } from '../models/Candidate';
 import { Router } from '@angular/router';
 import { User } from '../models/User';
+import { ProfileDataService } from './profile-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class ContentService {
   constructor(
     private http: HttpClient,
     private storage: Storage,
-    private router: Router
+    private router: Router,
   ) {
     this.storage.create()
     this.token = new StoredData<string>('token', this.storage)

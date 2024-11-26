@@ -22,6 +22,7 @@ import { catchError, finalize, firstValueFrom, throwError } from 'rxjs';
 import { SvgProfileComponent } from 'src/app/svg-profile/svg-profile.component';
 import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profile-cta/clickable-profile-cta.component';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { ProfileDataService } from 'src/app/services/profile-data.service';
 @Component({
   selector: 'app-more-29',
   templateUrl: './more-29.page.html',
@@ -54,7 +55,8 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
     router: Router,
     public cs:ContentService,
     private cdr: ChangeDetectorRef,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private pds: ProfileDataService
   ) { 
     super(router)
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
@@ -110,5 +112,10 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
         this.cs.requestCandidateDataRefresh();
       })
 
+  }
+
+  async logout(){
+    await this.pds.clear();
+    this.cs.logout();
   }
 }

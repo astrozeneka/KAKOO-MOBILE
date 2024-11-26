@@ -153,11 +153,8 @@ export class LoginPage extends AbstractPage implements OnInit {
             await this.cs.userData.set(response)
 
             // Another condition will be used, but not the candidateId
-            if(!response.candidateId || false){
               this.router.navigate(['/welcome'])
-            }else{
-              this.router.navigate(['/dashboard'])
-            }
+              
             // Fetch user data
             // Redirect to the next page
 

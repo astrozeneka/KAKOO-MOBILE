@@ -5,7 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton } from 
 import { FileCardComponent } from 'src/app/components/file-card/file-card.component';
 import { ContentService } from 'src/app/services/content.service';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { catchError, filter, finalize, firstValueFrom, map, throwError } from 'rxjs';
+import { catchError, combineLatest, filter, finalize, firstValueFrom, forkJoin, map, Subject, throwError } from 'rxjs';
 import { ClickableFileCardComponent } from 'src/app/components/clickable-file-card/clickable-file-card.component';
 import { Candidate } from 'src/app/models/Candidate';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
@@ -14,6 +14,7 @@ import { catch400Error } from 'src/app/utils/catch400Error';
 import { UploadedFile } from 'src/app/models/File';
 import { User } from 'src/app/models/User';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
+import { ProfileDataService } from 'src/app/services/profile-data.service';
 
 @Component({
   selector: 'app-welcome',
@@ -64,7 +65,8 @@ export class WelcomePage implements OnInit {
     private cs: ContentService,
     private httpClient: HttpClient, // To be deleted later
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private pds: ProfileDataService
   ) { }
 
   async ngOnInit() {
@@ -74,6 +76,7 @@ export class WelcomePage implements OnInit {
     // KNOWN BUG 1. Priority: Low
     // The user log in with a use with CV uploaded account, then disconnect
     // When he reconnect, the CV of former account is still displayed
+    let candidateIsLoaded$ = new Subject()
     this.cs.registerCandidateDataObserverV3(false, true) // Cache is disabled due to some bugs
       .subscribe((candidate: Candidate|null) => {
         // It is not fired the first time the user uses his account
@@ -82,6 +85,8 @@ export class WelcomePage implements OnInit {
         this.candidate = candidate!
         this.postLoadProcessing()
         this.resumeIsLoading = false
+        console.log(candidate)
+        candidateIsLoaded$.next(candidate)
       })
     
     // For performance, only from server is loaded ONCE (not from cache)
@@ -98,6 +103,36 @@ export class WelcomePage implements OnInit {
       .subscribe((userData: User|null) =>{
         this.user = userData
       })
+    
+    
+    // If profile is completed, go directly to dashboard
+    /*forkJoin([candidateIsLoaded$, this.pds.onProfileCompletenessPercentageData(false, true, false)])
+      .subscribe((d)=>{
+        console.log("Inside the fork join listener")
+        console.log(d)
+        /*
+        console.log(percentage)
+        if (percentage == 1){
+          this.router.navigate(['/dashboard'])
+        }
+          
+      })*/
+    let round = 0
+    combineLatest([candidateIsLoaded$, this.pds.onProfileCompletenessPercentageData(false, true, false)])
+      .subscribe((d)=>{
+        if (d[1] == 1 && round++ > 1){
+          this.router.navigate(['/dashboard'])
+        }
+      })
+    /*candidateIsLoaded$.subscribe(()=>{
+      console.log("Candidate is loaded")
+      console.log(this.candidate)
+    })
+    this.pds.onProfileCompletenessPercentageData(false, true, false)
+      .subscribe((percentage)=>{
+        console.log("Percentage is loaded")
+        console.log(percentage)
+      })*/
     
     
     

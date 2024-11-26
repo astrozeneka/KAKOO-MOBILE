@@ -250,7 +250,7 @@ export class ProfileDataService {
     return output$ as Observable<DashboardMetrics>
   }
 
-  onProfileCompletenessPercentageData(fromCache=true, fromBL=true):Observable<number>{
+  onProfileCompletenessPercentageData(fromCache=true, fromBL=true, loadCandidateFromCache=true):Observable<number>{
     let additionalEventsSubject = new BehaviorSubject<number|null>(null)
     let additionalEvents$ = additionalEventsSubject.asObservable()
 
@@ -263,7 +263,7 @@ export class ProfileDataService {
 
     // 2. Fire from event business logic
     if (fromBL) {
-      this.cs.registerCandidateDataObserverV3(true, true)
+      this.cs.registerCandidateDataObserverV3(loadCandidateFromCache, true)
         .subscribe((candidate:Candidate|null)=>{
           // Calculate the percentage
           let completeness = {
@@ -327,5 +327,15 @@ export class ProfileDataService {
     let output$ = merge(this.completenessPercentage$, additionalEvents$)
     output$ = output$.pipe(filter((data)=>data!=null))
     return output$ as Observable<number>
+  }
+
+  public clear(){
+    // Clear all user related data
+    this.jobInvitationsData.set(null as any)
+    this.assessmentData.set(null as any)
+    this.meetingsData.set(null as any)
+    this.referralsData.set(null as any)
+    this.metricsData.set(null as any)
+    this.completenessPercentageData.set(null as any)
   }
 }
