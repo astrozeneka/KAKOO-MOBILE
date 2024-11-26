@@ -65,4 +65,18 @@ public class IntentPlugin extends Plugin{
     ret.put("message", "Share sheet displayed from Android");
     call.resolve(ret);
   }
+
+  @PluginMethod()
+  public void getAppVersion(PluginCall call){
+    try {
+      String packageName = getContext().getPackageName();
+      String version = getContext().getPackageManager()
+        .getPackageInfo(packageName, 0).versionName;
+      JSObject result = new JSObject();
+      result.put("version", version);
+      call.resolve(result);
+    } catch (Exception e) {
+      call.reject("Unable to fetch app version", e);
+    }
+  }
 }

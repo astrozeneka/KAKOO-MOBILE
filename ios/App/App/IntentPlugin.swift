@@ -15,7 +15,8 @@ public class IntentPlugin: CAPPlugin, CAPBridgedPlugin, MFMailComposeViewControl
   public let jsName = "Intent"
   public let pluginMethods: [CAPPluginMethod] = [
     CAPPluginMethod(name:"openMailApp", returnType: CAPPluginReturnPromise),
-    CAPPluginMethod(name:"displayShareSheet", returnType: CAPPluginReturnPromise)
+    CAPPluginMethod(name:"displayShareSheet", returnType: CAPPluginReturnPromise),
+    CAPPluginMethod(name:"getAppVersion", returnType: CAPPluginReturnPromise)
   ]
   
   override public func load() {
@@ -60,6 +61,14 @@ public class IntentPlugin: CAPPlugin, CAPBridgedPlugin, MFMailComposeViewControl
         rootVC.present(activityVC, animated: true, completion: nil)
       }
       call.resolve(["message": "Share sheet displayed successfully from native"])
+    }
+  }
+  
+  @objc func getAppVersion(_ call: CAPPluginCall){
+    if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+        call.resolve(["version": appVersion])
+    } else {
+        call.reject("Unable to fetch app version")
     }
   }
 }

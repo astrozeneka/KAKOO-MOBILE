@@ -23,6 +23,7 @@ import { SvgProfileComponent } from 'src/app/svg-profile/svg-profile.component';
 import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profile-cta/clickable-profile-cta.component';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
+import Intent from 'src/app/capacitor-plugins/intent.plugin';
 @Component({
   selector: 'app-more-29',
   templateUrl: './more-29.page.html',
@@ -50,6 +51,9 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
   lang: "en"|"fr" = "en" // Used to translate some dto entities
   cityKeyAccessor = (city: CityEntity) => city?.name;
   countryKeyAccessor = (country: CountryEntity) => country?.name;
+
+  // App version
+  appVersion: string|null = null
 
   constructor(
     router: Router,
@@ -84,6 +88,12 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
     // Test, might be deleted later
     this.resumeForm.valueChanges.subscribe((value) => {
       if (value) this.resumeFormChanged = true
+    })
+
+    // The app version
+    Intent.getAppVersion({}).then((response:{version:string|null})=>{
+      console.log(response)
+      this.appVersion = response.version
     })
   }
 
