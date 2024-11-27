@@ -1452,7 +1452,7 @@ export const countryArrayFR = [
     },
     {
         "code2": "MM",
-        "name_fr": "Birmanie"
+        "name_fr": "Myanmar"
     },
     {
         "code2": "NA",
@@ -1672,7 +1672,7 @@ export const countryArrayFR = [
     },
     {
         "code2": "CZ",
-        "name_fr": "Tchéquie"
+        "name_fr": "République Tchèque"
     },
     {
         "code2": "TH",
