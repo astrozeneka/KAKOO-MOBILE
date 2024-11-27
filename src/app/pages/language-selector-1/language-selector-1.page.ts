@@ -52,7 +52,7 @@ export class LanguageSelector1Page implements OnInit {
       let language = value.language;
       this.als.languageStorage.set(language);
       this.translate.use(language).subscribe(()=>{
-        window.location.reload();
+        // window.location.reload();
       })
     })
   }
