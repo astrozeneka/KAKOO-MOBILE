@@ -18,12 +18,16 @@ import { displayErrors } from 'src/app/utils/display-errors';
 import { TranslateService } from '@ngx-translate/core';
 import { UxButtonComponent } from 'src/app/submodules/angular-ux-button/standalone/ux-button.component';
 import prepareFileFormData from 'src/app/utils/prepare-file-form-data';
-import { catchError, finalize, firstValueFrom, throwError } from 'rxjs';
+import { catchError, finalize, firstValueFrom, Subject, throwError } from 'rxjs';
 import { SvgProfileComponent } from 'src/app/svg-profile/svg-profile.component';
 import { ClickableProfileCtaComponent } from 'src/app/components/clickable-profile-cta/clickable-profile-cta.component';
 import { I18nPipeShortened } from 'src/app/i18n.pipe';
 import { ProfileDataService } from 'src/app/services/profile-data.service';
 import Intent from 'src/app/capacitor-plugins/intent.plugin';
+import {AlertController} from "@ionic/angular";
+import { environment } from 'src/environments/environment';
+import { User } from 'src/app/models/User';
+
 @Component({
   selector: 'app-more-29',
   templateUrl: './more-29.page.html',
@@ -55,12 +59,16 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
   // App version
   appVersion: string|null = null
 
+  // User information
+  user: User|null = null
+
   constructor(
     router: Router,
     public cs:ContentService,
     private cdr: ChangeDetectorRef,
     private translate: TranslateService,
-    private pds: ProfileDataService
+    private pds: ProfileDataService,
+    private alertController: AlertController
   ) { 
     super(router)
     this.lang = (this.translate.currentLang.includes("fr") ? "fr" : "en") as "en"|"fr"
@@ -71,6 +79,7 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
     this.cs.registerCandidateDataObserverV3()
       .subscribe((candidate:Candidate|null) => {
         this.candidate = candidate!
+        console.log(candidate)
 
         // Patch the resume data
         this.resumeForm.get('file')?.patchValue({
@@ -82,6 +91,13 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
         console.log("===")
         this.resumeFormChanged = false
         this.cdr.detectChanges()
+      })
+    
+    // The user section (test)
+    this.cs.registerUserDataObserver()
+      .subscribe((user)=>{
+        console.log(user)
+        this.user = user
       })
     
 
@@ -127,5 +143,43 @@ export class More29Page extends BottomNavbarTarget implements OnInit { // The cl
   async logout(){
     await this.pds.clear();
     this.cs.logout();
+  }
+
+  deleteAccount(){
+    // Step 1. Present the alert
+    let confirmed$ = new Subject()
+    this.alertController.create({
+      header: this.translate.instant("Are you sure to delete your account?"),
+      subHeader: this.translate.instant("The account deletion action is irreversible"),
+      buttons: [
+        {
+          text: this.translate.instant("Cancel"),
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: this.translate.instant("Delete"),
+          role: 'delete',
+          handler: () => {
+            confirmed$.next(true)
+          }
+        }
+      ]
+    }).then((alert)=>{
+      alert.present()
+    })
+
+    // Step 2. Handle account deletion
+    confirmed$.subscribe((confirmed)=>{
+      if (!confirmed) return;
+      console.log("Confirmed")
+      this.cs.delete_exp_fullurl(`${environment.apiEndpoint}/api/v1/candidate/delete-candidate/${this.candidate?.candidateId}`, {})
+        .pipe(finalize(()=>{
+          this.cs.logout() // The API is missing
+        }))
+        .subscribe((data)=>{
+          console.log(data)
+        })
+
+    })
   }
 }

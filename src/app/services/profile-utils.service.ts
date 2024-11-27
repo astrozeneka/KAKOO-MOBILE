@@ -149,9 +149,10 @@ export class ProfileUtilsService {
         availability: false, // To be computed below
       }
     }
+    console.log(completeness)
     // Personal Information
     if (candidate?.firstName && candidate?.lastName && candidate?.email && candidate?.phoneCode && candidate?.phoneNumber && 
-      candidate?.profile && candidate?.totalExperience && candidate?.dailyRate && candidate?.countryEntity && 
+      candidate?.profile /*&& candidate?.totalExperience*/ && candidate?.dailyRate && candidate?.countryEntity && 
       candidate?.stateEntity && candidate?.cityEntity && candidate?.address){
         completeness.personalInformation.basicInformation = true
     }
