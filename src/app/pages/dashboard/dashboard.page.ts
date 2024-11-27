@@ -82,6 +82,7 @@ export class DashboardPage extends BottomNavbarTarget implements OnInit {
           ...this.dashboardMetrics,
           ...data
         }
+        console.log(this.dashboardMetrics)
       })
 
     // Notification extra data (not loaded from the server)

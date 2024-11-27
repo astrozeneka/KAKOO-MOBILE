@@ -68,10 +68,10 @@
           {{ "You got Video Assessment Request" |_ }}
         </app-button-group-item>
       }
-      @if (dashboardMetrics?.noOfMeeting ?? 0 > 0) {
+      @if (dashboardMetrics?.noOfPendingInterview ?? 0 > 0) {
         <app-button-group-item 
           routerLink="/meetings"
-          [chip]="dashboardMetrics?.noOfMeeting ?? 0"
+          [chip]="dashboardMetrics?.noOfPendingInterview ?? 0"
         >
           {{ "You have Meeting Scheduled" |_ }}
         </app-button-group-item>
@@ -88,7 +88,7 @@
         slug="interview"
         color="#007E4817"
         title="{{ 'Interview' |_ }}"
-        subtitle="{{ dashboardMetrics?.noOfInterview | zfill }}"
+        subtitle="{{ dashboardMetrics?.noOfPendingInterview | zfill }}"
         style="flex: 1"
         routerLink="/meetings"
       ></app-clickable-dashboard-card>

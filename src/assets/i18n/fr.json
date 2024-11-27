@@ -271,7 +271,11 @@
     "Connection failed. Please check your internet connection": "Échec de la connexion. Veuillez vérifier votre connexion Internet",
 
     "Will be available soon !!": "Sera bientôt disponible !!",
-    
+    "Danger zone": "Zone rouge",
+    "Delete my account": "Supprimer mon compte",
+    "Are you sure to delete your account?" : "Êtes-vous sûr de vouloir supprimer votre compte ?",
+    "The account deletion action is irreversible": "L'action de suppression du compte est irréversible",
+
     "":""
 
 }
