@@ -49,6 +49,7 @@
           color="primary"
           type="submit"
           [loading]="formIsLoading"
+          [disabled]="!form.get('file')?.value && !this.candidate?.resumeAttachmentEntity"
         >
           {{ "Continue" |_ }}
         </app-ux-button>
