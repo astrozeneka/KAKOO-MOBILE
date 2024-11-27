@@ -6,7 +6,7 @@ import { filter } from 'rxjs';
   providedIn: 'root'
 })
 export class BottomNavbarUtilsService {
-  bottomNavbarAvailable: boolean = true // Update later
+  bottomNavbarAvailable: boolean = false // Hidden by default
 
 
   tabSequences = ['dashboard', 'meetings', 'jobboard', 'referrals', 'more-29']
@@ -22,7 +22,6 @@ export class BottomNavbarUtilsService {
         } else {
           this.bottomNavbarAvailable = false
         }
-        console.log(this.bottomNavbarAvailable)
       })
   }
 }

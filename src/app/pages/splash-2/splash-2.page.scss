@@ -42,3 +42,15 @@ swiper-container{
 .helper a{ // Should consider to put in a higher level
     font-weight: 500!important;
 }
+
+// The image container
+.splash-container{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & img{
+        max-height: 80%;
+        max-width: 90%;
+    }
+}
